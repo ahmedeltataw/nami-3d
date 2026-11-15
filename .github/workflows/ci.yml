@@ -1,0 +1,11 @@
+name: ci
+on:
+  push:
+    branches: [main, 'm*-integration']
+  pull_request:
+jobs:
+  private-paths:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sh scripts/check-private-paths.sh

@@ -1,0 +1,6 @@
+doc/
+briefs/
+node_modules/
+.next/
+.env*
+*.blend1
