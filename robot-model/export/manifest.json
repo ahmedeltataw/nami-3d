@@ -1,5 +1,5 @@
 {
-  "source": "robot_rig.blend -> robot_proof.glb",
+  "source": "robot_rig2.blend (scripts/lod_export.py) -> robot_high.glb, robot_low.glb",
   "units": "1 unit = 400 px of ref_front.webp; robot 3.38 units tall",
   "axes": "glTF +Y up, robot faces +Z (Blender -Y), robot left = +X",
   "nodes": [
@@ -1260,6 +1260,48 @@
   },
   "clips": [
     {
+      "name": "Idle",
+      "start_s": 0,
+      "duration_s": 4,
+      "fps": 30,
+      "targets": [
+        "Eye_CircuitDetails",
+        "Eye_L",
+        "Eye_R",
+        "Head",
+        "Torso"
+      ],
+      "loop": true
+    },
+    {
+      "name": "Sleep",
+      "start_s": 0,
+      "duration_s": 1,
+      "fps": 30,
+      "targets": [
+        "Eye_CircuitDetails",
+        "Eye_L",
+        "Eye_R",
+        "Head",
+        "Torso"
+      ],
+      "loop": true
+    },
+    {
+      "name": "WakeUp",
+      "start_s": 0,
+      "duration_s": 1.2,
+      "fps": 30,
+      "targets": [
+        "Eye_CircuitDetails",
+        "Eye_L",
+        "Eye_R",
+        "Head",
+        "Torso"
+      ],
+      "loop": false
+    },
+    {
       "name": "Wave",
       "start_s": 0,
       "duration_s": 1.6,
@@ -1269,7 +1311,8 @@
         "Palm_R",
         "Shoulder_R",
         "Upper_R"
-      ]
+      ],
+      "loop": false
     }
   ],
   "anchors": {
@@ -1300,5 +1343,253 @@
       ]
     }
   },
-  "triangles": 338818
+  "lods": {
+    "high": {
+      "file": "robot_high.glb",
+      "triangles": 39386,
+      "blender_triangles": 39386,
+      "texture_px": 1024,
+      "textures": [
+        "emblemgreen_baseColor",
+        "eyeemission_baseColor",
+        "faceglass_baseColor",
+        "greenpanel_emissive",
+        "greenpanel_baseColor"
+      ]
+    },
+    "low": {
+      "file": "robot_low.glb",
+      "triangles": 14876,
+      "blender_triangles": 14876,
+      "texture_px": 1024,
+      "textures": [
+        "emblemgreen_baseColor",
+        "eyeemission_baseColor",
+        "faceglass_baseColor",
+        "greenpanel_emissive",
+        "greenpanel_baseColor"
+      ]
+    }
+  },
+  "clip_notes": {
+    "Idle": "Torso float z=0.04*sin(2*pi*t/4) (glTF y), sway rotZ 0.6 deg; 4 s seamless loop",
+    "Sleep": "static: Head +8 deg Blender X (face down), Torso +3 deg X, -0.02 z; eyes closed by scale y=0.08 on Eye_L/Eye_R and Eye_CircuitDetails (glTF y)",
+    "WakeUp": "Sleep pose -> rest over 1.2 s; eyes open frames 8-30",
+    "Wave": "M1-04a clip, handles clamped",
+    "eye_emission": "not animated in the GLB (three.js has no KHR_animation_pointer); drive emissiveIntensity of MAT_EyeEmission in code if needed"
+  },
+  "materials": [
+    {
+      "name": "MAT_WhitePolymer_Lower",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.7799999713897705,
+        0.7799999713897705,
+        0.7649999856948853,
+        1
+      ],
+      "metallicFactor": 0,
+      "roughnessFactor": 0.36000001430511475,
+      "emissiveTexture": null,
+      "emissiveFactor": null,
+      "emissiveStrength": null,
+      "clearcoat": 0.25
+    },
+    {
+      "name": "MAT_SeamCore",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.41999998688697815,
+        0.4300000071525574,
+        0.4399999976158142,
+        1
+      ],
+      "metallicFactor": 0,
+      "roughnessFactor": 0.5,
+      "emissiveTexture": null,
+      "emissiveFactor": null,
+      "emissiveStrength": null,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_WhitePolymer",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.800000011920929,
+        0.800000011920929,
+        0.7799999713897705,
+        1
+      ],
+      "metallicFactor": 0,
+      "roughnessFactor": 0.30000001192092896,
+      "emissiveTexture": null,
+      "emissiveFactor": null,
+      "emissiveStrength": null,
+      "clearcoat": 0.3499999940395355
+    },
+    {
+      "name": "MAT_EmblemGreen",
+      "baseColorTexture": "emblemgreen_baseColor",
+      "baseColorFactor": null,
+      "metallicFactor": 0,
+      "roughnessFactor": 0.30000001192092896,
+      "emissiveTexture": "emblemgreen_baseColor",
+      "emissiveFactor": [
+        0.20000000298023224,
+        0.20000000298023224,
+        0.20000000298023224
+      ],
+      "emissiveStrength": null,
+      "clearcoat": 0.30000001192092896
+    },
+    {
+      "name": "MAT_EyeTrace",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.8999999761581421,
+        1,
+        0.949999988079071,
+        1
+      ],
+      "metallicFactor": 0,
+      "roughnessFactor": 0.30000001192092896,
+      "emissiveTexture": null,
+      "emissiveFactor": [
+        0.8500000238418579,
+        1,
+        0.9200000166893005
+      ],
+      "emissiveStrength": 1.2000000476837158,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_EyeEmission",
+      "baseColorTexture": "eyeemission_baseColor",
+      "baseColorFactor": null,
+      "metallicFactor": 0,
+      "roughnessFactor": 0.25,
+      "emissiveTexture": null,
+      "emissiveFactor": [
+        0.013750000502914195,
+        0.16500001013278975,
+        0.08799999994039531
+      ],
+      "emissiveStrength": null,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_BezelCharcoal",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.017999999225139618,
+        0.02199999988079071,
+        0.03400000184774399,
+        1
+      ],
+      "metallicFactor": 0.550000011920929,
+      "roughnessFactor": 0.2800000011920929,
+      "emissiveTexture": null,
+      "emissiveFactor": null,
+      "emissiveStrength": null,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_FaceGlass",
+      "baseColorTexture": "faceglass_baseColor",
+      "baseColorFactor": null,
+      "metallicFactor": 0,
+      "roughnessFactor": 0.14000000059604645,
+      "emissiveTexture": "faceglass_baseColor",
+      "emissiveFactor": [
+        0.30000001192092896,
+        0.30000001192092896,
+        0.30000001192092896
+      ],
+      "emissiveStrength": null,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_GreenModule",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.014000000432133675,
+        0.20000000298023224,
+        0.07999999821186066,
+        1
+      ],
+      "metallicFactor": 0,
+      "roughnessFactor": 0.3400000035762787,
+      "emissiveTexture": null,
+      "emissiveFactor": null,
+      "emissiveStrength": null,
+      "clearcoat": 0.20000000298023224
+    },
+    {
+      "name": "MAT_GreenPanel",
+      "baseColorTexture": "greenpanel_baseColor",
+      "baseColorFactor": null,
+      "metallicFactor": 0,
+      "roughnessFactor": 0.41999998688697815,
+      "emissiveTexture": "greenpanel_emissive",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveStrength": null,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_CircuitTrace",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.5,
+        0.800000011920929,
+        0.6600000262260437,
+        1
+      ],
+      "metallicFactor": 0,
+      "roughnessFactor": 0.4000000059604645,
+      "emissiveTexture": null,
+      "emissiveFactor": [
+        0.043999999970197656,
+        0.07599999734759333,
+        0.05999999865889549
+      ],
+      "emissiveStrength": null,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_DarkMechJoint",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.029999999329447746,
+        0.029999999329447746,
+        0.03400000184774399,
+        1
+      ],
+      "metallicFactor": 0.699999988079071,
+      "roughnessFactor": 0.25,
+      "emissiveTexture": null,
+      "emissiveFactor": null,
+      "emissiveStrength": null,
+      "clearcoat": null
+    },
+    {
+      "name": "MAT_DarkMech",
+      "baseColorTexture": null,
+      "baseColorFactor": [
+        0.012000000104308128,
+        0.012000000104308128,
+        0.014000000432133675,
+        1
+      ],
+      "metallicFactor": 0.3499999940395355,
+      "roughnessFactor": 0.3199999928474426,
+      "emissiveTexture": null,
+      "emissiveFactor": null,
+      "emissiveStrength": null,
+      "clearcoat": 0.30000001192092896
+    }
+  ]
 }
