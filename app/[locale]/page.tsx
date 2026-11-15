@@ -3,5 +3,5 @@ import styles from './page.module.css';
 
 export default async function Home() {
   const t = await getTranslations('Home');
-  return <main className={styles.main}><h1>{t('heading')}</h1></main>;
+  return <main id="main" className={styles.main}><h1>{t('heading')}</h1></main>;
 }
