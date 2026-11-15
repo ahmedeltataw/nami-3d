@@ -1,0 +1,455 @@
+{
+  "oldUrl": "https://nami-tec.com/en/products/10",
+  "locale": "en",
+  "status": 200,
+  "title": "ADhmn",
+  "meta": {
+    "title": "ADhmn",
+    "description": "ADHMN Home Maintenance Company**\r\n\r\nADHMN is not just an app .. ADHMN is a set of tools designed for you, bringing all home maintenance services right to your home, establishment, or retreat. \r\n\r\nIn short, ADHMN is an app, a website, a customer service center, equipment, and technicians all aimed at providing you with top-notch service. \r\n\r\nADHMN represents a new way of thinking. Our slogan is \"Home maintenance at the touch of an app on your phone.\""
+  },
+  "fields": {
+    "headings": [
+      {
+        "level": "h5",
+        "text": "Services"
+      },
+      {
+        "level": "h5",
+        "text": "Links"
+      },
+      {
+        "level": "h5",
+        "text": "Contact Emails"
+      },
+      {
+        "level": "h1",
+        "text": "ADhmn"
+      },
+      {
+        "level": "h4",
+        "text": "System Goals"
+      },
+      {
+        "level": "h4",
+        "text": "System Features"
+      },
+      {
+        "level": "h4",
+        "text": "Programming Languages"
+      },
+      {
+        "level": "h4",
+        "text": "Categories"
+      }
+    ],
+    "paragraphs": [
+      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
+      "© 2026 All rights reserved - Nami Software Development",
+      "ADHMN Home Maintenance Company** ADHMN is not just an app .. ADHMN is a set of tools designed for you, bringing all home maintenance services right to your home, establishment, or retreat. In short, ADHMN is an app, a website, a customer service center, equipment, and technicians all aimed at providing you with top-notch service. ADHMN represents a new way of thinking. Our slogan is \"Home maintenance at the touch of an app on your phone.\""
+    ],
+    "lists": [
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Home",
+          "About Us",
+          "Blogs",
+          "FAQs",
+          "Services",
+          "Contact Us",
+          "Privacy Policy",
+          "Terms & Conditions"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Technical Support",
+          "Human Resources",
+          "Marketing & Sales"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "To provide a comprehensive range of services that meet all customer needs.",
+          "To continuously expand the scope of services offered whenever the opportunity arises.",
+          "To enhance customer trust by offering innovative and comprehensive solutions."
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Offering integrated services that cover all customer needs in one place.",
+          "Commitment to continuous development and the addition of new services regularly.",
+          "Ensuring high quality in all the services we provide, while meeting customer requirements."
+        ]
+      }
+    ],
+    "buttons": [],
+    "labels": []
+  },
+  "images": [
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/yaB9ydrZ6H1723379385.webp.svg",
+      "alt": "logo",
+      "width": "150",
+      "height": "50"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/yaB9ydrZ6H1723379385.webp.svg",
+      "alt": "logo",
+      "width": "120",
+      "height": "40"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/lW8WR2w1qZ1722858744.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/NWcSuAwNKy1722859101.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/XZXHUvLaUe1722859369.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/vjJnSf7GLZ1722859577.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/Mq18Xqzzof1722859778.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/45QS785PVd1722859923.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "/img/icons/social.svg",
+      "alt": "social",
+      "width": "24",
+      "height": "24"
+    },
+    {
+      "url": "/img/icons/facebook.svg",
+      "alt": "facebook",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/linkedin.svg",
+      "alt": "linkedin",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/x.svg",
+      "alt": "twitter",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/instagram.svg",
+      "alt": "instagram",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/snapchat.svg",
+      "alt": "snapchat",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/logo.svg",
+      "alt": "logo",
+      "width": "220",
+      "height": "60"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/project/ZkCygsD4L91724050862.webp",
+      "alt": "ADhmn",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/5gDkwJ1GmL1722950872.webp.svg",
+      "alt": "Application design",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/KRGpqJyVe01722950933.webp.svg",
+      "alt": "website",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/ROKyPAHWm61722951045.webp.svg",
+      "alt": "Android application",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/J6RLJeek491722951099.webp.svg",
+      "alt": "iOS app",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/icons/arrow-3.svg",
+      "alt": "download",
+      "width": null,
+      "height": null
+    }
+  ],
+  "links": [
+    {
+      "url": "/en",
+      "text": null
+    },
+    {
+      "url": "/en",
+      "text": null
+    },
+    {
+      "url": "/en",
+      "text": null
+    },
+    {
+      "url": "/en/about",
+      "text": null
+    },
+    {
+      "url": "/en#services",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/1",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/2",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/3",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/4",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/5",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/6",
+      "text": null
+    },
+    {
+      "url": "/en/portfolio",
+      "text": null
+    },
+    {
+      "url": "/en/blogs",
+      "text": null
+    },
+    {
+      "url": "/en/marketing",
+      "text": null
+    },
+    {
+      "url": "/en#careers",
+      "text": null
+    },
+    {
+      "url": "/en/contact",
+      "text": null
+    },
+    {
+      "url": "https://www.facebook.com/namitecgroup/",
+      "text": null
+    },
+    {
+      "url": "https://www.linkedin.com/company/namitec/?viewAsMember=true",
+      "text": null
+    },
+    {
+      "url": "https://www.x.com/nami_software",
+      "text": null
+    },
+    {
+      "url": "https://www.instagram.com/nami_tec/",
+      "text": null
+    },
+    {
+      "url": "https://www.snapchat.com/add/namifortech?share_id=NkdTI5a2Ro0&locale=ar-EG",
+      "text": null
+    },
+    {
+      "url": "https://Wa.me/+966578170120",
+      "text": null
+    },
+    {
+      "url": "tel:01099347981",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/1",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/2",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/3",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/4",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/5",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/6",
+      "text": null
+    },
+    {
+      "url": "/en",
+      "text": null
+    },
+    {
+      "url": "/en/about",
+      "text": null
+    },
+    {
+      "url": "/en/blogs",
+      "text": null
+    },
+    {
+      "url": "/en/faqs",
+      "text": null
+    },
+    {
+      "url": "/en#services",
+      "text": null
+    },
+    {
+      "url": "/en/contact",
+      "text": null
+    },
+    {
+      "url": "/en/privacy-policy",
+      "text": null
+    },
+    {
+      "url": "/en/terms-conditions",
+      "text": null
+    },
+    {
+      "url": "mailto:info@nami-tec.com",
+      "text": null
+    },
+    {
+      "url": "mailto:hr@nami-tec.com",
+      "text": null
+    },
+    {
+      "url": "mailto:sales@nami-tec.com",
+      "text": null
+    },
+    {
+      "url": "/en",
+      "text": null
+    },
+    {
+      "url": "/en/products",
+      "text": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/project/ZkCygsD4L91724050862.webp",
+      "text": null
+    },
+    {
+      "url": "https://www.figma.com/proto/gceRf6K0pFQNuJWUOhb02e/adhmn?node-id=0-1&viewport=567%2C295%2C0.11&t=Oj8fcL7mlQEe2XCi-0&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A196",
+      "text": null
+    },
+    {
+      "url": "https://adhmn.com/ar",
+      "text": null
+    },
+    {
+      "url": "https://play.google.com/store/apps/details?id=com.adhmn",
+      "text": null
+    },
+    {
+      "url": "https://apps.apple.com/us/app/%D8%A7%D8%B6%D9%85%D9%86/id1346635159",
+      "text": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/project/ZkCygsD4L91724050862.webp",
+      "text": null
+    }
+  ],
+  "fullText": "ADhmn ☰ Home About Us Services Website development Mobile application development Digital marketing Technical consulting Cloud services Design services Portfolio Blogs Marketing Careers Contact Us ع UI/UX Design Web Development Mobile App Development Data Analysis Machine Learning Project Management Digital Marketing Search Engine Optimization (SEO) E-Commerce Information Security Graphic Design Software Development Database Management Technical Support Social Media Marketing Backend Development Frontend Development Cloud Computing Business Analysis Content Management Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products. Services Website development Mobile application development Digital marketing Technical consulting Cloud services Design services Links Home About Us Blogs FAQs Services Contact Us Privacy Policy Terms & Conditions Contact Emails Technical Support Human Resources Marketing & Sales © 2026 All rights reserved - Nami Software Development Home Products ADhmn ADhmn ADHMN Home Maintenance Company** ADHMN is not just an app .. ADHMN is a set of tools designed for you, bringing all home maintenance services right to your home, establishment, or retreat. In short, ADHMN is an app, a website, a customer service center, equipment, and technicians all aimed at providing you with top-notch service. ADHMN represents a new way of thinking. Our slogan is \"Home maintenance at the touch of an app on your phone.\" Application design website Android application iOS app Download System File System Goals To provide a comprehensive range of services that meet all customer needs. To continuously expand the scope of services offered whenever the opportunity arises. To enhance customer trust by offering innovative and comprehensive solutions. System Features Offering integrated services that cover all customer needs in one place. Commitment to continuous development and the addition of new services regularly. Ensuring high quality in all the services we provide, while meeting customer requirements. Programming Languages PHP Categories Applications Request a Demo X Name * Email * Phone * Product * Choose product Applications Send"
+}

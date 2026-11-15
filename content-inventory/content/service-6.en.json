@@ -1,0 +1,667 @@
+{
+  "oldUrl": "https://nami-tec.com/en/all-services/6",
+  "locale": "en",
+  "status": 200,
+  "title": "Design services",
+  "meta": {
+    "title": "Design services",
+    "description": "We offer a comprehensive range of design services that include graphic design and brand identity design. We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience."
+  },
+  "fields": {
+    "headings": [
+      {
+        "level": "h4",
+        "text": "Design services"
+      },
+      {
+        "level": "h4",
+        "text": "Service objectives"
+      },
+      {
+        "level": "h5",
+        "text": "Services"
+      },
+      {
+        "level": "h5",
+        "text": "Links"
+      },
+      {
+        "level": "h5",
+        "text": "Contact Emails"
+      }
+    ],
+    "paragraphs": [
+      "We offer a comprehensive range of design services that include graphic design and brand identity design. We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience.",
+      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
+      "© 2026 All rights reserved - Nami Software Development"
+    ],
+    "lists": [
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Home",
+          "About Us",
+          "Blogs",
+          "FAQs",
+          "Services",
+          "Contact Us",
+          "Privacy Policy",
+          "Terms & Conditions"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Technical Support",
+          "Human Resources",
+          "Marketing & Sales"
+        ]
+      }
+    ],
+    "buttons": [
+      {
+        "element": "button",
+        "text": "☰",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "Home",
+        "href": "/en"
+      },
+      {
+        "element": "a",
+        "text": "About Us",
+        "href": "/en/about"
+      },
+      {
+        "element": "a",
+        "text": "Services",
+        "href": "/en#services"
+      },
+      {
+        "element": "a",
+        "text": "Website development",
+        "href": "/en/all-services/1"
+      },
+      {
+        "element": "a",
+        "text": "Mobile application development",
+        "href": "/en/all-services/2"
+      },
+      {
+        "element": "a",
+        "text": "Digital marketing",
+        "href": "/en/all-services/3"
+      },
+      {
+        "element": "a",
+        "text": "Technical consulting",
+        "href": "/en/all-services/4"
+      },
+      {
+        "element": "a",
+        "text": "Cloud services",
+        "href": "/en/all-services/5"
+      },
+      {
+        "element": "a",
+        "text": "Design services",
+        "href": "/en/all-services/6"
+      },
+      {
+        "element": "a",
+        "text": "Portfolio",
+        "href": "/en/portfolio"
+      },
+      {
+        "element": "a",
+        "text": "Blogs",
+        "href": "/en/blogs"
+      },
+      {
+        "element": "a",
+        "text": "Marketing",
+        "href": "/en/marketing"
+      },
+      {
+        "element": "a",
+        "text": "Careers",
+        "href": "/en#careers"
+      },
+      {
+        "element": "a",
+        "text": "Contact Us",
+        "href": "/en/contact"
+      },
+      {
+        "element": "button",
+        "text": "ع",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "Home",
+        "href": "/en"
+      },
+      {
+        "element": "a",
+        "text": "Services",
+        "href": "/en#services"
+      },
+      {
+        "element": "button",
+        "text": "Order The Service Now",
+        "href": null
+      },
+      {
+        "element": "button",
+        "text": "X",
+        "href": null
+      },
+      {
+        "element": "button",
+        "text": "Send",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "Website development",
+        "href": "/en/all-services/1"
+      },
+      {
+        "element": "a",
+        "text": "Mobile application development",
+        "href": "/en/all-services/2"
+      },
+      {
+        "element": "a",
+        "text": "Digital marketing",
+        "href": "/en/all-services/3"
+      },
+      {
+        "element": "a",
+        "text": "Technical consulting",
+        "href": "/en/all-services/4"
+      },
+      {
+        "element": "a",
+        "text": "Cloud services",
+        "href": "/en/all-services/5"
+      },
+      {
+        "element": "a",
+        "text": "Design services",
+        "href": "/en/all-services/6"
+      },
+      {
+        "element": "a",
+        "text": "Home",
+        "href": "/en"
+      },
+      {
+        "element": "a",
+        "text": "About Us",
+        "href": "/en/about"
+      },
+      {
+        "element": "a",
+        "text": "Blogs",
+        "href": "/en/blogs"
+      },
+      {
+        "element": "a",
+        "text": "FAQs",
+        "href": "/en/faqs"
+      },
+      {
+        "element": "a",
+        "text": "Services",
+        "href": "/en#services"
+      },
+      {
+        "element": "a",
+        "text": "Contact Us",
+        "href": "/en/contact"
+      },
+      {
+        "element": "a",
+        "text": "Privacy Policy",
+        "href": "/en/privacy-policy"
+      },
+      {
+        "element": "a",
+        "text": "Terms & Conditions",
+        "href": "/en/terms-conditions"
+      },
+      {
+        "element": "a",
+        "text": "Technical Support",
+        "href": "mailto:info@nami-tec.com"
+      },
+      {
+        "element": "a",
+        "text": "Human Resources",
+        "href": "mailto:hr@nami-tec.com"
+      },
+      {
+        "element": "a",
+        "text": "Marketing & Sales",
+        "href": "mailto:sales@nami-tec.com"
+      }
+    ],
+    "labels": [
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": "تبديل المظهر"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": "name",
+        "type": "text",
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": "email",
+        "type": "email",
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": "phone",
+        "type": "tel",
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "select",
+        "text": null,
+        "name": "service",
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/yaB9ydrZ6H1723379385.webp.svg",
+      "alt": "logo",
+      "width": "150",
+      "height": "50"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/yaB9ydrZ6H1723379385.webp.svg",
+      "alt": "logo",
+      "width": "120",
+      "height": "40"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/lW8WR2w1qZ1722858744.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/NWcSuAwNKy1722859101.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/XZXHUvLaUe1722859369.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/vjJnSf7GLZ1722859577.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/Mq18Xqzzof1722859778.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/45QS785PVd1722859923.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/45QS785PVd1722859923.webp.svg",
+      "alt": "Design services",
+      "width": "80",
+      "height": "80"
+    },
+    {
+      "url": "/img/icons/arrow-3.svg",
+      "alt": "Icon",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/arrow-3.svg",
+      "alt": "Icon",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/arrow-3.svg",
+      "alt": "Icon",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/arrow-3.svg",
+      "alt": "Icon",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/arrow-3.svg",
+      "alt": "Icon",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/social.svg",
+      "alt": "social",
+      "width": "24",
+      "height": "24"
+    },
+    {
+      "url": "/img/icons/facebook.svg",
+      "alt": "facebook",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/linkedin.svg",
+      "alt": "linkedin",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/x.svg",
+      "alt": "twitter",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/instagram.svg",
+      "alt": "instagram",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/snapchat.svg",
+      "alt": "snapchat",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/logo.svg",
+      "alt": "logo",
+      "width": "220",
+      "height": "60"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    }
+  ],
+  "links": [
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en/about",
+      "text": "About Us"
+    },
+    {
+      "url": "/en#services",
+      "text": "Services"
+    },
+    {
+      "url": "/en/all-services/1",
+      "text": "Website development"
+    },
+    {
+      "url": "/en/all-services/2",
+      "text": "Mobile application development"
+    },
+    {
+      "url": "/en/all-services/3",
+      "text": "Digital marketing"
+    },
+    {
+      "url": "/en/all-services/4",
+      "text": "Technical consulting"
+    },
+    {
+      "url": "/en/all-services/5",
+      "text": "Cloud services"
+    },
+    {
+      "url": "/en/all-services/6",
+      "text": "Design services"
+    },
+    {
+      "url": "/en/portfolio",
+      "text": "Portfolio"
+    },
+    {
+      "url": "/en/blogs",
+      "text": "Blogs"
+    },
+    {
+      "url": "/en/marketing",
+      "text": "Marketing"
+    },
+    {
+      "url": "/en#careers",
+      "text": "Careers"
+    },
+    {
+      "url": "/en/contact",
+      "text": "Contact Us"
+    },
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en#services",
+      "text": "Services"
+    },
+    {
+      "url": "https://www.facebook.com/namitecgroup/",
+      "text": null
+    },
+    {
+      "url": "https://www.linkedin.com/company/namitec/?viewAsMember=true",
+      "text": null
+    },
+    {
+      "url": "https://www.x.com/nami_software",
+      "text": null
+    },
+    {
+      "url": "https://www.instagram.com/nami_tec/",
+      "text": null
+    },
+    {
+      "url": "https://www.snapchat.com/add/namifortech?share_id=NkdTI5a2Ro0&locale=ar-EG",
+      "text": null
+    },
+    {
+      "url": "https://Wa.me/+966578170120",
+      "text": null
+    },
+    {
+      "url": "tel:01099347981",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/1",
+      "text": "Website development"
+    },
+    {
+      "url": "/en/all-services/2",
+      "text": "Mobile application development"
+    },
+    {
+      "url": "/en/all-services/3",
+      "text": "Digital marketing"
+    },
+    {
+      "url": "/en/all-services/4",
+      "text": "Technical consulting"
+    },
+    {
+      "url": "/en/all-services/5",
+      "text": "Cloud services"
+    },
+    {
+      "url": "/en/all-services/6",
+      "text": "Design services"
+    },
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en/about",
+      "text": "About Us"
+    },
+    {
+      "url": "/en/blogs",
+      "text": "Blogs"
+    },
+    {
+      "url": "/en/faqs",
+      "text": "FAQs"
+    },
+    {
+      "url": "/en#services",
+      "text": "Services"
+    },
+    {
+      "url": "/en/contact",
+      "text": "Contact Us"
+    },
+    {
+      "url": "/en/privacy-policy",
+      "text": "Privacy Policy"
+    },
+    {
+      "url": "/en/terms-conditions",
+      "text": "Terms & Conditions"
+    },
+    {
+      "url": "mailto:info@nami-tec.com",
+      "text": "Technical Support"
+    },
+    {
+      "url": "mailto:hr@nami-tec.com",
+      "text": "Human Resources"
+    },
+    {
+      "url": "mailto:sales@nami-tec.com",
+      "text": "Marketing & Sales"
+    }
+  ],
+  "fullText": "Design services ☰ Home About Us Services Website development Mobile application development Digital marketing Technical consulting Cloud services Design services Portfolio Blogs Marketing Careers Contact Us ع Home Services Design services Design services We offer a comprehensive range of design services that include graphic design and brand identity design. We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience. Service objectives Graphic Design Brand identity design Logos design Marketing materials design User interface (UI) design Order The Service Now X Name * Email * Phone * Service * Choose service Design services Cloud services Technical consulting Digital marketing Mobile application development Website development Send UI/UX Design Web Development Mobile App Development Data Analysis Machine Learning Project Management Digital Marketing Search Engine Optimization (SEO) E-Commerce Information Security Graphic Design Software Development Database Management Technical Support Social Media Marketing Backend Development Frontend Development Cloud Computing Business Analysis Content Management Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products. Services Website development Mobile application development Digital marketing Technical consulting Cloud services Design services Links Home About Us Blogs FAQs Services Contact Us Privacy Policy Terms & Conditions Contact Emails Technical Support Human Resources Marketing & Sales © 2026 All rights reserved - Nami Software Development"
+}

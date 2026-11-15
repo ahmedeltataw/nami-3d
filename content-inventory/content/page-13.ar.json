@@ -1,0 +1,860 @@
+{
+  "oldUrl": "https://nami-tec.com/ar/marketing/13",
+  "locale": "ar",
+  "status": 200,
+  "title": "رحال | نامي تك",
+  "meta": {
+    "title": "رحال | نامي تك",
+    "description": "رحال هو موقع إلكتروني متخصص في دعم الجمعيات الخيرية وتنظيم الخدمات الإنسانية، يسهّل الربط بين المتبرعين والجمعيات والمستفيدين من خلال منصة إلكترونية آمنة وسهلة الاستخدام."
+  },
+  "fields": {
+    "headings": [
+      {
+        "level": "h4",
+        "text": "الخدمات المُقدَّمة"
+      },
+      {
+        "level": "h2",
+        "text": "معرض التصاميم"
+      },
+      {
+        "level": "h1",
+        "text": "ابدأ مشروعك معنا"
+      },
+      {
+        "level": "h6",
+        "text": "تواصل معنا الآن وابدأ رحلتك التسويقية"
+      },
+      {
+        "level": "h5",
+        "text": "الخدمات"
+      },
+      {
+        "level": "h5",
+        "text": "الروابط"
+      },
+      {
+        "level": "h5",
+        "text": "بريد التواصل"
+      }
+    ],
+    "paragraphs": [
+      "رحال",
+      "رحال هو موقع إلكتروني متخصص في دعم الجمعيات الخيرية وتنظيم الخدمات الإنسانية، يسهّل الربط بين المتبرعين والجمعيات والمستفيدين من خلال منصة إلكترونية آمنة وسهلة الاستخدام.",
+      "تصاميم السوشيال ميديا اللي أنتجناها للعميل خلال فترة التعاون — مقسّمة حسب النوع.",
+      "مؤسسة نامي تقدم حلولاً برمجية متكاملة للمواقع وتطبيقات الجوال لمساعدة الشركات على النمو الرقمي بمنتجات موثوقة.",
+      "© 2026 جميع الحقوق محفوظة - نامي لتطوير البرمجيات"
+    ],
+    "lists": [
+      {
+        "type": "ul",
+        "items": [
+          "تطوير المواقع",
+          "تطوير تطبيقات الهواتف",
+          "التسويق الرقمي",
+          "الاستشارات التقنية",
+          "خدمات السحابة",
+          "خدمات التصميم"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "تطوير المواقع",
+          "تطوير تطبيقات الهواتف",
+          "التسويق الرقمي",
+          "الاستشارات التقنية",
+          "خدمات السحابة",
+          "خدمات التصميم"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "الرئيسية",
+          "من نحن",
+          "المدونة",
+          "الأسئلة الشائعة",
+          "خدماتنا",
+          "تواصل معنا",
+          "سياسة الخصوصية",
+          "الشروط والأحكام"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "الدعم الفني",
+          "الموارد البشرية",
+          "التسويق والمبيعات"
+        ]
+      }
+    ],
+    "buttons": [
+      {
+        "element": "button",
+        "text": "☰",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "الرئيسية",
+        "href": "/ar"
+      },
+      {
+        "element": "a",
+        "text": "من نحن",
+        "href": "/ar/about"
+      },
+      {
+        "element": "a",
+        "text": "خدماتنا",
+        "href": "/ar#services"
+      },
+      {
+        "element": "a",
+        "text": "تطوير المواقع",
+        "href": "/ar/all-services/1"
+      },
+      {
+        "element": "a",
+        "text": "تطوير تطبيقات الهواتف",
+        "href": "/ar/all-services/2"
+      },
+      {
+        "element": "a",
+        "text": "التسويق الرقمي",
+        "href": "/ar/all-services/3"
+      },
+      {
+        "element": "a",
+        "text": "الاستشارات التقنية",
+        "href": "/ar/all-services/4"
+      },
+      {
+        "element": "a",
+        "text": "خدمات السحابة",
+        "href": "/ar/all-services/5"
+      },
+      {
+        "element": "a",
+        "text": "خدمات التصميم",
+        "href": "/ar/all-services/6"
+      },
+      {
+        "element": "a",
+        "text": "أعمالنا",
+        "href": "/ar/portfolio"
+      },
+      {
+        "element": "a",
+        "text": "المدونات",
+        "href": "/ar/blogs"
+      },
+      {
+        "element": "a",
+        "text": "التسويق",
+        "href": "/ar/marketing"
+      },
+      {
+        "element": "a",
+        "text": "الوظائف",
+        "href": "/ar#careers"
+      },
+      {
+        "element": "a",
+        "text": "تواصل معنا",
+        "href": "/ar/contact"
+      },
+      {
+        "element": "button",
+        "text": "EN",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "الرئيسية",
+        "href": "/ar"
+      },
+      {
+        "element": "a",
+        "text": "التسويق",
+        "href": "/ar/marketing"
+      },
+      {
+        "element": "a",
+        "text": "instagram",
+        "href": "https://www.instagram.com/rhal8580?igsh=MXBqd3FjN25pcng4dw"
+      },
+      {
+        "element": "a",
+        "text": "twitter",
+        "href": "https://x.com/rhal8580"
+      },
+      {
+        "element": "button",
+        "text": "الكل",
+        "href": null
+      },
+      {
+        "element": "button",
+        "text": "بوست",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/D2pfLh64un1779617192.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/HWuo0svs9t1779617191.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/UQmfJklKM51779617192.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/sCFHTVW70N1779617192.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/J83fGMGcVm1779617192.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/aoxTqpAw741779617190.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/8pqFtzZwUl1779617191.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/6vsTzpz04V1779617191.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/IFXWOKJYo21779617189.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/P4IDrmF8qC1779617190.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/UV1h0iSSIi1779617190.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/BCGdwK2WgA1779617190.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/rjGDpkn57e1779617188.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/ZWVU77p4B31779617189.webp"
+      },
+      {
+        "element": "a",
+        "text": "بوست",
+        "href": "https://backend.nami-tec.com/storage/images/marketing_galleries/PODNknJ1nT1779617189.webp"
+      },
+      {
+        "element": "a",
+        "text": "تواصل معنا",
+        "href": "https://wa.me/01099347981"
+      },
+      {
+        "element": "a",
+        "text": "تطوير المواقع",
+        "href": "/ar/all-services/1"
+      },
+      {
+        "element": "a",
+        "text": "تطوير تطبيقات الهواتف",
+        "href": "/ar/all-services/2"
+      },
+      {
+        "element": "a",
+        "text": "التسويق الرقمي",
+        "href": "/ar/all-services/3"
+      },
+      {
+        "element": "a",
+        "text": "الاستشارات التقنية",
+        "href": "/ar/all-services/4"
+      },
+      {
+        "element": "a",
+        "text": "خدمات السحابة",
+        "href": "/ar/all-services/5"
+      },
+      {
+        "element": "a",
+        "text": "خدمات التصميم",
+        "href": "/ar/all-services/6"
+      },
+      {
+        "element": "a",
+        "text": "الرئيسية",
+        "href": "/ar"
+      },
+      {
+        "element": "a",
+        "text": "من نحن",
+        "href": "/ar/about"
+      },
+      {
+        "element": "a",
+        "text": "المدونة",
+        "href": "/ar/blogs"
+      },
+      {
+        "element": "a",
+        "text": "الأسئلة الشائعة",
+        "href": "/ar/faqs"
+      },
+      {
+        "element": "a",
+        "text": "خدماتنا",
+        "href": "/ar#services"
+      },
+      {
+        "element": "a",
+        "text": "تواصل معنا",
+        "href": "/ar/contact"
+      },
+      {
+        "element": "a",
+        "text": "سياسة الخصوصية",
+        "href": "/ar/privacy-policy"
+      },
+      {
+        "element": "a",
+        "text": "الشروط والأحكام",
+        "href": "/ar/terms-conditions"
+      },
+      {
+        "element": "a",
+        "text": "الدعم الفني",
+        "href": "mailto:info@nami-tec.com"
+      },
+      {
+        "element": "a",
+        "text": "الموارد البشرية",
+        "href": "mailto:hr@nami-tec.com"
+      },
+      {
+        "element": "a",
+        "text": "التسويق والمبيعات",
+        "href": "mailto:sales@nami-tec.com"
+      }
+    ],
+    "labels": [
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": "تبديل المظهر"
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/VVpyYOvF2U1723379385.webp.svg",
+      "alt": "logo",
+      "width": "150",
+      "height": "50"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/VVpyYOvF2U1723379385.webp.svg",
+      "alt": "logo",
+      "width": "120",
+      "height": "40"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/lW8WR2w1qZ1722858744.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/NWcSuAwNKy1722859101.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/XZXHUvLaUe1722859369.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/vjJnSf7GLZ1722859577.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/Mq18Xqzzof1722859778.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/45QS785PVd1722859923.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "/img/instagram.svg",
+      "alt": "",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/x.svg",
+      "alt": "",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/time.svg",
+      "alt": "",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/platform.svg",
+      "alt": "",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/post.svg",
+      "alt": "",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/design.svg",
+      "alt": "",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/D2pfLh64un1779617192.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/HWuo0svs9t1779617191.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/UQmfJklKM51779617192.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/sCFHTVW70N1779617192.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/J83fGMGcVm1779617192.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/aoxTqpAw741779617190.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/8pqFtzZwUl1779617191.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/6vsTzpz04V1779617191.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/IFXWOKJYo21779617189.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/P4IDrmF8qC1779617190.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/UV1h0iSSIi1779617190.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/BCGdwK2WgA1779617190.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/rjGDpkn57e1779617188.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/ZWVU77p4B31779617189.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/PODNknJ1nT1779617189.webp",
+      "alt": "بوست",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/icons/social.svg",
+      "alt": "social",
+      "width": "24",
+      "height": "24"
+    },
+    {
+      "url": "/img/icons/facebook.svg",
+      "alt": "facebook",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/linkedin.svg",
+      "alt": "linkedin",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/x.svg",
+      "alt": "twitter",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/instagram.svg",
+      "alt": "instagram",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/snapchat.svg",
+      "alt": "snapchat",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/logoAR.svg",
+      "alt": "logo",
+      "width": "220",
+      "height": "60"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    }
+  ],
+  "links": [
+    {
+      "url": "/ar",
+      "text": "الرئيسية"
+    },
+    {
+      "url": "/ar",
+      "text": "الرئيسية"
+    },
+    {
+      "url": "/ar",
+      "text": "الرئيسية"
+    },
+    {
+      "url": "/ar/about",
+      "text": "من نحن"
+    },
+    {
+      "url": "/ar#services",
+      "text": "خدماتنا"
+    },
+    {
+      "url": "/ar/all-services/1",
+      "text": "تطوير المواقع"
+    },
+    {
+      "url": "/ar/all-services/2",
+      "text": "تطوير تطبيقات الهواتف"
+    },
+    {
+      "url": "/ar/all-services/3",
+      "text": "التسويق الرقمي"
+    },
+    {
+      "url": "/ar/all-services/4",
+      "text": "الاستشارات التقنية"
+    },
+    {
+      "url": "/ar/all-services/5",
+      "text": "خدمات السحابة"
+    },
+    {
+      "url": "/ar/all-services/6",
+      "text": "خدمات التصميم"
+    },
+    {
+      "url": "/ar/portfolio",
+      "text": "أعمالنا"
+    },
+    {
+      "url": "/ar/blogs",
+      "text": "المدونات"
+    },
+    {
+      "url": "/ar/marketing",
+      "text": "التسويق"
+    },
+    {
+      "url": "/ar#careers",
+      "text": "الوظائف"
+    },
+    {
+      "url": "/ar/contact",
+      "text": "تواصل معنا"
+    },
+    {
+      "url": "/ar",
+      "text": "الرئيسية"
+    },
+    {
+      "url": "/ar/marketing",
+      "text": "التسويق"
+    },
+    {
+      "url": "https://www.instagram.com/rhal8580?igsh=MXBqd3FjN25pcng4dw",
+      "text": "instagram"
+    },
+    {
+      "url": "https://x.com/rhal8580",
+      "text": "twitter"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/D2pfLh64un1779617192.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/HWuo0svs9t1779617191.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/UQmfJklKM51779617192.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/sCFHTVW70N1779617192.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/J83fGMGcVm1779617192.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/aoxTqpAw741779617190.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/8pqFtzZwUl1779617191.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/6vsTzpz04V1779617191.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/IFXWOKJYo21779617189.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/P4IDrmF8qC1779617190.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/UV1h0iSSIi1779617190.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/BCGdwK2WgA1779617190.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/rjGDpkn57e1779617188.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/ZWVU77p4B31779617189.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketing_galleries/PODNknJ1nT1779617189.webp",
+      "text": "بوست"
+    },
+    {
+      "url": "https://wa.me/01099347981",
+      "text": "تواصل معنا"
+    },
+    {
+      "url": "https://www.facebook.com/namitecgroup/",
+      "text": null
+    },
+    {
+      "url": "https://www.linkedin.com/company/namitec/?viewAsMember=true",
+      "text": null
+    },
+    {
+      "url": "https://www.x.com/nami_software",
+      "text": null
+    },
+    {
+      "url": "https://www.instagram.com/nami_tec/",
+      "text": null
+    },
+    {
+      "url": "https://www.snapchat.com/add/namifortech?share_id=NkdTI5a2Ro0&locale=ar-EG",
+      "text": null
+    },
+    {
+      "url": "https://Wa.me/+966578170120",
+      "text": null
+    },
+    {
+      "url": "tel:01099347981",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/1",
+      "text": "تطوير المواقع"
+    },
+    {
+      "url": "/ar/all-services/2",
+      "text": "تطوير تطبيقات الهواتف"
+    },
+    {
+      "url": "/ar/all-services/3",
+      "text": "التسويق الرقمي"
+    },
+    {
+      "url": "/ar/all-services/4",
+      "text": "الاستشارات التقنية"
+    },
+    {
+      "url": "/ar/all-services/5",
+      "text": "خدمات السحابة"
+    },
+    {
+      "url": "/ar/all-services/6",
+      "text": "خدمات التصميم"
+    },
+    {
+      "url": "/ar",
+      "text": "الرئيسية"
+    },
+    {
+      "url": "/ar/about",
+      "text": "من نحن"
+    },
+    {
+      "url": "/ar/blogs",
+      "text": "المدونات"
+    },
+    {
+      "url": "/ar/faqs",
+      "text": "الأسئلة الشائعة"
+    },
+    {
+      "url": "/ar#services",
+      "text": "خدماتنا"
+    },
+    {
+      "url": "/ar/contact",
+      "text": "تواصل معنا"
+    },
+    {
+      "url": "/ar/privacy-policy",
+      "text": "سياسة الخصوصية"
+    },
+    {
+      "url": "/ar/terms-conditions",
+      "text": "الشروط والأحكام"
+    },
+    {
+      "url": "mailto:info@nami-tec.com",
+      "text": "الدعم الفني"
+    },
+    {
+      "url": "mailto:hr@nami-tec.com",
+      "text": "الموارد البشرية"
+    },
+    {
+      "url": "mailto:sales@nami-tec.com",
+      "text": "التسويق والمبيعات"
+    }
+  ],
+  "fullText": "رحال | نامي تك ☰ الرئيسية من نحن خدماتنا تطوير المواقع تطوير تطبيقات الهواتف التسويق الرقمي الاستشارات التقنية خدمات السحابة خدمات التصميم أعمالنا المدونات التسويق الوظائف تواصل معنا EN الرئيسية التسويق رحال رحال رحال هو موقع إلكتروني متخصص في دعم الجمعيات الخيرية وتنظيم الخدمات الإنسانية، يسهّل الربط بين المتبرعين والجمعيات والمستفيدين من خلال منصة إلكترونية آمنة وسهلة الاستخدام. بدء المشروع: 2025 May 01 انتهاء المشروع: 2025 Jun 30 السعودية قطاع: جمعيات خيرية instagram twitter الخدمات المُقدَّمة اعلانات تصميم جرافيك إدارة حسابات التواصل الإجتماعى كتابة محتوى مدة التعاون شهرين المنصات المدارة تويتر - انستجرام عدد المنشورات 45 إجمالي التصاميم 45 معرض التصاميم معرض التصاميم تصاميم السوشيال ميديا اللي أنتجناها للعميل خلال فترة التعاون — مقسّمة حسب النوع. الكل بوست بوست بوست بوست بوست بوست بوست بوست بوست بوست بوست بوست بوست بوست بوست بوست ابدأ مشروعك معنا تواصل معنا الآن وابدأ رحلتك التسويقية تواصل معنا تصميم واجهات المستخدم (UI/UX) تطوير الويب تطوير تطبيقات الجوال تحليل البيانات التعلم الآلي إدارة المشاريع التسويق الرقمي تحسين محركات البحث (SEO) التجارة الإلكترونية أمن المعلومات تصميم الجرافيك تطوير البرمجيات إدارة قواعد البيانات الدعم الفني التسويق عبر وسائل التواصل الاجتماعي البرمجة الخلفية (Backend) البرمجة الأمامية (Frontend) الحوسبة السحابية تحليل الأعمال إدارة المحتوى مؤسسة نامي تقدم حلولاً برمجية متكاملة للمواقع وتطبيقات الجوال لمساعدة الشركات على النمو الرقمي بمنتجات موثوقة. الخدمات تطوير المواقع تطوير تطبيقات الهواتف التسويق الرقمي الاستشارات التقنية خدمات السحابة خدمات التصميم الروابط الرئيسية من نحن المدونة الأسئلة الشائعة خدماتنا تواصل معنا سياسة الخصوصية الشروط والأحكام بريد التواصل الدعم الفني الموارد البشرية التسويق والمبيعات © 2026 جميع الحقوق محفوظة - نامي لتطوير البرمجيات"
+}

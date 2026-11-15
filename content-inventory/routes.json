@@ -1,0 +1,1442 @@
+[
+  {
+    "oldUrl": "https://nami-tec.com/ar",
+    "locale": "ar",
+    "status": 200,
+    "title": "أفضل شركة برمجة تطبيقات ومواقع في مصر والوطن العربي | نامي تيك",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "top-app-web-development-company-in-egypt-and-the-arab-world",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en",
+    "locale": "en",
+    "status": 200,
+    "title": "Top App & Web Development Company in Egypt and the Arab World | Nami Tech",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "top-app-web-development-company-in-egypt-and-the-arab-world",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/about",
+    "locale": "ar",
+    "status": 200,
+    "title": "نامي هي شركة متخصصة في تقديم خدمات الويب المتكاملة",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "nami-is-a-company-specialized-in-providing-integrated-web-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/about",
+    "locale": "en",
+    "status": 200,
+    "title": "Nami is a company specialized in providing Integrated web services",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "nami-is-a-company-specialized-in-providing-integrated-web-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/contact",
+    "locale": "ar",
+    "status": 200,
+    "title": "تواصل معنا | نامي تك",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "contact-us",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/contact",
+    "locale": "en",
+    "status": 200,
+    "title": "Contact Us | Nami Tech",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "contact-us",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/faqs",
+    "locale": "ar",
+    "status": 200,
+    "title": "الأسئلة الشائعة",
+    "kind": "faq",
+    "oldId": null,
+    "newSlug": "frequently-asked-questions",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/faqs",
+    "locale": "en",
+    "status": 200,
+    "title": "Frequently Asked Questions",
+    "kind": "faq",
+    "oldId": null,
+    "newSlug": "frequently-asked-questions",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs",
+    "locale": "ar",
+    "status": 200,
+    "title": "المدونات",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "blogs",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs",
+    "locale": "en",
+    "status": 200,
+    "title": "Blogs",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "blogs",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/products",
+    "locale": "ar",
+    "status": 200,
+    "title": "حيث الجودة تلتقي بالابتكار",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "where-quality-meets-innovation",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/products",
+    "locale": "en",
+    "status": 200,
+    "title": "Where quality meets innovation",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "where-quality-meets-innovation",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio",
+    "locale": "ar",
+    "status": 200,
+    "title": "أحدث أعمالنا",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "newest-portfolio",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio",
+    "locale": "en",
+    "status": 200,
+    "title": "Newest portfolio",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "newest-portfolio",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing",
+    "locale": "ar",
+    "status": 200,
+    "title": "التسويق الرقمي | نامي تك",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "digital-marketing",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing",
+    "locale": "en",
+    "status": 200,
+    "title": "Digital Marketing | Nami Tech",
+    "kind": "page",
+    "oldId": null,
+    "newSlug": "digital-marketing",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/privacy-policy",
+    "locale": "ar",
+    "status": 200,
+    "title": "سياسة الخصوصية",
+    "kind": "legal",
+    "oldId": null,
+    "newSlug": "privacy-policy",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/privacy-policy",
+    "locale": "en",
+    "status": 200,
+    "title": "Privacy Policy",
+    "kind": "legal",
+    "oldId": null,
+    "newSlug": "privacy-policy",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/terms-conditions",
+    "locale": "ar",
+    "status": 200,
+    "title": "الشروط والأحكام",
+    "kind": "legal",
+    "oldId": null,
+    "newSlug": "terms-and-conditions",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/terms-conditions",
+    "locale": "en",
+    "status": 200,
+    "title": "Terms and Conditions",
+    "kind": "legal",
+    "oldId": null,
+    "newSlug": "terms-and-conditions",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/16",
+    "locale": "ar",
+    "status": 200,
+    "title": "شركات تطوير المواقع الالكترونية: دليل شامل للتكلفة والمعايير",
+    "kind": "blog",
+    "oldId": "16",
+    "newSlug": "web-development-companies-comprehensive-guide-to-costs-standards",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/16",
+    "locale": "en",
+    "status": 200,
+    "title": "Web Development Companies: Comprehensive Guide to Costs & Standards",
+    "kind": "blog",
+    "oldId": "16",
+    "newSlug": "web-development-companies-comprehensive-guide-to-costs-standards",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/15",
+    "locale": "ar",
+    "status": 200,
+    "title": "شركات برمجة مواقع في مصر: دليلك لاختيار الشركة المناسبة وتكلفة تطوير المواقع",
+    "kind": "blog",
+    "oldId": "15",
+    "newSlug": "website-development-companies-in-egypt-your-guide-to-choosing-the-right-company-and-website-development-costs",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/15",
+    "locale": "en",
+    "status": 200,
+    "title": "Website Development Companies in Egypt: Your Guide to Choosing the Right Company and Website Development Costs",
+    "kind": "blog",
+    "oldId": "15",
+    "newSlug": "website-development-companies-in-egypt-your-guide-to-choosing-the-right-company-and-website-development-costs",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/14",
+    "locale": "ar",
+    "status": 200,
+    "title": "دليل الشركات الأفضل لتصميم موقع إلكتروني احترافي بالسعودية",
+    "kind": "blog",
+    "oldId": "14",
+    "newSlug": "the-ultimate-guide-to-top-professional-web-design-companies-in-saudi-arabia",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/14",
+    "locale": "en",
+    "status": 200,
+    "title": "The Ultimate Guide to Top Professional Web Design Companies in Saudi Arabia",
+    "kind": "blog",
+    "oldId": "14",
+    "newSlug": "the-ultimate-guide-to-top-professional-web-design-companies-in-saudi-arabia",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/13",
+    "locale": "ar",
+    "status": 200,
+    "title": "شركات تصميم تطبيقات الجوال جدة: دليلك لاختيار أفضل شركة لتطوير تطبيقك",
+    "kind": "blog",
+    "oldId": "13",
+    "newSlug": "mobile-app-development-companies-in-jeddah-your-guide-to-choosing-the-best-company-to-develop-your-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/13",
+    "locale": "en",
+    "status": 200,
+    "title": "Mobile App Development Companies in Jeddah: Your Guide to Choosing the Best Company to Develop Your App",
+    "kind": "blog",
+    "oldId": "13",
+    "newSlug": "mobile-app-development-companies-in-jeddah-your-guide-to-choosing-the-best-company-to-develop-your-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/11",
+    "locale": "ar",
+    "status": 200,
+    "title": "أفضل شركات برمجة مواقع في السعودية | دليل التكلفة والخدمات",
+    "kind": "blog",
+    "oldId": "11",
+    "newSlug": "best-web-development-companies-in-saudi-arabia-cost-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/11",
+    "locale": "en",
+    "status": 200,
+    "title": "Best Web Development Companies in Saudi Arabia | Cost & Services",
+    "kind": "blog",
+    "oldId": "11",
+    "newSlug": "best-web-development-companies-in-saudi-arabia-cost-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/6",
+    "locale": "ar",
+    "status": 200,
+    "title": "شركة تصميم مواقع في جدة | مواقع احترافية متوافقة مع SEO",
+    "kind": "blog",
+    "oldId": "6",
+    "newSlug": "website-design-company-in-jeddah-seo-friendly-websites",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/6",
+    "locale": "en",
+    "status": 200,
+    "title": "Website Design Company in Jeddah | SEO-Friendly Websites",
+    "kind": "blog",
+    "oldId": "6",
+    "newSlug": "website-design-company-in-jeddah-seo-friendly-websites",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/5",
+    "locale": "ar",
+    "status": 200,
+    "title": "نامي تك",
+    "kind": "blog",
+    "oldId": "5",
+    "newSlug": "nami-team",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/5",
+    "locale": "en",
+    "status": 200,
+    "title": "Nami Team",
+    "kind": "blog",
+    "oldId": "5",
+    "newSlug": "nami-team",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/blogs/4",
+    "locale": "ar",
+    "status": 200,
+    "title": "فريق نامي",
+    "kind": "blog",
+    "oldId": "4",
+    "newSlug": "nami-team",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/blogs/4",
+    "locale": "en",
+    "status": 200,
+    "title": "Nami Team",
+    "kind": "blog",
+    "oldId": "4",
+    "newSlug": "nami-team",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/products/10",
+    "locale": "ar",
+    "status": 200,
+    "title": "أضمن",
+    "kind": "page",
+    "oldId": "10",
+    "newSlug": "adhmn",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/products/10",
+    "locale": "en",
+    "status": 200,
+    "title": "ADhmn",
+    "kind": "page",
+    "oldId": "10",
+    "newSlug": "adhmn",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/products/17",
+    "locale": "ar",
+    "status": 200,
+    "title": "مشوار",
+    "kind": "page",
+    "oldId": "17",
+    "newSlug": "mishwar",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/products/17",
+    "locale": "en",
+    "status": 200,
+    "title": "Mishwar",
+    "kind": "page",
+    "oldId": "17",
+    "newSlug": "mishwar",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/products/19",
+    "locale": "ar",
+    "status": 200,
+    "title": "Circle",
+    "kind": "page",
+    "oldId": "19",
+    "newSlug": "circle",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/products/19",
+    "locale": "en",
+    "status": 200,
+    "title": "Circle",
+    "kind": "page",
+    "oldId": "19",
+    "newSlug": "circle",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/64",
+    "locale": "ar",
+    "status": 200,
+    "title": "مكتب عائله النهدي | نامي تك",
+    "kind": "project",
+    "oldId": "64",
+    "newSlug": "al-nahdi-family-office",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/64",
+    "locale": "en",
+    "status": 200,
+    "title": "Al-Nahdi Family Office | نامي تك",
+    "kind": "project",
+    "oldId": "64",
+    "newSlug": "al-nahdi-family-office",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/9",
+    "locale": "ar",
+    "status": 200,
+    "title": "مقاني | نامي تك",
+    "kind": "project",
+    "oldId": "9",
+    "newSlug": "mqane-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/9",
+    "locale": "en",
+    "status": 200,
+    "title": "Mqane App | نامي تك",
+    "kind": "project",
+    "oldId": "9",
+    "newSlug": "mqane-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/168",
+    "locale": "ar",
+    "status": 200,
+    "title": "تسامي | نامي تك",
+    "kind": "project",
+    "oldId": "168",
+    "newSlug": "tasami",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/168",
+    "locale": "en",
+    "status": 200,
+    "title": "Tasami | نامي تك",
+    "kind": "project",
+    "oldId": "168",
+    "newSlug": "tasami",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/167",
+    "locale": "ar",
+    "status": 200,
+    "title": "بناءات | نامي تك",
+    "kind": "project",
+    "oldId": "167",
+    "newSlug": "bena-at",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/167",
+    "locale": "en",
+    "status": 200,
+    "title": "Bena'at | نامي تك",
+    "kind": "project",
+    "oldId": "167",
+    "newSlug": "bena-at",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/155",
+    "locale": "ar",
+    "status": 200,
+    "title": "أبو بتال للذبائح | نامي تك",
+    "kind": "project",
+    "oldId": "155",
+    "newSlug": "abu-batal-livestock",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/155",
+    "locale": "en",
+    "status": 200,
+    "title": "Abu Batal Livestock | نامي تك",
+    "kind": "project",
+    "oldId": "155",
+    "newSlug": "abu-batal-livestock",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/115",
+    "locale": "ar",
+    "status": 200,
+    "title": "الراجى | نامي تك",
+    "kind": "project",
+    "oldId": "115",
+    "newSlug": "elragy",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/115",
+    "locale": "en",
+    "status": 200,
+    "title": "Elragy | نامي تك",
+    "kind": "project",
+    "oldId": "115",
+    "newSlug": "elragy",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/16",
+    "locale": "ar",
+    "status": 200,
+    "title": "الوظائف في السعودية | نامي تك",
+    "kind": "project",
+    "oldId": "16",
+    "newSlug": "jobs-in-saudi",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/16",
+    "locale": "en",
+    "status": 200,
+    "title": "Jobs In Saudi | نامي تك",
+    "kind": "project",
+    "oldId": "16",
+    "newSlug": "jobs-in-saudi",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/157",
+    "locale": "ar",
+    "status": 200,
+    "title": "سيل جيتس | نامي تك",
+    "kind": "project",
+    "oldId": "157",
+    "newSlug": "sealgates",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/157",
+    "locale": "en",
+    "status": 200,
+    "title": "SealGates | نامي تك",
+    "kind": "project",
+    "oldId": "157",
+    "newSlug": "sealgates",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/160",
+    "locale": "ar",
+    "status": 200,
+    "title": "جوكير | نامي تك",
+    "kind": "project",
+    "oldId": "160",
+    "newSlug": "joocare",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/160",
+    "locale": "en",
+    "status": 200,
+    "title": "Joocare | نامي تك",
+    "kind": "project",
+    "oldId": "160",
+    "newSlug": "joocare",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/169",
+    "locale": "ar",
+    "status": 200,
+    "title": "Loryfy | نامي تك",
+    "kind": "project",
+    "oldId": "169",
+    "newSlug": "loryfy",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/169",
+    "locale": "en",
+    "status": 200,
+    "title": "Loryfy | نامي تك",
+    "kind": "project",
+    "oldId": "169",
+    "newSlug": "loryfy",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/65",
+    "locale": "ar",
+    "status": 200,
+    "title": "برينسا | نامي تك",
+    "kind": "project",
+    "oldId": "65",
+    "newSlug": "prainsa",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/65",
+    "locale": "en",
+    "status": 200,
+    "title": "Prainsa | نامي تك",
+    "kind": "project",
+    "oldId": "65",
+    "newSlug": "prainsa",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/72",
+    "locale": "ar",
+    "status": 200,
+    "title": "15s meals | نامي تك",
+    "kind": "project",
+    "oldId": "72",
+    "newSlug": "15s-meals",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/72",
+    "locale": "en",
+    "status": 200,
+    "title": "15s meals | نامي تك",
+    "kind": "project",
+    "oldId": "72",
+    "newSlug": "15s-meals",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/142",
+    "locale": "ar",
+    "status": 200,
+    "title": "الماجد للاستقدام | نامي تك",
+    "kind": "project",
+    "oldId": "142",
+    "newSlug": "almajed",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/142",
+    "locale": "en",
+    "status": 200,
+    "title": "Almajed | نامي تك",
+    "kind": "project",
+    "oldId": "142",
+    "newSlug": "almajed",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/153",
+    "locale": "ar",
+    "status": 200,
+    "title": "دار دليل | نامي تك",
+    "kind": "project",
+    "oldId": "153",
+    "newSlug": "dar-dalil",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/153",
+    "locale": "en",
+    "status": 200,
+    "title": "Dar Dalil | نامي تك",
+    "kind": "project",
+    "oldId": "153",
+    "newSlug": "dar-dalil",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/158",
+    "locale": "ar",
+    "status": 200,
+    "title": "كنوز السعوديه | نامي تك",
+    "kind": "project",
+    "oldId": "158",
+    "newSlug": "saudi-konooz",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/158",
+    "locale": "en",
+    "status": 200,
+    "title": "Saudi KONOOZ | نامي تك",
+    "kind": "project",
+    "oldId": "158",
+    "newSlug": "saudi-konooz",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/159",
+    "locale": "ar",
+    "status": 200,
+    "title": "كور بورتفليو | نامي تك",
+    "kind": "project",
+    "oldId": "159",
+    "newSlug": "core-portfolio",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/159",
+    "locale": "en",
+    "status": 200,
+    "title": "Core Portfolio | نامي تك",
+    "kind": "project",
+    "oldId": "159",
+    "newSlug": "core-portfolio",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/161",
+    "locale": "ar",
+    "status": 200,
+    "title": "إنوفا | نامي تك",
+    "kind": "project",
+    "oldId": "161",
+    "newSlug": "innova-tech",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/161",
+    "locale": "en",
+    "status": 200,
+    "title": "INNOVA Tech | نامي تك",
+    "kind": "project",
+    "oldId": "161",
+    "newSlug": "innova-tech",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/99",
+    "locale": "ar",
+    "status": 200,
+    "title": "العامة | نامي تك",
+    "kind": "project",
+    "oldId": "99",
+    "newSlug": "alammah",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/99",
+    "locale": "en",
+    "status": 200,
+    "title": "Alammah | نامي تك",
+    "kind": "project",
+    "oldId": "99",
+    "newSlug": "alammah",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/138",
+    "locale": "ar",
+    "status": 200,
+    "title": "الجسور الحديدية | نامي تك",
+    "kind": "project",
+    "oldId": "138",
+    "newSlug": "steel-beams",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/138",
+    "locale": "en",
+    "status": 200,
+    "title": "Steel Beams | نامي تك",
+    "kind": "project",
+    "oldId": "138",
+    "newSlug": "steel-beams",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/140",
+    "locale": "ar",
+    "status": 200,
+    "title": "حصير | نامي تك",
+    "kind": "project",
+    "oldId": "140",
+    "newSlug": "7aser",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/140",
+    "locale": "en",
+    "status": 200,
+    "title": "7aser | نامي تك",
+    "kind": "project",
+    "oldId": "140",
+    "newSlug": "7aser",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/170",
+    "locale": "ar",
+    "status": 200,
+    "title": "ريف الجوف | نامي تك",
+    "kind": "project",
+    "oldId": "170",
+    "newSlug": "reef-al-jawf",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/170",
+    "locale": "en",
+    "status": 200,
+    "title": "Reef Al-Jawf | نامي تك",
+    "kind": "project",
+    "oldId": "170",
+    "newSlug": "reef-al-jawf",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/137",
+    "locale": "ar",
+    "status": 200,
+    "title": "عشير | نامي تك",
+    "kind": "project",
+    "oldId": "137",
+    "newSlug": "asheer",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/137",
+    "locale": "en",
+    "status": 200,
+    "title": "Asheer | نامي تك",
+    "kind": "project",
+    "oldId": "137",
+    "newSlug": "asheer",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/120",
+    "locale": "ar",
+    "status": 200,
+    "title": "المنصة العقارية | نامي تك",
+    "kind": "project",
+    "oldId": "120",
+    "newSlug": "almanasah-alaqaria",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/120",
+    "locale": "en",
+    "status": 200,
+    "title": "Almanasah Alaqaria | نامي تك",
+    "kind": "project",
+    "oldId": "120",
+    "newSlug": "almanasah-alaqaria",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/38",
+    "locale": "ar",
+    "status": 200,
+    "title": "مساحات أبشر | نامي تك",
+    "kind": "project",
+    "oldId": "38",
+    "newSlug": "msahat-absher",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/38",
+    "locale": "en",
+    "status": 200,
+    "title": "Msahat absher | نامي تك",
+    "kind": "project",
+    "oldId": "38",
+    "newSlug": "msahat-absher",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/53",
+    "locale": "ar",
+    "status": 200,
+    "title": "تطوير | نامي تك",
+    "kind": "project",
+    "oldId": "53",
+    "newSlug": "tatawer",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/53",
+    "locale": "en",
+    "status": 200,
+    "title": "Tatawer | نامي تك",
+    "kind": "project",
+    "oldId": "53",
+    "newSlug": "tatawer",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/59",
+    "locale": "ar",
+    "status": 200,
+    "title": "3M | نامي تك",
+    "kind": "project",
+    "oldId": "59",
+    "newSlug": "3m",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/59",
+    "locale": "en",
+    "status": 200,
+    "title": "3M | نامي تك",
+    "kind": "project",
+    "oldId": "59",
+    "newSlug": "3m",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/165",
+    "locale": "ar",
+    "status": 200,
+    "title": "شحنتك | نامي تك",
+    "kind": "project",
+    "oldId": "165",
+    "newSlug": "shohnatk",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/165",
+    "locale": "en",
+    "status": 200,
+    "title": "Shohnatk | نامي تك",
+    "kind": "project",
+    "oldId": "165",
+    "newSlug": "shohnatk",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/156",
+    "locale": "ar",
+    "status": 200,
+    "title": "موري | نامي تك",
+    "kind": "project",
+    "oldId": "156",
+    "newSlug": "mori",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/156",
+    "locale": "en",
+    "status": 200,
+    "title": "mori | نامي تك",
+    "kind": "project",
+    "oldId": "156",
+    "newSlug": "mori",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/116",
+    "locale": "ar",
+    "status": 200,
+    "title": "جاى | نامي تك",
+    "kind": "project",
+    "oldId": "116",
+    "newSlug": "jay",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/116",
+    "locale": "en",
+    "status": 200,
+    "title": "Jay | نامي تك",
+    "kind": "project",
+    "oldId": "116",
+    "newSlug": "jay",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/117",
+    "locale": "ar",
+    "status": 200,
+    "title": "مشوار | نامي تك",
+    "kind": "project",
+    "oldId": "117",
+    "newSlug": "meshwar",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/117",
+    "locale": "en",
+    "status": 200,
+    "title": "Meshwar | نامي تك",
+    "kind": "project",
+    "oldId": "117",
+    "newSlug": "meshwar",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/15",
+    "locale": "ar",
+    "status": 200,
+    "title": "تصميم جرافيك لجمعية رابطة البيع المباشر | نامي تك",
+    "kind": "page",
+    "oldId": "15",
+    "newSlug": "graphic-design-for-the-direct-selling-association",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/15",
+    "locale": "en",
+    "status": 200,
+    "title": "Graphic design for the Direct Selling Association | نامي تك",
+    "kind": "page",
+    "oldId": "15",
+    "newSlug": "graphic-design-for-the-direct-selling-association",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/14",
+    "locale": "ar",
+    "status": 200,
+    "title": "جمعية غيم الأهلية | نامي تك",
+    "kind": "page",
+    "oldId": "14",
+    "newSlug": "ghim",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/14",
+    "locale": "en",
+    "status": 200,
+    "title": "Ghim | نامي تك",
+    "kind": "page",
+    "oldId": "14",
+    "newSlug": "ghim",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/13",
+    "locale": "ar",
+    "status": 200,
+    "title": "رحال | نامي تك",
+    "kind": "page",
+    "oldId": "13",
+    "newSlug": "rahaal",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/13",
+    "locale": "en",
+    "status": 200,
+    "title": "rahaal | نامي تك",
+    "kind": "page",
+    "oldId": "13",
+    "newSlug": "rahaal",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/12",
+    "locale": "ar",
+    "status": 200,
+    "title": "جمعية عناية المساجد | نامي تك",
+    "kind": "page",
+    "oldId": "12",
+    "newSlug": "mosque-care-association",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/12",
+    "locale": "en",
+    "status": 200,
+    "title": "Mosque Care Association | نامي تك",
+    "kind": "page",
+    "oldId": "12",
+    "newSlug": "mosque-care-association",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/11",
+    "locale": "ar",
+    "status": 200,
+    "title": "كنوز السعوديه | نامي تك",
+    "kind": "page",
+    "oldId": "11",
+    "newSlug": "saudi-konooz",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/11",
+    "locale": "en",
+    "status": 200,
+    "title": "Saudi KONOOZ | نامي تك",
+    "kind": "page",
+    "oldId": "11",
+    "newSlug": "saudi-konooz",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/10",
+    "locale": "ar",
+    "status": 200,
+    "title": "تصميم محتوى ريلز إبداعي لشركة Home Leap | نامي تك",
+    "kind": "page",
+    "oldId": "10",
+    "newSlug": "creative-reels-content-design-for-home-leap-company",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/10",
+    "locale": "en",
+    "status": 200,
+    "title": "Creative Reels Content Design for Home Leap Company | نامي تك",
+    "kind": "page",
+    "oldId": "10",
+    "newSlug": "creative-reels-content-design-for-home-leap-company",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/9",
+    "locale": "ar",
+    "status": 200,
+    "title": "شركة هوم بليكس | نامي تك",
+    "kind": "page",
+    "oldId": "9",
+    "newSlug": "homeplex",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/9",
+    "locale": "en",
+    "status": 200,
+    "title": "homeplex | نامي تك",
+    "kind": "page",
+    "oldId": "9",
+    "newSlug": "homeplex",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/8",
+    "locale": "ar",
+    "status": 200,
+    "title": "الماجد للاستقدام | نامي تك",
+    "kind": "page",
+    "oldId": "8",
+    "newSlug": "al-majed-recruitment",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/8",
+    "locale": "en",
+    "status": 200,
+    "title": "Al Majed Recruitment | نامي تك",
+    "kind": "page",
+    "oldId": "8",
+    "newSlug": "al-majed-recruitment",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/7",
+    "locale": "ar",
+    "status": 200,
+    "title": "Luxury Home | نامي تك",
+    "kind": "page",
+    "oldId": "7",
+    "newSlug": "luxury-home",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/7",
+    "locale": "en",
+    "status": 200,
+    "title": "Luxury Home | نامي تك",
+    "kind": "page",
+    "oldId": "7",
+    "newSlug": "luxury-home",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/6",
+    "locale": "ar",
+    "status": 200,
+    "title": "تطبيق لورى | نامي تك",
+    "kind": "page",
+    "oldId": "6",
+    "newSlug": "lory-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/6",
+    "locale": "en",
+    "status": 200,
+    "title": "Lory app | نامي تك",
+    "kind": "page",
+    "oldId": "6",
+    "newSlug": "lory-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/5",
+    "locale": "ar",
+    "status": 200,
+    "title": "تطبيق جاي | نامي تك",
+    "kind": "page",
+    "oldId": "5",
+    "newSlug": "jay",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/5",
+    "locale": "en",
+    "status": 200,
+    "title": "jay | نامي تك",
+    "kind": "page",
+    "oldId": "5",
+    "newSlug": "jay",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/4",
+    "locale": "ar",
+    "status": 200,
+    "title": "تطبيق شحنتك | نامي تك",
+    "kind": "page",
+    "oldId": "4",
+    "newSlug": "shohntak-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/4",
+    "locale": "en",
+    "status": 200,
+    "title": "Shohntak App | نامي تك",
+    "kind": "page",
+    "oldId": "4",
+    "newSlug": "shohntak-app",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/marketing/3",
+    "locale": "ar",
+    "status": 200,
+    "title": "الراجي | نامي تك",
+    "kind": "page",
+    "oldId": "3",
+    "newSlug": "araji",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/marketing/3",
+    "locale": "en",
+    "status": 200,
+    "title": "AraJI | نامي تك",
+    "kind": "page",
+    "oldId": "3",
+    "newSlug": "araji",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/all-services/1",
+    "locale": "ar",
+    "status": 200,
+    "title": "تطوير المواقع",
+    "kind": "service",
+    "oldId": "1",
+    "newSlug": "website-development",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/all-services/1",
+    "locale": "en",
+    "status": 200,
+    "title": "Website development",
+    "kind": "service",
+    "oldId": "1",
+    "newSlug": "website-development",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/all-services/2",
+    "locale": "ar",
+    "status": 200,
+    "title": "تطوير تطبيقات الهواتف",
+    "kind": "service",
+    "oldId": "2",
+    "newSlug": "mobile-application-development",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/all-services/2",
+    "locale": "en",
+    "status": 200,
+    "title": "Mobile application development",
+    "kind": "service",
+    "oldId": "2",
+    "newSlug": "mobile-application-development",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/all-services/3",
+    "locale": "ar",
+    "status": 200,
+    "title": "التسويق الرقمي",
+    "kind": "service",
+    "oldId": "3",
+    "newSlug": "digital-marketing",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/all-services/3",
+    "locale": "en",
+    "status": 200,
+    "title": "Digital marketing",
+    "kind": "service",
+    "oldId": "3",
+    "newSlug": "digital-marketing",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/all-services/4",
+    "locale": "ar",
+    "status": 200,
+    "title": "الاستشارات التقنية",
+    "kind": "service",
+    "oldId": "4",
+    "newSlug": "technical-consulting",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/all-services/4",
+    "locale": "en",
+    "status": 200,
+    "title": "Technical consulting",
+    "kind": "service",
+    "oldId": "4",
+    "newSlug": "technical-consulting",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/all-services/5",
+    "locale": "ar",
+    "status": 200,
+    "title": "خدمات السحابة",
+    "kind": "service",
+    "oldId": "5",
+    "newSlug": "cloud-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/all-services/5",
+    "locale": "en",
+    "status": 200,
+    "title": "Cloud services",
+    "kind": "service",
+    "oldId": "5",
+    "newSlug": "cloud-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/all-services/6",
+    "locale": "ar",
+    "status": 200,
+    "title": "خدمات التصميم",
+    "kind": "service",
+    "oldId": "6",
+    "newSlug": "design-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/all-services/6",
+    "locale": "en",
+    "status": 200,
+    "title": "Design services",
+    "kind": "service",
+    "oldId": "6",
+    "newSlug": "design-services",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar/portfolio/166",
+    "locale": "ar",
+    "status": 200,
+    "title": "الحميري للحج | نامي تك",
+    "kind": "project",
+    "oldId": "166",
+    "newSlug": "al-hemery-for-haj",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en/portfolio/166",
+    "locale": "en",
+    "status": 200,
+    "title": "Al Hemery For Haj | نامي تك",
+    "kind": "project",
+    "oldId": "166",
+    "newSlug": "al-hemery-for-haj",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/ar#careers",
+    "locale": "ar",
+    "status": 200,
+    "title": "الوظائف",
+    "kind": "careers",
+    "oldId": null,
+    "newSlug": "careers",
+    "hasEnglishTwin": true
+  },
+  {
+    "oldUrl": "https://nami-tec.com/en#careers",
+    "locale": "en",
+    "status": 200,
+    "title": "Careers",
+    "kind": "careers",
+    "oldId": null,
+    "newSlug": "careers",
+    "hasEnglishTwin": true
+  }
+]

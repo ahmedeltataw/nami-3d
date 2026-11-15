@@ -1,0 +1,956 @@
+{
+  "oldUrl": "https://nami-tec.com/en/marketing",
+  "locale": "en",
+  "status": 200,
+  "title": "Digital Marketing | Nami Tech",
+  "meta": {
+    "title": "Digital Marketing | Nami Tech",
+    "description": "Full-service digital marketing from Nami Tech to grow your online presence and sales."
+  },
+  "fields": {
+    "headings": [
+      {
+        "level": "h1",
+        "text": "Digital Marketing"
+      },
+      {
+        "level": "h6",
+        "text": "Real marketing wins and growth stories from Nami Tech."
+      },
+      {
+        "level": "h4",
+        "text": "Graphic design for the Direct Selling Association"
+      },
+      {
+        "level": "h4",
+        "text": "Ghim"
+      },
+      {
+        "level": "h4",
+        "text": "rahaal"
+      },
+      {
+        "level": "h4",
+        "text": "Mosque Care Association"
+      },
+      {
+        "level": "h4",
+        "text": "Saudi KONOOZ"
+      },
+      {
+        "level": "h4",
+        "text": "Creative Reels Content Design for Home Leap Company"
+      },
+      {
+        "level": "h4",
+        "text": "homeplex"
+      },
+      {
+        "level": "h4",
+        "text": "Al Majed Recruitment"
+      },
+      {
+        "level": "h4",
+        "text": "Luxury Home"
+      },
+      {
+        "level": "h4",
+        "text": "Lory app"
+      },
+      {
+        "level": "h4",
+        "text": "jay"
+      },
+      {
+        "level": "h4",
+        "text": "Shohntak App"
+      },
+      {
+        "level": "h4",
+        "text": "AraJI"
+      },
+      {
+        "level": "h5",
+        "text": "Services"
+      },
+      {
+        "level": "h5",
+        "text": "Links"
+      },
+      {
+        "level": "h5",
+        "text": "Contact Emails"
+      }
+    ],
+    "paragraphs": [
+      "Graphic design and visual content creation for the Direct Selling Association, aimed at strengthening the association’s visual identity and producing engaging marketing and informational content that reflects its activities and services, while increasing engagement and awareness across social media platforms.",
+      "Designing social media posts and graphic content for Ghaym Charity Association, aimed at strengthening the organization’s visual identity and supporting its humanitarian message by creating impactful and engaging designs that raise awareness and increase engagement with its charitable activities and initiatives across social media platforms.",
+      "Rahal is a website specializing in supporting charities and organizing humanitarian services. It facilitates connecting donors, associations, and beneficiaries through a secure and easy-to-use electronic platform.",
+      "Mosque Care Association is a charitable organization dedicated to serving mosques by carrying out maintenance and renovation work, contributing to the construction of new mosques, and receiving donations to support ongoing development and care of the houses of God.",
+      "Saudi KONOOZ is a website specializing in travel and tourism services, providing an easy and distinctive experience for booking and organizing tourist trips and exploring the best destinations and services inside and outside the Kingdom.",
+      "Producing and designing professional reels for the brand with the aim of enhancing its visual identity and increasing engagement on social media platforms. The work focuses on transforming marketing ideas into visually appealing and impactful content that reflects the brand’s personality and attracts the target audience in a modern and professional way.",
+      "“HomePlex” is a real estate marketing company in Saudi Arabia, specializing in monthly and annual rental solutions, helping clients find suitable residential or investment properties through a wide range of options and professional services.",
+      "Al Majed Recruitment is an integrated website that facilitates recruitment services for individuals and companies, by providing an easy and secure experience for requesting labor and following up on procedures in a professional and fast manner.",
+      "A professional real estate website designed to showcase projects and property units in a modern and user-friendly way, with a fully responsive design compatible with all devices. The website includes dedicated pages for services, projects, and contact information, while enhancing user experience and strengthening the company’s professional online presence to build trust and increase sales opportunities.",
+      "Lori is a smart and sophisticated application that facilitates the transportation and shipping of goods by connecting customers with transport drivers quickly and safely, while providing an easy experience for ordering transport vehicles, tracking shipments, and organizing highly efficient delivery operations for individuals and companies.",
+      "“JAY” is a smart ride-hailing app like Uber, making it easy to book your ride anytime with safety and comfort, connecting you with the nearest driver to reach your destination quickly at affordable prices.",
+      "Shohntak App is a smart shipping and delivery application that allows users to send and track shipments easily and quickly, with real-time order tracking and professional, secure delivery management.",
+      "A Saudi platform specialized in home maintenance services, providing fast and professional solutions through certified technicians and a seamless service experience.",
+      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
+      "© 2026 All rights reserved - Nami Software Development"
+    ],
+    "lists": [
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Home",
+          "About Us",
+          "Blogs",
+          "FAQs",
+          "Services",
+          "Contact Us",
+          "Privacy Policy",
+          "Terms & Conditions"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Technical Support",
+          "Human Resources",
+          "Marketing & Sales"
+        ]
+      }
+    ],
+    "buttons": [
+      {
+        "element": "button",
+        "text": "☰",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "Home",
+        "href": "/en"
+      },
+      {
+        "element": "a",
+        "text": "About Us",
+        "href": "/en/about"
+      },
+      {
+        "element": "a",
+        "text": "Services",
+        "href": "/en#services"
+      },
+      {
+        "element": "a",
+        "text": "Website development",
+        "href": "/en/all-services/1"
+      },
+      {
+        "element": "a",
+        "text": "Mobile application development",
+        "href": "/en/all-services/2"
+      },
+      {
+        "element": "a",
+        "text": "Digital marketing",
+        "href": "/en/all-services/3"
+      },
+      {
+        "element": "a",
+        "text": "Technical consulting",
+        "href": "/en/all-services/4"
+      },
+      {
+        "element": "a",
+        "text": "Cloud services",
+        "href": "/en/all-services/5"
+      },
+      {
+        "element": "a",
+        "text": "Design services",
+        "href": "/en/all-services/6"
+      },
+      {
+        "element": "a",
+        "text": "Portfolio",
+        "href": "/en/portfolio"
+      },
+      {
+        "element": "a",
+        "text": "Blogs",
+        "href": "/en/blogs"
+      },
+      {
+        "element": "a",
+        "text": "Marketing",
+        "href": "/en/marketing"
+      },
+      {
+        "element": "a",
+        "text": "Careers",
+        "href": "/en#careers"
+      },
+      {
+        "element": "a",
+        "text": "Contact Us",
+        "href": "/en/contact"
+      },
+      {
+        "element": "button",
+        "text": "ع",
+        "href": null
+      },
+      {
+        "element": "button",
+        "text": "Sectors",
+        "href": null
+      },
+      {
+        "element": "button",
+        "text": "Countries",
+        "href": null
+      },
+      {
+        "element": "a",
+        "text": "rahaal Rahal is a website specializing in supporting charities and organizing humanitarian services. It facilitates connecting donors, associations, and beneficiaries through a secure and easy-to-use electronic platform.",
+        "href": "/en/marketing/13"
+      },
+      {
+        "element": "a",
+        "text": "jay “JAY” is a smart ride-hailing app like Uber, making it easy to book your ride anytime with safety and comfort, connecting you with the nearest driver to reach your destination quickly at affordable prices.",
+        "href": "/en/marketing/5"
+      },
+      {
+        "element": "a",
+        "text": "Shohntak App Shohntak App is a smart shipping and delivery application that allows users to send and track shipments easily and quickly, with real-time order tracking and professional, secure delivery management.",
+        "href": "/en/marketing/4"
+      },
+      {
+        "element": "a",
+        "text": "AraJI A Saudi platform specialized in home maintenance services, providing fast and professional solutions through certified technicians and a seamless service experience.",
+        "href": "/en/marketing/3"
+      },
+      {
+        "element": "a",
+        "text": "Website development",
+        "href": "/en/all-services/1"
+      },
+      {
+        "element": "a",
+        "text": "Mobile application development",
+        "href": "/en/all-services/2"
+      },
+      {
+        "element": "a",
+        "text": "Digital marketing",
+        "href": "/en/all-services/3"
+      },
+      {
+        "element": "a",
+        "text": "Technical consulting",
+        "href": "/en/all-services/4"
+      },
+      {
+        "element": "a",
+        "text": "Cloud services",
+        "href": "/en/all-services/5"
+      },
+      {
+        "element": "a",
+        "text": "Design services",
+        "href": "/en/all-services/6"
+      },
+      {
+        "element": "a",
+        "text": "Home",
+        "href": "/en"
+      },
+      {
+        "element": "a",
+        "text": "About Us",
+        "href": "/en/about"
+      },
+      {
+        "element": "a",
+        "text": "Blogs",
+        "href": "/en/blogs"
+      },
+      {
+        "element": "a",
+        "text": "FAQs",
+        "href": "/en/faqs"
+      },
+      {
+        "element": "a",
+        "text": "Services",
+        "href": "/en#services"
+      },
+      {
+        "element": "a",
+        "text": "Contact Us",
+        "href": "/en/contact"
+      },
+      {
+        "element": "a",
+        "text": "Privacy Policy",
+        "href": "/en/privacy-policy"
+      },
+      {
+        "element": "a",
+        "text": "Terms & Conditions",
+        "href": "/en/terms-conditions"
+      },
+      {
+        "element": "a",
+        "text": "Technical Support",
+        "href": "mailto:info@nami-tec.com"
+      },
+      {
+        "element": "a",
+        "text": "Human Resources",
+        "href": "mailto:hr@nami-tec.com"
+      },
+      {
+        "element": "a",
+        "text": "Marketing & Sales",
+        "href": "mailto:sales@nami-tec.com"
+      }
+    ],
+    "labels": [
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": "تبديل المظهر"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "search",
+        "placeholder": "Search Projects",
+        "ariaLabel": null
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Charitable organizations"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Services"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Tourism and travel"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Recruitment"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Real Estate"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Delivery & Transportation"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Home Maintenance"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Restaurants"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Saudi Arabia"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "checkbox",
+        "placeholder": null,
+        "ariaLabel": "Egypt"
+      },
+      {
+        "element": "label",
+        "text": "",
+        "name": null,
+        "type": null,
+        "placeholder": null,
+        "ariaLabel": null
+      },
+      {
+        "element": "input",
+        "text": null,
+        "name": null,
+        "type": "search",
+        "placeholder": "Search Projects",
+        "ariaLabel": null
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/yaB9ydrZ6H1723379385.webp.svg",
+      "alt": "logo",
+      "width": "150",
+      "height": "50"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/yaB9ydrZ6H1723379385.webp.svg",
+      "alt": "logo",
+      "width": "120",
+      "height": "40"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/lW8WR2w1qZ1722858744.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/NWcSuAwNKy1722859101.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/XZXHUvLaUe1722859369.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/vjJnSf7GLZ1722859577.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/Mq18Xqzzof1722859778.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/45QS785PVd1722859923.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "/img/icons/category.svg",
+      "alt": "",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/HB7vCXYPFF1779618442.webp",
+      "alt": "Graphic design for the Direct Selling Association",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/YyxWIUG0dy1779617471.webp",
+      "alt": "Ghim",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/Y7WvHSzJ2f1779616906.webp",
+      "alt": "rahaal",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/3C2w5294Nk1779616902.webp",
+      "alt": "Mosque Care Association",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/p57ueWZePv1779616049.webp",
+      "alt": "Saudi  KONOOZ",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/vAxEQadQvM1779615515.webp",
+      "alt": "Creative Reels Content Design for Home Leap Company",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/pkt6dQrenb1779615379.webp",
+      "alt": "homeplex",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/Mnv8ETp5Pi1779615193.webp",
+      "alt": "Al Majed Recruitment",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/PIXrYuBGAD1779614424.webp",
+      "alt": "Luxury Home",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/7DeVDs4AeQ1779614286.webp",
+      "alt": "Lory app",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/nE3NEIi4Zs1779614056.webp",
+      "alt": "jay",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/pd603clkNC1779613277.webp",
+      "alt": "Shohntak App",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/marketings/JSv8MnjeZU1779611928.webp",
+      "alt": "AraJI",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/icons/social.svg",
+      "alt": "social",
+      "width": "24",
+      "height": "24"
+    },
+    {
+      "url": "/img/icons/facebook.svg",
+      "alt": "facebook",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/linkedin.svg",
+      "alt": "linkedin",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/x.svg",
+      "alt": "twitter",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/instagram.svg",
+      "alt": "instagram",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/snapchat.svg",
+      "alt": "snapchat",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/logo.svg",
+      "alt": "logo",
+      "width": "220",
+      "height": "60"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    }
+  ],
+  "links": [
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en/about",
+      "text": "About Us"
+    },
+    {
+      "url": "/en#services",
+      "text": "Services"
+    },
+    {
+      "url": "/en/all-services/1",
+      "text": "Website development"
+    },
+    {
+      "url": "/en/all-services/2",
+      "text": "Mobile application development"
+    },
+    {
+      "url": "/en/all-services/3",
+      "text": "Digital marketing"
+    },
+    {
+      "url": "/en/all-services/4",
+      "text": "Technical consulting"
+    },
+    {
+      "url": "/en/all-services/5",
+      "text": "Cloud services"
+    },
+    {
+      "url": "/en/all-services/6",
+      "text": "Design services"
+    },
+    {
+      "url": "/en/portfolio",
+      "text": "Portfolio"
+    },
+    {
+      "url": "/en/blogs",
+      "text": "Blogs"
+    },
+    {
+      "url": "/en/marketing",
+      "text": "Marketing"
+    },
+    {
+      "url": "/en#careers",
+      "text": "Careers"
+    },
+    {
+      "url": "/en/contact",
+      "text": "Contact Us"
+    },
+    {
+      "url": "/en/marketing/15",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/14",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/13",
+      "text": "rahaal Rahal is a website specializing in supporting charities and organizing humanitarian services. It facilitates connecting donors, associations, and beneficiaries through a secure and easy-to-use electronic platform."
+    },
+    {
+      "url": "/en/marketing/12",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/11",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/10",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/9",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/8",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/7",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/6",
+      "text": null
+    },
+    {
+      "url": "/en/marketing/5",
+      "text": "jay “JAY” is a smart ride-hailing app like Uber, making it easy to book your ride anytime with safety and comfort, connecting you with the nearest driver to reach your destination quickly at affordable prices."
+    },
+    {
+      "url": "/en/marketing/4",
+      "text": "Shohntak App Shohntak App is a smart shipping and delivery application that allows users to send and track shipments easily and quickly, with real-time order tracking and professional, secure delivery management."
+    },
+    {
+      "url": "/en/marketing/3",
+      "text": "AraJI A Saudi platform specialized in home maintenance services, providing fast and professional solutions through certified technicians and a seamless service experience."
+    },
+    {
+      "url": "https://www.facebook.com/namitecgroup/",
+      "text": null
+    },
+    {
+      "url": "https://www.linkedin.com/company/namitec/?viewAsMember=true",
+      "text": null
+    },
+    {
+      "url": "https://www.x.com/nami_software",
+      "text": null
+    },
+    {
+      "url": "https://www.instagram.com/nami_tec/",
+      "text": null
+    },
+    {
+      "url": "https://www.snapchat.com/add/namifortech?share_id=NkdTI5a2Ro0&locale=ar-EG",
+      "text": null
+    },
+    {
+      "url": "https://Wa.me/+966578170120",
+      "text": null
+    },
+    {
+      "url": "tel:01099347981",
+      "text": null
+    },
+    {
+      "url": "/en/all-services/1",
+      "text": "Website development"
+    },
+    {
+      "url": "/en/all-services/2",
+      "text": "Mobile application development"
+    },
+    {
+      "url": "/en/all-services/3",
+      "text": "Digital marketing"
+    },
+    {
+      "url": "/en/all-services/4",
+      "text": "Technical consulting"
+    },
+    {
+      "url": "/en/all-services/5",
+      "text": "Cloud services"
+    },
+    {
+      "url": "/en/all-services/6",
+      "text": "Design services"
+    },
+    {
+      "url": "/en",
+      "text": "Home"
+    },
+    {
+      "url": "/en/about",
+      "text": "About Us"
+    },
+    {
+      "url": "/en/blogs",
+      "text": "Blogs"
+    },
+    {
+      "url": "/en/faqs",
+      "text": "FAQs"
+    },
+    {
+      "url": "/en#services",
+      "text": "Services"
+    },
+    {
+      "url": "/en/contact",
+      "text": "Contact Us"
+    },
+    {
+      "url": "/en/privacy-policy",
+      "text": "Privacy Policy"
+    },
+    {
+      "url": "/en/terms-conditions",
+      "text": "Terms & Conditions"
+    },
+    {
+      "url": "mailto:info@nami-tec.com",
+      "text": "Technical Support"
+    },
+    {
+      "url": "mailto:hr@nami-tec.com",
+      "text": "Human Resources"
+    },
+    {
+      "url": "mailto:sales@nami-tec.com",
+      "text": "Marketing & Sales"
+    }
+  ],
+  "fullText": "Digital Marketing | Nami Tech ☰ Home About Us Services Website development Mobile application development Digital marketing Technical consulting Cloud services Design services Portfolio Blogs Marketing Careers Contact Us ع Digital Marketing Real marketing wins and growth stories from Nami Tech. Search Projects Sectors Charitable organizations Services Tourism and travel Recruitment Real Estate Delivery & Transportation Home Maintenance Restaurants Countries Saudi Arabia Egypt Search Projects Graphic design for the Direct Selling Association Graphic design and visual content creation for the Direct Selling Association, aimed at strengthening the association’s visual identity and producing engaging marketing and informational content that reflects its activities and services, while increasing engagement and awareness across social media platforms. Ghim Designing social media posts and graphic content for Ghaym Charity Association, aimed at strengthening the organization’s visual identity and supporting its humanitarian message by creating impactful and engaging designs that raise awareness and increase engagement with its charitable activities and initiatives across social media platforms. rahaal Rahal is a website specializing in supporting charities and organizing humanitarian services. It facilitates connecting donors, associations, and beneficiaries through a secure and easy-to-use electronic platform. Mosque Care Association Mosque Care Association is a charitable organization dedicated to serving mosques by carrying out maintenance and renovation work, contributing to the construction of new mosques, and receiving donations to support ongoing development and care of the houses of God. Saudi KONOOZ Saudi KONOOZ is a website specializing in travel and tourism services, providing an easy and distinctive experience for booking and organizing tourist trips and exploring the best destinations and services inside and outside the Kingdom. Creative Reels Content Design for Home Leap Company Producing and designing professional reels for the brand with the aim of enhancing its visual identity and increasing engagement on social media platforms. The work focuses on transforming marketing ideas into visually appealing and impactful content that reflects the brand’s personality and attracts the target audience in a modern and professional way. homeplex “HomePlex” is a real estate marketing company in Saudi Arabia, specializing in monthly and annual rental solutions, helping clients find suitable residential or investment properties through a wide range of options and professional services. Al Majed Recruitment Al Majed Recruitment is an integrated website that facilitates recruitment services for individuals and companies, by providing an easy and secure experience for requesting labor and following up on procedures in a professional and fast manner. Luxury Home A professional real estate website designed to showcase projects and property units in a modern and user-friendly way, with a fully responsive design compatible with all devices. The website includes dedicated pages for services, projects, and contact information, while enhancing user experience and strengthening the company’s professional online presence to build trust and increase sales opportunities. Lory app Lori is a smart and sophisticated application that facilitates the transportation and shipping of goods by connecting customers with transport drivers quickly and safely, while providing an easy experience for ordering transport vehicles, tracking shipments, and organizing highly efficient delivery operations for individuals and companies. jay “JAY” is a smart ride-hailing app like Uber, making it easy to book your ride anytime with safety and comfort, connecting you with the nearest driver to reach your destination quickly at affordable prices. Shohntak App Shohntak App is a smart shipping and delivery application that allows users to send and track shipments easily and quickly, with real-time order tracking and professional, secure delivery management. AraJI A Saudi platform specialized in home maintenance services, providing fast and professional solutions through certified technicians and a seamless service experience. UI/UX Design Web Development Mobile App Development Data Analysis Machine Learning Project Management Digital Marketing Search Engine Optimization (SEO) E-Commerce Information Security Graphic Design Software Development Database Management Technical Support Social Media Marketing Backend Development Frontend Development Cloud Computing Business Analysis Content Management Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products. Services Website development Mobile application development Digital marketing Technical consulting Cloud services Design services Links Home About Us Blogs FAQs Services Contact Us Privacy Policy Terms & Conditions Contact Emails Technical Support Human Resources Marketing & Sales © 2026 All rights reserved - Nami Software Development"
+}

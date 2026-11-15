@@ -1,0 +1,455 @@
+{
+  "oldUrl": "https://nami-tec.com/ar/products/10",
+  "locale": "ar",
+  "status": 200,
+  "title": "أضمن",
+  "meta": {
+    "title": "أضمن",
+    "description": "شركة اضمن للصيانة المنزلية\r\nأضمن ليست تطبيق فقط .. أضمن مجموعة ادوات صُممت لك لتكون كل خدمات الصيانة المنزلية تحت تصرفك في منزلك او منشأتك او مكان استراحتك\r\nأضمن بإختصار تطبيق وموقع الكتروني ومركز خدمة عملاء ومعدات وفنيين هدفهم تقديم خدمة تليق بكم .\r\nأضمن فكر جديد شعارنا هو ( الصيانة المنزلية على بُعد تطبيق في جوالك ) ."
+  },
+  "fields": {
+    "headings": [
+      {
+        "level": "h5",
+        "text": "الخدمات"
+      },
+      {
+        "level": "h5",
+        "text": "الروابط"
+      },
+      {
+        "level": "h5",
+        "text": "بريد التواصل"
+      },
+      {
+        "level": "h1",
+        "text": "أضمن"
+      },
+      {
+        "level": "h4",
+        "text": "أهداف النظام"
+      },
+      {
+        "level": "h4",
+        "text": "مميزات النظام"
+      },
+      {
+        "level": "h4",
+        "text": "لغات البرمجة المستخدمة"
+      },
+      {
+        "level": "h4",
+        "text": "التصنيفات"
+      }
+    ],
+    "paragraphs": [
+      "مؤسسة نامي تقدم حلولاً برمجية متكاملة للمواقع وتطبيقات الجوال لمساعدة الشركات على النمو الرقمي بمنتجات موثوقة.",
+      "© 2026 جميع الحقوق محفوظة - نامي لتطوير البرمجيات",
+      "شركة اضمن للصيانة المنزلية أضمن ليست تطبيق فقط .. أضمن مجموعة ادوات صُممت لك لتكون كل خدمات الصيانة المنزلية تحت تصرفك في منزلك او منشأتك او مكان استراحتك أضمن بإختصار تطبيق وموقع الكتروني ومركز خدمة عملاء ومعدات وفنيين هدفهم تقديم خدمة تليق بكم . أضمن فكر جديد شعارنا هو ( الصيانة المنزلية على بُعد تطبيق في جوالك ) ."
+    ],
+    "lists": [
+      {
+        "type": "ul",
+        "items": [
+          "تطوير المواقع",
+          "تطوير تطبيقات الهواتف",
+          "التسويق الرقمي",
+          "الاستشارات التقنية",
+          "خدمات السحابة",
+          "خدمات التصميم"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "تطوير المواقع",
+          "تطوير تطبيقات الهواتف",
+          "التسويق الرقمي",
+          "الاستشارات التقنية",
+          "خدمات السحابة",
+          "خدمات التصميم"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "الرئيسية",
+          "من نحن",
+          "المدونة",
+          "الأسئلة الشائعة",
+          "خدماتنا",
+          "تواصل معنا",
+          "سياسة الخصوصية",
+          "الشروط والأحكام"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "الدعم الفني",
+          "الموارد البشرية",
+          "التسويق والمبيعات"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "تقديم مجموعة خدمات متكاملة تلبي جميع احتياجات العملاء.",
+          "توسيع نطاق الخدمات المقدمة بشكل مستمر كلما توفرت الفرصة.",
+          "تعزيز ثقة العملاء من خلال توفير حلول مبتكرة وشاملة."
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "تقديم خدمات متكاملة تغطي كافة احتياجات العملاء في مكان واحد.",
+          "الالتزام بالتطوير المستمر وإضافة خدمات جديدة باستمرار.",
+          "ضمان جودة عالية في كل ما نقدمه من خدمات، مع مراعاة تلبية متطلبات العملاء."
+        ]
+      }
+    ],
+    "buttons": [],
+    "labels": []
+  },
+  "images": [
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/VVpyYOvF2U1723379385.webp.svg",
+      "alt": "logo",
+      "width": "150",
+      "height": "50"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/setting/VVpyYOvF2U1723379385.webp.svg",
+      "alt": "logo",
+      "width": "120",
+      "height": "40"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/lW8WR2w1qZ1722858744.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/NWcSuAwNKy1722859101.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/XZXHUvLaUe1722859369.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/vjJnSf7GLZ1722859577.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/Mq18Xqzzof1722859778.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/service/45QS785PVd1722859923.webp.svg",
+      "alt": "",
+      "width": "28",
+      "height": "28"
+    },
+    {
+      "url": "/img/icons/social.svg",
+      "alt": "social",
+      "width": "24",
+      "height": "24"
+    },
+    {
+      "url": "/img/icons/facebook.svg",
+      "alt": "facebook",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/linkedin.svg",
+      "alt": "linkedin",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/x.svg",
+      "alt": "twitter",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/instagram.svg",
+      "alt": "instagram",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/icons/snapchat.svg",
+      "alt": "snapchat",
+      "width": "16",
+      "height": "16"
+    },
+    {
+      "url": "/img/logoAR.svg",
+      "alt": "logo",
+      "width": "220",
+      "height": "60"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "/img/icons/mailbox.svg",
+      "alt": "mailbox",
+      "width": "20",
+      "height": "20"
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/project/ZkCygsD4L91724050862.webp",
+      "alt": "أضمن",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/5gDkwJ1GmL1722950872.webp.svg",
+      "alt": "تصميم التطبيق",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/KRGpqJyVe01722950933.webp.svg",
+      "alt": "الموقع الإلكتروني",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/ROKyPAHWm61722951045.webp.svg",
+      "alt": "تطبيق أندرويد",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/linkSetting/J6RLJeek491722951099.webp.svg",
+      "alt": "تطبيق iOS",
+      "width": null,
+      "height": null
+    },
+    {
+      "url": "/img/icons/arrow-3.svg",
+      "alt": "download",
+      "width": null,
+      "height": null
+    }
+  ],
+  "links": [
+    {
+      "url": "/ar",
+      "text": null
+    },
+    {
+      "url": "/ar",
+      "text": null
+    },
+    {
+      "url": "/ar",
+      "text": null
+    },
+    {
+      "url": "/ar/about",
+      "text": null
+    },
+    {
+      "url": "/ar#services",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/1",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/2",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/3",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/4",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/5",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/6",
+      "text": null
+    },
+    {
+      "url": "/ar/portfolio",
+      "text": null
+    },
+    {
+      "url": "/ar/blogs",
+      "text": null
+    },
+    {
+      "url": "/ar/marketing",
+      "text": null
+    },
+    {
+      "url": "/ar#careers",
+      "text": null
+    },
+    {
+      "url": "/ar/contact",
+      "text": null
+    },
+    {
+      "url": "https://www.facebook.com/namitecgroup/",
+      "text": null
+    },
+    {
+      "url": "https://www.linkedin.com/company/namitec/?viewAsMember=true",
+      "text": null
+    },
+    {
+      "url": "https://www.x.com/nami_software",
+      "text": null
+    },
+    {
+      "url": "https://www.instagram.com/nami_tec/",
+      "text": null
+    },
+    {
+      "url": "https://www.snapchat.com/add/namifortech?share_id=NkdTI5a2Ro0&locale=ar-EG",
+      "text": null
+    },
+    {
+      "url": "https://Wa.me/+966578170120",
+      "text": null
+    },
+    {
+      "url": "tel:01099347981",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/1",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/2",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/3",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/4",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/5",
+      "text": null
+    },
+    {
+      "url": "/ar/all-services/6",
+      "text": null
+    },
+    {
+      "url": "/ar",
+      "text": null
+    },
+    {
+      "url": "/ar/about",
+      "text": null
+    },
+    {
+      "url": "/ar/blogs",
+      "text": null
+    },
+    {
+      "url": "/ar/faqs",
+      "text": null
+    },
+    {
+      "url": "/ar#services",
+      "text": null
+    },
+    {
+      "url": "/ar/contact",
+      "text": null
+    },
+    {
+      "url": "/ar/privacy-policy",
+      "text": null
+    },
+    {
+      "url": "/ar/terms-conditions",
+      "text": null
+    },
+    {
+      "url": "mailto:info@nami-tec.com",
+      "text": null
+    },
+    {
+      "url": "mailto:hr@nami-tec.com",
+      "text": null
+    },
+    {
+      "url": "mailto:sales@nami-tec.com",
+      "text": null
+    },
+    {
+      "url": "/ar",
+      "text": null
+    },
+    {
+      "url": "/ar/products",
+      "text": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/project/ZkCygsD4L91724050862.webp",
+      "text": null
+    },
+    {
+      "url": "https://www.figma.com/proto/gceRf6K0pFQNuJWUOhb02e/adhmn?node-id=0-1&viewport=567%2C295%2C0.11&t=Oj8fcL7mlQEe2XCi-0&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A196",
+      "text": null
+    },
+    {
+      "url": "https://adhmn.com/ar",
+      "text": null
+    },
+    {
+      "url": "https://play.google.com/store/apps/details?id=com.adhmn",
+      "text": null
+    },
+    {
+      "url": "https://apps.apple.com/us/app/%D8%A7%D8%B6%D9%85%D9%86/id1346635159",
+      "text": null
+    },
+    {
+      "url": "https://backend.nami-tec.com/storage/images/project/ZkCygsD4L91724050862.webp",
+      "text": null
+    }
+  ],
+  "fullText": "أضمن ☰ الرئيسية من نحن خدماتنا تطوير المواقع تطوير تطبيقات الهواتف التسويق الرقمي الاستشارات التقنية خدمات السحابة خدمات التصميم أعمالنا المدونات التسويق الوظائف تواصل معنا EN تصميم واجهات المستخدم (UI/UX) تطوير الويب تطوير تطبيقات الجوال تحليل البيانات التعلم الآلي إدارة المشاريع التسويق الرقمي تحسين محركات البحث (SEO) التجارة الإلكترونية أمن المعلومات تصميم الجرافيك تطوير البرمجيات إدارة قواعد البيانات الدعم الفني التسويق عبر وسائل التواصل الاجتماعي البرمجة الخلفية (Backend) البرمجة الأمامية (Frontend) الحوسبة السحابية تحليل الأعمال إدارة المحتوى مؤسسة نامي تقدم حلولاً برمجية متكاملة للمواقع وتطبيقات الجوال لمساعدة الشركات على النمو الرقمي بمنتجات موثوقة. الخدمات تطوير المواقع تطوير تطبيقات الهواتف التسويق الرقمي الاستشارات التقنية خدمات السحابة خدمات التصميم الروابط الرئيسية من نحن المدونة الأسئلة الشائعة خدماتنا تواصل معنا سياسة الخصوصية الشروط والأحكام بريد التواصل الدعم الفني الموارد البشرية التسويق والمبيعات © 2026 جميع الحقوق محفوظة - نامي لتطوير البرمجيات الرئيسية منتجاتنا أضمن أضمن شركة اضمن للصيانة المنزلية أضمن ليست تطبيق فقط .. أضمن مجموعة ادوات صُممت لك لتكون كل خدمات الصيانة المنزلية تحت تصرفك في منزلك او منشأتك او مكان استراحتك أضمن بإختصار تطبيق وموقع الكتروني ومركز خدمة عملاء ومعدات وفنيين هدفهم تقديم خدمة تليق بكم . أضمن فكر جديد شعارنا هو ( الصيانة المنزلية على بُعد تطبيق في جوالك ) . تصميم التطبيق الموقع الإلكتروني تطبيق أندرويد تطبيق iOS حمل ملف النظام أهداف النظام تقديم مجموعة خدمات متكاملة تلبي جميع احتياجات العملاء. توسيع نطاق الخدمات المقدمة بشكل مستمر كلما توفرت الفرصة. تعزيز ثقة العملاء من خلال توفير حلول مبتكرة وشاملة. مميزات النظام تقديم خدمات متكاملة تغطي كافة احتياجات العملاء في مكان واحد. الالتزام بالتطوير المستمر وإضافة خدمات جديدة باستمرار. ضمان جودة عالية في كل ما نقدمه من خدمات، مع مراعاة تلبية متطلبات العملاء. لغات البرمجة المستخدمة PHP التصنيفات تطبيقات طلب نسخة تجريبية X الاسم * البريد الإلكتروني * رقم الهاتف * المنتج * اختر المنتج تطبيقات إرسال"
+}
