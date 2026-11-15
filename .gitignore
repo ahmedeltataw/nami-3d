@@ -1,6 +1,7 @@
 doc/
 briefs/
 node_modules/
+.pnpm-store/
 .next/
 .env*
 *.blend1

@@ -5,5 +5,5 @@ export default defineConfig({
   testDir: './tests/e2e',
   use: { baseURL: `http://127.0.0.1:${port}` },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], launchOptions: { args: ['--use-gl=angle', '--use-angle=swiftshader-webgl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] } } }],
-  webServer: { command: `pnpm build && pnpm start --port ${port}`, url: `http://127.0.0.1:${port}`, reuseExistingServer: false, timeout: 120_000 },
+  webServer: process.env.PLAYWRIGHT_EXTERNAL_SERVER === '1' ? undefined : { command: `pnpm build && pnpm start --port ${port}`, url: `http://127.0.0.1:${port}`, reuseExistingServer: false, timeout: 120_000 },
 });
