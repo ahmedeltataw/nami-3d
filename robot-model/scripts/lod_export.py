@@ -288,6 +288,7 @@ def _bake(mat, objs, kind, path):
     nt.nodes.remove(node)
     img.filepath_raw, img.file_format = path, 'PNG'
     img.save()
+    img.pack()   # keep the map inside the .blend: an external absolute path goes magenta in other checkouts
     return img
 
 
