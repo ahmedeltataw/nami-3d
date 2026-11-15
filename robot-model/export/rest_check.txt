@@ -1,0 +1,5 @@
+meshes checked: 36
+max |dM| after parenting: 1.19e-07
+max |dM| at frame 0 with Wave assigned: 1.19e-07
+tolerance: 1e-4
+result: PASS
