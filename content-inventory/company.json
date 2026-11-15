@@ -1,0 +1,41 @@
+{
+  "foundedYear": 2017,
+  "vision": {
+    "ar": "نسعى لأن نكون الشركة الرائدة عالميًا في تقديم حلول تكنولوجية مبتكرة تساعد المؤسسات على تحقيق التفوق الرقمي وتعزيز تواجدها على الإنترنت بشكل فريد ومتميز.",
+    "en": "We seek to be the world's leading company in providing innovative technological solutions that help organizations achieve digital excellence and enhance their presence on the Internet in a unique and distinct way."
+  },
+  "mission": {
+    "ar": "نعمل على تمكين عملائنا من خلال تقديم حلول تصميم وتطوير مواقع وتطبيقات هواتف محمولة تجمع بين الإبداع، التكنولوجيا المتقدمة، وتجربة المستخدم الفريدة لتحقيق نجاحهم الرقمي المستدام.",
+    "en": "We empower our clients by providing website and mobile application design and development solutions that combine creativity, advanced technology, and a unique user experience to achieve their sustainable digital success."
+  },
+  "coreValues": [
+    {"ar":{"name":"الإبتكار","description":"missing"},"en":{"name":"Innovation","description":"missing"}},
+    {"ar":{"name":"الجودة","description":"missing"},"en":{"name":"Quality","description":"missing"}},
+    {"ar":{"name":"تركيز على العميل","description":"missing"},"en":{"name":"Focus on the client","description":"missing"}},
+    {"ar":{"name":"العمل الجماعي","description":"missing"},"en":{"name":"Teamwork","description":"missing"}},
+    {"ar":{"name":"الاستجابة السريعة","description":"missing"},"en":{"name":"Quick response","description":"missing"}},
+    {"ar":{"name":"التعلم المستمر","description":"missing"},"en":{"name":"Continuous learning","description":"missing"}},
+    {"ar":{"name":"الاستدامة","description":"missing"},"en":{"name":"Sustainability","description":"missing"}}
+  ],
+  "contact": {
+    "addresses":{"sa":"Saudi Arabia - Jeddah, Mushrifah District","eg":null},
+    "phones":{"sa":["+966566717225"],"eg":["+201099347981"]},
+    "whatsapp":"https://Wa.me/+966578170120",
+    "emails":{"info":"info@nami-tec.com","hr":"hr@nami-tec.com","sales":"sales@nami-tec.com"},
+    "socialUrls":[
+      "https://www.facebook.com/namitecgroup/",
+      "https://www.linkedin.com/company/namitec/?viewAsMember=true",
+      "https://www.x.com/nami_software",
+      "https://www.instagram.com/nami_tec/",
+      "https://www.snapchat.com/add/namifortech?share_id=NkdTI5a2Ro0&locale=ar-EG",
+      "https://www.tiktok.com/@namitecgroup?lang=en"
+    ]
+  },
+  "careers": {
+    "sectionAnchor":"#careers",
+    "listing":[{"title":"PHP Developer","titleEn":"PHP Developer"}],
+    "applicationFields":{"ar":["الاسم الكامل","رقم الهاتف","الوظيفة","السيرة الذاتية"],"en":["Full Name","Phone Number","Position","CV"]},
+    "cvFormats":[".pdf",".doc",".docx"],
+    "sourcePage":"https://nami-tec.com/ar"
+  }
+}

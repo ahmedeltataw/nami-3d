@@ -1,0 +1,26 @@
+{
+  "sourceCss": [
+    "https://nami-tec.com/_next/static/chunks/0jgawqvf9_p0z.css",
+    "https://nami-tec.com/_next/static/chunks/0fxi_h-xzasxo.css"
+  ],
+  "colors": [
+    {"hex":"#009f6f","whereUsed":"--mainColor; primary site color, links/buttons and portfolio/FAQ controls"},
+    {"hex":"#11b14e","whereUsed":"--secondColor; leading stop in the brand gradient"},
+    {"hex":"#38c684","whereUsed":"--c2 and middle stop in the brand gradient"},
+    {"hex":"#f4bd4b","whereUsed":"--goldColor; theme sun icon and accent"},
+    {"hex":"#00c9a7","whereUsed":"--c5 accent"},
+    {"hex":"#6dd5a0","whereUsed":"--c6 accent"},
+    {"hex":"#00754f","whereUsed":"--mainColorText; dark green text/accent"},
+    {"hex":"#191919","whereUsed":"--text and --darkColor; main text"},
+    {"hex":"#d6d6d6","whereUsed":"--lightGrayColor"},
+    {"hex":"#e1e1e1","whereUsed":"--lightBorderColor"},
+    {"hex":"#777","whereUsed":"--grayColor"},
+    {"hex":"#fff","whereUsed":"--whiteColor and --background; page and control backgrounds"},
+    {"hex":"#0d6efd","whereUsed":"Bootstrap .btn-primary and Bootstrap utility defaults, not the Nami brand variable"}
+  ],
+  "fonts": [
+    {"family":"Outfit","usage":"body font class in rendered page HTML","sourceUrls":["https://nami-tec.com/_next/static/media/b2ea385cb5ae8625-s.1spbknb88wd48.woff2","https://nami-tec.com/_next/static/media/1b99372b3eaef0c8-s.p.1gsd1jahc5dg_.woff2"]},
+    {"family":"Manrope Alt","usage":"font-family declaration in bundled CSS; font file URL was not declared","sourceUrls":["https://nami-tec.com/_next/static/chunks/0jgawqvf9_p0z.css"]},
+    {"family":"IBM Plex Sans Arabic","usage":"Arabic font file URLs in bundled CSS","sourceUrls":["https://nami-tec.com/webfonts/IBMPlexSansArabic-Regular.ttf","https://nami-tec.com/webfonts/IBMPlexSansArabic-Bold.ttf"]}
+  ]
+}
