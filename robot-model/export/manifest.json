@@ -1,0 +1,1304 @@
+{
+  "source": "robot_rig.blend -> robot_proof.glb",
+  "units": "1 unit = 400 px of ref_front.webp; robot 3.38 units tall",
+  "axes": "glTF +Y up, robot faces +Z (Blender -Y), robot left = +X",
+  "nodes": [
+    {
+      "name": "Body_LowerShell",
+      "parent": "Torso",
+      "mesh": true
+    },
+    {
+      "name": "Body_MainShell",
+      "parent": "Torso",
+      "mesh": true
+    },
+    {
+      "name": "Chest_UpperArmor",
+      "parent": "Torso",
+      "mesh": true
+    },
+    {
+      "name": "Emblem_GreenInsert",
+      "parent": "Torso",
+      "mesh": true
+    },
+    {
+      "name": "Emblem_OuterHousing",
+      "parent": "Torso",
+      "mesh": true
+    },
+    {
+      "name": "Emblem_WhiteSymbol",
+      "parent": "Torso",
+      "mesh": true
+    },
+    {
+      "name": "Eye_CircuitDetails",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Eye_Left",
+      "parent": "Eye_L",
+      "mesh": true
+    },
+    {
+      "name": "Eye_L",
+      "parent": "Head",
+      "mesh": false
+    },
+    {
+      "name": "Eye_Right",
+      "parent": "Eye_R",
+      "mesh": true
+    },
+    {
+      "name": "Eye_R",
+      "parent": "Head",
+      "mesh": false
+    },
+    {
+      "name": "Face_Bezel",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Face_Display",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Head_OuterShell",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Left_SideModule",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Right_SideModule",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Top_CircuitPanel",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Top_CircuitTraces",
+      "parent": "Head",
+      "mesh": true
+    },
+    {
+      "name": "Head",
+      "parent": "Neck",
+      "mesh": false
+    },
+    {
+      "name": "Neck_Joint",
+      "parent": "Neck",
+      "mesh": true
+    },
+    {
+      "name": "Neck",
+      "parent": "Torso",
+      "mesh": false
+    },
+    {
+      "name": "Arm_L_Shoulder",
+      "parent": "Shoulder_L",
+      "mesh": true
+    },
+    {
+      "name": "Arm_L_Upper",
+      "parent": "Upper_L",
+      "mesh": true
+    },
+    {
+      "name": "Arm_L_Wrist",
+      "parent": "Wrist_L",
+      "mesh": true
+    },
+    {
+      "name": "Hand_L_Finger_1",
+      "parent": "Finger_1_L",
+      "mesh": true
+    },
+    {
+      "name": "Finger_1_L",
+      "parent": "Palm_L",
+      "mesh": false
+    },
+    {
+      "name": "Hand_L_Finger_2",
+      "parent": "Finger_2_L",
+      "mesh": true
+    },
+    {
+      "name": "Finger_2_L",
+      "parent": "Palm_L",
+      "mesh": false
+    },
+    {
+      "name": "Hand_L_Finger_3",
+      "parent": "Finger_3_L",
+      "mesh": true
+    },
+    {
+      "name": "Finger_3_L",
+      "parent": "Palm_L",
+      "mesh": false
+    },
+    {
+      "name": "Hand_L_Finger_4",
+      "parent": "Finger_4_L",
+      "mesh": true
+    },
+    {
+      "name": "Finger_4_L",
+      "parent": "Palm_L",
+      "mesh": false
+    },
+    {
+      "name": "Hand_L_Palm",
+      "parent": "Palm_L",
+      "mesh": true
+    },
+    {
+      "name": "LeftHand_Anchor",
+      "parent": "Palm_L",
+      "mesh": false
+    },
+    {
+      "name": "Hand_L_Thumb",
+      "parent": "Thumb_L",
+      "mesh": true
+    },
+    {
+      "name": "Thumb_L",
+      "parent": "Palm_L",
+      "mesh": false
+    },
+    {
+      "name": "Palm_L",
+      "parent": "Wrist_L",
+      "mesh": false
+    },
+    {
+      "name": "Wrist_L",
+      "parent": "Upper_L",
+      "mesh": false
+    },
+    {
+      "name": "Upper_L",
+      "parent": "Shoulder_L",
+      "mesh": false
+    },
+    {
+      "name": "Shoulder_L",
+      "parent": "Torso",
+      "mesh": false
+    },
+    {
+      "name": "Arm_R_Shoulder",
+      "parent": "Shoulder_R",
+      "mesh": true
+    },
+    {
+      "name": "Arm_R_Upper",
+      "parent": "Upper_R",
+      "mesh": true
+    },
+    {
+      "name": "Arm_R_Wrist",
+      "parent": "Wrist_R",
+      "mesh": true
+    },
+    {
+      "name": "Hand_R_Finger_1",
+      "parent": "Finger_1_R",
+      "mesh": true
+    },
+    {
+      "name": "Finger_1_R",
+      "parent": "Palm_R",
+      "mesh": false
+    },
+    {
+      "name": "Hand_R_Finger_2",
+      "parent": "Finger_2_R",
+      "mesh": true
+    },
+    {
+      "name": "Finger_2_R",
+      "parent": "Palm_R",
+      "mesh": false
+    },
+    {
+      "name": "Hand_R_Finger_3",
+      "parent": "Finger_3_R",
+      "mesh": true
+    },
+    {
+      "name": "Finger_3_R",
+      "parent": "Palm_R",
+      "mesh": false
+    },
+    {
+      "name": "Hand_R_Finger_4",
+      "parent": "Finger_4_R",
+      "mesh": true
+    },
+    {
+      "name": "Finger_4_R",
+      "parent": "Palm_R",
+      "mesh": false
+    },
+    {
+      "name": "Hand_R_Palm",
+      "parent": "Palm_R",
+      "mesh": true
+    },
+    {
+      "name": "RightHand_Anchor",
+      "parent": "Palm_R",
+      "mesh": false
+    },
+    {
+      "name": "Hand_R_Thumb",
+      "parent": "Thumb_R",
+      "mesh": true
+    },
+    {
+      "name": "Thumb_R",
+      "parent": "Palm_R",
+      "mesh": false
+    },
+    {
+      "name": "Palm_R",
+      "parent": "Wrist_R",
+      "mesh": false
+    },
+    {
+      "name": "Wrist_R",
+      "parent": "Upper_R",
+      "mesh": false
+    },
+    {
+      "name": "Upper_R",
+      "parent": "Shoulder_R",
+      "mesh": false
+    },
+    {
+      "name": "Shoulder_R",
+      "parent": "Torso",
+      "mesh": false
+    },
+    {
+      "name": "Torso",
+      "parent": "Root",
+      "mesh": false
+    },
+    {
+      "name": "Root",
+      "parent": null,
+      "mesh": false
+    }
+  ],
+  "joints": [
+    {
+      "name": "Root",
+      "parent": null,
+      "pivot_blender": [
+        0,
+        0,
+        0
+      ],
+      "pivot_gltf": [
+        0,
+        0,
+        0
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [],
+      "axes": []
+    },
+    {
+      "name": "Torso",
+      "parent": "Root",
+      "pivot_blender": [
+        0,
+        0,
+        0.5
+      ],
+      "pivot_gltf": [
+        0,
+        0.5,
+        0
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Body_MainShell",
+        "Chest_UpperArmor",
+        "Body_LowerShell",
+        "Emblem_OuterHousing",
+        "Emblem_GreenInsert",
+        "Emblem_WhiteSymbol"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -30,
+          "max_deg": 30
+        },
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -15,
+          "max_deg": 15
+        }
+      ]
+    },
+    {
+      "name": "Neck",
+      "parent": "Torso",
+      "pivot_blender": [
+        0,
+        0,
+        1.6
+      ],
+      "pivot_gltf": [
+        0,
+        1.6,
+        0
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Neck_Joint"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -45,
+          "max_deg": 45
+        },
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -15,
+          "max_deg": 15
+        }
+      ]
+    },
+    {
+      "name": "Head",
+      "parent": "Neck",
+      "pivot_blender": [
+        0,
+        0,
+        1.86
+      ],
+      "pivot_gltf": [
+        0,
+        1.86,
+        0
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Head_OuterShell",
+        "Face_Display",
+        "Face_Bezel",
+        "Top_CircuitPanel",
+        "Top_CircuitTraces",
+        "Left_SideModule",
+        "Right_SideModule",
+        "Eye_CircuitDetails",
+        "Face_Cutter"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -20,
+          "max_deg": 20
+        },
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -20,
+          "max_deg": 20
+        },
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -45,
+          "max_deg": 45
+        }
+      ]
+    },
+    {
+      "name": "Eye_L",
+      "parent": "Head",
+      "pivot_blender": [
+        0.375,
+        -0.78,
+        2.45
+      ],
+      "pivot_gltf": [
+        0.375,
+        2.45,
+        0.78
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Eye_Left"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -10,
+          "max_deg": 10
+        },
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -10,
+          "max_deg": 10
+        }
+      ]
+    },
+    {
+      "name": "Shoulder_L",
+      "parent": "Torso",
+      "pivot_blender": [
+        1.0,
+        0.02,
+        1.55
+      ],
+      "pivot_gltf": [
+        1.0,
+        1.55,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Arm_L_Shoulder"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -170,
+          "max_deg": 10
+        },
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -90,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Upper_L",
+      "parent": "Shoulder_L",
+      "pivot_blender": [
+        1.005,
+        0.02,
+        1.1575
+      ],
+      "pivot_gltf": [
+        1.005,
+        1.1575,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Arm_L_Upper"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -30,
+          "max_deg": 30
+        },
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -45,
+          "max_deg": 45
+        }
+      ]
+    },
+    {
+      "name": "Wrist_L",
+      "parent": "Upper_L",
+      "pivot_blender": [
+        1.07,
+        0.02,
+        0.5
+      ],
+      "pivot_gltf": [
+        1.07,
+        0.5,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Arm_L_Wrist"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -90,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Palm_L",
+      "parent": "Wrist_L",
+      "pivot_blender": [
+        1.14,
+        0.02,
+        0.42
+      ],
+      "pivot_gltf": [
+        1.14,
+        0.42,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Hand_L_Palm"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -45,
+          "max_deg": 45
+        },
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -30,
+          "max_deg": 30
+        }
+      ]
+    },
+    {
+      "name": "Finger_1_L",
+      "parent": "Palm_L",
+      "pivot_blender": [
+        1.1716,
+        -0.0449,
+        0.3038
+      ],
+      "pivot_gltf": [
+        1.1716,
+        0.3038,
+        0.0449
+      ],
+      "rest_yaw_deg_blender_z": 22.0,
+      "meshes": [
+        "Hand_L_Finger_1"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": 0,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Finger_2_L",
+      "parent": "Palm_L",
+      "pivot_blender": [
+        1.1536,
+        -0.0004,
+        0.3038
+      ],
+      "pivot_gltf": [
+        1.1536,
+        0.3038,
+        0.0004
+      ],
+      "rest_yaw_deg_blender_z": 22.0,
+      "meshes": [
+        "Hand_L_Finger_2"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": 0,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Finger_3_L",
+      "parent": "Palm_L",
+      "pivot_blender": [
+        1.1356,
+        0.0441,
+        0.3038
+      ],
+      "pivot_gltf": [
+        1.1356,
+        0.3038,
+        -0.0441
+      ],
+      "rest_yaw_deg_blender_z": 22.0,
+      "meshes": [
+        "Hand_L_Finger_3"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": 0,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Finger_4_L",
+      "parent": "Palm_L",
+      "pivot_blender": [
+        1.1177,
+        0.0886,
+        0.3038
+      ],
+      "pivot_gltf": [
+        1.1177,
+        0.3038,
+        -0.0886
+      ],
+      "rest_yaw_deg_blender_z": 22.0,
+      "meshes": [
+        "Hand_L_Finger_4"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": 0,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Thumb_L",
+      "parent": "Palm_L",
+      "pivot_blender": [
+        1.04,
+        -0.02,
+        0.47
+      ],
+      "pivot_gltf": [
+        1.04,
+        0.47,
+        0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Hand_L_Thumb"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": 0,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Eye_R",
+      "parent": "Head",
+      "pivot_blender": [
+        -0.375,
+        -0.78,
+        2.45
+      ],
+      "pivot_gltf": [
+        -0.375,
+        2.45,
+        0.78
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Eye_Right"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -10,
+          "max_deg": 10
+        },
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -10,
+          "max_deg": 10
+        }
+      ]
+    },
+    {
+      "name": "Shoulder_R",
+      "parent": "Torso",
+      "pivot_blender": [
+        -1.0,
+        0.02,
+        1.55
+      ],
+      "pivot_gltf": [
+        -1.0,
+        1.55,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Arm_R_Shoulder"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -10,
+          "max_deg": 170
+        },
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -90,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Upper_R",
+      "parent": "Shoulder_R",
+      "pivot_blender": [
+        -1.005,
+        0.02,
+        1.1575
+      ],
+      "pivot_gltf": [
+        -1.005,
+        1.1575,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Arm_R_Upper"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -30,
+          "max_deg": 30
+        },
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -45,
+          "max_deg": 45
+        }
+      ]
+    },
+    {
+      "name": "Wrist_R",
+      "parent": "Upper_R",
+      "pivot_blender": [
+        -1.07,
+        0.02,
+        0.5
+      ],
+      "pivot_gltf": [
+        -1.07,
+        0.5,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Arm_R_Wrist"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -90,
+          "max_deg": 90
+        }
+      ]
+    },
+    {
+      "name": "Palm_R",
+      "parent": "Wrist_R",
+      "pivot_blender": [
+        -1.14,
+        0.02,
+        0.42
+      ],
+      "pivot_gltf": [
+        -1.14,
+        0.42,
+        -0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Hand_R_Palm"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "X",
+          "axis_gltf_local": [
+            1,
+            0,
+            0
+          ],
+          "min_deg": -45,
+          "max_deg": 45
+        },
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -30,
+          "max_deg": 30
+        }
+      ]
+    },
+    {
+      "name": "Finger_1_R",
+      "parent": "Palm_R",
+      "pivot_blender": [
+        -1.1716,
+        -0.0449,
+        0.3038
+      ],
+      "pivot_gltf": [
+        -1.1716,
+        0.3038,
+        0.0449
+      ],
+      "rest_yaw_deg_blender_z": -22.0,
+      "meshes": [
+        "Hand_R_Finger_1"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -90,
+          "max_deg": 0
+        }
+      ]
+    },
+    {
+      "name": "Finger_2_R",
+      "parent": "Palm_R",
+      "pivot_blender": [
+        -1.1536,
+        -0.0004,
+        0.3038
+      ],
+      "pivot_gltf": [
+        -1.1536,
+        0.3038,
+        0.0004
+      ],
+      "rest_yaw_deg_blender_z": -22.0,
+      "meshes": [
+        "Hand_R_Finger_2"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -90,
+          "max_deg": 0
+        }
+      ]
+    },
+    {
+      "name": "Finger_3_R",
+      "parent": "Palm_R",
+      "pivot_blender": [
+        -1.1356,
+        0.0441,
+        0.3038
+      ],
+      "pivot_gltf": [
+        -1.1356,
+        0.3038,
+        -0.0441
+      ],
+      "rest_yaw_deg_blender_z": -22.0,
+      "meshes": [
+        "Hand_R_Finger_3"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -90,
+          "max_deg": 0
+        }
+      ]
+    },
+    {
+      "name": "Finger_4_R",
+      "parent": "Palm_R",
+      "pivot_blender": [
+        -1.1177,
+        0.0886,
+        0.3038
+      ],
+      "pivot_gltf": [
+        -1.1177,
+        0.3038,
+        -0.0886
+      ],
+      "rest_yaw_deg_blender_z": -22.0,
+      "meshes": [
+        "Hand_R_Finger_4"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -90,
+          "max_deg": 0
+        }
+      ]
+    },
+    {
+      "name": "Thumb_R",
+      "parent": "Palm_R",
+      "pivot_blender": [
+        -1.04,
+        -0.02,
+        0.47
+      ],
+      "pivot_gltf": [
+        -1.04,
+        0.47,
+        0.02
+      ],
+      "rest_yaw_deg_blender_z": 0,
+      "meshes": [
+        "Hand_R_Thumb"
+      ],
+      "axes": [
+        {
+          "axis_blender_local": "Y",
+          "axis_gltf_local": [
+            0,
+            0,
+            -1
+          ],
+          "min_deg": -90,
+          "max_deg": 0
+        }
+      ]
+    }
+  ],
+  "material_slots": {
+    "Body_LowerShell": [
+      "MAT_WhitePolymer_Lower"
+    ],
+    "Body_MainShell": [
+      "MAT_SeamCore"
+    ],
+    "Chest_UpperArmor": [
+      "MAT_WhitePolymer"
+    ],
+    "Emblem_GreenInsert": [
+      "MAT_EmblemGreen"
+    ],
+    "Emblem_OuterHousing": [
+      "MAT_WhitePolymer"
+    ],
+    "Emblem_WhiteSymbol": [
+      "MAT_WhitePolymer"
+    ],
+    "Eye_CircuitDetails": [
+      "MAT_EyeTrace"
+    ],
+    "Eye_Left": [
+      "MAT_EyeEmission"
+    ],
+    "Eye_Right": [
+      "MAT_EyeEmission"
+    ],
+    "Face_Bezel": [
+      "MAT_BezelCharcoal"
+    ],
+    "Face_Display": [
+      "MAT_FaceGlass"
+    ],
+    "Head_OuterShell": [
+      "MAT_WhitePolymer"
+    ],
+    "Left_SideModule": [
+      "MAT_GreenModule"
+    ],
+    "Right_SideModule": [
+      "MAT_GreenModule"
+    ],
+    "Top_CircuitPanel": [
+      "MAT_GreenPanel"
+    ],
+    "Top_CircuitTraces": [
+      "MAT_CircuitTrace"
+    ],
+    "Neck_Joint": [
+      "MAT_DarkMechJoint"
+    ],
+    "Arm_L_Shoulder": [
+      "MAT_WhitePolymer"
+    ],
+    "Arm_L_Upper": [
+      "MAT_WhitePolymer"
+    ],
+    "Arm_L_Wrist": [
+      "MAT_DarkMechJoint"
+    ],
+    "Hand_L_Finger_1": [
+      "MAT_DarkMech"
+    ],
+    "Hand_L_Finger_2": [
+      "MAT_DarkMech"
+    ],
+    "Hand_L_Finger_3": [
+      "MAT_DarkMech"
+    ],
+    "Hand_L_Finger_4": [
+      "MAT_DarkMech"
+    ],
+    "Hand_L_Palm": [
+      "MAT_DarkMech"
+    ],
+    "Hand_L_Thumb": [
+      "MAT_DarkMech"
+    ],
+    "Arm_R_Shoulder": [
+      "MAT_WhitePolymer"
+    ],
+    "Arm_R_Upper": [
+      "MAT_WhitePolymer"
+    ],
+    "Arm_R_Wrist": [
+      "MAT_DarkMechJoint"
+    ],
+    "Hand_R_Finger_1": [
+      "MAT_DarkMech"
+    ],
+    "Hand_R_Finger_2": [
+      "MAT_DarkMech"
+    ],
+    "Hand_R_Finger_3": [
+      "MAT_DarkMech"
+    ],
+    "Hand_R_Finger_4": [
+      "MAT_DarkMech"
+    ],
+    "Hand_R_Palm": [
+      "MAT_DarkMech"
+    ],
+    "Hand_R_Thumb": [
+      "MAT_DarkMech"
+    ]
+  },
+  "clips": [
+    {
+      "name": "Wave",
+      "start_s": 0,
+      "duration_s": 1.6,
+      "fps": 30,
+      "targets": [
+        "Head",
+        "Palm_R",
+        "Shoulder_R",
+        "Upper_R"
+      ]
+    }
+  ],
+  "anchors": {
+    "RightHand_Anchor": {
+      "parent": "Palm_R",
+      "position_blender": [
+        -1.14,
+        0.02,
+        0.36
+      ],
+      "position_gltf": [
+        -1.14,
+        0.36,
+        -0.02
+      ]
+    },
+    "LeftHand_Anchor": {
+      "parent": "Palm_L",
+      "position_blender": [
+        1.14,
+        0.02,
+        0.36
+      ],
+      "position_gltf": [
+        1.14,
+        0.36,
+        -0.02
+      ]
+    }
+  },
+  "triangles": 338818
+}
