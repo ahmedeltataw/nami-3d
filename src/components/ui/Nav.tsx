@@ -7,6 +7,7 @@ import { SCENE_IDS } from '@/experience/controller';
 import { useExperienceStore } from '@/experience/store';
 import { LocaleSwitch } from './LocaleSwitch';
 import { MotionSwitch } from './MotionSwitch';
+import { SoundToggle } from './SoundToggle';
 import styles from './Nav.module.css';
 
 export function Nav() {
@@ -51,7 +52,11 @@ export function Nav() {
       <div className={styles.headerScenes} aria-label={t('scenesAriaLabel')}>
         {SCENE_IDS.map(id => <a key={id} href={`/${locale}#${id}`} aria-current={scene === id ? 'location' : undefined}>{id}</a>)}
       </div>
-      <div className={styles.controlsGroup}><LocaleSwitch /><button ref={toggle} type="button" className={styles.menuButton} aria-expanded={isOpen} aria-controls="mobile-nav-panel" aria-label={isOpen ? t('closeMenu') : t('openMenu')} onClick={() => setIsOpen(!isOpen)} data-magnetic>{isOpen ? '×' : '☰'}</button></div>
+      <div className={styles.controlsGroup}>
+        <LocaleSwitch />
+        <SoundToggle />
+        <button ref={toggle} type="button" className={styles.menuButton} aria-expanded={isOpen} aria-controls="mobile-nav-panel" aria-label={isOpen ? t('closeMenu') : t('openMenu')} onClick={() => setIsOpen(!isOpen)} data-sound="click" data-magnetic>{isOpen ? '×' : '☰'}</button>
+      </div>
     </nav>
     <div id="mobile-nav-panel" ref={panel} className={styles.overlay} hidden={!isOpen}>
       <div className={styles.content}>

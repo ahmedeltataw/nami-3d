@@ -68,9 +68,8 @@ export function Robot({ runtime, profile, residency, onError }: {
     if (!runtime.snapshot || !runtime.assetsReady || !runtime.robotReady || runtime.contextLost) return;
     if (mounted.current) {
       if (runtime.scene === 's03') {
-        frame.discover.set(-1.2, -0.8, -3.3).applyQuaternion(state.camera.quaternion).add(state.camera.position);
-        mounted.current.position.copy(frame.discover);
-        mounted.current.quaternion.copy(state.camera.quaternion);
+        mounted.current.position.fromArray(runtime.snapshot.visual.robotPosition as [number, number, number]);
+        mounted.current.quaternion.fromArray(runtime.snapshot.visual.robotQuaternion as [number, number, number, number]);
       } else {
         mounted.current.position.set(0, -1.69 * scale, 0);
         mounted.current.quaternion.identity();
@@ -96,7 +95,7 @@ export function Robot({ runtime, profile, residency, onError }: {
     const cursorTarget = frame.ray.ray.intersectPlane(frame.plane, frame.target);
     const s01 = runtime.scene === 's01';
     const visual = runtime.snapshot.visual;
-    if (mounted.current && runtime.scene !== 's05') {
+    if (mounted.current && runtime.scene !== 's03' && runtime.scene !== 's05') {
       mounted.current.position.x = s01 ? Number(visual.robotX ?? 0) : runtime.scene === 's04' ? -1.05 : 0;
       mounted.current.position.y = -1.69 * scale - (s01 && compact ? 0.5 : 0);
     }

@@ -125,13 +125,24 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  transition: border-color var(--dur-micro) var(--ease-enter), box-shadow var(--dur-micro) var(--ease-enter), transform var(--dur-micro) var(--ease-enter);
+  transition: border-color var(--dur-micro) var(--ease-enter), box-shadow var(--dur-card-lift) var(--ease-card), transform var(--dur-card-lift) var(--ease-card);
   overflow: hidden;
 }
 
 .card:hover {
   border-color: var(--color-accent-strong);
   box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+:global(html[data-motion='reduced']) .card:hover {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    transform: none;
+  }
 }
 
 .cardTitle {

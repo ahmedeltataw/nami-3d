@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test';
+import arMessages from '../../src/messages/ar.json';
 
 test('Arabic headline, subtitle and primary CTA links are visible without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('/ar');
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  await expect(page.locator('[data-s01-headline]')).toHaveText(arMessages.Home.heading);
   await expect(page.locator('#s01 p').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'شاهد أعمالنا', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'ابدأ مشروعك', exact: true }).first()).toBeVisible();
@@ -16,6 +18,7 @@ test('Arabic headline, subtitle and primary CTA links are visible without JavaSc
 test('S01 renders the robot, keyboard skip ends the intro, and 60% scroll dollies the camera', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.goto('/ar?experienceDebug=1');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().robotReady)).toBe(true);
@@ -39,16 +42,25 @@ test('S01 renders the robot, keyboard skip ends the intro, and 60% scroll dollie
   expect(errors).toEqual([]);
 });
 
-test('intro waves and draws a decorative line while headline and CTAs remain usable', async ({ page }) => {
+test('intro and scroll draw a canvas line and reveal the real HTML headline', async ({ page }) => {
   await page.goto('/en?experienceDebug=1');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().robot), { intervals: [50], timeout: 8000 }).toMatchObject({ name: 'Wave' });
-  const line = page.locator('[data-experience] svg path');
+  const line = page.locator('[data-s01-energy-line]');
   await expect(line).toHaveCSS('opacity', '1', { timeout: 5000 });
-  await expect(line).toHaveAttribute('d', /^M.+ Q.+/);
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Start your project', exact: true }).first()).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().introCancelled)).toBe(true);
+  await expect(line).toHaveCSS('opacity', '0');
+  await page.evaluate(() => window.scrollTo(0, document.getElementById('s01')!.offsetHeight * .18));
+  await expect(line).toHaveCSS('opacity', '1');
+  await expect.poll(() => page.locator('[data-s01-headline]').evaluate(element => getComputedStyle(element).clipPath)).not.toBe('inset(0px 0% 0px 0px)');
+  const visiblePixels = await line.evaluate((canvas: HTMLCanvasElement) => {
+    const pixels = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height).data;
+    return pixels.some((value, i) => i % 4 === 3 && value > 0);
+  });
+  expect(visiblePixels).toBe(true);
+  await page.evaluate(() => window.scrollTo(0, document.getElementById('s01')!.offsetHeight * .35));
   await expect(line).toHaveCSS('opacity', '0');
 });
 

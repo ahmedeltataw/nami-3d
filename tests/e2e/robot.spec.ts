@@ -9,9 +9,9 @@ test('Arabic S01 loads one robot GLB and renders nonblank pixels with SwiftShade
   await page.goto('/ar');
   const host = page.locator('[data-experience]');
   await expect(host).toHaveAttribute('data-ready', 'true');
-  await expect(page.locator('canvas')).toHaveCount(1);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(1);
   expect(models).toHaveLength(1);
-  const rendered = await page.locator('canvas').evaluate(async (canvas: HTMLCanvasElement) => {
+  const rendered = await page.locator('canvas:not([data-s01-energy-line])').evaluate(async (canvas: HTMLCanvasElement) => {
     // Read immediately after the host's render while the default framebuffer is valid.
     return new Promise<number>(resolve => requestAnimationFrame(() => {
       const gl = canvas.getContext('webgl2')!;

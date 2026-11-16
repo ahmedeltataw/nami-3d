@@ -1,0 +1,4 @@
+.overlay { position: fixed; inset: 0; z-index: 10000; pointer-events: none; background: #009f6f; clip-path: ellipse(0% 0% at 50% 110%); }
+.overlay[data-route-transition='cover'], .overlay[data-route-transition='switch'] { clip-path: ellipse(150% 150% at 50% 50%); transition: clip-path 400ms ease-in-out; }
+.overlay[data-route-transition='reveal'] { clip-path: ellipse(0% 0% at 50% -10%); transition: clip-path 400ms ease-in-out; }
+@media (prefers-reduced-motion: reduce) { .overlay { transition: none !important; } }

@@ -1,12 +1,15 @@
-export interface RouteTransition {
-  start(from: string, to: string, signal?: AbortSignal): void;
-  cancel(): void;
-  complete(): void;
-}
+export type TransitionPhase = 'idle' | 'cover' | 'switch' | 'reveal';
 
-// Routing and history remain native until the liquid-transition card implements this contract.
-export const routeTransition: RouteTransition = {
-  start() {},
-  cancel() {},
-  complete() {},
-};
+export function createRouteTransition(notify: (phase: TransitionPhase) => void) {
+  let generation = 0;
+  let phase: TransitionPhase = 'idle';
+  const set = (next: TransitionPhase) => { phase = next; notify(next); };
+  return {
+    get phase() { return phase; },
+    start() { generation++; set('cover'); return generation; },
+    covered(token: number) { if (token !== generation || phase !== 'cover') return false; set('switch'); return true; },
+    reveal(token: number) { if (token === generation && phase !== 'idle') set('reveal'); },
+    finish(token: number) { if (token === generation) set('idle'); },
+    cancel() { generation++; set('idle'); },
+  };
+}

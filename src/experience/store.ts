@@ -1,14 +1,17 @@
 import { create } from 'zustand';
 import type { Profile, RobotDirective, SceneId } from './contracts';
+import type { DirectorState } from './director';
 
 export type ProjectType = 'website' | 'mobile' | 'marketing' | 'other';
 
 export type ControllerApi = {
   seek: (scene: SceneId, local?: number, updateHistory?: boolean) => void;
+  position?: () => { scene: SceneId; local: number };
   recalculate?: () => void;
 };
 
 type ExperienceStore = {
+  director: DirectorState;
   scene: SceneId;
   station: number;
   cursorGrab: boolean;
@@ -24,6 +27,7 @@ type ExperienceStore = {
 };
 
 export const useExperienceStore = create<ExperienceStore>((set) => ({
+  director: 'idle',
   scene: 's01',
   station: 1,
   cursorGrab: false,

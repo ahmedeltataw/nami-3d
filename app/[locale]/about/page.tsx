@@ -63,7 +63,7 @@ export default async function AboutPage({
         <div className={styles.badge}>
           {isAr ? `تأسست عام ${company.foundedYear}` : `Founded ${company.foundedYear}`}
         </div>
-        <h1 className={styles.title}>{title}</h1>
+        <h1 className={styles.title} data-reveal>{title}</h1>
         {typeof page?.description === 'string' && (
           <p className={styles.description}>{page.description}</p>
         )}
@@ -71,27 +71,27 @@ export default async function AboutPage({
 
       {vision && (
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>{isAr ? 'رؤيتنا' : 'Our Vision'}</h2>
+          <h2 className={styles.sectionTitle} data-reveal>{isAr ? 'رؤيتنا' : 'Our Vision'}</h2>
           <p className={styles.paragraph}>{vision}</p>
         </section>
       )}
 
       {mission && (
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>{isAr ? 'رسالتنا' : 'Our Mission'}</h2>
+          <h2 className={styles.sectionTitle} data-reveal>{isAr ? 'رسالتنا' : 'Our Mission'}</h2>
           <p className={styles.paragraph}>{mission}</p>
         </section>
       )}
 
       {/* Core Values: values with missing descriptions are rendered name-only */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>{isAr ? 'قيمنا الجوهرية' : 'Core Values'}</h2>
+        <h2 className={styles.sectionTitle} data-reveal>{isAr ? 'قيمنا الجوهرية' : 'Core Values'}</h2>
         <div className={styles.grid}>
           {company.values.map(val => {
             const name = isText(val.name[locale]) ? val.name[locale] : val.id;
             const desc = isText(val.description[locale]) ? val.description[locale] : null;
             return (
-              <div key={val.id} className={styles.card}>
+              <div key={val.id} className={styles.card} data-reveal>
                 <h3 className={styles.cardTitle}>{name}</h3>
                 {desc && <p className={styles.cardDesc}>{desc}</p>}
               </div>

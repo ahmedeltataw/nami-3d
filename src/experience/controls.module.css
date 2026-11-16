@@ -1,0 +1,11 @@
+.controls { position: relative; z-index: 3; display: flex; gap: .5rem; flex-wrap: wrap; margin-block: 1rem; }
+.controls:not([data-director='idle']) { position: fixed; z-index: 100; inset-inline: 1rem; bottom: 1rem; margin: 0; }
+.controls button, .factory button { border: 1px solid currentColor; border-radius: 2rem; padding: .6rem 1rem; background: white; color: #1b1d20; cursor: pointer; }
+.factoryEntry { position: relative; z-index: 3; width: 2rem; height: 2rem; border: 0; border-radius: 50%; background: transparent; color: #007c57; cursor: pointer; }
+.factoryEntry:focus-visible { outline: 2px solid currentColor; }
+.factory { position: fixed; inset: 0; z-index: 9999; overflow: auto; padding: clamp(2rem, 6vw, 6rem); background: #10251f; color: white; }
+.factory ol { display: flex; flex-wrap: wrap; gap: 2rem; padding: 2rem; }
+.factory li { border: 1px solid #62d9a8; border-radius: 1rem; padding: 1.5rem; animation: pulse 3s ease-in-out infinite alternate; }
+.factory[data-motion='reduced'] li { animation: none; }
+@keyframes pulse { to { border-color: white; transform: translateY(-.4rem); } }
+@media (prefers-reduced-motion: reduce) { .factory li { animation: none; } }

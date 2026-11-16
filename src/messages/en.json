@@ -202,5 +202,23 @@
     "label": "Motion",
     "cinematic": "Cinematic",
     "direct": "Direct"
+  },
+  "ExperienceControls": {
+    "start": "Show me NAMI",
+    "pause": "Pause tour",
+    "resume": "Resume tour",
+    "skip": "Skip scene",
+    "next": "Next scene",
+    "exit": "Exit tour",
+    "factoryOpen": "Open hidden factory",
+    "factoryTitle": "NAMI Factory",
+    "factoryClose": "Close factory"
+  },
+  "Sound": {
+    "label": "Sound",
+    "soundOn": "Sound On",
+    "soundOff": "Sound Off",
+    "enable": "Enable Sound",
+    "mute": "Mute Sound"
   }
 }
