@@ -95,25 +95,26 @@ class Builder:
 
     def panel(self, center, w, h, t, r=0.04, key="white", M=Matrix.Identity(4), seg=4, uv01=False):
         """Rounded slab in the XZ plane (front = -Y), thickness t along Y."""
-        out = rr_outline(w, h, r, seg)
+        return self.prism(rr_outline(w, h, r, seg), t, key, M @ Matrix.Translation(center), (w, h) if uv01 else None)
+
+    def prism(self, out, t, key="white", M=Matrix.Identity(4), uv_wh=None):
+        """Extrude an (x, z) outline (counter-clockwise seen from -Y) by t along Y; t = 0 gives one -Y face."""
         front = [self.bm.verts.new((x, -t / 2, z)) for x, z in out]
-        back = [self.bm.verts.new((x, t / 2, z)) for x, z in out]
-        faces = [self.bm.faces.new(front), self.bm.faces.new(list(reversed(back)))] if t > 0 else \
-            [self.bm.faces.new(front)]
+        faces = [self.bm.faces.new(front)]
         if t > 0:
+            back = [self.bm.verts.new((x, t / 2, z)) for x, z in out]
+            faces.append(self.bm.faces.new(list(reversed(back))))
             n = len(out)
             for i in range(n):
                 j = (i + 1) % n
                 faces.append(self.bm.faces.new((front[i], front[j], back[j], back[i])))
-        else:
-            for v in back:
-                self.bm.verts.remove(v)
-        if uv01:
+        if uv_wh:
+            w, h = uv_wh
             for f in faces:
                 for loop in f.loops:
                     loop[self.uv].uv = (loop.vert.co.x / w + 0.5, loop.vert.co.z / h + 0.5)
         verts = list({v for f in faces for v in f.verts})
-        return self._finish(verts, key, M @ Matrix.Translation(center))
+        return self._finish(verts, key, M)
 
     def screen(self, center, w, h, r=0.03, M=Matrix.Identity(4)):
         """Flat UV 0-1 screen face facing -Y (one-sided)."""
@@ -141,14 +142,14 @@ class Asset:
         self.mats = mats
         self.info = {}
 
-    def empty(self, name, parent, pivot, size=0.15, role=None, display="PLAIN_AXES"):
+    def empty(self, name, parent, pivot, size=0.15, role=None, display="PLAIN_AXES", rot=None):
         ob = bpy.data.objects.new(name, None)
         ob.empty_display_type = display
         ob.empty_display_size = size
         self.coll.objects.link(ob)
         if parent is not None:
             ob.parent = parent
-        ob.matrix_world = Matrix.Translation(pivot)
+        ob.matrix_world = Matrix.Translation(pivot) @ (rot if rot is not None else Matrix.Identity(4))
         if role:
             ob["nami_role"] = role
         return ob
