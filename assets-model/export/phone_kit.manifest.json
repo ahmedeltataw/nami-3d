@@ -1,0 +1,211 @@
+{
+  "file": "phone_kit.glb",
+  "source": "assets-model/phone_kit.blend (built by assets-model/scripts/phone_kit.py)",
+  "scale": "real 6.5 x 14 x 0.8 cm proportions, phone height = 1.2 units (1 unit = 11.67 cm); robot is 3.38 units tall. Scale PhoneKit in-app if needed.",
+  "axes": "glTF +Y up; the screen faces +Z. PhoneKit origin = phone centre.",
+  "size_units": [
+    0.5571,
+    1.2,
+    0.0686
+  ],
+  "tris_total": 1918,
+  "textures": "none",
+  "bounds_gltf": {
+    "min": [
+      -0.2856,
+      -0.6,
+      -0.0533
+    ],
+    "max": [
+      0.2856,
+      0.6,
+      0.0351
+    ]
+  },
+  "explode": "exploded position = assembled_position + exploded_direction * exploded_distance (parent space, glTF units). assembly_order: 0 = Frame stays put, then parts fly in 1..8. The same values are in each node's extras.",
+  "display": "Display is a flat panel facing +Z, UV 0-1 over its bounds (u = +X, v = +Y), material 'Display' is black with emissive 1.0 x black: set emissiveMap / map to the UI texture.",
+  "glass": "Glass material has alpha 0.18 (alphaMode BLEND); the display shows through.",
+  "parts": [
+    {
+      "name": "Frame",
+      "assembled_position": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "exploded_direction": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "exploded_distance": 0.0,
+      "assembly_order": 0,
+      "tris": 416,
+      "materials": [
+        "Aluminium"
+      ]
+    },
+    {
+      "name": "Buttons",
+      "assembled_position": [
+        0.0,
+        0.2375,
+        -0.0
+      ],
+      "exploded_direction": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "exploded_distance": 0.35,
+      "assembly_order": 1,
+      "tris": 24,
+      "materials": [
+        "Accent_Green",
+        "Aluminium"
+      ]
+    },
+    {
+      "name": "Board",
+      "assembled_position": [
+        0.0,
+        0.33,
+        -0.0025
+      ],
+      "exploded_direction": [
+        0.8891,
+        0.4001,
+        -0.2223
+      ],
+      "exploded_distance": 0.6,
+      "assembly_order": 2,
+      "tris": 72,
+      "materials": [
+        "Board_Charcoal",
+        "Charcoal",
+        "Accent_Green"
+      ]
+    },
+    {
+      "name": "Battery",
+      "assembled_position": [
+        0.0,
+        -0.13,
+        -0.0058
+      ],
+      "exploded_direction": [
+        -0.9186,
+        -0.3215,
+        -0.2297
+      ],
+      "exploded_distance": 0.6,
+      "assembly_order": 3,
+      "tris": 24,
+      "materials": [
+        "Charcoal",
+        "Accent_Green"
+      ]
+    },
+    {
+      "name": "Speaker",
+      "assembled_position": [
+        0.0,
+        -0.53,
+        -0.0042
+      ],
+      "exploded_direction": [
+        0.0,
+        -1.0,
+        -0.0
+      ],
+      "exploded_distance": 0.4,
+      "assembly_order": 4,
+      "tris": 84,
+      "materials": [
+        "Charcoal",
+        "Accent_Green"
+      ]
+    },
+    {
+      "name": "CameraModule",
+      "assembled_position": [
+        0.1486,
+        0.45,
+        -0.0438
+      ],
+      "exploded_direction": [
+        0.0,
+        0.2425,
+        -0.9701
+      ],
+      "exploded_distance": 0.8,
+      "assembly_order": 5,
+      "tris": 704,
+      "materials": [
+        "Charcoal",
+        "Lens",
+        "Accent_Green",
+        "Shell_White"
+      ]
+    },
+    {
+      "name": "BackPlate",
+      "assembled_position": [
+        0.0,
+        0.0,
+        -0.0325
+      ],
+      "exploded_direction": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "exploded_distance": 0.7,
+      "assembly_order": 6,
+      "tris": 280,
+      "materials": [
+        "Shell_White",
+        "Accent_Green"
+      ]
+    },
+    {
+      "name": "Display",
+      "assembled_position": [
+        0.0,
+        0.0,
+        0.0288
+      ],
+      "exploded_direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "exploded_distance": 0.38,
+      "assembly_order": 7,
+      "tris": 50,
+      "materials": [
+        "Display"
+      ]
+    },
+    {
+      "name": "Glass",
+      "assembled_position": [
+        0.0,
+        0.0,
+        0.033
+      ],
+      "exploded_direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "exploded_distance": 0.6,
+      "assembly_order": 8,
+      "tris": 264,
+      "materials": [
+        "Glass",
+        "Lens"
+      ]
+    }
+  ]
+}

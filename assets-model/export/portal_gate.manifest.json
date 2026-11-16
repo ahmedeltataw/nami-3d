@@ -1,0 +1,459 @@
+{
+  "file": "portal_gate.glb",
+  "source": "assets-model/portal_gate.blend (built by assets-model/scripts/portal_gate.py)",
+  "units": "Blender units, same as the robot (robot is 3.38 units tall)",
+  "axes": "glTF +Y up; gate front faces +Z (toward a default three.js camera)",
+  "outer_diameter": 4.5,
+  "root_note": "PortalGate origin = ring centre. Place it about 2.4 units above the floor for the bottom to clear it.",
+  "tris_total": 7768,
+  "bounds_gltf": {
+    "min": [
+      -2.3,
+      -2.25,
+      -0.215
+    ],
+    "max": [
+      2.3,
+      2.25,
+      0.215
+    ]
+  },
+  "animation": {
+    "OuterRing": {
+      "rotation_axis_gltf": "local Z (+Z points out of the gate front)",
+      "rotation_axis_blender": "local Y",
+      "spin": "clockwise seen from the front = negative rotation.z"
+    },
+    "InnerRing": {
+      "rotation_axis_gltf": "local Z (+Z points out of the gate front)",
+      "rotation_axis_blender": "local Y",
+      "spin": "counter-clockwise seen from the front = positive rotation.z"
+    },
+    "segments": "OuterSeg_01 is at the top; numbers run clockwise seen from the front. Each segment's mid_angle_deg (in extras) is measured from glTF +X toward +Y. For the stagger assembly, offset each segment along its radial direction (cos a, sin a, 0) or rotate it about Z; its origin is the ring centre.",
+    "light_channels": "LightChannel_1..4 share the 'LightChannel' material; drive emissiveIntensity on it.",
+    "portal_surface": "PortalSurface is a flat disc, radius 1.66, UV 0-1 planar (u = +X, v = +Y), for a ShaderMaterial / render target."
+  },
+  "materials": {
+    "Shell_White": "base #EDEFF2-ish, rough 0.32",
+    "Charcoal": "#1B1D20, metal 0.4, rough 0.45",
+    "Accent_Green": "#009F6F emissive x4",
+    "LightChannel": "#009F6F emissive x6",
+    "PortalSurface": "#1B1D20 + faint green emissive, placeholder for the shader"
+  },
+  "nodes": [
+    {
+      "name": "PortalGate",
+      "parent": null,
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    {
+      "name": "OuterRing",
+      "parent": "PortalGate",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "rotation_axis_gltf": "local Z (+Z points out of the gate front)",
+      "rotation_axis_blender": "local Y"
+    },
+    {
+      "name": "InnerRing",
+      "parent": "PortalGate",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "rotation_axis_gltf": "local Z (+Z points out of the gate front)",
+      "rotation_axis_blender": "local Y"
+    },
+    {
+      "name": "OuterSeg_01",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": 90.0
+    },
+    {
+      "name": "OuterSeg_02",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": 54.0
+    },
+    {
+      "name": "OuterSeg_03",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": 18.0
+    },
+    {
+      "name": "OuterSeg_04",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": -18.0
+    },
+    {
+      "name": "OuterSeg_05",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": -54.0
+    },
+    {
+      "name": "OuterSeg_06",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": -90.0
+    },
+    {
+      "name": "OuterSeg_07",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": -126.0
+    },
+    {
+      "name": "OuterSeg_08",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": -162.0
+    },
+    {
+      "name": "OuterSeg_09",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": -198.0
+    },
+    {
+      "name": "OuterSeg_10",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 424,
+      "materials": [
+        "Shell_White",
+        "Accent_Green",
+        "Charcoal"
+      ],
+      "mid_angle_deg": -234.0
+    },
+    {
+      "name": "Connector_01",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": 72.0
+    },
+    {
+      "name": "Connector_02",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": 36.0
+    },
+    {
+      "name": "Connector_03",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": 0.0
+    },
+    {
+      "name": "Connector_04",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": -36.0
+    },
+    {
+      "name": "Connector_05",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": -72.0
+    },
+    {
+      "name": "Connector_06",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": -108.0
+    },
+    {
+      "name": "Connector_07",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": -144.0
+    },
+    {
+      "name": "Connector_08",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": -180.0
+    },
+    {
+      "name": "Connector_09",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": -216.0
+    },
+    {
+      "name": "Connector_10",
+      "parent": "OuterRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 44,
+      "materials": [
+        "Charcoal"
+      ],
+      "mid_angle_deg": -252.0
+    },
+    {
+      "name": "InnerRing_Body",
+      "parent": "InnerRing",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 2496,
+      "materials": [
+        "Charcoal",
+        "Accent_Green"
+      ]
+    },
+    {
+      "name": "LightChannel_1",
+      "parent": "PortalGate",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 132,
+      "materials": [
+        "LightChannel"
+      ],
+      "mid_angle_deg": 45.0
+    },
+    {
+      "name": "LightChannel_2",
+      "parent": "PortalGate",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 132,
+      "materials": [
+        "LightChannel"
+      ],
+      "mid_angle_deg": 135.0
+    },
+    {
+      "name": "LightChannel_3",
+      "parent": "PortalGate",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 132,
+      "materials": [
+        "LightChannel"
+      ],
+      "mid_angle_deg": 225.0
+    },
+    {
+      "name": "LightChannel_4",
+      "parent": "PortalGate",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 132,
+      "materials": [
+        "LightChannel"
+      ],
+      "mid_angle_deg": 315.0
+    },
+    {
+      "name": "PortalSurface",
+      "parent": "PortalGate",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 64,
+      "materials": [
+        "PortalSurface"
+      ]
+    }
+  ]
+}

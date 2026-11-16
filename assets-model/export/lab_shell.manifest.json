@@ -1,0 +1,856 @@
+{
+  "file": "lab_shell.glb",
+  "source": "assets-model/lab_shell.blend (built by assets-model/scripts/lab_shell.py)",
+  "units": "Blender units, same as the robot (robot is 3.38 units tall). Floor top is y = 0.",
+  "axes": "glTF +Y up; the open side of the lab (camera side) is +Z, the curved wall is at -Z",
+  "tris_total": 17972,
+  "textures": "none (flat PBR colours)",
+  "bounds_gltf": {
+    "min": [
+      -15.0,
+      -0.4,
+      -15.0
+    ],
+    "max": [
+      15.0,
+      8.9,
+      15.0
+    ]
+  },
+  "arc_centre_gltf": [
+    0.0,
+    0.0,
+    1.0
+  ],
+  "station_arc_radius": 9.0,
+  "stations": [
+    {
+      "index": 1,
+      "anchor": "Station_1",
+      "group": "StationGroup_1",
+      "glow_node": "StationGlow_1",
+      "glow_material": "StationGlow_1",
+      "position_gltf": [
+        -8.4572,
+        0.35,
+        -2.0782
+      ],
+      "facing_gltf": [
+        0.9397,
+        0.0,
+        0.342
+      ],
+      "camera_anchor": "CamAnchor_1",
+      "camera_position_gltf": [
+        -3.2889,
+        1.7,
+        -0.1971
+      ],
+      "camera_look_at_gltf": [
+        -8.4572,
+        1.2,
+        -2.0782
+      ]
+    },
+    {
+      "index": 2,
+      "anchor": "Station_2",
+      "group": "StationGroup_2",
+      "glow_node": "StationGlow_2",
+      "glow_material": "StationGlow_2",
+      "position_gltf": [
+        -6.0222,
+        0.35,
+        -5.6883
+      ],
+      "facing_gltf": [
+        0.6691,
+        0.0,
+        0.7431
+      ],
+      "camera_anchor": "CamAnchor_2",
+      "camera_position_gltf": [
+        -2.342,
+        1.7,
+        -1.601
+      ],
+      "camera_look_at_gltf": [
+        -6.0222,
+        1.2,
+        -5.6883
+      ]
+    },
+    {
+      "index": 3,
+      "anchor": "Station_3",
+      "group": "StationGroup_3",
+      "glow_node": "StationGlow_3",
+      "glow_material": "StationGlow_3",
+      "position_gltf": [
+        -2.1773,
+        0.35,
+        -7.7327
+      ],
+      "facing_gltf": [
+        0.2419,
+        0.0,
+        0.9703
+      ],
+      "camera_anchor": "CamAnchor_3",
+      "camera_position_gltf": [
+        -0.8467,
+        1.7,
+        -2.396
+      ],
+      "camera_look_at_gltf": [
+        -2.1773,
+        1.2,
+        -7.7327
+      ]
+    },
+    {
+      "index": 4,
+      "anchor": "Station_4",
+      "group": "StationGroup_4",
+      "glow_node": "StationGlow_4",
+      "glow_material": "StationGlow_4",
+      "position_gltf": [
+        2.1773,
+        0.35,
+        -7.7327
+      ],
+      "facing_gltf": [
+        -0.2419,
+        0.0,
+        0.9703
+      ],
+      "camera_anchor": "CamAnchor_4",
+      "camera_position_gltf": [
+        0.8467,
+        1.7,
+        -2.396
+      ],
+      "camera_look_at_gltf": [
+        2.1773,
+        1.2,
+        -7.7327
+      ]
+    },
+    {
+      "index": 5,
+      "anchor": "Station_5",
+      "group": "StationGroup_5",
+      "glow_node": "StationGlow_5",
+      "glow_material": "StationGlow_5",
+      "position_gltf": [
+        6.0222,
+        0.35,
+        -5.6883
+      ],
+      "facing_gltf": [
+        -0.6691,
+        0.0,
+        0.7431
+      ],
+      "camera_anchor": "CamAnchor_5",
+      "camera_position_gltf": [
+        2.342,
+        1.7,
+        -1.601
+      ],
+      "camera_look_at_gltf": [
+        6.0222,
+        1.2,
+        -5.6883
+      ]
+    },
+    {
+      "index": 6,
+      "anchor": "Station_6",
+      "group": "StationGroup_6",
+      "glow_node": "StationGlow_6",
+      "glow_material": "StationGlow_6",
+      "position_gltf": [
+        8.4572,
+        0.35,
+        -2.0782
+      ],
+      "facing_gltf": [
+        -0.9397,
+        0.0,
+        0.342
+      ],
+      "camera_anchor": "CamAnchor_6",
+      "camera_position_gltf": [
+        3.2889,
+        1.7,
+        -0.1971
+      ],
+      "camera_look_at_gltf": [
+        8.4572,
+        1.2,
+        -2.0782
+      ]
+    }
+  ],
+  "notes": [
+    "Station_n sits on the plinth top; its facing_gltf (node local +Z in glTF) points at the arc centre, where the camera spline runs. Stations run 1..6 left to right seen from the open side.",
+    "CamAnchor_n: suggested camera spline point per station (looks at the station, -Z forward like a three.js camera). The spline order is 1..6.",
+    "Each StationGlow_n has its own material StationGlow_n so stations can light up one at a time.",
+    "Ceiling panels share the CeilingLight material; set emissiveIntensity in-app. No lights are exported."
+  ],
+  "nodes": [
+    {
+      "name": "BackWall",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 3876
+    },
+    {
+      "name": "BackWall_Trim",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 2680
+    },
+    {
+      "name": "CamAnchor_1",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        -3.2889,
+        1.7,
+        -0.1971
+      ]
+    },
+    {
+      "name": "CamAnchor_2",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        -2.342,
+        1.7,
+        -1.601
+      ]
+    },
+    {
+      "name": "CamAnchor_3",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        -0.8467,
+        1.7,
+        -2.396
+      ]
+    },
+    {
+      "name": "CamAnchor_4",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        0.8467,
+        1.7,
+        -2.396
+      ]
+    },
+    {
+      "name": "CamAnchor_5",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        2.342,
+        1.7,
+        -1.601
+      ]
+    },
+    {
+      "name": "CamAnchor_6",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        3.2889,
+        1.7,
+        -0.1971
+      ]
+    },
+    {
+      "name": "Ceiling",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 388
+    },
+    {
+      "name": "CeilingPanel_01",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_02",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_03",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_04",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_05",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_06",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_07",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_08",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_09",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_10",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_11",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_12",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_13",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_14",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_15",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_16",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_17",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_18",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_19",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_20",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_21",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_22",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_23",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "CeilingPanel_24",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 104
+    },
+    {
+      "name": "Floor",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 108
+    },
+    {
+      "name": "Floor_Accent",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 1104
+    },
+    {
+      "name": "LabShell",
+      "parent": null,
+      "type": "empty",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    {
+      "name": "Plinth_1",
+      "parent": "StationGroup_1",
+      "type": "mesh",
+      "position_gltf": [
+        -8.4572,
+        0.0,
+        -2.0782
+      ],
+      "tris": 672
+    },
+    {
+      "name": "Plinth_2",
+      "parent": "StationGroup_2",
+      "type": "mesh",
+      "position_gltf": [
+        -6.0222,
+        0.0,
+        -5.6883
+      ],
+      "tris": 672
+    },
+    {
+      "name": "Plinth_3",
+      "parent": "StationGroup_3",
+      "type": "mesh",
+      "position_gltf": [
+        -2.1773,
+        0.0,
+        -7.7327
+      ],
+      "tris": 672
+    },
+    {
+      "name": "Plinth_4",
+      "parent": "StationGroup_4",
+      "type": "mesh",
+      "position_gltf": [
+        2.1773,
+        0.0,
+        -7.7327
+      ],
+      "tris": 672
+    },
+    {
+      "name": "Plinth_5",
+      "parent": "StationGroup_5",
+      "type": "mesh",
+      "position_gltf": [
+        6.0222,
+        0.0,
+        -5.6883
+      ],
+      "tris": 672
+    },
+    {
+      "name": "Plinth_6",
+      "parent": "StationGroup_6",
+      "type": "mesh",
+      "position_gltf": [
+        8.4572,
+        0.0,
+        -2.0782
+      ],
+      "tris": 672
+    },
+    {
+      "name": "Stage",
+      "parent": "LabShell",
+      "type": "mesh",
+      "position_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 768
+    },
+    {
+      "name": "StationGlow_1",
+      "parent": "StationGroup_1",
+      "type": "mesh",
+      "position_gltf": [
+        -8.4572,
+        0.0,
+        -2.0782
+      ],
+      "tris": 420
+    },
+    {
+      "name": "StationGlow_2",
+      "parent": "StationGroup_2",
+      "type": "mesh",
+      "position_gltf": [
+        -6.0222,
+        0.0,
+        -5.6883
+      ],
+      "tris": 420
+    },
+    {
+      "name": "StationGlow_3",
+      "parent": "StationGroup_3",
+      "type": "mesh",
+      "position_gltf": [
+        -2.1773,
+        0.0,
+        -7.7327
+      ],
+      "tris": 420
+    },
+    {
+      "name": "StationGlow_4",
+      "parent": "StationGroup_4",
+      "type": "mesh",
+      "position_gltf": [
+        2.1773,
+        0.0,
+        -7.7327
+      ],
+      "tris": 420
+    },
+    {
+      "name": "StationGlow_5",
+      "parent": "StationGroup_5",
+      "type": "mesh",
+      "position_gltf": [
+        6.0222,
+        0.0,
+        -5.6883
+      ],
+      "tris": 420
+    },
+    {
+      "name": "StationGlow_6",
+      "parent": "StationGroup_6",
+      "type": "mesh",
+      "position_gltf": [
+        8.4572,
+        0.0,
+        -2.0782
+      ],
+      "tris": 420
+    },
+    {
+      "name": "StationGroup_1",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        -8.4572,
+        0.0,
+        -2.0782
+      ]
+    },
+    {
+      "name": "StationGroup_2",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        -6.0222,
+        0.0,
+        -5.6883
+      ]
+    },
+    {
+      "name": "StationGroup_3",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        -2.1773,
+        0.0,
+        -7.7327
+      ]
+    },
+    {
+      "name": "StationGroup_4",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        2.1773,
+        0.0,
+        -7.7327
+      ]
+    },
+    {
+      "name": "StationGroup_5",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        6.0222,
+        0.0,
+        -5.6883
+      ]
+    },
+    {
+      "name": "StationGroup_6",
+      "parent": "LabShell",
+      "type": "empty",
+      "position_gltf": [
+        8.4572,
+        0.0,
+        -2.0782
+      ]
+    },
+    {
+      "name": "Station_1",
+      "parent": "StationGroup_1",
+      "type": "empty",
+      "position_gltf": [
+        -8.4572,
+        0.35,
+        -2.0782
+      ]
+    },
+    {
+      "name": "Station_2",
+      "parent": "StationGroup_2",
+      "type": "empty",
+      "position_gltf": [
+        -6.0222,
+        0.35,
+        -5.6883
+      ]
+    },
+    {
+      "name": "Station_3",
+      "parent": "StationGroup_3",
+      "type": "empty",
+      "position_gltf": [
+        -2.1773,
+        0.35,
+        -7.7327
+      ]
+    },
+    {
+      "name": "Station_4",
+      "parent": "StationGroup_4",
+      "type": "empty",
+      "position_gltf": [
+        2.1773,
+        0.35,
+        -7.7327
+      ]
+    },
+    {
+      "name": "Station_5",
+      "parent": "StationGroup_5",
+      "type": "empty",
+      "position_gltf": [
+        6.0222,
+        0.35,
+        -5.6883
+      ]
+    },
+    {
+      "name": "Station_6",
+      "parent": "StationGroup_6",
+      "type": "empty",
+      "position_gltf": [
+        8.4572,
+        0.35,
+        -2.0782
+      ]
+    }
+  ]
+}
