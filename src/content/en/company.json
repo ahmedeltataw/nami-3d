@@ -1,0 +1,177 @@
+{
+  "foundedYear": 2017,
+  "vision": {
+    "ar": "نسعى لأن نكون الشركة الرائدة عالميًا في تقديم حلول تكنولوجية مبتكرة تساعد المؤسسات على تحقيق التفوق الرقمي وتعزيز تواجدها على الإنترنت بشكل فريد ومتميز.",
+    "en": "We seek to be the world's leading company in providing innovative technological solutions that help organizations achieve digital excellence and enhance their presence on the Internet in a unique and distinct way."
+  },
+  "mission": {
+    "ar": "نعمل على تمكين عملائنا من خلال تقديم حلول تصميم وتطوير مواقع وتطبيقات هواتف محمولة تجمع بين الإبداع، التكنولوجيا المتقدمة، وتجربة المستخدم الفريدة لتحقيق نجاحهم الرقمي المستدام.",
+    "en": "We empower our clients by providing website and mobile application design and development solutions that combine creativity, advanced technology, and a unique user experience to achieve their sustainable digital success."
+  },
+  "values": [
+    {
+      "id": "value-1",
+      "name": {
+        "ar": "الإبتكار",
+        "en": "Innovation"
+      },
+      "description": {
+        "ar": {
+          "status": "missing"
+        },
+        "en": {
+          "status": "missing"
+        }
+      }
+    },
+    {
+      "id": "value-2",
+      "name": {
+        "ar": "الجودة",
+        "en": "Quality"
+      },
+      "description": {
+        "ar": {
+          "status": "missing"
+        },
+        "en": {
+          "status": "missing"
+        }
+      }
+    },
+    {
+      "id": "value-3",
+      "name": {
+        "ar": "تركيز على العميل",
+        "en": "Focus on the client"
+      },
+      "description": {
+        "ar": {
+          "status": "missing"
+        },
+        "en": {
+          "status": "missing"
+        }
+      }
+    },
+    {
+      "id": "value-4",
+      "name": {
+        "ar": "العمل الجماعي",
+        "en": "Teamwork"
+      },
+      "description": {
+        "ar": {
+          "status": "missing"
+        },
+        "en": {
+          "status": "missing"
+        }
+      }
+    },
+    {
+      "id": "value-5",
+      "name": {
+        "ar": "الاستجابة السريعة",
+        "en": "Quick response"
+      },
+      "description": {
+        "ar": {
+          "status": "missing"
+        },
+        "en": {
+          "status": "missing"
+        }
+      }
+    },
+    {
+      "id": "value-6",
+      "name": {
+        "ar": "التعلم المستمر",
+        "en": "Continuous learning"
+      },
+      "description": {
+        "ar": {
+          "status": "missing"
+        },
+        "en": {
+          "status": "missing"
+        }
+      }
+    },
+    {
+      "id": "value-7",
+      "name": {
+        "ar": "الاستدامة",
+        "en": "Sustainability"
+      },
+      "description": {
+        "ar": {
+          "status": "missing"
+        },
+        "en": {
+          "status": "missing"
+        }
+      }
+    }
+  ],
+  "contact": {
+    "addresses": {
+      "sa": "Saudi Arabia - Jeddah, Mushrifah District",
+      "eg": {
+        "status": "missing"
+      }
+    },
+    "phones": {
+      "sa": [
+        "+966566717225"
+      ],
+      "eg": [
+        "+201099347981"
+      ]
+    },
+    "whatsapp": "https://Wa.me/+966578170120",
+    "emails": {
+      "info": "info@nami-tec.com",
+      "hr": "hr@nami-tec.com",
+      "sales": "sales@nami-tec.com"
+    }
+  },
+  "socials": [
+    "https://www.facebook.com/namitecgroup/",
+    "https://www.linkedin.com/company/namitec/?viewAsMember=true",
+    "https://www.x.com/nami_software",
+    "https://www.instagram.com/nami_tec/",
+    "https://www.snapchat.com/add/namifortech?share_id=NkdTI5a2Ro0&locale=ar-EG",
+    "https://www.tiktok.com/@namitecgroup?lang=en"
+  ],
+  "careers": {
+    "sectionAnchor": "#careers",
+    "listing": [
+      {
+        "title": "PHP Developer",
+        "titleEn": "PHP Developer"
+      }
+    ],
+    "applicationFields": {
+      "ar": [
+        "الاسم الكامل",
+        "رقم الهاتف",
+        "الوظيفة",
+        "السيرة الذاتية"
+      ],
+      "en": [
+        "Full Name",
+        "Phone Number",
+        "Position",
+        "CV"
+      ]
+    },
+    "cvFormats": [
+      ".pdf",
+      ".doc",
+      ".docx"
+    ],
+    "sourcePage": "https://nami-tec.com/ar"
+  }
+}

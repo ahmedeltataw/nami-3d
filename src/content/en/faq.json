@@ -1,0 +1,25 @@
+[
+  {
+    "slug": "frequently-asked-questions",
+    "oldId": null,
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know before getting started with Nami",
+    "sourceUrl": "https://nami-tec.com/en/faqs",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "Have a question? We're ready to answer you"
+      },
+      {
+        "level": "h6",
+        "text": "At Nami, we understand that you might have questions before starting your project with us. That's why we've gathered the most common inquiries we receive from our clients, along with clear answers to help you make your decision with confidence. Whether you're looking for service details, payment methods, or project timelines - you'll find everything here. And if you still need more clarification, our team is always ready to assist you."
+      },
+      {
+        "level": "h2",
+        "text": "What services does Nami provide?"
+      }
+    ],
+    "paragraphs": [],
+    "lists": []
+  }
+]

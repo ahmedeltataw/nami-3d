@@ -14,3 +14,4 @@ coverage/
 .serena/
 __pycache__/
 *.pyc
+.pnpm-store/
