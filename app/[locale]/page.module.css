@@ -1,1 +1,15 @@
-.main { min-height: 100vh; display: grid; place-items: center; padding: 2rem; }
+.main { position: relative; z-index: 1; padding-bottom: calc(var(--experience-vh, 1svh) * 100); color: #183d49; }
+.nav { position: fixed; z-index: 2; inset-block-start: 0; inset-inline: 0; display: flex; justify-content: center; flex-wrap: wrap; background: #f6fafb; padding: 0.25rem; }
+.nav a { color: #183d49; padding: 0.75rem; min-height: 44px; }
+.nav a:focus-visible { outline: 3px solid #183d49; outline-offset: -3px; }
+.section { height: calc(var(--experience-vh, 1svh) * var(--budget)); padding-inline: 1.5rem; }
+.content { position: sticky; top: 6rem; padding-block: 1rem; max-width: 32rem; }
+.content h1, .content h2, .content p { width: fit-content; background: #f6fafb; padding: 0.4rem 0.75rem; }
+:global(html[data-motion='reduced']) .main { padding-bottom: 0; }
+:global(html[data-motion='reduced']) .section { height: auto; min-height: 100svh; }
+:global(html[data-motion='reduced']) .content { position: static; padding-top: 6rem; }
+@media (prefers-reduced-motion: reduce) {
+  .main { padding-bottom: 0; }
+  .section { height: auto; min-height: 100svh; }
+  .content { position: static; padding-top: 6rem; }
+}

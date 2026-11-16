@@ -1,0 +1,6 @@
+.host { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: #e6eef0; }
+.poster { position: absolute; inset: 0; z-index: 1; background-position: center; background-size: contain; background-repeat: no-repeat; background-color: #e6eef0; opacity: 1; transition: opacity 300ms ease; }
+.hidden { opacity: 0; }
+.canvas { opacity: 0; transition: opacity 300ms ease; }
+.host[data-ready='true'] .canvas { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .poster, .canvas { transition: none; } }
