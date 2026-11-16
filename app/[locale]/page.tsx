@@ -11,6 +11,7 @@ import { stations } from '@/experience/scenes/s03/station';
 import { buildMetadata } from '@/lib/metadata';
 import { GalleryPanel } from '@/experience/scenes/s05/GalleryPanel';
 import { galleryProjects } from '@/experience/scenes/s05/projects';
+import { Explore } from '@/experience/scenes/s04/Explore';
 import styles from './page.module.css';
 import type { CSSProperties } from 'react';
 
@@ -112,10 +113,7 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[3] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>{t('ideaRealityHeading')}</h2>
-          <p className={styles.lead}>{t('ideaRealityText')}</p>
-        </div>
+        <Explore locale={locale} />
       </section>
 
       {/* S05 — Projects */}

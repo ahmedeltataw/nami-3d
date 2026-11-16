@@ -4,7 +4,7 @@
 import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber';
 import { usePathname } from 'next/navigation';
-import { Vector3, type PerspectiveCamera } from 'three';
+import { Matrix4, Quaternion, Vector3, type PerspectiveCamera } from 'three';
 import type { Ctx, Profile, SceneId } from './contracts';
 import { createController, SCENE_IDS } from './controller';
 import { createRuntime, type ExperienceRuntime } from './runtime';
@@ -56,10 +56,27 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
 }) {
   const camera = useThree(state => state.camera) as PerspectiveCamera;
   const gaze = useMemo(() => new Vector3(), []);
+  const orbitPosition = useMemo(() => new Vector3(), []);
+  const orbitTarget = useMemo(() => new Vector3(.82, 0, 0), []);
   useFrame((state, delta) => {
     if (runtime.contextLost) return;
     runtime.time = state.clock.elapsedTime;
     runtime.interaction.tick(runtime.time);
+    if (runtime.exploration.active && runtime.scene === 's04' && runtime.snapshot) {
+      const o = runtime.orbit;
+      orbitPosition.set(orbitTarget.x + Math.sin(o.yaw) * Math.cos(o.pitch) * o.distance, Math.sin(o.pitch) * o.distance, Math.cos(o.yaw) * Math.cos(o.pitch) * o.distance);
+      const q = new Quaternion().setFromRotationMatrix(new Matrix4().lookAt(orbitPosition, orbitTarget, new Vector3(0, 1, 0)));
+      const pose = { ...runtime.snapshot.camera, position: orbitPosition.toArray() as [number, number, number], quaternion: q.toArray() as [number, number, number, number] };
+      rig.setPoses(pose, pose, { blend: 1, snap: false });
+      if (runtime.replayStart !== null) {
+        const local = Math.min(.6, .1 + (state.clock.elapsedTime - runtime.replayStart) * .16);
+        runtime.snapshot = scenes.s04.sample({ local, viewport: runtime.viewport, profile: runtime.profile, interaction: runtime.interaction.state, seed: 1, ambient: 0 });
+        if (local >= .6) {
+          runtime.replayStart = null;
+          runtime.snapshot = scenes.s04.sample({ local: runtime.local, viewport: runtime.viewport, profile: runtime.profile, interaction: runtime.interaction.state, seed: 1, ambient: 0 });
+        }
+      }
+    }
     rig.apply(camera, delta);
     runtime.cameraZ = camera.position.z;
     const hero = document.getElementById('s01');
@@ -116,6 +133,7 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
 
 export default function Host({ profile, mobile, dpr }: { profile: Profile; mobile: boolean; dpr: number }) {
   const runtime = useMemo(() => createRuntime(), []);
+  runtime.profile = profile;
   const rig = useMemo(() => new CameraRig(), []);
   const contexts = useMemo(() => new Map<SceneId, Ctx>(), []);
   const energyLine = useRef<SVGPathElement>(null);
@@ -175,6 +193,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       runtime.snapshot = definition.sample(input);
       const project = runtime.scene === 's05' ? Number(runtime.snapshot.visual.project) : -1;
       if (project >= 0 && useExperienceStore.getState().project !== project) useExperienceStore.setState({ project });
+      window.dispatchEvent(new CustomEvent('nami:s04-progress', { detail: runtime.scene === 's04' && (runtime.local >= .9 || profile.motion === 'reduced') }));
+      if (runtime.scene !== 's04' && runtime.exploration.active) { runtime.exploration.exit(); window.dispatchEvent(new CustomEvent('nami:explore-state', { detail: false })); }
       if (runtime.scene === 's03' && typeof runtime.snapshot.visual.station === 'number' && useExperienceStore.getState().station !== runtime.snapshot.visual.station) useExperienceStore.setState({ station: runtime.snapshot.visual.station });
       const index = SCENE_IDS.indexOf(runtime.scene);
       const previous = index > 0 && runtime.scene !== 's03' && runtime.scene !== 's05' ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : runtime.snapshot.camera;
@@ -196,6 +216,20 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       if (Number.isFinite(local)) controller.seek('s05', local);
     }
     window.addEventListener('nami:project-seek', seekProject);
+    function explore(event: Event) {
+      const d = (event as CustomEvent).detail;
+      if (runtime.scene !== 's04') return;
+      if (d.action === 'enter') { if (runtime.exploration.enter()) window.dispatchEvent(new CustomEvent('nami:explore-state', { detail: true })); }
+      else if (d.action === 'exit') { runtime.exploration.exit(); runtime.replayStart = null; sample(true); window.dispatchEvent(new CustomEvent('nami:explore-state', { detail: false })); }
+      else if (runtime.exploration.active && d.action === 'orbit') { runtime.orbit.yaw += d.x; runtime.orbit.pitch = Math.max(-1.2, Math.min(1.2, runtime.orbit.pitch + d.y)); }
+      else if (runtime.exploration.active && d.action === 'zoom') runtime.orbit.distance = Math.max(2, Math.min(8, runtime.orbit.distance + d.amount));
+      else if (runtime.exploration.active && d.action === 'replay' && profile.motion === 'full') runtime.replayStart = runtime.time;
+      else if (runtime.exploration.active && d.action === 'layer') {
+        const names: Record<string, string[]> = { frame: ['Frame'], internals: ['BackPlate', 'Buttons', 'Board', 'Battery', 'Speaker', 'CameraModule'], glass: ['Glass'], display: ['Display'] };
+        const root = contexts.get('s04')?.root; for (const name of names[d.key] ?? []) { const node = root?.getObjectByName(name); if (node) node.visible = d.visible; }
+      }
+    }
+    window.addEventListener('nami:explore', explore);
     function lost(event: Event) {
       event.preventDefault();
       runtime.contextLost = true;
@@ -252,6 +286,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       if (typeof window !== 'undefined') delete (window as unknown as { __namiController?: typeof controller }).__namiController;
       window.removeEventListener('nami:station-seek', seekStation);
       window.removeEventListener('nami:project-seek', seekProject);
+      window.removeEventListener('nami:explore', explore);
       release();
       services?.gl.domElement.removeEventListener('webglcontextlost', lost);
       services?.gl.domElement.removeEventListener('webglcontextrestored', restored);
@@ -269,7 +304,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   return <><svg className={styles.energyLine} aria-hidden="true"><path ref={energyLine} pathLength={1} /></svg><CanvasBoundary><Canvas className={styles.canvas} dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
-    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}<S04 register={register} />{activeScene === 's05' && <S05 register={register} residency={services?.residency ?? null} onError={fallback} />}<S06 register={register} /><S07 register={register} />
+    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's04' && <S04 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's05' && <S05 register={register} residency={services?.residency ?? null} onError={fallback} />}<S06 register={register} /><S07 register={register} />
     <IntroFrame runtime={runtime} profile={profile} />
     {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
     <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} energyLine={energyLine} />

@@ -88,7 +88,20 @@ export class RobotComposer {
       }
     }
     if (layers.reduced) { this.resetGaze(); this.object.updateMatrixWorld(true); return; }
-    if (directive.kind === 'point') this.rotate('Shoulder_R', -0.8, 0, -0.45);
+    if (directive.kind === 'point') {
+      const shoulder = this.nodes.get('Shoulder_R');
+      if (shoulder && layers.target) {
+        this.object.updateWorldMatrix(true, true);
+        shoulder.getWorldPosition(this.origin);
+        this.direction.copy(layers.target);
+        this.object.worldToLocal(this.direction);
+        this.object.worldToLocal(this.origin);
+        this.direction.sub(this.origin);
+        const pitch = -Math.atan2(this.direction.y, Math.hypot(this.direction.x, this.direction.z));
+        const yaw = Math.atan2(this.direction.x, this.direction.z);
+        this.rotate('Shoulder_R', Math.max(-1.3, Math.min(.3, pitch - .8)), Math.max(-.6, Math.min(.6, yaw)), -.45);
+      } else this.rotate('Shoulder_R', -0.8, 0, -0.45);
+    }
     const reaction = layers.reaction;
     const phase = reaction ? (layers.time - reaction.startedAt) / reaction.duration : -1;
     const reactAction = reaction?.name === 'React' && phase >= 0 && phase < 1 ? this.actions.get('React') : undefined;

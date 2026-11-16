@@ -35,11 +35,13 @@ export function Robot({ runtime, profile, residency, onError }: {
     const lease = residency.acquire(key);
     let cancelled = false;
     let installed = false;
-    void lease.ready.then(asset => {
+    const choreography = residency.acquire('robot.choreography');
+    void Promise.all([lease.ready, choreography.ready]).then(([asset, extra]) => {
       if (cancelled || !mounted.current) return;
       const gltf = asset.value as GLTF;
       const object = gltf.scene.clone(true);
-      composer.bind(object, gltf.animations);
+      const additional = (extra.value as GLTF).animations.filter(clip => !gltf.animations.some(existing => existing.name === clip.name));
+      composer.bind(object, [...gltf.animations, ...additional]);
       mounted.current.clear();
       mounted.current.add(object);
       const previous = active.current;
@@ -51,7 +53,7 @@ export function Robot({ runtime, profile, residency, onError }: {
       runtime.robotMeshes = 0;
       object.traverse(node => { if ('isMesh' in node && node.isMesh) runtime.robotMeshes++; });
     }).catch(error => { if (!cancelled && error instanceof Error && error.name !== 'AbortError') onError(); });
-    return () => { cancelled = true; if (!installed) lease.release(); };
+    return () => { cancelled = true; choreography.release(); if (!installed) lease.release(); };
   }, [composer, onError, profile.quality, residency, runtime]);
 
   useEffect(() => () => {
@@ -95,7 +97,7 @@ export function Robot({ runtime, profile, residency, onError }: {
     const s01 = runtime.scene === 's01';
     const visual = runtime.snapshot.visual;
     if (mounted.current && runtime.scene !== 's05') {
-      mounted.current.position.x = s01 ? Number(visual.robotX ?? 0) : 0;
+      mounted.current.position.x = s01 ? Number(visual.robotX ?? 0) : runtime.scene === 's04' ? -1.05 : 0;
       mounted.current.position.y = -1.69 * scale - (s01 && compact ? 0.5 : 0);
     }
     if (mounted.current && runtime.scene === 's05' && Array.isArray(visual.robotPosition)) {
