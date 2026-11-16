@@ -67,5 +67,29 @@
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions",
     "allRightsReserved": "All rights reserved © 2026 Nami Tech"
+  },
+  "website-development": {
+    "title": "Website development",
+    "description": "We excel in building advanced and responsive websites that reflect your brand identity and help you communicate effectively with your audience. From design to implementation, we are committed to delivering an exceptional digital experience."
+  },
+  "mobile-application-development": {
+    "title": "Mobile application development",
+    "description": "We provide comprehensive solutions for developing mobile applications on both Android and iOS platforms, with a focus on performance and optimal user experience to ensure your apps achieve widespread success."
+  },
+  "digital-marketing": {
+    "title": "Digital marketing",
+    "description": "We help you reach your target audience through advanced digital marketing strategies, including search engine optimization (SEO), social media marketing, and pay-per-click (PPC) advertising."
+  },
+  "technical-consulting": {
+    "title": "Technical consulting",
+    "description": "We offer specialized technical consulting to help you choose and implement the best technological solutions that meet your business needs and drive digital success."
+  },
+  "cloud-services": {
+    "title": "Cloud services",
+    "description": "We provide innovative cloud services that enable you to scale your business easily and securely. From cloud hosting to comprehensive cloud solutions, we are here to support your digital transformation."
+  },
+  "design-services": {
+    "title": "Design services",
+    "description": "We offer a comprehensive range of design services that include graphic design and brand identity design. We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience."
   }
 }
