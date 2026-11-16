@@ -123,6 +123,8 @@ def sweep_profile(bm, profile, a0, a1, steps, axis="Y", mat_index=0, closed_prof
 
 
 def fix_normals_outward(bm):
+    # merges the duplicate axis verts of profiles that start at r = 0 (discs, lids)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
 
 
