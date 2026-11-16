@@ -43,7 +43,12 @@ export const scene: SceneDef = {
   },
   apply(snapshot, context) {
     const lab = context as LabCtx;
-    if (lab.nodes) applyStation(snapshot.visual.webSnapshot as StationSnapshot, lab.nodes);
+    if (lab.nodes) {
+      applyStation(snapshot.visual.webSnapshot as StationSnapshot, lab.nodes);
+      if (snapshot.visual.stationSnapshot && snapshot.visual.stationSnapshot !== snapshot.visual.webSnapshot) {
+        applyStation(snapshot.visual.stationSnapshot as StationSnapshot, lab.nodes);
+      }
+    }
     const active = Number(snapshot.visual.station) - 1;
     const amount = Number(snapshot.visual.light);
     if (lab.lights) for (let i = 0; i < lab.lights.length; i++) lab.lights[i].intensity = i === active ? amount * 20 : 0;

@@ -1,7 +1,10 @@
 ﻿import { Matrix4, Quaternion, Vector3, type Material, type Mesh, type Object3D } from 'three';
 import type { AssetKey, CameraPose, SampleInput } from '../../contracts';
 import { webStation, webSteps } from './stations/web';
+import { mobileStation, mobileSteps } from './stations/mobile';
+import { marketingStation, marketingSteps } from './stations/marketing';
 
+export { mobileSteps, marketingSteps };
 export type StationId = 1 | 2 | 3 | 4 | 5 | 6;
 export type StepDef = { id: string; from: number; to: number };
 export type NodeState = { visible: boolean; offset: [number, number, number]; rotation: [number, number, number]; scale: [number, number, number]; emissive?: number; emissiveColor?: [number, number, number] };
@@ -15,17 +18,23 @@ export const cameraPoses: CameraPose[] = positions.map((position, i) => {
   return { position, quaternion: quaternion.toArray().map(value => value || 0) as [number, number, number, number], fov: 45, near: .1, far: 100 };
 });
 const clamp = (value: number) => Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0));
-const slugs = ['mobile-application-development', 'digital-marketing', 'technical-consulting', 'cloud-services', 'design-services'];
-export const stations: StationDef[] = [webStation(cameraPoses[0]), ...slugs.map((slug, index): StationDef => {
-  const id = (index + 2) as StationId;
-  return { id, slug, assetKey: `station.${id}`, steps: webSteps, cameraAnchor: `CamAnchor_${id}`, robotTarget: `S${id}_RobotTarget`, panel: { titleKey: `${slug}.title`, descKey: `${slug}.description`, href: `/all-services/${id}` },
-    sample(local, input) {
-      const progress = input.profile.motion === 'reduced' ? 1 : clamp(local);
-      const phase = progress < .2 ? 'arrival' : progress < .8 ? 'demo' : 'hold';
-      return { phase, step: Math.min(4, Math.max(0, Math.floor((progress - .2) / .12))), nodes: {}, robot: { state: 'guiding', point: phase === 'arrival' ? null : `S${id}_RobotTarget` }, camera: cameraPoses[id - 1] };
-    },
-  };
-})];
+const slugs = ['technical-consulting', 'cloud-services', 'design-services'];
+export const stations: StationDef[] = [
+  webStation(cameraPoses[0]),
+  mobileStation(cameraPoses[1]),
+  marketingStation(cameraPoses[2]),
+  ...slugs.map((slug, index): StationDef => {
+    const id = (index + 4) as StationId;
+    return {
+      id, slug, assetKey: `station.${id}`, steps: webSteps, cameraAnchor: `CamAnchor_${id}`, robotTarget: `S${id}_RobotTarget`, panel: { titleKey: `${slug}.title`, descKey: `${slug}.description`, href: `/all-services/${id}` },
+      sample(local, input) {
+        const progress = input.profile.motion === 'reduced' ? 1 : clamp(local);
+        const phase = progress < .2 ? 'arrival' : progress < .8 ? 'demo' : 'hold';
+        return { phase, step: Math.min(4, Math.max(0, Math.floor((progress - .2) / .12))), nodes: {}, robot: { state: 'guiding', point: phase === 'arrival' ? null : `S${id}_RobotTarget` }, camera: cameraPoses[id - 1] };
+      },
+    };
+  }),
+];
 
 type BoundNode = { node: Object3D; position: [number, number, number]; rotation: [number, number, number]; scale: [number, number, number]; materials: Material[] };
 export function bindStation(root: Object3D): Map<string, BoundNode> {
