@@ -77,6 +77,7 @@ export class RobotComposer {
       }
     }
     if (layers.reduced) { this.resetGaze(); this.object.updateMatrixWorld(true); return; }
+    if (directive.kind === 'point') this.rotate('Shoulder_R', -0.8, 0, -0.45);
     const root = this.nodes.get('Root');
     if (root && layers.canLook) {
       root.position.y += floatY(layers.time);

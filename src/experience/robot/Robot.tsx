@@ -61,6 +61,16 @@ export function Robot({ runtime, profile, residency, onError }: {
 
   useFrame((state, delta) => {
     if (!runtime.snapshot || !runtime.assetsReady || !runtime.robotReady || runtime.contextLost) return;
+    if (mounted.current) {
+      if (runtime.scene === 's03') {
+        frame.discover.set(-1.2, -0.8, -3.3).applyQuaternion(state.camera.quaternion).add(state.camera.position);
+        mounted.current.position.copy(frame.discover);
+        mounted.current.quaternion.copy(state.camera.quaternion);
+      } else {
+        mounted.current.position.set(0, -1.69 * scale, 0);
+        mounted.current.quaternion.identity();
+      }
+    }
     const now = state.clock.elapsedTime;
     if (runtime.seekVersion !== frame.seekVersion) {
       frame.seekVersion = runtime.seekVersion;

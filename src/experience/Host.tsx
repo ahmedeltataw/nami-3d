@@ -4,7 +4,7 @@
 import { Component, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber';
 import { usePathname } from 'next/navigation';
-import type { PerspectiveCamera } from 'three';
+import { Vector3, type PerspectiveCamera } from 'three';
 import type { Ctx, Profile, SceneId } from './contracts';
 import { createController, SCENE_IDS } from './controller';
 import { createRuntime, type ExperienceRuntime } from './runtime';
@@ -44,6 +44,7 @@ function Frame({ runtime, rig, contexts, onFramed }: {
   onFramed: () => void;
 }) {
   const camera = useThree(state => state.camera) as PerspectiveCamera;
+  const gaze = useMemo(() => new Vector3(), []);
   useFrame((state, delta) => {
     if (runtime.contextLost) return;
     runtime.time = state.clock.elapsedTime;
@@ -58,6 +59,11 @@ function Frame({ runtime, rig, contexts, onFramed }: {
       if (ctx.root.visible && runtime.snapshot) {
         ctx.ambient = ctx.reducedMotion ? 0 : runtime.time;
         scenes[id].apply(runtime.snapshot, ctx);
+        const directive = runtime.snapshot.robot;
+        if (directive.kind === 'point') {
+          const target = ctx.root.getObjectByName(directive.target);
+          if (target) { target.getWorldPosition(gaze); runtime.taskGaze = gaze; }
+        } else runtime.taskGaze = null;
       }
     }
     state.gl.render(state.scene, camera);
@@ -75,6 +81,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   const contexts = useMemo(() => new Map<SceneId, Ctx>(), []);
   const [services, setServices] = useState<Services | null>(null);
   const renderer = useExperienceStore(state => state.profile.renderer);
+  const activeScene = useExperienceStore(state => state.scene);
   const pathname = usePathname();
   const register = useCallback((id: SceneId, ctx: Ctx | null) => {
     if (ctx) { ctx.reducedMotion = useExperienceStore.getState().profile.motion === 'reduced'; contexts.set(id, ctx); }
@@ -123,14 +130,20 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       const definition = scenes[runtime.scene];
       const input = { local: runtime.local, viewport: runtime.viewport, profile, interaction: runtime.interaction.state, seed: 1, ambient: 0 };
       runtime.snapshot = definition.sample(input);
+      if (runtime.scene === 's03' && typeof runtime.snapshot.visual.station === 'number' && useExperienceStore.getState().station !== runtime.snapshot.visual.station) useExperienceStore.setState({ station: runtime.snapshot.visual.station });
       const index = SCENE_IDS.indexOf(runtime.scene);
-      const previous = index > 0 ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : runtime.snapshot.camera;
-      rig.setPoses(previous, runtime.snapshot.camera, { blend: runtime.local / 0.08, snap: snap || profile.motion === 'reduced' });
+      const previous = index > 0 && runtime.scene !== 's03' ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : runtime.snapshot.camera;
+      rig.setPoses(previous, runtime.snapshot.camera, { blend: profile.motion === 'reduced' ? 1 : runtime.local / 0.08, snap: snap || profile.motion === 'reduced' });
       if (useExperienceStore.getState().scene !== runtime.scene) useExperienceStore.setState({ scene: runtime.scene, robotState: runtime.snapshot.robot });
       if (activeScene !== runtime.scene) { activeScene = runtime.scene; acquire(); }
     }
     const controller = createController(runtime, sample, profile.motion === 'reduced', mobile);
     controller.attach();
+    function seekStation(event: Event) {
+      const local = (event as CustomEvent<number>).detail;
+      if (Number.isFinite(local)) controller.seek('s03', local);
+    }
+    window.addEventListener('nami:station-seek', seekStation);
     function lost(event: Event) {
       event.preventDefault();
       runtime.contextLost = true;
@@ -157,6 +170,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     return () => {
       cancelled = true;
       controller.detach();
+      window.removeEventListener('nami:station-seek', seekStation);
       release();
       services?.gl.domElement.removeEventListener('webglcontextlost', lost);
       services?.gl.domElement.removeEventListener('webglcontextrestored', restored);
@@ -171,7 +185,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   return <CanvasBoundary><Canvas className={styles.canvas} dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
-    <S01 register={register} /><S02 register={register} /><S03 register={register} /><S04 register={register} /><S05 register={register} /><S06 register={register} /><S07 register={register} />
+    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}<S04 register={register} /><S05 register={register} /><S06 register={register} /><S07 register={register} />
     {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
     <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} />
   </Canvas></CanvasBoundary>;
