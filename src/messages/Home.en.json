@@ -29,5 +29,12 @@
   "typeWeb": "Website Development",
   "typeMobile": "Mobile Application",
   "typeMarketing": "Digital Marketing",
-  "typeOther": "Other Solutions"
+  "typeOther": "Other Solutions",
+  "timeMachineClose": "Close",
+  "timeMachinePrevious": "Previous",
+  "timeMachineNext": "Next",
+  "timeMachineSlider": "Explore timeline",
+  "timeMachineArticle": "Read article",
+  "timeMachineFounded": "Nami founded",
+  "timeMachinePublished": "Article published"
 }

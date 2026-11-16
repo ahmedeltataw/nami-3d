@@ -40,8 +40,8 @@ export function ExperienceControls({ services }: { services: string[] }) {
   useEffect(() => {
     if (!active) return;
     window.dispatchEvent(new CustomEvent('nami:director', { detail: true }));
-    function manual() { setDirector('manual'); window.scrollTo({ top: window.scrollY, behavior: 'instant' }); }
-    function key(event: KeyboardEvent) { if (event.key === 'Escape' || (!(event.target instanceof Element && event.target.closest('button, a, input, textarea, select')) && ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key))) manual(); }
+    function manual(event: Event) { if (event.target instanceof Element && event.target.closest('[data-time-machine]')) return; setDirector('manual'); window.scrollTo({ top: window.scrollY, behavior: 'instant' }); }
+    function key(event: KeyboardEvent) { if (event.key === 'Escape' || (!(event.target instanceof Element && event.target.closest('button, a, input, textarea, select')) && ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key))) manual(event); }
     window.addEventListener('wheel', manual, { passive: true });
     window.addEventListener('touchstart', manual, { passive: true });
     window.addEventListener('keydown', key);

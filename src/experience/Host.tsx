@@ -216,6 +216,16 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       else if (directorToken !== null) { runtime.interaction.release(directorToken); directorToken = null; }
     }
     window.addEventListener('nami:director', directorInteraction);
+    let modalToken: number | null = null;
+    function timeMachineInteraction(event: Event) {
+      if ((event as CustomEvent<boolean>).detail) modalToken = runtime.interaction.request('modal');
+      else if (modalToken !== null) {
+        runtime.interaction.release(modalToken);
+        modalToken = null;
+        if (useExperienceStore.getState().director !== 'idle') directorToken = runtime.interaction.request('director');
+      }
+    }
+    window.addEventListener('nami:time-machine-interaction', timeMachineInteraction);
     if (useExperienceStore.getState().director !== 'idle') directorToken = runtime.interaction.request('director');
     if (typeof window !== 'undefined') (window as unknown as { __namiController?: typeof controller }).__namiController = controller;
     function seekStation(event: Event) {
@@ -304,6 +314,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       cancelled = true;
       controller.detach();
       window.removeEventListener('nami:director', directorInteraction);
+      window.removeEventListener('nami:time-machine-interaction', timeMachineInteraction);
+      if (modalToken !== null) runtime.interaction.release(modalToken);
       if (directorToken !== null) runtime.interaction.release(directorToken);
       useExperienceStore.setState({ controller: null });
       if (typeof window !== 'undefined') delete (window as unknown as { __namiController?: typeof controller }).__namiController;
