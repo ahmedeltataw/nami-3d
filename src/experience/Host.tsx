@@ -20,6 +20,7 @@ import S06 from './scenes/s06';
 import S07 from './scenes/s07';
 import { createAssetLoader } from './assets/loaders';
 import { acquireDestination, AssetResidency } from './assets/residency';
+import { Robot } from './robot/Robot';
 import styles from './experience.module.css';
 
 type Services = ReturnType<typeof createAssetLoader> & { residency: AssetResidency; gl: RootState['gl'] };
@@ -60,7 +61,7 @@ function Frame({ runtime, rig, contexts, onFramed }: {
       }
     }
     state.gl.render(state.scene, camera);
-    if (runtime.assetsReady && contexts.has(runtime.scene) && !runtime.framed) {
+    if (runtime.assetsReady && runtime.robotReady && contexts.has(runtime.scene) && !runtime.framed) {
       runtime.framed = true;
       requestAnimationFrame(onFramed);
     }
@@ -118,6 +119,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       }).catch(error => { if (!signal.aborted && !cancelled && error instanceof Error) fallback(); });
     }
     function sample(snap: boolean) {
+      if (snap || runtime.local > 0 || runtime.scene !== 's01') runtime.introCancelled = true;
       const definition = scenes[runtime.scene];
       const input = { local: runtime.local, viewport: runtime.viewport, profile, interaction: runtime.interaction.state, seed: 1, ambient: 0 };
       runtime.snapshot = definition.sample(input);
@@ -170,6 +172,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
     <S01 register={register} /><S02 register={register} /><S03 register={register} /><S04 register={register} /><S05 register={register} /><S06 register={register} /><S07 register={register} />
+    {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
     <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} />
   </Canvas></CanvasBoundary>;
 }
