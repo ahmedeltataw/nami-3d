@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { Group, Mesh, MeshStandardMaterial, Object3D } from 'three';
 import { stations, cameraPoses, bindStation, applyStation } from '../../src/experience/scenes/s03/station';
-import { scene, stationProgress } from '../../src/experience/scenes/s03/scene';
+import { scene, stationProgress, LAB_INTRO_END, STATION_SPAN } from '../../src/experience/scenes/s03/scene';
 import type { SampleInput } from '../../src/experience/contracts';
 import enMessages from '../../src/messages/en.json';
 import arMessages from '../../src/messages/ar.json';
@@ -17,7 +17,7 @@ describe('creation lab stations', () => {
     expect(web.sample(.19, input).phase).toBe('arrival');
     for (let i = 0; i < 5; i++) expect(web.sample(.2 + (i + .5) * .12, input)).toMatchObject({ phase: 'demo', step: i });
     expect(web.sample(.8, input)).toMatchObject({ phase: 'hold', step: 4, robot: { point: 'S1_RobotTarget' } });
-    expect(stationProgress(.1)).toEqual({ index: 0, local: 0 });
+    expect(stationProgress(LAB_INTRO_END)).toEqual({ index: 0, local: 0 });
     expect(stationProgress(1)).toEqual({ index: 5, local: 1 });
   });
   it('samples all stations deterministically and serializably in any order', () => {
@@ -53,10 +53,10 @@ describe('creation lab stations', () => {
   it('reveals the lab, follows anchors and keeps reduced motion on a fixed overview', () => {
     const reveal = scene.sample({ ...input, local: 0 }).camera;
     expect(reveal.position).not.toEqual(cameraPoses[0].position);
-    expect(scene.sample({ ...input, local: .1 }).camera.position).toEqual(cameraPoses[0].position);
+    expect(scene.sample({ ...input, local: LAB_INTRO_END }).camera.position).toEqual(cameraPoses[0].position);
     const fixed = scene.sample({ ...input, profile: { ...input.profile, motion: 'reduced' } }).camera;
     for (let i = 1; i < 6; i++) {
-      const local = .1 + .9 * (i + .1) / 6;
+      const local = LAB_INTRO_END + STATION_SPAN * (i + .1);
       const reduced = scene.sample({ ...input, local, profile: { ...input.profile, motion: 'reduced' } });
       expect(reduced.camera).toEqual(fixed);
       const moving = scene.sample({ ...input, local });

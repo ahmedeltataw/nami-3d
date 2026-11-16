@@ -6,5 +6,5 @@
 .host[data-scene='s01'], .host[data-scene='s01'] .poster { background-color: #fff; }
 .host[data-scene='s05'], .host[data-scene='s05'] .poster { background-color: #1b1d20; }
 .energyLine { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
-.energyLine path { fill: none; stroke: var(--color-accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; opacity: 0; }
+.energyLine { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .poster, .canvas { transition: none; } }
