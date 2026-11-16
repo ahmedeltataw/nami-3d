@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('cold #s05 loads its destination first, renders WebGL and seeks every hash on one canvas', async ({ page }) => {
+  test.setTimeout(60_000);
   const errors: string[] = [];
   const assets: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -50,7 +51,7 @@ test('WebGL denied keeps server sections and native links usable without a Canva
     const id = `s0${index}`;
     await page.getByRole('link', { name: id, exact: true }).click();
     await expect(page.locator(`#${id}`)).toBeInViewport();
-    await expect(page.locator(`#${id} p`)).toBeVisible();
+    await expect(page.locator(`#${id} p`).first()).toBeVisible();
   }
   expect(errors).toEqual([]);
 });

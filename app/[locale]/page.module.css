@@ -5,11 +5,25 @@
 .section { height: calc(var(--experience-vh, 1svh) * var(--budget)); padding-inline: 1.5rem; }
 .content { position: sticky; top: 6rem; padding-block: 1rem; max-width: 32rem; }
 .content h1, .content h2, .content p { width: fit-content; background: #f6fafb; padding: 0.4rem 0.75rem; }
+.hero { max-width: min(32rem, 42vw); color: var(--color-ink); }
+.hero h1, .hero p { background: var(--color-surface); }
+.hero h1 { opacity: calc(1 - var(--headline-exit, 0)); transform: translateY(calc(var(--headline-exit, 0) * -3rem)); }
+.subtitle { color: var(--color-muted); border-inline-start: 2px solid var(--color-accent); }
+.hero .subtitle { padding-inline-start: calc(0.75rem + var(--subtitle-emphasis, 0) * 0.5rem); }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); padding-block: var(--space-2); }
+.actions a { display: inline-flex; align-items: center; min-height: 44px; padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-accent-strong); border: 1px solid var(--color-accent-strong); }
+.actions a:last-child { background: var(--color-accent-strong); color: var(--color-on-accent); }
+.hero .scrollHint { margin-block-start: var(--space-5); font-size: var(--text-caption); color: var(--color-muted); opacity: var(--scroll-hint, 1); }
+.skipIntro { display: none; min-height: 44px; padding: var(--space-2) var(--space-3); color: var(--color-muted); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font: inherit; font-size: var(--text-caption); cursor: pointer; }
+:global(html[data-motion='full']) .skipIntro { display: inline-flex; align-items: center; }
+@media (max-width: 600px) { .hero { max-width: 100%; } .hero h1 { font-size: 2rem; } .hero .subtitle { max-width: 26ch; } .hero .scrollHint { margin-block: 0 var(--space-1); padding-block: var(--space-1); } }
 :global(html[data-motion='reduced']) .main { padding-bottom: 0; }
 :global(html[data-motion='reduced']) .section { height: auto; min-height: 100svh; }
 :global(html[data-motion='reduced']) .content { position: static; padding-top: 6rem; }
+:global(html[data-motion='reduced']) .hero h1 { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .main { padding-bottom: 0; }
   .section { height: auto; min-height: 100svh; }
   .content { position: static; padding-top: 6rem; }
+  .hero h1 { opacity: 1; transform: none; }
 }

@@ -5,7 +5,7 @@ import type { AssetKey } from './assets/manifest';
 
 export type { Profile, InteractionState, AssetKey };
 export type SceneId = 's01' | 's02' | 's03' | 's04' | 's05' | 's06' | 's07';
-export type ClipName = 'Idle' | 'Sleep' | 'WakeUp' | 'Wave';
+export type ClipName = 'Idle' | 'Sleep' | 'WakeUp' | 'LookAround' | 'Wave' | 'Draw' | 'Point' | 'ChargeEnergy' | 'React';
 export type PoseName = 'rest';
 export type EffectSpec = { id: string; from: number; to: number };
 export type Ctx = { root: Group; ambient: number; reducedMotion: boolean };
