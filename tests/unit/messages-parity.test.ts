@@ -1,6 +1,8 @@
+import { loadMessages } from '../../src/i18n/messages';
 import { describe, expect, it } from 'vitest';
-import arMessages from '../../src/messages/ar.json';
-import enMessages from '../../src/messages/en.json';
+
+const arMessages = await loadMessages('ar');
+const enMessages = await loadMessages('en');
 
 function getLeafKeyPaths(obj: Record<string, unknown>, prefix = ''): string[] {
   const paths: string[] = [];
@@ -28,7 +30,7 @@ describe('messages parity', () => {
   const arPaths = getLeafKeyPaths(arMessages);
   const enPaths = getLeafKeyPaths(enMessages);
 
-  it('has identical set of keys between ar.json and en.json', () => {
+  it('has identical set of keys between merged Arabic and English messages', () => {
     const missingInEn = arPaths.filter(p => !enPaths.includes(p));
     const missingInAr = enPaths.filter(p => !arPaths.includes(p));
 

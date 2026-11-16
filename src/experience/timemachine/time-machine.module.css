@@ -1,0 +1,19 @@
+﻿.dialog { width: min(42rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow: auto; padding: clamp(1.25rem, 4vw, 2.5rem); border: 1px solid #36765f; border-radius: 1rem; color: #f1f5f9; background: radial-gradient(ellipse at var(--timeline-progress) 45%, #205c46 0%, #101e1a 65%); }
+.dialog::backdrop { background: rgba(0, 0, 0, .8); }
+.header, .navigation { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.header h2 { margin: 0; }
+.dialog button, .dialog a { color: #fff; background: #165c45; border: 1px solid #7ab39c; border-radius: .5rem; padding: .65rem 1rem; cursor: pointer; }
+.dialog button:disabled { opacity: .5; cursor: default; }
+.dialog :focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.slider { display: flex; gap: .35rem; padding: 1rem 0; margin: 1rem 0; cursor: ew-resize; touch-action: none; }
+.slider span { flex: 1; height: .45rem; border-radius: 1rem; background: #60786e; }
+.slider .current { background: #60e8a7; }
+.milestone { min-height: 9rem; }
+.milestone time { color: #83edba; font-weight: 700; }
+.milestone h3 { line-height: 1.4; }
+.milestone a { display: inline-block; }
+@media (prefers-reduced-motion: reduce) { .dialog { scroll-behavior: auto; } }
+.dialog { position: fixed; isolation: isolate; background: #101e1a; }
+.dialog::before { content: ''; position: absolute; z-index: -1; inset: -50%; pointer-events: none; background: repeating-radial-gradient(ellipse at var(--timeline-progress) 50%, transparent 0 2.5rem, #43876a33 2.55rem 2.7rem, transparent 2.8rem 4.5rem), radial-gradient(ellipse at var(--timeline-progress) 50%, #205c46 0%, #101e1a 55%); animation: tunnel 9s linear infinite alternate; }
+@keyframes tunnel { from { transform: scale(.9); } to { transform: scale(1.15); } }
+@media (prefers-reduced-motion: reduce) { .dialog::before { animation: none; } }

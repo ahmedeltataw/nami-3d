@@ -1,8 +1,13 @@
 import { create } from 'zustand';
 import type { Profile, RobotDirective, SceneId } from './contracts';
 import type { DirectorState } from './director';
+import { createS03Slice, type S03Slice } from './scenes/s03/store';
+import { createS04Slice, type S04Slice } from './scenes/s04/store';
+import { createS05Slice, type S05Slice } from './scenes/s05/store';
+import { createS06Slice, type S06Slice } from './scenes/s06/store';
+import { createS07Slice, type S07Slice } from './scenes/s07/store';
 
-export type ProjectType = 'website' | 'mobile' | 'marketing' | 'other';
+export type { ProjectType } from './scenes/s07/store';
 
 export type ControllerApi = {
   seek: (scene: SceneId, local?: number, updateHistory?: boolean) => void;
@@ -10,34 +15,27 @@ export type ControllerApi = {
   recalculate?: () => void;
 };
 
-type ExperienceStore = {
+export type ExperienceStore = {
   director: DirectorState;
   scene: SceneId;
-  station: number;
   cursorGrab: boolean;
-  dnaValueIndex: number;
-  setDnaValueIndex: (index: number) => void;
-  projectType: ProjectType | null;
-  setProjectType: (projectType: ProjectType | null) => void;
-  project: number;
   robotState: RobotDirective;
   profile: Profile;
   ui: { ready: boolean; contextLost: boolean };
   controller: ControllerApi | null;
-};
+} & S03Slice & S04Slice & S05Slice & S06Slice & S07Slice;
 
-export const useExperienceStore = create<ExperienceStore>((set) => ({
+export const useExperienceStore = create<ExperienceStore>((...args) => ({
   director: 'idle',
   scene: 's01',
-  station: 1,
   cursorGrab: false,
-  dnaValueIndex: 0,
-  setDnaValueIndex: (dnaValueIndex) => set({ dnaValueIndex }),
-  projectType: null,
-  setProjectType: (projectType) => set({ projectType }),
-  project: 0,
   robotState: { kind: 'rest' },
   profile: { quality: 'mid', motion: 'full', renderer: 'fallback' },
   ui: { ready: false, contextLost: false },
   controller: null,
+  ...createS03Slice(...args),
+  ...createS04Slice(...args),
+  ...createS05Slice(...args),
+  ...createS06Slice(...args),
+  ...createS07Slice(...args),
 }));

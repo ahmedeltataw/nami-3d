@@ -1,11 +1,11 @@
-export type InteractionSource = 'scroll' | 'pointer' | 'drag' | 'director';
+export type InteractionSource = 'scroll' | 'pointer' | 'drag' | 'director' | 'modal';
 export type InteractionState = {
   source: InteractionSource | null;
   token: number;
   reaction: { name: string; startedAt: number; duration: number } | null;
 };
 
-const priority: Record<InteractionSource, number> = { pointer: 1, scroll: 2, drag: 3, director: 4 };
+const priority: Record<InteractionSource, number> = { pointer: 1, scroll: 2, drag: 3, director: 4, modal: 5 };
 
 export function createInteraction() {
   const state: InteractionState = { source: null, token: 0, reaction: null };
@@ -28,7 +28,7 @@ export function createInteraction() {
       return ++state.token;
     },
     release,
-    narrativeChanged() { if (state.source !== 'director') release(); },
+    narrativeChanged() { if (state.source !== 'director' && state.source !== 'modal') release(); },
     react(name: string, now: number, duration: number) {
       state.reaction = { name, startedAt: now, duration: Math.max(0, Math.min(duration, 1.2)) };
     },

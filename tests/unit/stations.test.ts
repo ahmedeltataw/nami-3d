@@ -1,3 +1,4 @@
+import { loadMessages } from '../../src/i18n/messages';
 ﻿import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
@@ -5,10 +6,11 @@ import { Group, Mesh, MeshStandardMaterial, Object3D } from 'three';
 import { stations, cameraPoses, bindStation, applyStation } from '../../src/experience/scenes/s03/station';
 import { scene, stationProgress, LAB_INTRO_END, STATION_SPAN } from '../../src/experience/scenes/s03/scene';
 import type { SampleInput } from '../../src/experience/contracts';
-import enMessages from '../../src/messages/en.json';
-import arMessages from '../../src/messages/ar.json';
 import enServices from '../../src/content/en/services.json';
 import arServices from '../../src/content/ar/services.json';
+const arMessages = await loadMessages('ar');
+const enMessages = await loadMessages('en');
+
 const input: SampleInput = { local: 0, viewport: { w: 1280, h: 800, dpr: 1 }, profile: { quality: 'high', motion: 'full', renderer: 'webgl' }, interaction: { source: null, token: 0, reaction: null }, seed: 1, ambient: 0 };
 
 describe('creation lab stations', () => {

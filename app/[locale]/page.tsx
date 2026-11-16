@@ -8,6 +8,7 @@ import { SCROLL_BUDGETS } from '@/experience/controller';
 import { StationPanel } from '@/experience/scenes/s03/StationPanel';
 import { stations } from '@/experience/scenes/s03/station';
 import { DnaPanel } from '@/experience/scenes/s06/DnaPanel';
+import { collectMilestones } from '@/experience/timemachine/collectMilestones';
 import { FuturePanel } from '@/experience/scenes/s07/FuturePanel';
 import { buildMetadata } from '@/lib/metadata';
 import { GalleryPanel } from '@/experience/scenes/s05/GalleryPanel';
@@ -43,11 +44,12 @@ export default async function Home({
   const locale = rawLocale as Locale;
   setRequestLocale(locale);
 
-  const [t, company, services, projects] = await Promise.all([
+  const [t, company, services, projects, milestones] = await Promise.all([
     getTranslations({ locale, namespace: 'Home' }),
     getCompany(locale),
     getServices(locale),
     getProjects(locale),
+    collectMilestones(locale),
   ]);
 
   const fields = new Map<string, string>();
@@ -136,6 +138,8 @@ export default async function Home({
       >
         <DnaPanel
           locale={locale}
+          milestones={milestones}
+          timeMachineLabels={{ title: t('timeMachine'), close: t('timeMachineClose'), previous: t('timeMachinePrevious'), next: t('timeMachineNext'), slider: t('timeMachineSlider'), article: t('timeMachineArticle'), published: t('timeMachinePublished'), founded: t('timeMachineFounded') }}
           values={company.values.map(val => ({
             id: val.id,
             name: val.name[locale] as string,
