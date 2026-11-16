@@ -1,0 +1,103 @@
+{
+  "file": "logo_3d.glb",
+  "source": "public/brand/logo.svg -> assets-model/logo_3d.blend (built by assets-model/scripts/logo_3d.py)",
+  "scale": "SVG width 1300 px = 4.0 units (1 unit = 325 SVG px); robot is 3.38 units tall",
+  "axes": "glTF +Y up; logo front faces +Z. Root Logo3D origin = centre of mark + wordmark.",
+  "depth": 0.16,
+  "tris_total": 7326,
+  "tris_visible": 6932,
+  "bounds_gltf": {
+    "min": [
+      -2.0,
+      -0.6814,
+      -0.08
+    ],
+    "max": [
+      2.0,
+      0.6814,
+      0.08
+    ]
+  },
+  "textures": "none",
+  "notes": [
+    "LogoProxy is a flat, low-poly copy of the front face (mark + wordmark + accent) sitting exactly on the front plane. Set visible = false in the app and sample it (MeshSurfaceSampler) for particles.",
+    "The SVG mark uses a #009F6F -> #11B14E gradient; the 3D mark is solid #009F6F. The wordmark and tagline keep the SVG #232323 and the sparkle keeps #F9B233. Retint Logo_Charcoal for dark backgrounds.",
+    "Each part's pivot is its own bounds centre."
+  ],
+  "nodes": [
+    {
+      "name": "Logo3D",
+      "parent": null,
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    {
+      "name": "LogoMark",
+      "parent": "Logo3D",
+      "pivot_gltf": [
+        -1.3268,
+        -0.0853,
+        -0.0
+      ],
+      "tris": 1240,
+      "materials": [
+        "Logo_Green"
+      ]
+    },
+    {
+      "name": "LogoWordmark",
+      "parent": "Logo3D",
+      "pivot_gltf": [
+        0.73,
+        0.0636,
+        -0.0
+      ],
+      "tris": 2964,
+      "materials": [
+        "Logo_Charcoal"
+      ]
+    },
+    {
+      "name": "LogoAccent",
+      "parent": "Logo3D",
+      "pivot_gltf": [
+        1.8577,
+        0.5388,
+        -0.0
+      ],
+      "tris": 900,
+      "materials": [
+        "Logo_Yellow"
+      ]
+    },
+    {
+      "name": "LogoTagline",
+      "parent": "Logo3D",
+      "pivot_gltf": [
+        0.7318,
+        -0.5793,
+        -0.0
+      ],
+      "tris": 1828,
+      "materials": [
+        "Logo_Charcoal"
+      ]
+    },
+    {
+      "name": "LogoProxy",
+      "parent": "Logo3D",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        0.08
+      ],
+      "tris": 394,
+      "materials": [
+        "LogoProxy_Hidden"
+      ]
+    }
+  ]
+}

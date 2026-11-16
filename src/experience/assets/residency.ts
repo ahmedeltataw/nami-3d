@@ -1,6 +1,7 @@
 import type { SceneId } from '../contracts';
 import type { Profile } from '../profile';
 import { manifest, type AssetKey } from './manifest';
+import { worlds } from '../scenes/s05/projects';
 
 export interface ResidentAsset { value: unknown; dispose(): void }
 export type AssetLoader = (key: AssetKey, quality: Profile['quality'], signal: AbortSignal) => Promise<ResidentAsset>;
@@ -72,17 +73,25 @@ export class AssetResidency {
   }
 }
 
-export function keysForScene(scene: SceneId): AssetKey[] {
-  return (Object.keys(manifest) as AssetKey[]).filter(key => manifest[key].owners.includes(scene));
+export function worldKeys(index: number, neighbors = false): AssetKey[] {
+  return worlds.flatMap((world, i) => (neighbors ? Math.abs(i - index) === 1 : i === index) ? [`world.${world.slug}` as AssetKey] : []);
+}
+export function keysForScene(scene: SceneId, project = 0): AssetKey[] {
+  const keys = (Object.keys(manifest) as AssetKey[]).filter(key => manifest[key].owners.includes(scene));
+  return scene === 's05' ? [...keys, ...worldKeys(project)] : keys;
 }
 
 // Destination leases are issued before neighbors, including on a deep link or context restore.
-export function acquireDestination(residency: AssetResidency, scene: SceneId, signal: AbortSignal) {
-  const destination = residency.prefetch(keysForScene(scene), signal);
+export function acquireDestination(residency: AssetResidency, scene: SceneId, signal: AbortSignal, project = 0) {
+  const destination = residency.prefetch(keysForScene(scene, project), signal);
   const ready = Promise.all(destination.map(lease => lease.ready));
   const neighbors: AssetLease[] = [];
   void ready.then(() => {
     if (signal.aborted) return;
+    if (scene === 's05') {
+      for (const lease of residency.prefetch(worldKeys(project, true), signal)) { neighbors.push(lease); void lease.ready.catch(() => {}); }
+      return;
+    }
     const number = Number(scene.slice(1));
     for (const index of [number - 1, number + 1]) {
       if (index < 1 || index > 7) continue;

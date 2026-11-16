@@ -20,7 +20,7 @@ import S05 from './scenes/s05';
 import S06 from './scenes/s06';
 import S07 from './scenes/s07';
 import { createAssetLoader } from './assets/loaders';
-import { acquireDestination, AssetResidency } from './assets/residency';
+import { acquireDestination, AssetResidency, keysForScene } from './assets/residency';
 import { Robot } from './robot/Robot';
 import { createHeadReaction, pointerNearHead } from './robot/procedural';
 import styles from './experience.module.css';
@@ -109,6 +109,10 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
           const target = ctx.root.getObjectByName(directive.target);
           if (target) { target.getWorldPosition(gaze); runtime.taskGaze = gaze; }
         } else runtime.taskGaze = null;
+        if (Array.isArray(runtime.snapshot.visual.gazeTarget)) {
+          gaze.fromArray(runtime.snapshot.visual.gazeTarget as number[]); runtime.taskGaze = gaze;
+        }
+        ctx.beforeRender?.(camera);
       }
     }
     state.gl.render(state.scene, camera);
@@ -148,6 +152,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     for (const ctx of contexts.values()) ctx.reducedMotion = profile.motion === 'reduced';
     let cancelled = false;
     let activeScene: SceneId | null = null;
+    let activeProject = -1;
     let cancellation: AbortController | undefined;
     let assets: ReturnType<typeof acquireDestination> | undefined;
     function release(evict = false) {
@@ -159,16 +164,17 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       if (!services || runtime.contextLost || renderer === 'fallback') return;
       const previousAssets = assets;
       const previousCancellation = cancellation;
-      runtime.assetsReady = scenes[runtime.scene].assets.every(key => services.residency.isResident(key));
+      runtime.assetsReady = keysForScene(runtime.scene, useExperienceStore.getState().project).every(key => services.residency.isResident(key));
       if (!runtime.assetsReady) {
         runtime.framed = false;
         useExperienceStore.setState({ ui: { ready: false, contextLost: false } });
       }
       cancellation = new AbortController();
       const signal = cancellation.signal;
-      assets = acquireDestination(services.residency, runtime.scene, signal);
+      assets = acquireDestination(services.residency, runtime.scene, signal, useExperienceStore.getState().project);
       previousCancellation?.abort();
       previousAssets?.release();
+      services.residency.evictUnused();
       void assets.ready.then(() => {
         if (!cancelled && !signal.aborted && !runtime.contextLost) runtime.assetsReady = true;
       }).catch(error => { if (!signal.aborted && !cancelled && error instanceof Error) fallback(); });
@@ -178,14 +184,17 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       const definition = scenes[runtime.scene];
       const input = { local: runtime.local, viewport: runtime.viewport, profile, interaction: runtime.interaction.state, seed: 1, ambient: 0 };
       runtime.snapshot = definition.sample(input);
+      const project = runtime.scene === 's05' ? Number(runtime.snapshot.visual.project) : -1;
+      if (project >= 0 && useExperienceStore.getState().project !== project) useExperienceStore.setState({ project });
       window.dispatchEvent(new CustomEvent('nami:s04-progress', { detail: runtime.scene === 's04' && (runtime.local >= .9 || profile.motion === 'reduced') }));
       if (runtime.scene !== 's04' && runtime.exploration.active) { runtime.exploration.exit(); window.dispatchEvent(new CustomEvent('nami:explore-state', { detail: false })); }
       if (runtime.scene === 's03' && typeof runtime.snapshot.visual.station === 'number' && useExperienceStore.getState().station !== runtime.snapshot.visual.station) useExperienceStore.setState({ station: runtime.snapshot.visual.station });
+      if (runtime.scene === 's06' && typeof runtime.snapshot.visual.valueIndex === 'number' && useExperienceStore.getState().dnaValueIndex !== runtime.snapshot.visual.valueIndex) useExperienceStore.setState({ dnaValueIndex: runtime.snapshot.visual.valueIndex });
       const index = SCENE_IDS.indexOf(runtime.scene);
-      const previous = index > 0 && runtime.scene !== 's03' ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : runtime.snapshot.camera;
-      rig.setPoses(previous, runtime.snapshot.camera, { blend: profile.motion === 'reduced' ? 1 : runtime.local / 0.08, snap: snap || runtime.scene === 's01' || profile.motion === 'reduced' });
+      const previous = index > 0 && runtime.scene !== 's03' && runtime.scene !== 's05' ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : runtime.snapshot.camera;
+      rig.setPoses(previous, runtime.snapshot.camera, { blend: profile.motion === 'reduced' ? 1 : runtime.local / 0.08, snap: snap || runtime.scene === 's01' || runtime.scene === 's05' || profile.motion === 'reduced' });
       if (useExperienceStore.getState().scene !== runtime.scene) useExperienceStore.setState({ scene: runtime.scene, robotState: runtime.snapshot.robot });
-      if (activeScene !== runtime.scene) { activeScene = runtime.scene; acquire(); }
+      if (activeScene !== runtime.scene || activeProject !== project) { activeScene = runtime.scene; activeProject = project; acquire(); }
     }
     const controller = createController(runtime, sample, profile.motion === 'reduced', mobile);
     controller.attach();
@@ -196,6 +205,18 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       if (Number.isFinite(local)) controller.seek('s03', local);
     }
     window.addEventListener('nami:station-seek', seekStation);
+    function onRobotReact(event: Event) {
+      const detail = (event as CustomEvent<{ name: 'React' | 'nod' | 'tilt'; duration?: number }>).detail;
+      if (detail && detail.name) {
+        runtime.interaction.react(detail.name, runtime.time, detail.duration ?? 0.9);
+      }
+    }
+    window.addEventListener('nami:robot-react', onRobotReact);
+    function seekProject(event: Event) {
+      const local = (event as CustomEvent<number>).detail;
+      if (Number.isFinite(local)) controller.seek('s05', local);
+    }
+    window.addEventListener('nami:project-seek', seekProject);
     function explore(event: Event) {
       const d = (event as CustomEvent).detail;
       if (runtime.scene !== 's04') return;
@@ -265,6 +286,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       useExperienceStore.setState({ controller: null });
       if (typeof window !== 'undefined') delete (window as unknown as { __namiController?: typeof controller }).__namiController;
       window.removeEventListener('nami:station-seek', seekStation);
+      window.removeEventListener('nami:robot-react', onRobotReact);
+      window.removeEventListener('nami:project-seek', seekProject);
       window.removeEventListener('nami:explore', explore);
       release();
       services?.gl.domElement.removeEventListener('webglcontextlost', lost);
@@ -283,7 +306,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   return <><canvas ref={energyLine} data-s01-energy-line className={styles.energyLine} aria-hidden="true" /><CanvasBoundary><Canvas className={styles.canvas} data-scene-canvas dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
-    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's04' && <S04 register={register} residency={services?.residency ?? null} onError={fallback} />}<S05 register={register} /><S06 register={register} /><S07 register={register} />
+    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's04' && <S04 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's05' && <S05 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's06' && <S06 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's07' && <S07 register={register} residency={services?.residency ?? null} onError={fallback} />}
     <IntroFrame runtime={runtime} profile={profile} />
     {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
     <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} energyLine={energyLine} />

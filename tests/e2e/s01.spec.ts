@@ -9,7 +9,7 @@ test('Arabic headline, subtitle and primary CTA links are visible without JavaSc
   await expect(page.locator('[data-s01-headline]')).toHaveText(arMessages.Home.heading);
   await expect(page.locator('#s01 p').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'شاهد أعمالنا', exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'ابدأ مشروعك', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'ابدأ مشروعك', exact: true }).first()).toBeVisible();
   await page.getByRole('link', { name: 'شاهد أعمالنا', exact: true }).click();
   await expect(page.locator('#s05')).toBeInViewport();
   await context.close();
@@ -49,7 +49,7 @@ test('intro and scroll draw a canvas line and reveal the real HTML headline', as
   const line = page.locator('[data-s01-energy-line]');
   await expect(line).toHaveCSS('opacity', '1', { timeout: 5000 });
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Start your project', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start your project', exact: true }).first()).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().introCancelled)).toBe(true);
   await expect(line).toHaveCSS('opacity', '0');
   await page.evaluate(() => window.scrollTo(0, document.getElementById('s01')!.offsetHeight * .18));
@@ -106,7 +106,7 @@ test('mobile S01 keeps content within the viewport and the head interaction reac
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
   await page.getByRole('button', { name: 'تخطّي المقدمة', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'ابدأ مشروعك', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'ابدأ مشروعك', exact: true }).first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const head = await page.evaluate(() => window.__namiDebug!().head);
   expect(head.visible).toBe(true);
