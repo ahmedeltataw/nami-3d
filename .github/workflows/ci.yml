@@ -3,6 +3,11 @@ on:
   push:
     branches: [main, 'm*-integration']
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   private-paths:
     runs-on: ubuntu-latest
@@ -11,6 +16,7 @@ jobs:
         with:
           lfs: true
       - run: sh scripts/check-private-paths.sh
+
   static:
     runs-on: ubuntu-latest
     steps:
@@ -26,8 +32,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm build
-  e2e:
+
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,5 +45,94 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm test:e2e
+      - run: pnpm build
+      - name: Clean compiler cache before upload
+        run: rm -rf .next/cache
+      - name: Upload Next.js build
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-build
+          path: .next
+          include-hidden-files: true
+          retention-days: 1
+
+  shards:
+    name: shard (${{ matrix.shard }}/4)
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Playwright browsers and dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+      - name: Download Next.js build
+        uses: actions/download-artifact@v4
+        with:
+          name: next-build
+          path: .next
+      - name: Run Playwright tests (shard ${{ matrix.shard }}/4)
+        run: |
+          pnpm start --port 3100 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+
+          echo "Waiting for server to be ready on port 3100..."
+          READY=0
+          for i in $(seq 1 60); do
+            if curl -s -o /dev/null http://127.0.0.1:3100; then
+              READY=1
+              echo "Server is ready!"
+              break
+            fi
+            if ! kill -0 $SERVER_PID 2>/dev/null; then
+              echo "Server exited unexpectedly!"
+              exit 1
+            fi
+            sleep 0.5
+          done
+
+          if [ "$READY" -ne 1 ]; then
+            echo "Timed out waiting for server on port 3100"
+            exit 1
+          fi
+
+          pnpm exec playwright test --shard=${{ matrix.shard }}/4 --grep-invert @gpu
+        env:
+          PLAYWRIGHT_EXTERNAL_SERVER: '1'
+          PLAYWRIGHT_PORT: '3100'
+
+  e2e:
+    needs: [shards]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Aggregate shard results
+        run: |
+          if [ "${{ needs.shards.result }}" = "success" ]; then
+            echo "All Playwright e2e shards passed."
+            exit 0
+          else
+            echo "One or more Playwright e2e shards failed: ${{ needs.shards.result }}"
+            exit 1
+          fi
