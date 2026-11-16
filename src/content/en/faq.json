@@ -17,68 +17,9 @@
       {
         "level": "h2",
         "text": "What services does Nami provide?"
-      },
-      {
-        "level": "h5",
-        "text": "Services"
-      },
-      {
-        "level": "h5",
-        "text": "Links"
-      },
-      {
-        "level": "h5",
-        "text": "Contact Emails"
       }
     ],
-    "paragraphs": [
-      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
-      "© 2026 All rights reserved - Nami Software Development"
-    ],
-    "lists": [
-      {
-        "type": "ul",
-        "items": [
-          "Website development",
-          "Mobile application development",
-          "Digital marketing",
-          "Technical consulting",
-          "Cloud services",
-          "Design services"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Website development",
-          "Mobile application development",
-          "Digital marketing",
-          "Technical consulting",
-          "Cloud services",
-          "Design services"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Home",
-          "About Us",
-          "Blogs",
-          "FAQs",
-          "Services",
-          "Contact Us",
-          "Privacy Policy",
-          "Terms & Conditions"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Technical Support",
-          "Human Resources",
-          "Marketing & Sales"
-        ]
-      }
-    ]
+    "paragraphs": [],
+    "lists": []
   }
 ]

@@ -1,5 +1,6 @@
 import { readFile, readdir, mkdir, writeFile } from 'node:fs/promises';
 import { parityErrors } from './content-parity.mjs';
+import { assertUniqueSlug } from './content-slugs.mjs';
 
 const read = async path => JSON.parse(await readFile(path, 'utf8'));
 const missing = { status: 'missing' };
@@ -18,6 +19,22 @@ function projectScreens(images) {
   });
 }
 const text = value => typeof value === 'string' && value.trim() && value !== 'missing' ? value.trim() : missing;
+// These blocks occur in the inventory on every page, both before and after page content.
+const footerHeadings = new Set(['الخدمات', 'الروابط', 'بريد التواصل', 'Services', 'Links', 'Contact Emails']);
+const footerParagraphs = new Set([
+  'مؤسسة نامي تقدم حلولاً برمجية متكاملة للمواقع وتطبيقات الجوال لمساعدة الشركات على النمو الرقمي بمنتجات موثوقة.',
+  '© 2026 جميع الحقوق محفوظة - نامي لتطوير البرمجيات',
+  'Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.',
+  '© 2026 All rights reserved - Nami Software Development'
+]);
+const chromeLists = new Set([
+  ['تطوير المواقع', 'تطوير تطبيقات الهواتف', 'التسويق الرقمي', 'الاستشارات التقنية', 'خدمات السحابة', 'خدمات التصميم'],
+  ['الرئيسية', 'من نحن', 'المدونة', 'الأسئلة الشائعة', 'خدماتنا', 'تواصل معنا', 'سياسة الخصوصية', 'الشروط والأحكام'],
+  ['الدعم الفني', 'الموارد البشرية', 'التسويق والمبيعات'],
+  ['Website development', 'Mobile application development', 'Digital marketing', 'Technical consulting', 'Cloud services', 'Design services'],
+  ['Home', 'About Us', 'Blogs', 'FAQs', 'Services', 'Contact Us', 'Privacy Policy', 'Terms & Conditions'],
+  ['Technical Support', 'Human Resources', 'Marketing & Sales']
+].map(items => JSON.stringify(items)));
 const routes = await read('content-inventory/routes.json');
 const rawCompany = await read('content-inventory/company.json');
 const files = (await readdir('content-inventory/content')).filter(name => name.endsWith('.json')).sort();
@@ -34,11 +51,13 @@ const company = {
 const outputs = {};
 for (const locale of ['ar', 'en']) {
   const result = { services: [], projects: [], blog: [], faq: [], legal: [], pages: [], company };
+  const slugs = new Map();
   for (const route of routes.filter(r => r.locale === locale && r.kind !== 'careers')) {
+    assertUniqueSlug(slugs, route, locale);
     const doc = byUrl.get(route.oldUrl);
     if (!doc) throw new Error(`Missing inventory content: ${route.oldUrl}`);
     const entry = { slug: route.newSlug, oldId: route.oldId, title: text(doc.title), description: text(doc.meta?.description), sourceUrl: doc.oldUrl,
-      headings: doc.fields.headings.map(h => ({ level: h.level, text: text(h.text) })), paragraphs: doc.fields.paragraphs.map(text), lists: doc.fields.lists.map(l => ({ type: l.type, items: l.items.map(text) })) };
+      headings: doc.fields.headings.filter(h => !(h.level === 'h5' && footerHeadings.has(h.text))).map(h => ({ level: h.level, text: text(h.text) })), paragraphs: doc.fields.paragraphs.filter(p => !footerParagraphs.has(p)).map(text), lists: doc.fields.lists.filter(l => !(l.type === 'ul' && chromeLists.has(JSON.stringify(l.items)))).map(l => ({ type: l.type, items: l.items.map(text) })) };
     if (route.kind === 'project') Object.assign(entry, { overview: text(doc.meta?.description), problem: missing, solution: missing, services: [], screens: projectScreens(doc.images), highlights: [], results: missing, related: [], cta: missing, category: missing });
     const key = { service: 'services', project: 'projects', blog: 'blog', faq: 'faq', legal: 'legal', page: 'pages' }[route.kind];
     if (!key) throw new Error(`Unknown route kind ${route.kind}`);

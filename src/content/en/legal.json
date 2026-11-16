@@ -57,18 +57,6 @@
       {
         "level": "h3",
         "text": "11. How Can You Contact Us About This Policy?"
-      },
-      {
-        "level": "h5",
-        "text": "Services"
-      },
-      {
-        "level": "h5",
-        "text": "Links"
-      },
-      {
-        "level": "h5",
-        "text": "Contact Emails"
       }
     ],
     "paragraphs": [
@@ -84,22 +72,9 @@
       "In some regions (like the European Economic Area), you have certain rights under applicable data protection laws. These may include the right to request access and obtain a copy of your personal information, to request rectification or erasure; and to restrict the processing of your personal information.",
       "Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track (&ldquo;DNT&rdquo;) feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected.",
       "Yes, we will update this policy as necessary to stay compliant with relevant laws. The updated version will be indicated by an updated &ldquo;Revised&rdquo; date and the updated version will be effective as soon as it is accessible.",
-      "If you have questions or comments about this policy, you may email us at support@nami-tec.com or by post to Nami Tech Headquarters.",
-      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
-      "© 2026 All rights reserved - Nami Software Development"
+      "If you have questions or comments about this policy, you may email us at support@nami-tec.com or by post to Nami Tech Headquarters."
     ],
     "lists": [
-      {
-        "type": "ul",
-        "items": [
-          "Website development",
-          "Mobile application development",
-          "Digital marketing",
-          "Technical consulting",
-          "Cloud services",
-          "Design services"
-        ]
-      },
       {
         "type": "ul",
         "items": [
@@ -108,38 +83,6 @@
           "To fulfill and manage your orders.",
           "To deliver services to the user.",
           "To respond to user inquiries/offer support to users."
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Website development",
-          "Mobile application development",
-          "Digital marketing",
-          "Technical consulting",
-          "Cloud services",
-          "Design services"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Home",
-          "About Us",
-          "Blogs",
-          "FAQs",
-          "Services",
-          "Contact Us",
-          "Privacy Policy",
-          "Terms & Conditions"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Technical Support",
-          "Human Resources",
-          "Marketing & Sales"
         ]
       }
     ]
@@ -186,18 +129,6 @@
       {
         "level": "h2",
         "text": "7. Policy Updates"
-      },
-      {
-        "level": "h5",
-        "text": "Services"
-      },
-      {
-        "level": "h5",
-        "text": "Links"
-      },
-      {
-        "level": "h5",
-        "text": "Contact Emails"
       }
     ],
     "paragraphs": [
@@ -208,54 +139,8 @@
       "The customer may request to cancel the service before work begins. After reviewing the request and confirming the status of the service, the refund will be processed in accordance with the terms outlined in this policy.",
       "Refunds will be issued using the same payment method used for the original purchase, or according to the options permitted by the payment gateway. The refund process may take 5 to 14 business days , depending on the procedures of the bank or payment service provider.",
       "To request a refund, the customer may contact us through the official communication channels listed on the Contact Us page, providing the order number and the necessary payment details to verify the transaction.",
-      "We reserve the right to modify or update this Refund and Return Policy at any time. Any changes will become effective as of the date they are published on the website.",
-      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
-      "© 2026 All rights reserved - Nami Software Development"
+      "We reserve the right to modify or update this Refund and Return Policy at any time. Any changes will become effective as of the date they are published on the website."
     ],
-    "lists": [
-      {
-        "type": "ul",
-        "items": [
-          "Website development",
-          "Mobile application development",
-          "Digital marketing",
-          "Technical consulting",
-          "Cloud services",
-          "Design services"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Website development",
-          "Mobile application development",
-          "Digital marketing",
-          "Technical consulting",
-          "Cloud services",
-          "Design services"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Home",
-          "About Us",
-          "Blogs",
-          "FAQs",
-          "Services",
-          "Contact Us",
-          "Privacy Policy",
-          "Terms & Conditions"
-        ]
-      },
-      {
-        "type": "ul",
-        "items": [
-          "Technical Support",
-          "Human Resources",
-          "Marketing & Sales"
-        ]
-      }
-    ]
+    "lists": []
   }
 ]
