@@ -1,4 +1,4 @@
-import type { SceneId, SceneSnapshot } from './contracts';
+import type { SceneId, SceneSnapshot, TransitionSnapshot, TransitionCtx } from './contracts';
 import { createInteraction, createExploration } from './interaction';
 import { createIntroClock } from './robot/intro';
 
@@ -21,6 +21,9 @@ export function createRuntime() {
     replayStart: null as number | null,
     profile: { quality: 'mid', motion: 'full', renderer: 'webgl' } as import('./profile').Profile,
     snapshot: null as SceneSnapshot | null,
+    transition: null as TransitionSnapshot | null,
+    transitionContext: { intents: null } as TransitionCtx,
+    sceneSnapshots: {} as Partial<Record<SceneId, SceneSnapshot>>,
     seekVersion: 0,
     contextLost: false,
     assetsReady: false,
@@ -36,5 +39,7 @@ export type ExperienceDebug = {
   scene: SceneId; local: number; cameraZ: number; introCancelled: boolean;
   robotReady: boolean; robotMeshes: number; head: ExperienceRuntime['headScreen'];
   robot: SceneSnapshot['robot'] | undefined; reaction: string | undefined;
+  transition: { id: string; progress: number } | null;
+  mountedScenes: SceneId[];
 };
 declare global { interface Window { __namiDebug?: () => ExperienceDebug } }

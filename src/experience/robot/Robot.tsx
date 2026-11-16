@@ -67,7 +67,7 @@ export function Robot({ runtime, profile, residency, onError }: {
   useFrame((state, delta) => {
     if (!runtime.snapshot || !runtime.assetsReady || !runtime.robotReady || runtime.contextLost) return;
     if (mounted.current) {
-      if (runtime.scene === 's03') {
+      if (runtime.scene === 's02' || runtime.scene === 's03') {
         mounted.current.position.fromArray(runtime.snapshot.visual.robotPosition as [number, number, number]);
         mounted.current.quaternion.fromArray(runtime.snapshot.visual.robotQuaternion as [number, number, number, number]);
       } else {
@@ -81,7 +81,8 @@ export function Robot({ runtime, profile, residency, onError }: {
       fsm.seek(runtime.snapshot);
       composer.resetGaze();
     } else if (runtime.intro.cancelled || runtime.scene !== 's01') fsm.observe(runtime.snapshot);
-    const directive = runtime.snapshot.robot;
+    const robotIntent = runtime.transitionContext.intents?.robot;
+    const directive = robotIntent?.directive ?? runtime.snapshot.robot;
     fsm.setState(narrativeState(runtime.snapshot));
     const reaction = runtime.interaction.state.reaction;
     if (reaction !== frame.reaction) {
@@ -95,13 +96,17 @@ export function Robot({ runtime, profile, residency, onError }: {
     const cursorTarget = frame.ray.ray.intersectPlane(frame.plane, frame.target);
     const s01 = runtime.scene === 's01';
     const visual = runtime.snapshot.visual;
-    if (mounted.current && runtime.scene !== 's03' && runtime.scene !== 's05') {
+    if (mounted.current && runtime.scene !== 's02' && runtime.scene !== 's03' && runtime.scene !== 's05') {
       mounted.current.position.x = s01 ? Number(visual.robotX ?? 0) : runtime.scene === 's04' ? -1.05 : 0;
       mounted.current.position.y = -1.69 * scale - (s01 && compact ? 0.5 : 0);
     }
     if (mounted.current && runtime.scene === 's05' && Array.isArray(visual.robotPosition)) {
       mounted.current.position.fromArray(visual.robotPosition as number[]);
       mounted.current.rotation.set(0, Number(visual.robotYaw ?? 0), 0);
+    }
+    if (mounted.current && robotIntent) {
+      if (robotIntent.position) mounted.current.position.fromArray(robotIntent.position);
+      if (robotIntent.quaternion) mounted.current.quaternion.fromArray(robotIntent.quaternion);
     }
     const layers = frame.layers;
     layers.time = now;

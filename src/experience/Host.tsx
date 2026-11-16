@@ -20,7 +20,9 @@ import S05 from './scenes/s05';
 import S06 from './scenes/s06';
 import S07 from './scenes/s07';
 import { createAssetLoader } from './assets/loaders';
-import { acquireDestination, AssetResidency, keysForScene } from './assets/residency';
+import { AssetResidency, keysForScene, worldKeys } from './assets/residency';
+import { mountedScenes, residentScenes, sampleBoundary, transitions } from './transitions';
+import { TransitionResidency } from './transitions/residency';
 import { Robot } from './robot/Robot';
 import { createHeadReaction, pointerNearHead } from './robot/procedural';
 import styles from './experience.module.css';
@@ -95,22 +97,27 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
       const headline = document.querySelector('[data-s01-headline]')?.getBoundingClientRect();
       if (headline) drawEnergyLine(line, headline, runtime.handScreen, reveal, document.documentElement.dir === 'rtl', runtime.viewport.dpr);
     }
-    // Apply only the resident scene before the host-owned render.
     for (let index = 0; index < SCENE_IDS.length; index++) {
       const id = SCENE_IDS[index];
       const ctx = contexts.get(id);
       if (!ctx) continue;
-      ctx.root.visible = id === runtime.scene && runtime.assetsReady;
-      if (ctx.root.visible && runtime.snapshot) {
+      const transition = runtime.transition;
+      const intents = runtime.transitionContext.intents;
+      const visibility = transition && id === transitions[transition.id].from ? intents?.fromVisibility ?? 0
+        : transition && id === transitions[transition.id].to ? intents?.toVisibility ?? 0 : Number(id === runtime.scene);
+      ctx.root.visible = visibility > 0 && runtime.assetsReady;
+      const snapshot = id === runtime.scene ? runtime.snapshot : runtime.sceneSnapshots[id];
+      if (ctx.root.visible && snapshot) {
         ctx.ambient = ctx.reducedMotion ? 0 : runtime.time;
-        scenes[id].apply(runtime.snapshot, ctx);
-        const directive = runtime.snapshot.robot;
-        if (directive.kind === 'point') {
+        scenes[id].apply(snapshot, ctx);
+        const directive = runtime.transitionContext.intents?.robot.directive ?? runtime.snapshot?.robot;
+        if (id !== runtime.scene) { ctx.beforeRender?.(camera); continue; }
+        if (directive?.kind === 'point') {
           const target = ctx.root.getObjectByName(directive.target);
           if (target) { target.getWorldPosition(gaze); runtime.taskGaze = gaze; }
         } else runtime.taskGaze = null;
-        if (Array.isArray(runtime.snapshot.visual.gazeTarget)) {
-          gaze.fromArray(runtime.snapshot.visual.gazeTarget as number[]); runtime.taskGaze = gaze;
+        if (Array.isArray(snapshot.visual.gazeTarget)) {
+          gaze.fromArray(snapshot.visual.gazeTarget as number[]); runtime.taskGaze = gaze;
         }
         ctx.beforeRender?.(camera);
       }
@@ -133,7 +140,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   const canReact = useMemo(() => createHeadReaction(), []);
   const [services, setServices] = useState<Services | null>(null);
   const renderer = useExperienceStore(state => state.profile.renderer);
-  const activeScene = useExperienceStore(state => state.scene);
+  const [resident, setResident] = useState<SceneId[]>(['s01']);
   const pathname = usePathname();
   const register = useCallback((id: SceneId, ctx: Ctx | null) => {
     if (ctx) { ctx.reducedMotion = useExperienceStore.getState().profile.motion === 'reduced'; contexts.set(id, ctx); }
@@ -151,50 +158,59 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     runtime.viewport.dpr = dpr;
     for (const ctx of contexts.values()) ctx.reducedMotion = profile.motion === 'reduced';
     let cancelled = false;
-    let activeScene: SceneId | null = null;
-    let activeProject = -1;
-    let cancellation: AbortController | undefined;
-    let assets: ReturnType<typeof acquireDestination> | undefined;
+    let assetSignature = '';
+    let mountSignature = '';
+    const assets = services ? new TransitionResidency(services.residency) : null;
     function release(evict = false) {
-      cancellation?.abort();
       assets?.release();
+      assetSignature = '';
       if (evict) services?.residency.evictUnused();
     }
     function acquire() {
       if (!services || runtime.contextLost || renderer === 'fallback') return;
-      const previousAssets = assets;
-      const previousCancellation = cancellation;
-      runtime.assetsReady = keysForScene(runtime.scene, useExperienceStore.getState().project).every(key => services.residency.isResident(key));
+      const reduced = profile.motion === 'reduced';
+      const mounted = mountedScenes(runtime.scene, runtime.local, reduced);
+      const projectFor = (id: SceneId) => Number(runtime.sceneSnapshots[id]?.visual.project ?? useExperienceStore.getState().project);
+      // Active destination comes first on cold seeks; the other scene is acquired before any release.
+      const ordered = [runtime.scene, ...mounted.filter(id => id !== runtime.scene)];
+      const required = ordered.flatMap(id => keysForScene(id, projectFor(id)).filter(key => id === runtime.scene || !key.startsWith('poster:')));
+      const warm = residentScenes(runtime.scene, runtime.local, reduced).filter(id => !mounted.includes(id))
+        .flatMap(id => keysForScene(id, id === 's05' && runtime.scene === 's06' ? 5 : 0).filter(key => !key.startsWith('poster:')));
+      if (mounted.includes('s05')) warm.push(...worldKeys(projectFor('s05'), true));
+      const signature = `${required.join(',')}|${warm.join(',')}`;
+      if (assetSignature === signature) return;
+      assetSignature = signature;
+      runtime.assetsReady = required.every(key => services.residency.isResident(key));
       if (!runtime.assetsReady) {
         runtime.framed = false;
         useExperienceStore.setState({ ui: { ready: false, contextLost: false } });
       }
-      cancellation = new AbortController();
-      const signal = cancellation.signal;
-      assets = acquireDestination(services.residency, runtime.scene, signal, useExperienceStore.getState().project);
-      previousCancellation?.abort();
-      previousAssets?.release();
-      services.residency.evictUnused();
-      void assets.ready.then(() => {
-        if (!cancelled && !signal.aborted && !runtime.contextLost) runtime.assetsReady = true;
-      }).catch(error => { if (!signal.aborted && !cancelled && error instanceof Error) fallback(); });
+      assets?.update(required, warm, () => {
+        if (!cancelled && !runtime.contextLost) runtime.assetsReady = true;
+      }, error => { if (!cancelled && error instanceof Error && error.name !== 'AbortError') fallback(); });
     }
     function sample(snap: boolean) {
       if (runtime.local > 0 || runtime.scene !== 's01' || profile.motion === 'reduced') runtime.intro.cancel();
       const definition = scenes[runtime.scene];
       const input = { local: runtime.local, viewport: runtime.viewport, profile, interaction: runtime.interaction.state, seed: 1, ambient: 0 };
       runtime.snapshot = definition.sample(input);
+      const boundary = sampleBoundary(runtime.scene, input, runtime.snapshot);
+      runtime.transition = boundary.transition;
+      if (runtime.transition) transitions[runtime.transition.id].apply(runtime.transition, runtime.transitionContext);
+      else runtime.transitionContext.intents = null;
+      runtime.sceneSnapshots = boundary.snapshots;
+      const mounted = mountedScenes(runtime.scene, runtime.local, profile.motion === 'reduced');
+      if (mountSignature !== mounted.join(',')) { mountSignature = mounted.join(','); setResident(mounted); }
       const project = runtime.scene === 's05' ? Number(runtime.snapshot.visual.project) : -1;
       if (project >= 0 && useExperienceStore.getState().project !== project) useExperienceStore.setState({ project });
       window.dispatchEvent(new CustomEvent('nami:s04-progress', { detail: runtime.scene === 's04' && (runtime.local >= .9 || profile.motion === 'reduced') }));
       if (runtime.scene !== 's04' && runtime.exploration.active) { runtime.exploration.exit(); window.dispatchEvent(new CustomEvent('nami:explore-state', { detail: false })); }
       if (runtime.scene === 's03' && typeof runtime.snapshot.visual.station === 'number' && useExperienceStore.getState().station !== runtime.snapshot.visual.station) useExperienceStore.setState({ station: runtime.snapshot.visual.station });
       if (runtime.scene === 's06' && typeof runtime.snapshot.visual.valueIndex === 'number' && useExperienceStore.getState().dnaValueIndex !== runtime.snapshot.visual.valueIndex) useExperienceStore.setState({ dnaValueIndex: runtime.snapshot.visual.valueIndex });
-      const index = SCENE_IDS.indexOf(runtime.scene);
-      const previous = index > 0 && runtime.scene !== 's03' && runtime.scene !== 's05' ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : runtime.snapshot.camera;
-      rig.setPoses(previous, runtime.snapshot.camera, { blend: profile.motion === 'reduced' ? 1 : runtime.local / 0.08, snap: snap || runtime.scene === 's01' || runtime.scene === 's05' || profile.motion === 'reduced' });
+      const camera = runtime.transitionContext.intents?.camera ?? boundary.camera;
+      rig.setPoses(camera.from, camera.to, { blend: camera.blend, snap: snap || runtime.scene === 's01' || runtime.scene === 's05' || profile.motion === 'reduced' });
       if (useExperienceStore.getState().scene !== runtime.scene) useExperienceStore.setState({ scene: runtime.scene, robotState: runtime.snapshot.robot });
-      if (activeScene !== runtime.scene || activeProject !== project) { activeScene = runtime.scene; activeProject = project; acquire(); }
+      acquire();
     }
     const controller = createController(runtime, sample, profile.motion === 'reduced', mobile);
     controller.attach();
@@ -285,6 +301,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
         introCancelled: runtime.intro.cancelled, robotReady: runtime.robotReady, robotMeshes: runtime.robotMeshes,
         head: { ...runtime.headScreen }, robot: runtime.snapshot ? { ...runtime.snapshot.robot } : undefined,
         reaction: runtime.interaction.state.reaction?.name,
+        transition: runtime.transition ? { id: runtime.transition.id, progress: runtime.transition.progress } : null,
+        mountedScenes: [...contexts.keys()].sort(),
       });
     }
     return () => {
@@ -310,12 +328,21 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
 
   useEffect(() => () => { services?.residency.evictUnused(); services?.dispose(); }, [services]);
   useEffect(() => { if (renderer === 'fallback') services?.residency.evictUnused(); }, [renderer, services]);
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'development' || new URLSearchParams(location.search).get('debug') !== 'transitions') return;
+    let dispose: (() => void) | undefined;
+    let cancelled = false;
+    void import('./transitions/debug').then(({ transitionDebug }) => {
+      if (!cancelled) dispose = transitionDebug(runtime);
+    });
+    return () => { cancelled = true; dispose?.(); };
+  }, [runtime]);
 
   if (renderer === 'fallback') return null;
   return <><canvas ref={energyLine} data-s01-energy-line className={styles.energyLine} aria-hidden="true" /><CanvasBoundary><Canvas className={styles.canvas} data-scene-canvas dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
-    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's04' && <S04 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's05' && <S05 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's06' && <S06 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's07' && <S07 register={register} residency={services?.residency ?? null} onError={fallback} />}
+    {resident.includes('s01') && <S01 register={register} />}{resident.includes('s02') && <S02 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s03') && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s04') && <S04 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s05') && <S05 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s06') && <S06 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s07') && <S07 register={register} residency={services?.residency ?? null} onError={fallback} />}
     <IntroFrame runtime={runtime} profile={profile} />
     {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
     <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} energyLine={energyLine} />

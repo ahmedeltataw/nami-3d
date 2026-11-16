@@ -5,8 +5,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { AdditiveBlending, AmbientLight, Color, DataTexture, DirectionalLight, Group, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, PointLight, RGBAFormat, Scene as ThreeScene, ShaderMaterial, Sprite, SpriteMaterial, SRGBColorSpace, TorusGeometry, Vector3, WebGLRenderTarget, type Object3D } from 'three';
 import type { Ctx, SceneId } from '../../contracts';
-import { createAssetLoader } from '../../assets/loaders';
-import type { ResidentAsset } from '../../assets/residency';
+import type { AssetResidency } from '../../assets/residency';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { useExperienceStore } from '../../store';
 import { ParticleField, type ParticleFieldHandle, type Point3 } from '../../shared/particles';
@@ -19,7 +18,7 @@ export function previewVisible(openAmount: number, reveal: number, cameraZ = 2.6
   return openAmount > 0 && reveal === 0 && cameraZ > -2;
 }
 
-export default function Scene({ register }: { register: (id: SceneId, ctx: Ctx | null) => void }) {
+export default function Scene({ register, residency, onError }: { register: (id: SceneId, ctx: Ctx | null) => void; residency: AssetResidency | null; onError: () => void }) {
   const root = useRef<Group>(null);
   const field = useRef<ParticleFieldHandle>(null);
   const particles = useRef<Group>(null);
@@ -35,19 +34,14 @@ export default function Scene({ register }: { register: (id: SceneId, ctx: Ctx |
   }, -1);
 
   useEffect(() => {
-    if (!active || !root.current || profile.renderer === 'fallback') return;
+    if (!residency || !root.current || profile.renderer === 'fallback') return;
     const parent = root.current;
-    const loader = createAssetLoader(gl);
     const cancel = new AbortController();
-    const assets: ResidentAsset[] = [];
+    const leases = ['portal.gate', 'lab.shell'].map(key => residency.acquire(key as 'portal.gate' | 'lab.shell', cancel.signal));
     let dispose: (() => void) | undefined;
-    const load = async (key: 'portal.gate' | 'lab.shell') => {
-      const asset = await loader.load(key, profile.quality, cancel.signal);
-      assets.push(asset);
-      return asset.value as GLTF;
-    };
-    void Promise.all([load('portal.gate'), load('lab.shell')]).then(([gate, shell]) => {
+    void Promise.all(leases.map(lease => lease.ready)).then(assets => {
       if (cancel.signal.aborted) return;
+      const [gate, shell] = assets.map(asset => asset.value as GLTF);
       const portal = bindPortal(gate.scene);
       const gateMount = new Group();
       gateMount.position.set(0, 0, -2);
@@ -102,7 +96,6 @@ export default function Scene({ register }: { register: (id: SceneId, ctx: Ctx |
           world.background = background;
           robot = world.getObjectByName('robot');
           if (robot) {
-            robot.position.fromArray(v.robotPosition); robot.quaternion.fromArray(v.robotQuaternion);
             robot.updateWorldMatrix(true, true);
             leftHand = robot.getObjectByName('LeftHand_Anchor'); rightHand = robot.getObjectByName('RightHand_Anchor');
           }
@@ -153,16 +146,16 @@ export default function Scene({ register }: { register: (id: SceneId, ctx: Ctx |
         ringGeometry.dispose(); ringMaterial.dispose(); flashGeometry.dispose(); flashMaterial.dispose();
       };
     }).catch(error => {
-      if (!cancel.signal.aborted && error instanceof Error) useExperienceStore.setState(current => ({ profile: { ...current.profile, renderer: 'fallback' }, ui: { ready: false, contextLost: false } }));
+      if (!cancel.signal.aborted && error instanceof Error) onError();
     });
     return () => {
       cancel.abort(); register('s02', null); dispose?.();
-      assets.forEach(asset => asset.dispose()); loader.dispose();
+      leases.forEach(lease => lease.release());
       if (world.background === background) world.background = null;
     };
-  }, [active, gl, camera, world, profile, register, particleState, background]);
+  }, [residency, onError, gl, camera, world, profile, register, particleState, background]);
 
-  return <group ref={root} name="s02" visible={false}>
+  return <group ref={root} name="s02" visible={false} dispose={null}>
     <directionalLight position={[-2, 4, 3]} intensity={2} />
     <group ref={particles}><ParticleField ref={field} profile={profile} active={active && profile.motion === 'full'} preset="converge" targetFn={origin} state={particleState} /></group>
   </group>;
