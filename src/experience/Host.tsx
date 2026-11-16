@@ -168,6 +168,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       const input = { local: runtime.local, viewport: runtime.viewport, profile, interaction: runtime.interaction.state, seed: 1, ambient: 0 };
       runtime.snapshot = definition.sample(input);
       if (runtime.scene === 's03' && typeof runtime.snapshot.visual.station === 'number' && useExperienceStore.getState().station !== runtime.snapshot.visual.station) useExperienceStore.setState({ station: runtime.snapshot.visual.station });
+      if (runtime.scene === 's06' && typeof runtime.snapshot.visual.valueIndex === 'number' && useExperienceStore.getState().dnaValueIndex !== runtime.snapshot.visual.valueIndex) useExperienceStore.setState({ dnaValueIndex: runtime.snapshot.visual.valueIndex });
       const index = SCENE_IDS.indexOf(runtime.scene);
       const previous = index > 0 && runtime.scene !== 's03' ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : runtime.snapshot.camera;
       rig.setPoses(previous, runtime.snapshot.camera, { blend: profile.motion === 'reduced' ? 1 : runtime.local / 0.08, snap: snap || runtime.scene === 's01' || profile.motion === 'reduced' });
@@ -183,6 +184,13 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       if (Number.isFinite(local)) controller.seek('s03', local);
     }
     window.addEventListener('nami:station-seek', seekStation);
+    function onRobotReact(event: Event) {
+      const detail = (event as CustomEvent<{ name: 'React' | 'nod' | 'tilt'; duration?: number }>).detail;
+      if (detail && detail.name) {
+        runtime.interaction.react(detail.name, runtime.time, detail.duration ?? 0.9);
+      }
+    }
+    window.addEventListener('nami:robot-react', onRobotReact);
     function lost(event: Event) {
       event.preventDefault();
       runtime.contextLost = true;
@@ -238,6 +246,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       useExperienceStore.setState({ controller: null });
       if (typeof window !== 'undefined') delete (window as unknown as { __namiController?: typeof controller }).__namiController;
       window.removeEventListener('nami:station-seek', seekStation);
+      window.removeEventListener('nami:robot-react', onRobotReact);
       release();
       services?.gl.domElement.removeEventListener('webglcontextlost', lost);
       services?.gl.domElement.removeEventListener('webglcontextrestored', restored);
@@ -255,7 +264,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   return <><svg className={styles.energyLine} aria-hidden="true"><path ref={energyLine} pathLength={1} /></svg><CanvasBoundary><Canvas className={styles.canvas} dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
-    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}<S04 register={register} /><S05 register={register} /><S06 register={register} /><S07 register={register} />
+    <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}<S04 register={register} /><S05 register={register} />{activeScene === 's06' && <S06 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's07' && <S07 register={register} residency={services?.residency ?? null} onError={fallback} />}
     <IntroFrame runtime={runtime} profile={profile} />
     {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
     <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} energyLine={energyLine} />
