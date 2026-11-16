@@ -2,6 +2,8 @@
 
 import { useExperienceStore } from '../../store';
 import styles from './panel.module.css';
+import { TimeMachine } from '../../timemachine/TimeMachine';
+import type { Milestone } from '../../timemachine/timeline';
 
 export type DnaValue = {
   id: string;
@@ -12,6 +14,8 @@ export type DnaValue = {
 export type DnaPanelProps = {
   locale: string;
   values: DnaValue[];
+  milestones: Milestone[];
+  timeMachineLabels: { title: string; close: string; previous: string; next: string; slider: string; article: string; published: string; founded: string };
   labels: {
     valuesHeading: string;
     dnaMessage: string;
@@ -20,7 +24,7 @@ export type DnaPanelProps = {
   };
 };
 
-export function DnaPanel({ locale, values, labels }: DnaPanelProps) {
+export function DnaPanel({ locale, values, labels, milestones, timeMachineLabels }: DnaPanelProps) {
   const activeIndex = useExperienceStore(state => state.dnaValueIndex);
   const activeValue = values[activeIndex] ?? values[0];
   const activeValueName = activeValue?.name ?? '';
@@ -78,6 +82,7 @@ export function DnaPanel({ locale, values, labels }: DnaPanelProps) {
         <p className={styles.aboutSummary}>{labels.aboutSummary}</p>
         <button
           type="button"
+          data-time-machine-open
           className={styles.timeMachineBtn}
           aria-label={ariaTimeMachineLabel}
           onClick={handleTimeMachine}
@@ -85,6 +90,7 @@ export function DnaPanel({ locale, values, labels }: DnaPanelProps) {
           {labels.timeMachine}
         </button>
       </div>
+      <TimeMachine locale={locale} milestones={milestones} labels={timeMachineLabels} />
     </div>
   );
 }
