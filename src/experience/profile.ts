@@ -42,3 +42,19 @@ export function browserEnvironment(): ProfileEnvironment {
     hardwareConcurrency: navigator.hardwareConcurrency,
   };
 }
+
+export type MotionChoice = 'cinematic' | 'direct';
+export const MOTION_KEY = 'nami-motion';
+export const MOTION_EVENT = 'nami:motion-choice';
+let sessionChoice: MotionChoice = 'cinematic';
+export function readMotionChoice(storage: Pick<Storage, 'getItem'>): MotionChoice {
+  try { const value = storage.getItem(MOTION_KEY); if (value === 'direct' || value === 'cinematic') sessionChoice = value; } catch { /* Keep the in-memory choice. */ }
+  return sessionChoice;
+}
+export function saveMotionChoice(storage: Pick<Storage, 'setItem'>, choice: MotionChoice) {
+  sessionChoice = choice;
+  try { storage.setItem(MOTION_KEY, choice); } catch { /* Storage can be unavailable. */ }
+}
+export function effectiveMotion(reduced: boolean, choice: MotionChoice): Profile['motion'] {
+  return reduced || choice === 'direct' ? 'reduced' : 'full';
+}

@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/content';
 import ExperienceMount from '@/experience/ExperienceMount';
+import { LivingCursor } from '@/experience/LivingCursor';
 import { Nav } from '@/components/ui/Nav';
 import { Footer } from '@/components/ui/Footer';
 import '@/styles/globals.css';
@@ -42,6 +43,7 @@ export default async function LocaleLayout({
         </a>
         <NextIntlClientProvider>
           <ExperienceMount />
+          <LivingCursor />
           <Nav />
           {children}
           <Footer locale={locale as Locale} />

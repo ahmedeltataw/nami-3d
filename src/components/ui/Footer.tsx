@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { getCompany, type Locale } from '@/content';
 import styles from './Footer.module.css';
+import { MotionSwitch } from './MotionSwitch';
 
 function socialName(url: string): string {
   try {
@@ -164,6 +165,7 @@ export async function Footer({ locale }: { locale: Locale }) {
         </div>
 
         <div className={styles.bottomBar}>
+          <MotionSwitch />
           <div className={styles.legalLinks}>
             <Link href={`/${locale}/privacy`} className={styles.footerLink}>
               {t('privacy')}

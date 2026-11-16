@@ -11,6 +11,7 @@ export type ControllerApi = {
 type ExperienceStore = {
   scene: SceneId;
   station: number;
+  cursorGrab: boolean;
   dnaValueIndex: number;
   setDnaValueIndex: (index: number) => void;
   projectType: ProjectType | null;
@@ -25,6 +26,7 @@ type ExperienceStore = {
 export const useExperienceStore = create<ExperienceStore>((set) => ({
   scene: 's01',
   station: 1,
+  cursorGrab: false,
   dnaValueIndex: 0,
   setDnaValueIndex: (dnaValueIndex) => set({ dnaValueIndex }),
   projectType: null,
