@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { browserEnvironment, detectProfile, initialDpr, type Profile } from './profile';
+import { browserEnvironment, detectProfile, initialDpr, readMotionChoice, effectiveMotion, MOTION_EVENT, type Profile } from './profile';
 import { useExperienceStore } from './store';
 import { sceneFromHash } from './controller';
 import styles from './experience.module.css';
@@ -17,23 +17,25 @@ export default function ExperienceMount() {
   useEffect(() => {
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     function motionChanged() {
-      const motion = media.matches ? 'reduced' : 'full';
+      const motion = effectiveMotion(media.matches, readMotionChoice(localStorage));
       useExperienceStore.setState(state => ({ profile: { ...state.profile, motion } }));
       setConfiguration(current => current ? { ...current, profile: { ...current.profile, motion } } : current);
     }
     function start() {
       const environment = browserEnvironment();
       const profile = detectProfile(environment);
+      profile.motion = effectiveMotion(environment.reducedMotion, readMotionChoice(localStorage));
       useExperienceStore.setState({ profile, scene: sceneFromHash(location.hash) ?? 's01' });
       setConfiguration({ profile, mobile: environment.coarsePointer, dpr: initialDpr(environment.coarsePointer) });
       media.addEventListener('change', motionChanged);
+      window.addEventListener(MOTION_EVENT, motionChanged);
     }
     if ('requestIdleCallback' in window) {
       const id = window.requestIdleCallback(start, { timeout: 1200 });
-      return () => { window.cancelIdleCallback(id); media.removeEventListener('change', motionChanged); };
+      return () => { window.cancelIdleCallback(id); media.removeEventListener('change', motionChanged); window.removeEventListener(MOTION_EVENT, motionChanged); };
     }
     const id = setTimeout(start, 100);
-    return () => { clearTimeout(id); media.removeEventListener('change', motionChanged); };
+    return () => { clearTimeout(id); media.removeEventListener('change', motionChanged); window.removeEventListener(MOTION_EVENT, motionChanged); };
   }, []);
   return <div className={styles.host} data-experience data-scene={scene} data-ready={ready} data-renderer={renderer} aria-hidden="true">
     <div className={`${styles.poster} ${ready ? styles.hidden : ''}`} style={configuration ? { backgroundImage: `url(/posters/${scene}.svg)` } : undefined}>

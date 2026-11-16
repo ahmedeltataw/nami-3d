@@ -1,128 +1,66 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
+﻿'use client';
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { SCENE_IDS } from '@/experience/controller';
+import { useExperienceStore } from '@/experience/store';
 import { LocaleSwitch } from './LocaleSwitch';
+import { MotionSwitch } from './MotionSwitch';
 import styles from './Nav.module.css';
 
 export function Nav() {
   const locale = useLocale();
   const t = useTranslations('Nav');
+  const scene = useExperienceStore(state => state.scene);
   const [isOpen, setIsOpen] = useState(false);
-  const toggleBtnRef = useRef<HTMLButtonElement>(null);
-
-  // Close on Escape key press
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-        toggleBtnRef.current?.focus();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (!isOpen || !panel.current || !toggle.current) return;
+    const origin = toggle.current.getBoundingClientRect();
+    const links = panel.current.querySelectorAll<HTMLElement>('a');
+    links.forEach(link => { link.style.animation = 'none'; });
+    links.forEach(link => {
+      const rect = link.getBoundingClientRect();
+      link.style.setProperty('--burst-x', `${origin.left + origin.width / 2 - rect.left - rect.width / 2}px`);
+      link.style.setProperty('--burst-y', `${origin.top + origin.height / 2 - rect.top - rect.height / 2}px`);
+    });
+    links.forEach(link => { link.style.animation = ''; });
   }, [isOpen]);
-
-  const closeMenu = () => setIsOpen(false);
-
-  return (
-    <header className={styles.header}>
-      <nav className={styles.navContainer} aria-label={t('home')}>
-        <div className={styles.brandGroup}>
-          <Link href={`/${locale}`} className={styles.logoLink} onClick={closeMenu}>
-            <Image
-              src="/brand/logo.svg"
-              alt="Nami"
-              width={105}
-              height={36}
-              className={styles.logo}
-              unoptimized
-            />
-          </Link>
-
-          <div className={styles.scenesNav} aria-label={t('scenesAriaLabel')}>
-            {SCENE_IDS.map(id => (
-              <a key={id} href={`#${id}`} className={styles.sceneLink} onClick={closeMenu}>
-                {id}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.desktopNav}>
-          <Link href={`/${locale}/services`} className={styles.pageLink}>
-            {t('services')}
-          </Link>
-          <Link href={`/${locale}/projects`} className={styles.pageLink}>
-            {t('projects')}
-          </Link>
-          <Link href={`/${locale}/about`} className={styles.pageLink}>
-            {t('about')}
-          </Link>
-          <Link href={`/${locale}/blog`} className={styles.pageLink}>
-            {t('blog')}
-          </Link>
-          <Link href={`/${locale}/contact`} className={styles.pageLink}>
-            {t('contact')}
-          </Link>
-        </div>
-
-        <div className={styles.controlsGroup}>
-          <LocaleSwitch />
-
-          <button
-            ref={toggleBtnRef}
-            type="button"
-            className={styles.menuButton}
-            aria-expanded={isOpen}
-            aria-controls="mobile-nav-panel"
-            aria-label={isOpen ? t('closeMenu') : t('openMenu')}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <span className={styles.menuIcon} aria-hidden="true">
-              <span className={`${styles.menuBar} ${isOpen ? styles.menuBarOpen1 : ''}`} />
-              <span className={`${styles.menuBar} ${isOpen ? styles.menuBarOpen2 : ''}`} />
-              <span className={`${styles.menuBar} ${isOpen ? styles.menuBarOpen3 : ''}`} />
-            </span>
-          </button>
-        </div>
-      </nav>
-
-      <div
-        id="mobile-nav-panel"
-        className={`${styles.mobileDrawer} ${isOpen ? '' : styles.mobileDrawerHidden}`}
-        aria-hidden={!isOpen}
-      >
-        <div className={styles.mobilePageList}>
-          <Link href={`/${locale}`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('home')}
-          </Link>
-          <Link href={`/${locale}/services`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('services')}
-          </Link>
-          <Link href={`/${locale}/projects`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('projects')}
-          </Link>
-          <Link href={`/${locale}/about`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('about')}
-          </Link>
-          <Link href={`/${locale}/blog`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('blog')}
-          </Link>
-          <Link href={`/${locale}/contact`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('contact')}
-          </Link>
-          <Link href={`/${locale}/careers`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('careers')}
-          </Link>
-          <Link href={`/${locale}/faqs`} className={styles.mobilePageLink} onClick={closeMenu}>
-            {t('faqs')}
-          </Link>
-        </div>
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    panel.current?.querySelector<HTMLElement>('a, button')?.focus();
+    function key(event: KeyboardEvent) {
+      if (event.key === 'Escape') { event.preventDefault(); setIsOpen(false); toggle.current?.focus(); return; }
+      if (event.key !== 'Tab') return;
+      const items = [toggle.current, ...Array.from(panel.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [])].filter((item): item is HTMLElement => !!item);
+      const index = items.indexOf(document.activeElement as HTMLElement);
+      if (event.shiftKey && index <= 0) { event.preventDefault(); items[items.length - 1]?.focus(); }
+      else if (!event.shiftKey && (index === items.length - 1 || index < 0)) { event.preventDefault(); items[0]?.focus(); }
+    }
+    document.addEventListener('keydown', key);
+    return () => { document.body.style.overflow = previousOverflow; document.removeEventListener('keydown', key); };
+  }, [isOpen]);
+  const pages = ['home', 'services', 'projects', 'about', 'blog', 'contact', 'careers', 'faqs'] as const;
+  return <header className={styles.header}>
+    <nav className={styles.navContainer} aria-label={t('home')}>
+      <Link href={`/${locale}`} className={styles.logoLink} onClick={() => setIsOpen(false)}><Image src="/brand/logo.svg" alt="Nami" width={105} height={36} className={styles.logo} unoptimized /></Link>
+      <div className={styles.headerScenes} aria-label={t('scenesAriaLabel')}>
+        {SCENE_IDS.map(id => <a key={id} href={`/${locale}#${id}`} aria-current={scene === id ? 'location' : undefined}>{id}</a>)}
       </div>
-    </header>
-  );
+      <div className={styles.controlsGroup}><LocaleSwitch /><button ref={toggle} type="button" className={styles.menuButton} aria-expanded={isOpen} aria-controls="mobile-nav-panel" aria-label={isOpen ? t('closeMenu') : t('openMenu')} onClick={() => setIsOpen(!isOpen)} data-magnetic>{isOpen ? '×' : '☰'}</button></div>
+    </nav>
+    <div id="mobile-nav-panel" ref={panel} className={styles.overlay} hidden={!isOpen}>
+      <div className={styles.content}>
+        <div className={styles.sceneList} aria-label={t('scenesAriaLabel')}>
+          {SCENE_IDS.map((id, index) => <a key={id} href={`/${locale}#${id}`} aria-current={scene === id ? 'location' : undefined} onClick={() => setIsOpen(false)} style={{ '--i': index } as CSSProperties}>{id.toUpperCase()}</a>)}
+        </div>
+        <div className={styles.pageList}>{pages.map((page, index) => <Link key={page} href={page === 'home' ? `/${locale}` : `/${locale}/${page}`} onClick={() => setIsOpen(false)} style={{ '--i': index } as CSSProperties}>{t(page)}</Link>)}</div>
+        <MotionSwitch />
+      </div>
+    </div>
+  </header>;
 }
