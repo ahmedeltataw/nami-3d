@@ -1,0 +1,323 @@
+{
+  "file": "hall_kit.glb",
+  "source": "assets-model/hall_kit.blend (S01 Hall Kit v1)",
+  "units": "metres, floor top y=0 (robot ~3.38 tall); glTF +Y up",
+  "tris_total": 20238,
+  "textures": "none (vertex colours on Skyline_Sky only)",
+  "lighting": "none exported; lit in three.js",
+  "hall": {
+    "radius": 16.0,
+    "wall_height": 9.0,
+    "window_direction_gltf": [
+      -0.7431,
+      0,
+      -0.6691
+    ],
+    "platform_radius": 3.6,
+    "ring_radius": 3.0,
+    "skyline_backdrop_distance": 85
+  },
+  "anchors": {
+    "Hall_CameraAnchor_Start": {
+      "position_gltf": [
+        3.6,
+        2.0,
+        9.0
+      ],
+      "look_dir_gltf": [
+        -0.3714,
+        -0.0103,
+        -0.9284
+      ],
+      "look_at_gltf": [
+        0,
+        1.9,
+        0
+      ]
+    },
+    "Hall_CameraAnchor_End": {
+      "position_gltf": [
+        0.8,
+        2.2,
+        5.2
+      ],
+      "look_dir_gltf": [
+        -0.1518,
+        -0.0569,
+        -0.9868
+      ],
+      "look_at_gltf": [
+        0,
+        1.9,
+        0
+      ]
+    },
+    "Hall_RobotSpot": {
+      "position_gltf": [
+        0.0,
+        0.22,
+        -0.0
+      ]
+    }
+  },
+  "materials": [
+    "Hall_DarkMetal",
+    "Hall_EmissiveEmerald",
+    "Hall_FloorReflective",
+    "Hall_PanelWhite",
+    "Hall_PlantLeaf",
+    "Hall_PotCeramic",
+    "Skyline_KingdomTower",
+    "Skyline_Silhouette",
+    "Skyline_Sky",
+    "Skyline_WindowDots"
+  ],
+  "nodes": [
+    {
+      "name": "Hall_Root",
+      "type": "EMPTY",
+      "parent": null
+    },
+    {
+      "name": "Hall_Floor",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 94,
+      "materials": [
+        "Hall_FloorReflective"
+      ]
+    },
+    {
+      "name": "Hall_Shell",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 4234,
+      "materials": [
+        "Hall_DarkMetal"
+      ]
+    },
+    {
+      "name": "Hall_WallPanels",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 5264,
+      "materials": [
+        "Hall_PanelWhite"
+      ]
+    },
+    {
+      "name": "Hall_Window",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 1000,
+      "materials": [
+        "Hall_PanelWhite"
+      ]
+    },
+    {
+      "name": "Hall_FloorPlatform",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 1020,
+      "materials": [
+        "Hall_PanelWhite"
+      ]
+    },
+    {
+      "name": "Hall_FloorPlatform_Inlay",
+      "type": "MESH",
+      "parent": "Hall_FloorPlatform",
+      "tris": 252,
+      "materials": [
+        "Hall_DarkMetal"
+      ]
+    },
+    {
+      "name": "Hall_PlatformRing",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 1536,
+      "materials": [
+        "Hall_EmissiveEmerald"
+      ]
+    },
+    {
+      "name": "Hall_PlatformRing_Emblem",
+      "type": "MESH",
+      "parent": "Hall_PlatformRing",
+      "tris": 1188,
+      "materials": [
+        "Hall_EmissiveEmerald"
+      ]
+    },
+    {
+      "name": "Hall_TrimLights_Wall",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 216,
+      "materials": [
+        "Hall_EmissiveEmerald"
+      ]
+    },
+    {
+      "name": "Hall_TrimLights_Floor",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 984,
+      "materials": [
+        "Hall_EmissiveEmerald"
+      ]
+    },
+    {
+      "name": "Hall_TrimLights_Ceiling",
+      "type": "MESH",
+      "parent": "Hall_Root",
+      "tris": 1536,
+      "materials": [
+        "Hall_EmissiveEmerald"
+      ]
+    },
+    {
+      "name": "Hall_Plants",
+      "type": "EMPTY",
+      "parent": "Hall_Root"
+    },
+    {
+      "name": "Hall_Plant_1_Pot",
+      "type": "MESH",
+      "parent": "Hall_Plants",
+      "tris": 284,
+      "materials": [
+        "Hall_PotCeramic"
+      ]
+    },
+    {
+      "name": "Hall_Plant_1_Leaves",
+      "type": "MESH",
+      "parent": "Hall_Plant_1_Pot",
+      "tris": 99,
+      "materials": [
+        "Hall_PlantLeaf"
+      ]
+    },
+    {
+      "name": "Hall_Plant_2_Pot",
+      "type": "MESH",
+      "parent": "Hall_Plants",
+      "tris": 284,
+      "materials": [
+        "Hall_PotCeramic"
+      ]
+    },
+    {
+      "name": "Hall_Plant_2_Leaves",
+      "type": "MESH",
+      "parent": "Hall_Plant_2_Pot",
+      "tris": 99,
+      "materials": [
+        "Hall_PlantLeaf"
+      ]
+    },
+    {
+      "name": "Hall_Plant_3_Pot",
+      "type": "MESH",
+      "parent": "Hall_Plants",
+      "tris": 284,
+      "materials": [
+        "Hall_PotCeramic"
+      ]
+    },
+    {
+      "name": "Hall_Plant_3_Leaves",
+      "type": "MESH",
+      "parent": "Hall_Plant_3_Pot",
+      "tris": 99,
+      "materials": [
+        "Hall_PlantLeaf"
+      ]
+    },
+    {
+      "name": "Hall_Plant_4_Pot",
+      "type": "MESH",
+      "parent": "Hall_Plants",
+      "tris": 284,
+      "materials": [
+        "Hall_PotCeramic"
+      ]
+    },
+    {
+      "name": "Hall_Plant_4_Leaves",
+      "type": "MESH",
+      "parent": "Hall_Plant_4_Pot",
+      "tris": 99,
+      "materials": [
+        "Hall_PlantLeaf"
+      ]
+    },
+    {
+      "name": "Skyline_Backdrop",
+      "type": "EMPTY",
+      "parent": null
+    },
+    {
+      "name": "Skyline_Sky",
+      "type": "MESH",
+      "parent": "Skyline_Backdrop",
+      "tris": 20,
+      "materials": [
+        "Skyline_Sky"
+      ]
+    },
+    {
+      "name": "Skyline_Towers",
+      "type": "MESH",
+      "parent": "Skyline_Backdrop",
+      "tris": 396,
+      "materials": [
+        "Skyline_Silhouette"
+      ]
+    },
+    {
+      "name": "Skyline_WindowDots",
+      "type": "MESH",
+      "parent": "Skyline_Backdrop",
+      "tris": 842,
+      "materials": [
+        "Skyline_WindowDots"
+      ]
+    },
+    {
+      "name": "Skyline_KingdomTower",
+      "type": "MESH",
+      "parent": "Skyline_Backdrop",
+      "tris": 104,
+      "materials": [
+        "Skyline_KingdomTower"
+      ]
+    },
+    {
+      "name": "Skyline_KingdomTower_Antenna",
+      "type": "MESH",
+      "parent": "Skyline_KingdomTower",
+      "tris": 20,
+      "materials": [
+        "Skyline_KingdomTower"
+      ]
+    },
+    {
+      "name": "Hall_RobotSpot",
+      "type": "EMPTY",
+      "parent": "Hall_Root"
+    },
+    {
+      "name": "Hall_CameraAnchor_Start",
+      "type": "EMPTY",
+      "parent": "Hall_Root"
+    },
+    {
+      "name": "Hall_CameraAnchor_End",
+      "type": "EMPTY",
+      "parent": "Hall_Root"
+    }
+  ]
+}
