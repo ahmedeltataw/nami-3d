@@ -181,6 +181,7 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
 
   return {
     seek,
+    position: () => ({ scene: runtime.scene, local: runtime.local }),
     recalculate: () => measure(),
     attach() {
       attached = true;

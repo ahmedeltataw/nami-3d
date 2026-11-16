@@ -206,6 +206,13 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     const controller = createController(runtime, sample, profile.motion === 'reduced', mobile);
     controller.attach();
     useExperienceStore.setState({ controller });
+    let directorToken: number | null = null;
+    function directorInteraction(event: Event) {
+      if ((event as CustomEvent<boolean>).detail) directorToken = runtime.interaction.request('director');
+      else if (directorToken !== null) { runtime.interaction.release(directorToken); directorToken = null; }
+    }
+    window.addEventListener('nami:director', directorInteraction);
+    if (useExperienceStore.getState().director !== 'idle') directorToken = runtime.interaction.request('director');
     if (typeof window !== 'undefined') (window as unknown as { __namiController?: typeof controller }).__namiController = controller;
     function seekStation(event: Event) {
       const local = (event as CustomEvent<number>).detail;
@@ -290,6 +297,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     return () => {
       cancelled = true;
       controller.detach();
+      window.removeEventListener('nami:director', directorInteraction);
+      if (directorToken !== null) runtime.interaction.release(directorToken);
       useExperienceStore.setState({ controller: null });
       if (typeof window !== 'undefined') delete (window as unknown as { __namiController?: typeof controller }).__namiController;
       window.removeEventListener('nami:station-seek', seekStation);

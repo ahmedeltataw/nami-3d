@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/content';
 import ExperienceMount from '@/experience/ExperienceMount';
+import { RouteTransition } from '@/experience/RouteTransition';
 import { LivingCursor } from '@/experience/LivingCursor';
 import { Nav } from '@/components/ui/Nav';
 import { Footer } from '@/components/ui/Footer';
@@ -42,6 +43,7 @@ export default async function LocaleLayout({
           {locale === 'ar' ? 'تخطي إلى المحتوى' : 'Skip to content'}
         </a>
         <NextIntlClientProvider>
+          <RouteTransition />
           <ExperienceMount />
           <LivingCursor />
           <Nav />

@@ -28,7 +28,7 @@ export function createInteraction() {
       return ++state.token;
     },
     release,
-    narrativeChanged() { release(); },
+    narrativeChanged() { if (state.source !== 'director') release(); },
     react(name: string, now: number, duration: number) {
       state.reaction = { name, startedAt: now, duration: Math.max(0, Math.min(duration, 1.2)) };
     },

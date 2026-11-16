@@ -202,5 +202,16 @@
     "label": "??????",
     "cinematic": "???????",
     "direct": "?????"
+  },
+  "ExperienceControls": {
+    "start": "عرّفني على نامي",
+    "pause": "إيقاف الجولة مؤقتاً",
+    "resume": "استئناف الجولة",
+    "skip": "تخطي المشهد",
+    "next": "المشهد التالي",
+    "exit": "إنهاء الجولة",
+    "factoryOpen": "افتح مصنع نامي",
+    "factoryTitle": "مصنع نامي",
+    "factoryClose": "إغلاق المصنع"
   }
 }
