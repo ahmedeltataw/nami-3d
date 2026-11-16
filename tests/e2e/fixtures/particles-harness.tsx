@@ -1,9 +1,7 @@
-import { StrictMode, useCallback, useState } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Canvas, createPortal, type RootState } from '@react-three/fiber';
+import { Canvas, type RootState } from '@react-three/fiber';
 import type { Group, Points, ShaderMaterial } from 'three';
-import S02 from '../../../src/experience/scenes/s02';
-import type { Ctx, SceneId } from '../../../src/experience/contracts';
 import type { Profile } from '../../../src/experience/profile';
 import { ParticleField, type ParticleFieldHandle, type ParticleFrame, createParticleCore, sampleMeshSurface } from '../../../src/experience/shared/particles';
 import { SphereGeometry } from 'three';
@@ -18,19 +16,11 @@ let sceneRoot: Group | null = null;
 let geometryDisposals = 0, materialDisposals = 0;
 
 function Harness() {
-  const [group, setGroup] = useState<Group | null>(null);
-  const register = useCallback((_id: SceneId, ctx: Ctx | null) => {
-    if (!ctx) return;
-    ctx.root.visible = true;
-    // Hide the placeholder box and label so the pixel assertion measures only particles.
-    for (const child of ctx.root.children) child.visible = false;
-    sceneRoot = ctx.root;
-    setGroup(ctx.root);
-  }, []);
   return <Canvas camera={{ position: [0, 0, 6], fov: 50 }} dpr={2} gl={{ preserveDrawingBuffer: true, antialias: false }}
     onCreated={state => { canvasState = state; state.gl.setClearColor('#101b18'); }}>
-    <S02 register={register} />
-    {group && createPortal(<ParticleField {...options} state={frame} ref={value => { field = value; }} />, group)}
+    <group ref={value => { sceneRoot = value; }}>
+      <ParticleField {...options} state={frame} ref={value => { field = value; }} />
+    </group>
   </Canvas>;
 }
 
