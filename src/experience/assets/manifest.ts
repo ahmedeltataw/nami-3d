@@ -1,7 +1,7 @@
 import type { SceneId } from '../contracts';
 import type { Profile } from '../profile';
 
-export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low' | 'lab.shell' | 'arms' | `station.${1 | 2 | 3 | 4 | 5 | 6}`;
+export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low' | 'portal.gate' | 'lab.shell' | 'arms' | `station.${1 | 2 | 3 | 4 | 5 | 6}`;
 export const robotAssetKey = (quality: Profile['quality']): AssetKey => quality === 'high' ? 'robot.high' : 'robot.low';
 export type AssetDecoder = 'none' | 'ktx2' | 'gltf';
 export type AssetEntry = {
@@ -17,7 +17,8 @@ function poster(id: SceneId): AssetEntry {
 }
 
 export const manifest: Record<AssetKey, AssetEntry> = {
-  'lab.shell': lab('lab_shell', 1091344),
+  'portal.gate': { url: { high: '/models/portal/portal_gate.glb', mid: '/models/portal/portal_gate.glb', low: '/models/portal/portal_gate.glb' }, owners: ['s02'], bytes: 506664, decoder: 'gltf' },
+  'lab.shell': { ...lab('lab_shell', 1091344), owners: ['s02', 's03'] },
   'station.1': lab('station_1_web', 99080),
   'station.2': lab('station_2_mobile', 47196),
   'station.3': lab('station_3_marketing', 153448),
