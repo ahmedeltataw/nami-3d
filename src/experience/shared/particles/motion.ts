@@ -27,7 +27,7 @@ export function cinematic(progress: number): number {
   return t * t * (3 - 2 * t);
 }
 
-/** Stateless reference for the three built-ins; custom GLSL needs its own reference. */
+/** Stateless reference for built-ins; custom GLSL needs its own reference. */
 export function particlePosition(index: number, state: ParticleReferenceState): Point3 {
   if (!Number.isSafeInteger(index) || index < 0) throw new RangeError('Invalid particle index');
   const attributes = state.attributes;
@@ -59,6 +59,24 @@ export function particlePosition(index: number, state: ParticleReferenceState): 
         const t = cinematic(progress);
         p = progress === 0 ? [...start] as Point3 : progress === 1 ? [...target] as Point3
           : [start[0] * (1 - t) + target[0] * t, start[1] * (1 - t) + target[1] * t, start[2] * (1 - t) + target[2] * t];
+        break;
+      }
+      case 'swirl':
+      case 'orbit': {
+        const id = presets[presetIndex].id;
+        const t = cinematic(progress), angle = Math.PI * 2 * t;
+        const center = id === 'orbit' ? target : [0, 0, 0];
+        const x = start[0] - center[0], z = start[2] - center[2];
+        p = [center[0] + Math.cos(angle) * x - Math.sin(angle) * z, start[1], center[2] + Math.sin(angle) * x + Math.cos(angle) * z];
+        if (id === 'swirl') p = p.map((value, axis) => value * (1 - t) + target[axis] * t) as Point3;
+        if (progress === 0 || (progress === 1 && id === 'orbit')) p = [...start] as Point3;
+        if (progress === 1 && id === 'swirl') p = [...target] as Point3;
+        break;
+      }
+      case 'explode': {
+        const length = Math.hypot(...start);
+        const radial = length > .0001 ? Array.from(start, value => value / length) : [Math.cos(phase), Math.sin(phase), 0];
+        p = Array.from(start, (value, axis) => value + radial[axis] * 3 * cinematic(progress)) as Point3;
         break;
       }
       case 'dissolve': {

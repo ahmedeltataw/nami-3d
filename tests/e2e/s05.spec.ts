@@ -11,7 +11,7 @@ test('cold Arabic gallery renders and all project links resolve', async ({ page,
   await expect(host).toHaveAttribute('data-ready', 'true', { timeout: 30_000 });
   await expect(host).toHaveAttribute('data-renderer', 'webgl');
   await expect(host).toHaveAttribute('data-scene', 's05');
-  const canvas = page.locator('canvas');
+  const canvas = page.locator('canvas:not([data-s01-energy-line])');
   const colors = await canvas.evaluate((canvas: HTMLCanvasElement) => new Promise<number>(resolve => requestAnimationFrame(() => {
     const gl = canvas.getContext('webgl2')!;
     const pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4);
@@ -65,5 +65,5 @@ test('renderer fallback exposes all six real project links', async ({ page }) =>
   await page.goto('/en#s05');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-renderer', 'fallback');
   await expect(page.locator('[data-project-card] a')).toHaveCount(6);
-  await expect(page.locator('canvas')).toHaveCount(0);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(0);
 });
