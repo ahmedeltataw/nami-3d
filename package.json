@@ -16,6 +16,7 @@
     "test:e2e": "node scripts/run-e2e.mjs",
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "validate:site": "node scripts/validate-site.mjs",
+    "blender:headless": "node scripts/blender-headless.mjs",
     "content:build": "node scripts/build-content.mjs"
   },
   "dependencies": {
