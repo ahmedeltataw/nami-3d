@@ -18,6 +18,7 @@ export default function ExperienceMount() {
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     function motionChanged() {
       const motion = effectiveMotion(media.matches, readMotionChoice(localStorage));
+      document.documentElement.dataset.motion = motion;
       useExperienceStore.setState(state => ({ profile: { ...state.profile, motion } }));
       setConfiguration(current => current ? { ...current, profile: { ...current.profile, motion } } : current);
     }
@@ -25,6 +26,7 @@ export default function ExperienceMount() {
       const environment = browserEnvironment();
       const profile = detectProfile(environment);
       profile.motion = effectiveMotion(environment.reducedMotion, readMotionChoice(localStorage));
+      document.documentElement.dataset.motion = profile.motion;
       useExperienceStore.setState({ profile, scene: sceneFromHash(location.hash) ?? 's01' });
       setConfiguration({ profile, mobile: environment.coarsePointer, dpr: initialDpr(environment.coarsePointer) });
       media.addEventListener('change', motionChanged);

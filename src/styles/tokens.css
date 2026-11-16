@@ -63,9 +63,16 @@
 
   --dur-micro: 180ms;
   --dur-ui: 450ms;
+  --dur-text-reveal: 320ms;
+  --dur-card-lift: 240ms;
+  --dur-reveal-enter: 500ms;
   --ease-enter: cubic-bezier(0.16, 1, 0.3, 1); /* expo.out */
   --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-cinematic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-card: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --stagger-step: 40ms;
+  --stagger-card: 60ms;
 
   --text-h1: clamp(2.25rem, 1.6rem + 3vw, 4rem);
   --text-h2: clamp(1.875rem, 1.45rem + 2vw, 3rem);

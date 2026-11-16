@@ -8,6 +8,7 @@ import ExperienceMount from '@/experience/ExperienceMount';
 import { LivingCursor } from '@/experience/LivingCursor';
 import { Nav } from '@/components/ui/Nav';
 import { Footer } from '@/components/ui/Footer';
+import { RevealInit } from '@/ui-motion';
 import '@/styles/globals.css';
 import { inter, plexArabic } from '@/styles/fonts';
 
@@ -43,6 +44,7 @@ export default async function LocaleLayout({
         </a>
         <NextIntlClientProvider>
           <ExperienceMount />
+          <RevealInit />
           <LivingCursor />
           <Nav />
           {children}
