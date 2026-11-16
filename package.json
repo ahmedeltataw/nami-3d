@@ -13,11 +13,12 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "node scripts/run-e2e.mjs",
+    "test:e2e": "node scripts/run-e2e.mjs --grep-invert @gpu",
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "validate:site": "node scripts/validate-site.mjs",
     "blender:headless": "node scripts/blender-headless.mjs",
-    "content:build": "node scripts/build-content.mjs"
+    "content:build": "node scripts/build-content.mjs",
+    "test:gpu": "node scripts/run-e2e.mjs --gpu --grep @gpu"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

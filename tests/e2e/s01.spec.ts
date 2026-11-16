@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test';
-import arMessages from '../../src/messages/ar.json';
+import Home from '../../src/messages/Home.ar.json';
 
 test('Arabic headline, subtitle and primary CTA links are visible without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('/ar');
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.locator('[data-s01-headline]')).toHaveText(arMessages.Home.heading);
+  await expect(page.locator('[data-s01-headline]')).toHaveText(Home.heading);
   await expect(page.locator('#s01 p').first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'شاهد أعمالنا', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'ابدأ مشروعك', exact: true }).first()).toBeVisible();
@@ -15,7 +15,7 @@ test('Arabic headline, subtitle and primary CTA links are visible without JavaSc
   await context.close();
 });
 
-test('S01 renders the robot, keyboard skip ends the intro, and 60% scroll dollies the camera', async ({ page }) => {
+test('S01 renders the robot, keyboard skip ends the intro, and 60% scroll dollies the camera @gpu', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
@@ -100,7 +100,7 @@ test('reduced motion opens at the end state without an intro or continuous dolly
   expect(await page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2, 2);
 });
 
-test('mobile S01 keeps content within the viewport and the head interaction reachable', async ({ page }) => {
+test('mobile S01 keeps content within the viewport and the head interaction reachable @gpu', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/ar?experienceDebug=1');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');

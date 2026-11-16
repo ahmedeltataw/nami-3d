@@ -11,6 +11,11 @@ function run(args, env = process.env) {
 }
 
 async function main() {
+  const args = process.argv.slice(2);
+  if (args.includes('--gpu')) {
+    process.env.PLAYWRIGHT_GPU = '1';
+    args.splice(args.indexOf('--gpu'), 1);
+  }
   const build = await run(['node_modules/next/dist/bin/next', 'build']);
   if (build !== 0) { process.exitCode = build; return; }
   process.env.NODE_ENV = 'production';
@@ -24,7 +29,7 @@ async function main() {
     });
     const address = server.address();
     if (!address || typeof address === 'string') throw new Error('Could not allocate a port');
-    process.exitCode = await run(['node_modules/@playwright/test/cli.js', 'test', ...process.argv.slice(2)], {
+    process.exitCode = await run(['node_modules/@playwright/test/cli.js', 'test', ...args], {
       ...process.env, PLAYWRIGHT_PORT: String(address.port), PLAYWRIGHT_EXTERNAL_SERVER: '1',
     });
   } finally {

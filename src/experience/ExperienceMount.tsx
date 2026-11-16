@@ -39,6 +39,16 @@ export default function ExperienceMount() {
     const id = setTimeout(start, 100);
     return () => { clearTimeout(id); media.removeEventListener('change', motionChanged); window.removeEventListener(MOTION_EVENT, motionChanged); };
   }, []);
+  useEffect(() => {
+    // Literal environment checks let Next remove the import from normal production builds.
+    if (process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_DEBUG_TOOLS !== '1') return;
+    let cancelled = false;
+    let dispose: (() => void) | undefined;
+    void import('./debug/reference').then(({ referenceOverlay }) => {
+      if (!cancelled) dispose = referenceOverlay();
+    });
+    return () => { cancelled = true; dispose?.(); };
+  }, []);
   return <div className={styles.host} data-experience data-scene={scene} data-ready={ready} data-renderer={renderer} aria-hidden="true">
     <div className={`${styles.poster} ${ready ? styles.hidden : ''}`} style={configuration ? { backgroundImage: `url(/posters/${scene}.svg)` } : undefined}>
       {!configuration && <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">

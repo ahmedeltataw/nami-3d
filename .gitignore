@@ -17,3 +17,6 @@ __pycache__/
 .pnpm-store/
 debug.log
 *.log
+
+captures/
+public/_refs/
