@@ -34,8 +34,20 @@ targetFn rebuilds and disposes resources. Registering presets after mount
 requires remounting to compile their chunks.
 
 `particlePosition(index, { seed, progress, time, preset?, pointer?, motion?,
-attributes?, targets? })` is the stateless CPU reference for the three built-ins.
+attributes?, targets? })` is the stateless CPU reference for the built-ins.
 Pass the core's attributes for custom initial targets, or `targets` after a
 replacement. Custom GLSL presets supply their own reference tests. GPU tests
 allow 0.0005 world units for GLSL trigonometric precision; GPU and CPU converge
 endpoints are exact.
+
+Progress-only presets (CPU reference and GLSL use the same cinematic easing):
+
+| Preset | Progress 0 | Motion | Progress 1 |
+| --- | --- | --- | --- |
+| `swirl` | start position | One Y-axis turn, blending toward the target | target position |
+| `explode` | start position | Radial displacement of 3 units; seeded phase supplies direction at the origin | start + 3-unit radial offset |
+| `orbit` | start position | One Y-axis revolution around each particle's target | start position |
+
+These presets ignore time, integrate no state, and replay identically on reverse
+seeks. Pointer displacement remains the core's optional endpoint-zero offset.
+Existing `ambient`, `converge`, and `dissolve` behavior is unchanged for S01/S06.

@@ -73,3 +73,21 @@ registerPreset({ id: 'dissolve', uniforms: {}, vertexChunk: `
   noise -= radial * min(0.0, dot(noise, radial));
   p = position + uProgress * uProgress * 3.0 * (radial + noise * 0.35);
 ` });
+registerPreset({ id: 'swirl', uniforms: {}, vertexChunk: `
+  float t = cinematic(uProgress);
+  float angle = 6.28318530718 * t;
+  vec3 spun = vec3(cos(angle) * position.x - sin(angle) * position.z, position.y, sin(angle) * position.x + cos(angle) * position.z);
+  p = mix(spun, aTarget, t);
+  if (uProgress <= 0.0) p = position;
+  if (uProgress >= 1.0) p = aTarget;
+` });
+registerPreset({ id: 'explode', uniforms: {}, vertexChunk: `
+  vec3 radial = length(position) > 0.0001 ? normalize(position) : vec3(cos(aPhase), sin(aPhase), 0.0);
+  p = position + radial * (3.0 * cinematic(uProgress));
+` });
+registerPreset({ id: 'orbit', uniforms: {}, vertexChunk: `
+  float angle = 6.28318530718 * cinematic(uProgress);
+  vec3 offset = position - aTarget;
+  p = aTarget + vec3(cos(angle) * offset.x - sin(angle) * offset.z, offset.y, sin(angle) * offset.x + cos(angle) * offset.z);
+  if (uProgress <= 0.0 || uProgress >= 1.0) p = position;
+` });

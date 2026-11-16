@@ -10,19 +10,19 @@ test('cold #s05 loads its destination first, renders WebGL and seeks every hash 
   const host = page.locator('[data-experience]');
   await expect(host).toHaveAttribute('data-ready', 'true');
   await expect(host).toHaveAttribute('data-scene', 's05');
-  await expect(page.locator('canvas')).toHaveCount(1);
-  expect(await page.locator('canvas').evaluate((canvas: HTMLCanvasElement) => !!canvas.getContext('webgl2'))).toBe(true);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(1);
+  expect(await page.locator('canvas:not([data-s01-energy-line])').evaluate((canvas: HTMLCanvasElement) => !!canvas.getContext('webgl2'))).toBe(true);
   expect(assets[0]).toBe('/posters/s05.svg');
   expect(assets).not.toContain('/posters/s04.svg');
   await page.screenshot({ path: 'test-results/experience-ar-s05.png' });
-  await page.locator('canvas').evaluate(canvas => canvas.setAttribute('data-persistent', 'original'));
+  await page.locator('canvas:not([data-s01-energy-line])').evaluate(canvas => canvas.setAttribute('data-persistent', 'original'));
   for (let index = 1; index <= 7; index++) {
     const id = `s0${index}`;
     await page.getByRole('link', { name: id, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`#${id}$`));
     await expect(host).toHaveAttribute('data-scene', id);
     await expect(host).toHaveAttribute('data-ready', 'true');
-    await expect(page.locator('canvas')).toHaveAttribute('data-persistent', 'original');
+    await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveAttribute('data-persistent', 'original');
     expect(await page.locator(`#${id}`).evaluate(element => Math.abs(element.getBoundingClientRect().top))).toBeLessThan(2);
   }
   await page.goBack();
@@ -46,7 +46,7 @@ test('WebGL denied keeps server sections and native links usable without a Canva
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-renderer', 'fallback');
   // The controller is attached after idle startup even when there is no renderer.
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'full');
-  await expect(page.locator('canvas')).toHaveCount(0);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(0);
   for (let index = 1; index <= 7; index++) {
     const id = `s0${index}`;
     await page.getByRole('link', { name: id, exact: true }).click();
@@ -60,7 +60,7 @@ test('context loss shows the poster then restores current narrative on the same 
   await page.goto('/en#s05');
   const host = page.locator('[data-experience]');
   await expect(host).toHaveAttribute('data-ready', 'true', { timeout: 30_000 });
-  const loss = await page.locator('canvas').evaluateHandle((canvas: HTMLCanvasElement) => {
+  const loss = await page.locator('canvas:not([data-s01-energy-line])').evaluateHandle((canvas: HTMLCanvasElement) => {
     const extension = canvas.getContext('webgl2')?.getExtension('WEBGL_lose_context');
     if (!extension) throw new Error('Context-loss extension unavailable');
     extension.loseContext();
@@ -71,7 +71,7 @@ test('context loss shows the poster then restores current narrative on the same 
   await loss.dispose();
   await expect(host).toHaveAttribute('data-ready', 'true');
   await expect(host).toHaveAttribute('data-scene', 's05');
-  await expect(page.locator('canvas')).toHaveCount(1);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(1);
 });
 
 test('reduced motion uses normal flow and no sticky content', async ({ page }) => {
@@ -142,7 +142,7 @@ test('mid-scene progress survives motion changes and reload', async ({ page }) =
   await page.goto('/en#s05');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
   await waitForLayout('full');
-  await page.locator('canvas').evaluate(canvas => canvas.setAttribute('data-persistent', 'original'));
+  await page.locator('canvas:not([data-s01-energy-line])').evaluate(canvas => canvas.setAttribute('data-persistent', 'original'));
   await page.evaluate(() => window.scrollBy(0, innerHeight * 4.8 * 0.4));
   await expect.poll(() => page.evaluate(() => history.state?.__namiExperience?.local as number)).toBeCloseTo(0.4, 2);
   for (const motion of ['reduce', 'no-preference'] as const) {
@@ -150,7 +150,7 @@ test('mid-scene progress survives motion changes and reload', async ({ page }) =
     await expect(page.locator('html')).toHaveAttribute('data-motion', motion === 'reduce' ? 'reduced' : 'full');
     await waitForLayout(motion === 'reduce' ? 'reduced' : 'full');
     await expect.poll(() => page.locator('#s05').evaluate(section => -section.getBoundingClientRect().top / section.getBoundingClientRect().height)).toBeCloseTo(0.4, 2);
-    await expect(page.locator('canvas')).toHaveAttribute('data-persistent', 'original');
+    await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveAttribute('data-persistent', 'original');
   }
   await page.reload();
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
@@ -164,7 +164,7 @@ test('HTML and scene links exist before JavaScript', async ({ browser }) => {
   await page.goto('/ar#s05');
   await expect(page.locator('section')).toHaveCount(7);
   await expect(page.locator('#s05')).toBeInViewport();
-  await expect(page.locator('canvas')).toHaveCount(0);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(0);
   await page.getByRole('link', { name: 's07', exact: true }).click();
   await expect(page.locator('#s07')).toBeInViewport();
   await context.close();

@@ -12,6 +12,7 @@ import { CameraRig } from './camera/CameraRig';
 import { useExperienceStore } from './store';
 import { scenes } from './scenes';
 import S01 from './scenes/s01';
+import { drawEnergyLine } from './scenes/s01/headline';
 import S02 from './scenes/s02';
 import S03 from './scenes/s03';
 import S04 from './scenes/s04';
@@ -52,7 +53,7 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
   rig: CameraRig;
   contexts: Map<SceneId, Ctx>;
   onFramed: () => void;
-  energyLine: RefObject<SVGPathElement | null>;
+  energyLine: RefObject<HTMLCanvasElement | null>;
 }) {
   const camera = useThree(state => state.camera) as PerspectiveCamera;
   const gaze = useMemo(() => new Vector3(), []);
@@ -85,22 +86,14 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
       hero.style.setProperty('--headline-exit', String(visual.headlineExit));
       hero.style.setProperty('--subtitle-emphasis', String(visual.subtitleEmphasis));
       hero.style.setProperty('--scroll-hint', String(visual.scrollHint));
+      hero.style.setProperty('--headline-reveal', `${visual.headlineReveal}%`);
     }
     const line = energyLine.current;
     const reveal = runtime.scene === 's01' ? Number(visual?.line ?? 0) : 0;
     if (line) {
-      line.style.opacity = reveal > 0 ? '1' : '0';
-      if (reveal > 0) {
-        const headline = document.querySelector('[data-s01-headline]')?.getBoundingClientRect();
-        if (headline) {
-          const { x, y } = runtime.handScreen;
-          const endX = headline.left + headline.width / 2;
-          const endY = headline.bottom + 8;
-          line.setAttribute('d', `M${x},${y} Q${x},${endY} ${endX},${endY}`);
-          line.style.strokeDashoffset = String(1 - reveal);
-          line.style.clipPath = `inset(0 ${100 * (1 - reveal)}% 0 0)`;
-        }
-      }
+      line.style.opacity = reveal > 0 && reveal < 1 ? '1' : '0';
+      const headline = document.querySelector('[data-s01-headline]')?.getBoundingClientRect();
+      if (headline) drawEnergyLine(line, headline, runtime.handScreen, reveal, document.documentElement.dir === 'rtl', runtime.viewport.dpr);
     }
     // Apply only the resident scene before the host-owned render.
     for (let index = 0; index < SCENE_IDS.length; index++) {
@@ -136,7 +129,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   runtime.profile = profile;
   const rig = useMemo(() => new CameraRig(), []);
   const contexts = useMemo(() => new Map<SceneId, Ctx>(), []);
-  const energyLine = useRef<SVGPathElement>(null);
+  const energyLine = useRef<HTMLCanvasElement>(null);
   const canReact = useMemo(() => createHeadReaction(), []);
   const [services, setServices] = useState<Services | null>(null);
   const renderer = useExperienceStore(state => state.profile.renderer);
@@ -319,7 +312,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   useEffect(() => { if (renderer === 'fallback') services?.residency.evictUnused(); }, [renderer, services]);
 
   if (renderer === 'fallback') return null;
-  return <><svg className={styles.energyLine} aria-hidden="true"><path ref={energyLine} pathLength={1} /></svg><CanvasBoundary><Canvas className={styles.canvas} dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
+  return <><canvas ref={energyLine} data-s01-energy-line className={styles.energyLine} aria-hidden="true" /><CanvasBoundary><Canvas className={styles.canvas} data-scene-canvas dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
     <S01 register={register} /><S02 register={register} />{activeScene === 's03' && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's04' && <S04 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's05' && <S05 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's06' && <S06 register={register} residency={services?.residency ?? null} onError={fallback} />}{activeScene === 's07' && <S07 register={register} residency={services?.residency ?? null} onError={fallback} />}
