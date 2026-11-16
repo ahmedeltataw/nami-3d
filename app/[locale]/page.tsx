@@ -8,7 +8,12 @@ import { getCompany, getServices, getProjects, getPage, textOr, type Locale } fr
 import { SCROLL_BUDGETS } from '@/experience/controller';
 import { StationPanel } from '@/experience/scenes/s03/StationPanel';
 import { stations } from '@/experience/scenes/s03/station';
+import { DnaPanel } from '@/experience/scenes/s06/DnaPanel';
+import { FuturePanel } from '@/experience/scenes/s07/FuturePanel';
 import { buildMetadata } from '@/lib/metadata';
+import { GalleryPanel } from '@/experience/scenes/s05/GalleryPanel';
+import { galleryProjects } from '@/experience/scenes/s05/projects';
+import { Explore } from '@/experience/scenes/s04/Explore';
 import styles from './page.module.css';
 import type { CSSProperties } from 'react';
 
@@ -110,10 +115,7 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[3] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>{t('ideaRealityHeading')}</h2>
-          <p className={styles.lead}>{t('ideaRealityText')}</p>
-        </div>
+        <Explore locale={locale} />
       </section>
 
       {/* S05 — Projects */}
@@ -122,61 +124,29 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[4] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>{t('projectsHeading')}</h2>
-          <p className={styles.sectionSubtitle}>{t('projectsSubheading')}</p>
-          <div className={styles.projectsGrid}>
-            {projects.slice(0, 6).map(project => {
-              const name = typeof project.title === 'string'
-                ? project.title.replace(/\s*\|\s*.*$/, '')
-                : project.slug;
-              const category = typeof project.category === 'string' ? project.category : null;
-              return (
-                <article key={project.slug} className={styles.projectCard}>
-                  <h3 className={styles.projectTitle}>{name}</h3>
-                  {category && <span className={styles.categoryBadge}>{category}</span>}
-                  <p className={styles.projectDesc}>{textOr(project.description)}</p>
-                  <Link href={`/${locale}/projects/${project.slug}`} className={styles.cardLink}>
-                    {t('viewProject')} →
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
-        </div>
+        <GalleryPanel projects={galleryProjects(projects)} locale={locale} />
       </section>
 
-      {/* S06 — Vision, Mission & Values */}
+      {/* S06 — Vision, Mission & Values (NAMI DNA) */}
       <section
         id="s06"
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[5] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <div className={styles.visionMissionGrid}>
-            <div className={styles.vmCard}>
-              <h2 className={styles.sectionTitle}>{t('visionHeading')}</h2>
-              <p className={styles.lead}>{company.vision[locale] as string}</p>
-            </div>
-            <div className={styles.vmCard}>
-              <h2 className={styles.sectionTitle}>{t('missionHeading')}</h2>
-              <p className={styles.lead}>{company.mission[locale] as string}</p>
-            </div>
-          </div>
-          <div className={styles.valuesBlock}>
-            <h3 className={styles.valuesTitle}>{t('valuesHeading')}</h3>
-            <ul className={styles.valuesList}>
-              {company.values.map(val => (
-                <li key={val.id} className={styles.valueItem}>
-                  <span className={styles.valueName}>{val.name[locale] as string}</span>
-                  {typeof val.description[locale] === 'string' && (
-                    <p className={styles.valueDesc}>{val.description[locale] as string}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <DnaPanel
+          locale={locale}
+          values={company.values.map(val => ({
+            id: val.id,
+            name: val.name[locale] as string,
+            description: typeof val.description[locale] === 'string' ? (val.description[locale] as string) : undefined,
+          }))}
+          labels={{
+            valuesHeading: t('valuesHeading'),
+            dnaMessage: t('dnaMessage'),
+            aboutSummary: t('aboutSummary'),
+            timeMachine: t('timeMachine'),
+          }}
+        />
       </section>
 
       {/* S07 — Build Your Future */}
@@ -185,28 +155,19 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[6] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>{t('buildFutureHeading')}</h2>
-          <p className={styles.lead}>{t('buildFutureSubtitle')}</p>
-          <div className={styles.projectChoicesGrid}>
-            <Link href={`/${locale}/contact?type=web`} className={styles.choiceCard}>
-              <span className={styles.choiceTitle}>{t('typeWeb')}</span>
-              <span className={styles.choiceArrow}>→</span>
-            </Link>
-            <Link href={`/${locale}/contact?type=mobile`} className={styles.choiceCard}>
-              <span className={styles.choiceTitle}>{t('typeMobile')}</span>
-              <span className={styles.choiceArrow}>→</span>
-            </Link>
-            <Link href={`/${locale}/contact?type=marketing`} className={styles.choiceCard}>
-              <span className={styles.choiceTitle}>{t('typeMarketing')}</span>
-              <span className={styles.choiceArrow}>→</span>
-            </Link>
-            <Link href={`/${locale}/contact?type=other`} className={styles.choiceCard}>
-              <span className={styles.choiceTitle}>{t('typeOther')}</span>
-              <span className={styles.choiceArrow}>→</span>
-            </Link>
-          </div>
-        </div>
+        <FuturePanel
+          locale={locale}
+          heading={t('buildFutureHeading')}
+          subtitle={t('buildFutureSubtitle')}
+          questionHeading={t('buildQuestion')}
+          options={[
+            { id: 'website', label: t('typeWeb') },
+            { id: 'mobile', label: t('typeMobile') },
+            { id: 'marketing', label: t('typeMarketing') },
+            { id: 'other', label: t('typeOther') },
+          ]}
+          contactCta={t('contact')}
+        />
       </section>
     </main>
   );

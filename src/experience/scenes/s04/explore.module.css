@@ -1,0 +1,9 @@
+﻿.panel { position: sticky; top: 0; height: 100svh; pointer-events: none; }
+.surface { position: fixed; inset: 0; pointer-events: auto; touch-action: none; }
+.controls { position: fixed; z-index: 3; inset-inline: 1.5rem; bottom: 2rem; display: flex; flex-wrap: wrap; gap: .5rem; pointer-events: auto; }
+.controls button { min-height: 44px; padding: .6rem 1rem; border: 1px solid var(--color-accent-strong); border-radius: var(--radius-sm); color: var(--color-ink); background: var(--color-surface); cursor: pointer; font: inherit; }
+.controls button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.controls button[aria-pressed='false'] { opacity: .6; }
+
+.fallback { padding: .6rem 1rem; border-radius: var(--radius-sm); color: var(--color-ink); background: var(--color-surface); }
+

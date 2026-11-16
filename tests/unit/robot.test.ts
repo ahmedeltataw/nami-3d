@@ -46,7 +46,7 @@ describe('robot runtime with shipped GLB tracks', () => {
   let low: GLTF;
   beforeAll(async () => { [high, low] = await Promise.all([loadRig('high'), loadRig('low')]); });
 
-  it.each(['Sleep', 'WakeUp', 'Wave', 'Idle'] as const)('samples %s at explicit times, including reverse and exact endpoint', name => {
+  it.each(['Sleep', 'WakeUp', 'Wave', 'Idle', 'Point', 'Present', 'Guide'] as const)('samples %s at explicit times, including reverse and exact endpoint', name => {
     const composer = new RobotComposer();
     composer.bind(high.scene.clone(true), high.animations);
     const clip = high.animations.find(clip => clip.name === name)!;

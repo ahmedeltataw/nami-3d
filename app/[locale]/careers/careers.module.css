@@ -1,0 +1,135 @@
+.page {
+  position: relative;
+  z-index: 1;
+  max-inline-size: 1100px;
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+  padding-block-start: 6rem;
+  padding-block-end: var(--space-8);
+  min-block-size: 80svh;
+}
+
+.header {
+  margin-block-end: var(--space-6);
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-2);
+  padding-block: 2px;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent-strong);
+  inline-size: fit-content;
+  margin-block-end: var(--space-2);
+}
+
+.title {
+  font-size: var(--text-h1);
+  font-weight: 800;
+  margin-block: 0 var(--space-2);
+  color: var(--color-ink);
+}
+
+.description {
+  font-size: var(--text-body);
+  color: var(--color-muted);
+  line-height: 1.6;
+  max-inline-size: 48rem;
+  margin: 0;
+}
+
+.section {
+  margin-block-end: var(--space-6);
+}
+
+.sectionTitle {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  margin-block: 0 var(--space-3);
+  color: var(--color-ink);
+}
+
+.rolesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-block-start: var(--space-3);
+}
+
+.roleCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: border-color var(--dur-micro) var(--ease-enter), box-shadow var(--dur-micro) var(--ease-enter);
+}
+
+.roleCard:hover {
+  border-color: var(--color-accent-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.roleTitle {
+  font-size: var(--text-h5);
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.roleDesc {
+  font-size: var(--text-caption);
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.roleApplyLink {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-accent-strong);
+  text-decoration: none;
+  min-block-size: 32px;
+  margin-block-start: auto;
+}
+
+.roleApplyLink:hover {
+  text-decoration: underline;
+}
+
+.formSection {
+  margin-block-start: var(--space-6);
+  max-inline-size: 720px;
+}
+
+.formatsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0 0 0;
+}
+
+.formatBadge {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-3);
+  padding-block: var(--space-1);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-ink);
+}

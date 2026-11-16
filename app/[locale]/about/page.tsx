@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { getCompany, getPage, type Locale } from '@/content';
+import { getCompany, getPage, isText, type Locale } from '@/content';
 import { buildMetadata } from '@/lib/metadata';
 import styles from '@/styles/page-stub.module.css';
 
@@ -22,9 +22,12 @@ export async function generateMetadata({
     locale: locale as Locale,
     path: '/about',
     title: isAr ? 'من نحن | نامي تيك' : 'About Us | Nami Tech',
-    description: typeof page?.description === 'string'
-      ? page.description
-      : (isAr ? 'تعرف على قصة نامي تيك، رؤيتنا، رسالتنا، وقيمنا الجوهرية.' : 'Learn about Nami Tech, our story, mission, vision, and core values.'),
+    description:
+      typeof page?.description === 'string'
+        ? page.description
+        : isAr
+          ? 'تعرف على قصة نامي تيك، رؤيتنا، رسالتنا، وقيمنا الجوهرية.'
+          : 'Learn about Nami Tech, our story, mission, vision, and core values.',
   });
 }
 
@@ -44,41 +47,56 @@ export default async function AboutPage({
   ]);
 
   const isAr = locale === 'ar';
-  const title = typeof page?.headings?.[0]?.text === 'string'
-    ? page.headings[0].text
-    : (isAr ? 'من نحن' : 'About Us');
+  const title =
+    typeof page?.headings?.[0]?.text === 'string'
+      ? page.headings[0].text
+      : isAr
+        ? 'من نحن'
+        : 'About Us';
+
+  const vision = isText(company.vision[locale]) ? company.vision[locale] : null;
+  const mission = isText(company.mission[locale]) ? company.mission[locale] : null;
 
   return (
     <main id="main" className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.badge}>{isAr ? 'من نحن' : 'About Us'}</div>
+        <div className={styles.badge}>
+          {isAr ? `تأسست عام ${company.foundedYear}` : `Founded ${company.foundedYear}`}
+        </div>
         <h1 className={styles.title}>{title}</h1>
         {typeof page?.description === 'string' && (
           <p className={styles.description}>{page.description}</p>
         )}
       </header>
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>{isAr ? 'رؤيتنا' : 'Our Vision'}</h2>
-        <p className={styles.paragraph}>{company.vision[locale] as string}</p>
-      </section>
+      {vision && (
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>{isAr ? 'رؤيتنا' : 'Our Vision'}</h2>
+          <p className={styles.paragraph}>{vision}</p>
+        </section>
+      )}
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>{isAr ? 'رسالتنا' : 'Our Mission'}</h2>
-        <p className={styles.paragraph}>{company.mission[locale] as string}</p>
-      </section>
+      {mission && (
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>{isAr ? 'رسالتنا' : 'Our Mission'}</h2>
+          <p className={styles.paragraph}>{mission}</p>
+        </section>
+      )}
 
+      {/* Core Values: values with missing descriptions are rendered name-only */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>{isAr ? 'قيمنا الجوهرية' : 'Core Values'}</h2>
         <div className={styles.grid}>
-          {company.values.map(val => (
-            <div key={val.id} className={styles.card}>
-              <h3 className={styles.cardTitle}>{val.name[locale] as string}</h3>
-              {typeof val.description[locale] === 'string' && (
-                <p className={styles.cardDesc}>{val.description[locale] as string}</p>
-              )}
-            </div>
-          ))}
+          {company.values.map(val => {
+            const name = isText(val.name[locale]) ? val.name[locale] : val.id;
+            const desc = isText(val.description[locale]) ? val.description[locale] : null;
+            return (
+              <div key={val.id} className={styles.card}>
+                <h3 className={styles.cardTitle}>{name}</h3>
+                {desc && <p className={styles.cardDesc}>{desc}</p>}
+              </div>
+            );
+          })}
         </div>
       </section>
 
