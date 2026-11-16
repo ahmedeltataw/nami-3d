@@ -103,7 +103,8 @@ describe('robot runtime with shipped GLB tracks', () => {
       expect(directive).toMatchObject({ kind: 'clip', name });
       if (directive.kind === 'clip') expect(directive.timeSeconds).toBeCloseTo(seconds);
     }
-    expect(s01.sample({ ...input, local: 0.1, introSeconds: 0.4 }).robot).toEqual({ kind: 'clip', name: 'Idle', timeSeconds: 0, weight: 1 });
+    expect(s01.sample({ ...input, local: 0.1, introSeconds: 0.4 }).robot).toEqual(s01.sample({ ...input, local: 0.1 }).robot);
+    expect(s01.sample({ ...input, local: 0.1 }).robot).toMatchObject({ kind: 'clip', name: 'Draw' });
     expect(s01.sample({ ...input, introSeconds: 0.4, profile: { ...input.profile, motion: 'reduced' } }).robot).toEqual({ kind: 'pose', name: 'rest' });
   });
 

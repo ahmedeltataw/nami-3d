@@ -58,9 +58,13 @@
 }
 
 .hero h1 {
+  clip-path: inset(0 calc(100% - var(--headline-reveal, 100%)) 0 0);
   opacity: calc(1 - var(--headline-exit, 0));
   transform: translateY(calc(var(--headline-exit, 0) * -3rem));
 }
+
+:global([dir='rtl']) .hero h1 { clip-path: inset(0 0 0 calc(100% - var(--headline-reveal, 100%))); }
+@media (prefers-reduced-motion: reduce) { .hero h1 { clip-path: none !important; } }
 
 .subtitle {
   color: var(--color-muted);

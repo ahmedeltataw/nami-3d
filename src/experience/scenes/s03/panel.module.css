@@ -1,5 +1,10 @@
-﻿.panel { position: sticky; top: 6rem; max-width: 34rem; padding-block: 1rem; }
+.panel { position: sticky; top: 6rem; max-width: 34rem; padding-block: 1rem; }
 .picker { display: flex; flex-wrap: wrap; gap: .35rem; }
+.dots { display: flex; gap: .25rem; }
+.dots button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; }
+.dots span { width: 10px; height: 10px; border: 2px solid #183d49; border-radius: 50%; background: #f6fafb; }
+.dots button[aria-current='step'] span { background: #183d49; }
+.dots button:focus-visible { outline: 3px solid #168169; outline-offset: -3px; }
 .picker button { min-height: 44px; border: 1px solid #183d49; border-radius: .4rem; padding: .4rem .65rem; color: #183d49; background: #f6fafb; cursor: pointer; }
 .picker button[aria-pressed='true'] { background: #183d49; color: #fff; }
 .picker button:focus-visible, .card a:focus-visible { outline: 3px solid #168169; outline-offset: 2px; }
@@ -7,3 +12,4 @@
 .card h2 { margin: 0; }
 .card a { display: inline-block; color: #183d49; padding-block: .5rem; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { .panel { position: static; padding-top: 6rem; } }
+.panel[data-active='true'] { position: fixed; inset-inline-start: 1.5rem; width: calc(100% - 3rem); box-sizing: border-box; }
