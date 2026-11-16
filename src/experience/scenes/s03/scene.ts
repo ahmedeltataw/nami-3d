@@ -43,8 +43,18 @@ export const scene: SceneDef = {
   },
   apply(snapshot, context) {
     const lab = context as LabCtx;
-    if (lab.nodes) applyStation(snapshot.visual.webSnapshot as StationSnapshot, lab.nodes);
     const active = Number(snapshot.visual.station) - 1;
+    if (lab.root && 'getObjectByName' in lab.root) {
+      const mount = lab.root.getObjectByName(`Station_${active + 1}`);
+      const arms = lab.root.getObjectByName('MechanicalArms');
+      if (mount && arms && arms.parent !== mount) mount.add(arms);
+    }
+    if (lab.nodes) {
+      applyStation(snapshot.visual.webSnapshot as StationSnapshot, lab.nodes);
+      if (snapshot.visual.stationSnapshot && snapshot.visual.station !== 1) {
+        applyStation(snapshot.visual.stationSnapshot as StationSnapshot, lab.nodes);
+      }
+    }
     const amount = Number(snapshot.visual.light);
     if (lab.lights) for (let i = 0; i < lab.lights.length; i++) lab.lights[i].intensity = i === active ? amount * 20 : 0;
     if (lab.materials) for (let i = 0; i < lab.materials.length; i++) {
