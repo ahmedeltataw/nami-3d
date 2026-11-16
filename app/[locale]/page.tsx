@@ -11,6 +11,9 @@ import { stations } from '@/experience/scenes/s03/station';
 import { DnaPanel } from '@/experience/scenes/s06/DnaPanel';
 import { FuturePanel } from '@/experience/scenes/s07/FuturePanel';
 import { buildMetadata } from '@/lib/metadata';
+import { GalleryPanel } from '@/experience/scenes/s05/GalleryPanel';
+import { galleryProjects } from '@/experience/scenes/s05/projects';
+import { Explore } from '@/experience/scenes/s04/Explore';
 import styles from './page.module.css';
 import type { CSSProperties } from 'react';
 
@@ -112,10 +115,7 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[3] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>{t('ideaRealityHeading')}</h2>
-          <p className={styles.lead}>{t('ideaRealityText')}</p>
-        </div>
+        <Explore locale={locale} />
       </section>
 
       {/* S05 — Projects */}
@@ -124,28 +124,7 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[4] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>{t('projectsHeading')}</h2>
-          <p className={styles.sectionSubtitle}>{t('projectsSubheading')}</p>
-          <div className={styles.projectsGrid}>
-            {projects.slice(0, 6).map(project => {
-              const name = typeof project.title === 'string'
-                ? project.title.replace(/\s*\|\s*.*$/, '')
-                : project.slug;
-              const category = typeof project.category === 'string' ? project.category : null;
-              return (
-                <article key={project.slug} className={styles.projectCard}>
-                  <h3 className={styles.projectTitle}>{name}</h3>
-                  {category && <span className={styles.categoryBadge}>{category}</span>}
-                  <p className={styles.projectDesc}>{textOr(project.description)}</p>
-                  <Link href={`/${locale}/projects/${project.slug}`} className={styles.cardLink}>
-                    {t('viewProject')} →
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
-        </div>
+        <GalleryPanel projects={galleryProjects(projects)} locale={locale} />
       </section>
 
       {/* S06 — Vision, Mission & Values (NAMI DNA) */}

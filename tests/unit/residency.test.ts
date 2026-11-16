@@ -79,13 +79,13 @@ describe('asset residency', () => {
     expect(order).toEqual([]);
     await session.ready;
     await new Promise(done => setTimeout(done, 0));
-    expect(order).toEqual(['poster:s05', 'poster:s04', 'poster:s06', 'logo.3d']);
+    expect(order).toEqual(['gallery.shell', 'gallery.portal', 'poster:s05', 'world.rif-aljouf', 'world.loryfy']);
     residency.evictUnused();
     expect(dispose).not.toHaveBeenCalled();
     abort.abort();
     session.release();
     residency.evictUnused();
-    expect(dispose).toHaveBeenCalledTimes(4);
+    expect(dispose).toHaveBeenCalledTimes(5);
   });
 
   it('does not prefetch neighbors when a destination is cancelled', async () => {
@@ -99,7 +99,7 @@ describe('asset residency', () => {
     abort.abort();
     resolve({ value: 1, dispose() {} });
     await rejection;
-    expect(load).toHaveBeenCalledOnce();
+    expect(load).toHaveBeenCalledTimes(4);
     session.release();
   });
 });

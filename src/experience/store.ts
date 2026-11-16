@@ -15,6 +15,7 @@ type ExperienceStore = {
   setDnaValueIndex: (index: number) => void;
   projectType: ProjectType | null;
   setProjectType: (projectType: ProjectType | null) => void;
+  project: number;
   robotState: RobotDirective;
   profile: Profile;
   ui: { ready: boolean; contextLost: boolean };
@@ -28,6 +29,7 @@ export const useExperienceStore = create<ExperienceStore>((set) => ({
   setDnaValueIndex: (dnaValueIndex) => set({ dnaValueIndex }),
   projectType: null,
   setProjectType: (projectType) => set({ projectType }),
+  project: 0,
   robotState: { kind: 'rest' },
   profile: { quality: 'mid', motion: 'full', renderer: 'fallback' },
   ui: { ready: false, contextLost: false },

@@ -70,7 +70,7 @@ export function DnaPanel({ locale, values, labels }: DnaPanelProps) {
       </ol>
 
       {/* Message line + about summary + Time Machine entry button */}
-      <section
+      <div
         className={styles.aboutSection}
         aria-label={locale === 'ar' ? 'عن نامي' : 'About Nami'}
       >
@@ -84,7 +84,7 @@ export function DnaPanel({ locale, values, labels }: DnaPanelProps) {
         >
           {labels.timeMachine}
         </button>
-      </section>
+      </div>
     </div>
   );
 }
