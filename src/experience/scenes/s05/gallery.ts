@@ -1,5 +1,15 @@
-import { AmbientLight, CanvasTexture, Color, DirectionalLight, DoubleSide, Frustum, Matrix4, MeshBasicMaterial, PerspectiveCamera, Scene, SRGBColorSpace, Vector3, WebGLRenderTarget, type Camera, type Group, type Material, type Mesh, type Object3D, type Texture, type WebGLRenderer } from 'three';
+import { AmbientLight, CanvasTexture, Color, DirectionalLight, DoubleSide, Frustum, Matrix4, MeshBasicMaterial, PerspectiveCamera, Scene, ShaderMaterial, SRGBColorSpace, Vector3, WebGLRenderTarget, type Camera, type Group, type Material, type Mesh, type Object3D, type Texture, type WebGLRenderer } from 'three';
 import type { GalleryProject } from './projects';
+import { worldAnimations } from './worlds';
+import { nodeState, writeMotion, type Motion, type NodeState, type WorldInput } from './worlds/motion';
+
+type Binding = { node: Object3D; motion: Motion; state: NodeState; position: Vector3; rotation: Vector3; scale: Vector3; screen?: ShaderMaterial };
+const screenVertex = 'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';
+const screenFragment = `uniform sampler2D uFrom; uniform sampler2D uTo; uniform float uMix; varying vec2 vUv;
+void main() {
+  gl_FragColor = mix(texture2D(uFrom, vUv), texture2D(uTo, vUv), uMix);
+  #include <colorspace_fragment>
+}`;
 
 type Gate = { outer: Object3D; inner: Object3D; surface: Mesh; rotation: [number, number]; material: MeshBasicMaterial };
 function required(root: Object3D, name: string): Object3D {
@@ -9,6 +19,7 @@ function required(root: Object3D, name: string): Object3D {
 }
 export class Gallery {
   private gates: Gate[] = [];
+  private mounts: Object3D[] = [];
   private materials: Material[] = [];
   private textures: Texture[] = [];
   private target: WebGLRenderTarget;
@@ -26,6 +37,12 @@ export class Gallery {
   private yaw = 0;
   private pitch = 0;
   private disposed = false;
+  private reduced = false;
+  private bindings: Binding[] = [];
+  private worldMaterials: Material[] = [];
+  private motionInput: WorldInput = { reducedMotion: false, time: 0, screenCount: 3 };
+  private camStart: Object3D | null = null;
+  private camEnd: Object3D | null = null;
   readonly shell: Group;
 
   constructor(private gl: WebGLRenderer, shell: Group, portal: Group, mobile: boolean) {
@@ -62,6 +79,7 @@ export class Gallery {
     });
     for (let index = 0; index < 6; index++) {
       const mount = required(this.shell, `Gate_${index + 1}`);
+      this.mounts.push(mount);
       const instance = model.clone(true);
       mount.add(instance);
       const surface = required(instance, 'PortalSurface') as Mesh;
@@ -78,12 +96,13 @@ export class Gallery {
     this.clearWorld();
     this.worldIndex = index;
     this.world = source.clone(true);
-    required(this.world, 'WorldRoot'); required(this.world, 'CamStart'); required(this.world, 'CamEnd');
+    required(this.world, 'WorldRoot');
+    this.camStart = required(this.world, 'CamStart'); this.camEnd = required(this.world, 'CamEnd');
     this.worldScene.add(this.world);
     this.yaw = this.pitch = 0;
     const world = this.world;
+    this.motionInput.screenCount = Math.min(3, project.screens.length) || 3;
     for (let i = 0; i < 3; i++) {
-      const screen = required(world, `ScreenPlane_${i + 1}`) as Mesh;
       const canvas = document.createElement('canvas');
       canvas.width = 640; canvas.height = 400;
       const ctx = canvas.getContext('2d')!;
@@ -92,11 +111,9 @@ export class Gallery {
       ctx.fillStyle = '#ffffff'; ctx.font = '28px sans-serif'; ctx.textAlign = 'center';
       ctx.fillText(project.name, 320, 188, 560);
       ctx.fillStyle = '#c5c9cc'; ctx.font = '20px sans-serif';
-      ctx.fillText('Screen preview unavailable', 320, 238);
+      ctx.fillText(`Screen ${i + 1}: preview unavailable`, 320, 238);
       const texture = new CanvasTexture(canvas); texture.flipY = false; texture.colorSpace = SRGBColorSpace;
       this.textures.push(texture);
-      const material = new MeshBasicMaterial({ map: texture, side: DoubleSide, toneMapped: false });
-      this.materials.push(material); screen.material = material;
       const url = project.screens[i];
       if (url) {
         // Decode into our owned canvas: late image completion never mutates a retired world.
@@ -112,16 +129,24 @@ export class Gallery {
         image.src = url;
       }
     }
+    for (const motion of worldAnimations[project.world].motions) {
+      const node = required(world, motion.name);
+      const binding: Binding = { node, motion, state: nodeState(), position: node.position.clone(), rotation: new Vector3(node.rotation.x, node.rotation.y, node.rotation.z), scale: node.scale.clone() };
+      if (motion.kind === 'screen') {
+        const material = new ShaderMaterial({ vertexShader: screenVertex, fragmentShader: screenFragment, side: DoubleSide, toneMapped: false,
+          uniforms: { uFrom: { value: this.textures[0] }, uTo: { value: this.textures[0] }, uMix: { value: 0 } } });
+        this.worldMaterials.push(material); (node as Mesh).material = material; binding.screen = material;
+      }
+      this.bindings.push(binding);
+    }
   }
 
   clearWorld() {
     if (this.world) {
-      for (let i = 1; i <= 3; i++) {
-        const material = (this.world.getObjectByName(`ScreenPlane_${i}`) as Mesh | undefined)?.material;
-        if (material && !Array.isArray(material)) { material.dispose(); this.materials = this.materials.filter(item => item !== material); }
-      }
       this.worldScene.remove(this.world);
     }
+    this.worldMaterials.forEach(material => material.dispose()); this.worldMaterials = [];
+    this.bindings = []; this.camStart = this.camEnd = null;
     this.textures.forEach(texture => texture.dispose()); this.textures = [];
     this.world = null; this.worldIndex = -1; this.still = false;
   }
@@ -135,34 +160,52 @@ export class Gallery {
   update(visual: Record<string, unknown>, reduced: boolean) {
     this.visual = visual;
     const index = Number(visual.project);
-    required(this.shell, `Gate_${index + 1}`).getWorldPosition(this.focused);
-    this.gates.forEach((gate, i) => {
+    this.mounts[index].getWorldPosition(this.focused);
+    for (let i = 0; i < this.gates.length; i++) {
+      const gate = this.gates[i];
       const open = i === index ? Number(visual.open) : 0;
       gate.outer.rotation.z = gate.rotation[0] - (reduced ? 0 : open * Math.PI / 3);
       gate.inner.rotation.z = gate.rotation[1] + (reduced ? 0 : open * Math.PI / 2);
       const active = visual.activeTarget === i && this.worldIndex === i;
-      gate.material.map = active ? this.target.texture : null;
-      gate.material.color.set(active ? '#ffffff' : '#1B1D20');
-      if (gate.material.userData.active !== active) { gate.material.userData.active = active; gate.material.needsUpdate = true; }
-    });
+      if (gate.material.userData.active !== active) {
+        gate.material.map = active ? this.target.texture : null;
+        gate.material.color.set(active ? 0xffffff : 0x1B1D20);
+        gate.material.userData.active = active; gate.material.needsUpdate = true;
+      }
+    }
   }
 
-  render(camera: Camera, reduced: boolean) {
+  render(camera: Camera, reduced: boolean, time = 0) {
+    if (this.reduced !== reduced) { this.reduced = reduced; this.still = false; }
     const index = this.visual.activeTarget;
     if (index === null || index !== this.worldIndex || !this.world || (reduced && this.still)) return;
     camera.updateMatrixWorld();
     this.matrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
     this.frustum.setFromProjectionMatrix(this.matrix);
     if (!this.frustum.intersectsObject(this.gates[Number(index)].surface)) return;
-    const start = required(this.world, 'CamStart'), end = required(this.world, 'CamEnd');
-    start.getWorldPosition(this.point); end.getWorldPosition(this.end);
+    this.motionInput.reducedMotion = reduced; this.motionInput.time = time;
+    const local = Number(this.visual.worldProgress);
+    for (let i = 0; i < this.bindings.length; i++) {
+      const bound = this.bindings[i], state = bound.state;
+      writeMotion(state, bound.motion, local, this.motionInput);
+      bound.node.position.set(bound.position.x + state.offset[0], bound.position.y + state.offset[1], bound.position.z + state.offset[2]);
+      bound.node.rotation.set(bound.rotation.x + state.rotation[0], bound.rotation.y + state.rotation[1], bound.rotation.z + state.rotation[2]);
+      bound.node.scale.set(bound.scale.x * state.scale[0], bound.scale.y * state.scale[1], bound.scale.z * state.scale[2]);
+      if (bound.screen) {
+        bound.screen.uniforms.uFrom.value = this.textures[state.screen.from];
+        bound.screen.uniforms.uTo.value = this.textures[state.screen.to];
+        bound.screen.uniforms.uMix.value = state.screen.mix;
+      }
+    }
+    this.camStart!.getWorldPosition(this.point); this.camEnd!.getWorldPosition(this.end);
     this.worldCamera.position.copy(this.point.lerp(this.end, Number(this.visual.worldProgress)));
     // Exported anchors have an incorrect camera basis (+Y forward). Use their positions
     // with the manifest's authored look target until the export is corrected.
     const x = this.worldCamera.position.x, z = this.worldCamera.position.z;
-    this.worldCamera.position.x = x * Math.cos(this.yaw) + z * Math.sin(this.yaw);
-    this.worldCamera.position.z = z * Math.cos(this.yaw) - x * Math.sin(this.yaw);
-    this.worldCamera.position.y += this.pitch * 4;
+    const yaw = reduced ? 0 : this.yaw, pitch = reduced ? 0 : this.pitch;
+    this.worldCamera.position.x = x * Math.cos(yaw) + z * Math.sin(yaw);
+    this.worldCamera.position.z = z * Math.cos(yaw) - x * Math.sin(yaw);
+    this.worldCamera.position.y += pitch * 4;
     this.worldCamera.lookAt(0, .9, 0);
     const previous = this.gl.getRenderTarget();
     const xr = this.gl.xr.enabled;
