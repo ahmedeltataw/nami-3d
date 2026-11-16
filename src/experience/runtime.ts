@@ -15,6 +15,10 @@ export function createRuntime() {
     contextLost: false,
     assetsReady: false,
     framed: false,
+    robotReady: false,
+    introStartedAt: -1,
+    introCancelled: false,
+    taskGaze: null as import('three').Vector3 | null,
   };
 }
 export type ExperienceRuntime = ReturnType<typeof createRuntime>;
