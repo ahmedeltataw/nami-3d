@@ -79,7 +79,14 @@
     "typeWeb": "تطوير المواقع",
     "typeMobile": "تطبيقات الجوال",
     "typeMarketing": "التسويق الرقمي",
-    "typeOther": "استشارات وحلول أخرى"
+    "typeOther": "استشارات وحلول أخرى",
+    "timeMachineClose": "?????",
+    "timeMachinePrevious": "??????",
+    "timeMachineNext": "??????",
+    "timeMachineSlider": "?????? ???? ??????",
+    "timeMachineArticle": "???? ??????",
+    "timeMachineFounded": "????? ????",
+    "timeMachinePublished": "??? ????"
   },
   "Footer": {
     "companyDescription": "مؤسسة نامي تقدم حلولاً برمجية متكاملة للمواقع وتطبيقات الجوال لمساعدة الشركات على النمو الرقمي بمنتجات موثوقة.",
