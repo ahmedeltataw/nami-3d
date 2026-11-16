@@ -11,14 +11,8 @@ import { createRuntime, type ExperienceRuntime } from './runtime';
 import { CameraRig } from './camera/CameraRig';
 import { useExperienceStore } from './store';
 import { scenes } from './scenes';
-import S01 from './scenes/s01';
+import { sceneRegistrations } from './scenes/registration';
 import { drawEnergyLine } from './scenes/s01/headline';
-import S02 from './scenes/s02';
-import S03 from './scenes/s03';
-import S04 from './scenes/s04';
-import S05 from './scenes/s05';
-import S06 from './scenes/s06';
-import S07 from './scenes/s07';
 import { createAssetLoader } from './assets/loaders';
 import { AssetResidency, keysForScene, worldKeys } from './assets/residency';
 import { mountedScenes, residentScenes, sampleBoundary, transitions } from './transitions';
@@ -201,12 +195,13 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       runtime.sceneSnapshots = boundary.snapshots;
       const mounted = mountedScenes(runtime.scene, runtime.local, profile.motion === 'reduced');
       if (mountSignature !== mounted.join(',')) { mountSignature = mounted.join(','); setResident(mounted); }
-      const project = runtime.scene === 's05' ? Number(runtime.snapshot.visual.project) : -1;
-      if (project >= 0 && useExperienceStore.getState().project !== project) useExperienceStore.setState({ project });
+      const patch = sceneRegistrations.find(entry => entry.id === runtime.scene)?.sample?.(runtime.snapshot);
+      if (patch) {
+        const state = useExperienceStore.getState();
+        if (Object.entries(patch).some(([key, value]) => state[key as keyof typeof state] !== value)) useExperienceStore.setState(patch);
+      }
       window.dispatchEvent(new CustomEvent('nami:s04-progress', { detail: runtime.scene === 's04' && (runtime.local >= .9 || profile.motion === 'reduced') }));
       if (runtime.scene !== 's04' && runtime.exploration.active) { runtime.exploration.exit(); window.dispatchEvent(new CustomEvent('nami:explore-state', { detail: false })); }
-      if (runtime.scene === 's03' && typeof runtime.snapshot.visual.station === 'number' && useExperienceStore.getState().station !== runtime.snapshot.visual.station) useExperienceStore.setState({ station: runtime.snapshot.visual.station });
-      if (runtime.scene === 's06' && typeof runtime.snapshot.visual.valueIndex === 'number' && useExperienceStore.getState().dnaValueIndex !== runtime.snapshot.visual.valueIndex) useExperienceStore.setState({ dnaValueIndex: runtime.snapshot.visual.valueIndex });
       const camera = runtime.transitionContext.intents?.camera ?? boundary.camera;
       rig.setPoses(camera.from, camera.to, { blend: camera.blend, snap: snap || runtime.scene === 's01' || runtime.scene === 's05' || profile.motion === 'reduced' });
       if (useExperienceStore.getState().scene !== runtime.scene) useExperienceStore.setState({ scene: runtime.scene, robotState: runtime.snapshot.robot });
@@ -342,7 +337,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   return <><canvas ref={energyLine} data-s01-energy-line className={styles.energyLine} aria-hidden="true" /><CanvasBoundary><Canvas className={styles.canvas} data-scene-canvas dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
     <ambientLight intensity={1.6} />
     <directionalLight position={[3, 4, 5]} intensity={2} />
-    {resident.includes('s01') && <S01 register={register} />}{resident.includes('s02') && <S02 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s03') && <S03 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s04') && <S04 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s05') && <S05 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s06') && <S06 register={register} residency={services?.residency ?? null} onError={fallback} />}{resident.includes('s07') && <S07 register={register} residency={services?.residency ?? null} onError={fallback} />}
+    {sceneRegistrations.map(({ id, Component }) => resident.includes(id) && <Component key={id} register={register} residency={services?.residency ?? null} onError={fallback} />)}
     <IntroFrame runtime={runtime} profile={profile} />
     {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
     <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} energyLine={energyLine} />

@@ -1,4 +1,5 @@
-﻿import { describe, expect, it } from 'vitest';
+﻿import { loadMessages } from '../../src/i18n/messages';
+import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { Group, Mesh, MeshStandardMaterial, Object3D } from 'three';
@@ -121,17 +122,17 @@ describe('creation lab stations', () => {
       }
     }
   });
-  it('ensures message keys have parity and real service content', () => {
-    const en = JSON.parse(readFileSync(resolve(process.cwd(), 'src/messages/en.json'), 'utf-8'));
-    const ar = JSON.parse(readFileSync(resolve(process.cwd(), 'src/messages/ar.json'), 'utf-8'));
+  it('ensures message keys have parity and real service content', async () => {
+    const en = await loadMessages('en');
+    const ar = await loadMessages('ar');
     expect(parityErrors(ar, en)).toEqual([]);
     for (const station of stations) {
       expect(en[station.slug]).toBeDefined();
       expect(ar[station.slug]).toBeDefined();
-      expect(typeof en[station.slug].title).toBe('string');
-      expect(typeof en[station.slug].description).toBe('string');
-      expect(typeof ar[station.slug].title).toBe('string');
-      expect(typeof ar[station.slug].description).toBe('string');
+      expect(en[station.slug]).toHaveProperty('title', expect.any(String));
+      expect(en[station.slug]).toHaveProperty('description', expect.any(String));
+      expect(ar[station.slug]).toHaveProperty('title', expect.any(String));
+      expect(ar[station.slug]).toHaveProperty('description', expect.any(String));
     }
   });
 });
