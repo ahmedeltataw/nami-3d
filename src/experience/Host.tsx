@@ -129,6 +129,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     }
     const controller = createController(runtime, sample, profile.motion === 'reduced', mobile);
     controller.attach();
+    useExperienceStore.setState({ controller });
+    if (typeof window !== 'undefined') (window as unknown as { __namiController?: typeof controller }).__namiController = controller;
     function lost(event: Event) {
       event.preventDefault();
       runtime.contextLost = true;
@@ -155,6 +157,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     return () => {
       cancelled = true;
       controller.detach();
+      useExperienceStore.setState({ controller: null });
+      if (typeof window !== 'undefined') delete (window as unknown as { __namiController?: typeof controller }).__namiController;
       release();
       services?.gl.domElement.removeEventListener('webglcontextlost', lost);
       services?.gl.domElement.removeEventListener('webglcontextrestored', restored);
