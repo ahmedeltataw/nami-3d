@@ -1,0 +1,261 @@
+[
+  {
+    "slug": "privacy-policy",
+    "oldId": null,
+    "title": "Privacy Policy",
+    "description": "Learn about our privacy practices and how we protect your personal information.",
+    "sourceUrl": "https://nami-tec.com/en/privacy-policy",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "Privacy Policy"
+      },
+      {
+        "level": "h2",
+        "text": "Privacy Policy"
+      },
+      {
+        "level": "h3",
+        "text": "1. What Information Do We Collect?"
+      },
+      {
+        "level": "h3",
+        "text": "2. How Do We Use Your Information?"
+      },
+      {
+        "level": "h3",
+        "text": "3. Will Your Information Be Shared With Anyone?"
+      },
+      {
+        "level": "h3",
+        "text": "4. Do We Use Cookies And Other Tracking Technologies?"
+      },
+      {
+        "level": "h3",
+        "text": "5. How Long Do We Keep Your Information?"
+      },
+      {
+        "level": "h3",
+        "text": "6. How Do We Keep Your Information Safe?"
+      },
+      {
+        "level": "h3",
+        "text": "7. Do We Collect Information From Minors?"
+      },
+      {
+        "level": "h3",
+        "text": "8. What Are Your Privacy Rights?"
+      },
+      {
+        "level": "h3",
+        "text": "9. Controls For Do-Not-Track Features"
+      },
+      {
+        "level": "h3",
+        "text": "10. Do We Make Updates To This Policy?"
+      },
+      {
+        "level": "h3",
+        "text": "11. How Can You Contact Us About This Policy?"
+      },
+      {
+        "level": "h5",
+        "text": "Services"
+      },
+      {
+        "level": "h5",
+        "text": "Links"
+      },
+      {
+        "level": "h5",
+        "text": "Contact Emails"
+      }
+    ],
+    "paragraphs": [
+      "Welcome to Nami Tech . We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at info@nami-tec.com.",
+      "We collect personal information that you voluntarily provide to us when expressing an interest in obtaining information about us or our products and services, when participating in activities on the Services or otherwise contacting us.",
+      "The personal information that we collect depends on the context of your interactions with us and the Services, the choices you make and the products and features you use. The personal information we collect can include the following: Name, Contact Data, and Credentials.",
+      "We use personal information collected via our Services for a variety of business purposes described below. We process your personal information for these purposes in reliance on our legitimate business interests, in order to enter into or perform a contract with you, with your consent, and/or for compliance with our legal obligations.",
+      "We only share information with your consent, to comply with laws, to provide you with services, to protect your rights, or to fulfill business obligations. We may process or share data based on the following legal basis: Consent, Legitimate Interests, Performance of a Contract, Legal Obligations, and Vital Interests.",
+      "We may use cookies and similar tracking technologies (like web beacons and pixels) to access or store information. Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Policy.",
+      "We will only keep your personal information for as long as it is necessary for the purposes set out in this privacy policy, unless a longer retention period is required or permitted by law (such as tax, accounting or other legal requirements).",
+      "We aim to protect your personal information through a system of organizational and technical security measures. We have implemented appropriate internal technical and organizational measures designed to protect the security of any personal information we process.",
+      "We do not knowingly solicit data from or market to children under 18 years of age. By using the Services, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent&rsquo;s use of the Services.",
+      "In some regions (like the European Economic Area), you have certain rights under applicable data protection laws. These may include the right to request access and obtain a copy of your personal information, to request rectification or erasure; and to restrict the processing of your personal information.",
+      "Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track (&ldquo;DNT&rdquo;) feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected.",
+      "Yes, we will update this policy as necessary to stay compliant with relevant laws. The updated version will be indicated by an updated &ldquo;Revised&rdquo; date and the updated version will be effective as soon as it is accessible.",
+      "If you have questions or comments about this policy, you may email us at support@nami-tec.com or by post to Nami Tech Headquarters.",
+      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
+      "© 2026 All rights reserved - Nami Software Development"
+    ],
+    "lists": [
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "To facilitate account creation and logon process.",
+          "To send you marketing and promotional communications.",
+          "To fulfill and manage your orders.",
+          "To deliver services to the user.",
+          "To respond to user inquiries/offer support to users."
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Home",
+          "About Us",
+          "Blogs",
+          "FAQs",
+          "Services",
+          "Contact Us",
+          "Privacy Policy",
+          "Terms & Conditions"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Technical Support",
+          "Human Resources",
+          "Marketing & Sales"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "terms-and-conditions",
+    "oldId": null,
+    "title": "Terms and Conditions",
+    "description": "Review the terms and conditions that govern your use of our services.",
+    "sourceUrl": "https://nami-tec.com/en/terms-conditions",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "Terms & Conditions"
+      },
+      {
+        "level": "h1",
+        "text": "Refund and Return Policy"
+      },
+      {
+        "level": "h2",
+        "text": "1. Payment Refunds"
+      },
+      {
+        "level": "h2",
+        "text": "2. After the Service Has Started"
+      },
+      {
+        "level": "h2",
+        "text": "3. Digital Services and Subscriptions"
+      },
+      {
+        "level": "h2",
+        "text": "4. Order Cancellation"
+      },
+      {
+        "level": "h2",
+        "text": "5. Refund Method"
+      },
+      {
+        "level": "h2",
+        "text": "6. Refund Request"
+      },
+      {
+        "level": "h2",
+        "text": "7. Policy Updates"
+      },
+      {
+        "level": "h5",
+        "text": "Services"
+      },
+      {
+        "level": "h5",
+        "text": "Links"
+      },
+      {
+        "level": "h5",
+        "text": "Contact Emails"
+      }
+    ],
+    "paragraphs": [
+      "We are committed to providing our services in accordance with the highest quality standards and always strive to ensure our customers&rsquo; satisfaction with the services provided.",
+      "The customer may request a refund of the amount paid if work on the service or project has not yet started, provided that the request is submitted within a maximum of 7 days from the date of payment .",
+      "If work on the service or project has already started, the value of the work and services completed up to the date of the refund request will be calculated, and any remaining balance, if applicable, will be refunded to the customer.",
+      "For digital services, subscriptions, or services that have been activated or used, payments are non-refundable after activation, except in cases where a verified technical error prevents the customer from benefiting from the service.",
+      "The customer may request to cancel the service before work begins. After reviewing the request and confirming the status of the service, the refund will be processed in accordance with the terms outlined in this policy.",
+      "Refunds will be issued using the same payment method used for the original purchase, or according to the options permitted by the payment gateway. The refund process may take 5 to 14 business days , depending on the procedures of the bank or payment service provider.",
+      "To request a refund, the customer may contact us through the official communication channels listed on the Contact Us page, providing the order number and the necessary payment details to verify the transaction.",
+      "We reserve the right to modify or update this Refund and Return Policy at any time. Any changes will become effective as of the date they are published on the website.",
+      "Nami provides integrated software solutions for web and mobile applications, helping companies scale with reliable digital products.",
+      "© 2026 All rights reserved - Nami Software Development"
+    ],
+    "lists": [
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Website development",
+          "Mobile application development",
+          "Digital marketing",
+          "Technical consulting",
+          "Cloud services",
+          "Design services"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Home",
+          "About Us",
+          "Blogs",
+          "FAQs",
+          "Services",
+          "Contact Us",
+          "Privacy Policy",
+          "Terms & Conditions"
+        ]
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Technical Support",
+          "Human Resources",
+          "Marketing & Sales"
+        ]
+      }
+    ]
+  }
+]
