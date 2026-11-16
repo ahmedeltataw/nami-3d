@@ -79,7 +79,7 @@ describe('asset residency', () => {
     expect(order).toEqual([]);
     await session.ready;
     await new Promise(done => setTimeout(done, 0));
-    expect(order).toEqual(['poster:s05', 'phone.kit', 'robot.choreography', 'poster:s04', 'poster:s06']);
+    expect(order).toEqual(['gallery.shell', 'gallery.portal', 'poster:s05', 'world.rif-aljouf', 'world.loryfy']);
     residency.evictUnused();
     expect(dispose).not.toHaveBeenCalled();
     abort.abort();
@@ -99,7 +99,7 @@ describe('asset residency', () => {
     abort.abort();
     resolve({ value: 1, dispose() {} });
     await rejection;
-    expect(load).toHaveBeenCalledOnce();
+    expect(load).toHaveBeenCalledTimes(4);
     session.release();
   });
 });

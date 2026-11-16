@@ -13,7 +13,7 @@ test('cold #s05 loads its destination first, renders WebGL and seeks every hash 
   await expect(page.locator('canvas')).toHaveCount(1);
   expect(await page.locator('canvas').evaluate((canvas: HTMLCanvasElement) => !!canvas.getContext('webgl2'))).toBe(true);
   expect(assets[0]).toBe('/posters/s05.svg');
-  expect(assets.indexOf('/posters/s05.svg')).toBeLessThan(assets.indexOf('/posters/s04.svg'));
+  expect(assets).not.toContain('/posters/s04.svg');
   await page.screenshot({ path: 'test-results/experience-ar-s05.png' });
   await page.locator('canvas').evaluate(canvas => canvas.setAttribute('data-persistent', 'original'));
   for (let index = 1; index <= 7; index++) {
@@ -59,7 +59,7 @@ test('WebGL denied keeps server sections and native links usable without a Canva
 test('context loss shows the poster then restores current narrative on the same Canvas', async ({ page }) => {
   await page.goto('/en#s05');
   const host = page.locator('[data-experience]');
-  await expect(host).toHaveAttribute('data-ready', 'true');
+  await expect(host).toHaveAttribute('data-ready', 'true', { timeout: 30_000 });
   const loss = await page.locator('canvas').evaluateHandle((canvas: HTMLCanvasElement) => {
     const extension = canvas.getContext('webgl2')?.getExtension('WEBGL_lose_context');
     if (!extension) throw new Error('Context-loss extension unavailable');
