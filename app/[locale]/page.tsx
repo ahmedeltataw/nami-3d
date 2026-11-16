@@ -6,6 +6,8 @@ import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { getCompany, getServices, getProjects, getPage, textOr, type Locale } from '@/content';
 import { SCROLL_BUDGETS } from '@/experience/controller';
+import { StationPanel } from '@/experience/scenes/s03/StationPanel';
+import { stations } from '@/experience/scenes/s03/station';
 import { buildMetadata } from '@/lib/metadata';
 import styles from './page.module.css';
 import type { CSSProperties } from 'react';
@@ -42,6 +44,17 @@ export default async function Home({
     getServices(locale),
     getProjects(locale),
   ]);
+
+  const fields = new Map<string, string>();
+  for (const service of services) {
+    if (typeof service.title === 'string') fields.set(`${service.slug}.title`, service.title);
+    if (typeof service.description === 'string') fields.set(`${service.slug}.description`, service.description);
+  }
+  const panels = stations.map(station => {
+    const service = services.find(item => item.slug === station.slug);
+    if (!service) throw new Error(`Missing service content: ${station.slug}`);
+    return { id: station.id, title: fields.get(station.panel.titleKey) ?? '', description: fields.get(station.panel.descKey) ?? '', href: new URL(`/${locale}${station.panel.href}`, service.sourceUrl).href };
+  });
 
   return (
     <main id="main" className={styles.main}>
@@ -88,25 +101,7 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[2] } as CSSProperties}
       >
-        <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>{t('servicesHeading')}</h2>
-          <p className={styles.sectionSubtitle}>{t('servicesSubheading')}</p>
-          <div className={styles.servicesGrid}>
-            {services.slice(0, 6).map(service => {
-              const serviceTitle = textOr(service.title);
-              const serviceDesc = textOr(service.description);
-              return (
-                <article key={service.slug} className={styles.serviceCard}>
-                  <h3 className={styles.serviceTitle}>{serviceTitle}</h3>
-                  <p className={styles.serviceDesc}>{serviceDesc}</p>
-                  <Link href={`/${locale}/services/${service.slug}`} className={styles.cardLink}>
-                    {serviceTitle} →
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
-        </div>
+        <StationPanel services={panels} locale={locale} />
       </section>
 
       {/* S04 — Idea to Reality */}

@@ -1,7 +1,7 @@
 import type { SceneId } from '../contracts';
 import type { Profile } from '../profile';
 
-export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low';
+export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low' | 'lab.shell' | 'arms' | `station.${1 | 2 | 3 | 4 | 5 | 6}`;
 export const robotAssetKey = (quality: Profile['quality']): AssetKey => quality === 'high' ? 'robot.high' : 'robot.low';
 export type AssetDecoder = 'none' | 'ktx2' | 'gltf';
 export type AssetEntry = {
@@ -17,6 +17,14 @@ function poster(id: SceneId): AssetEntry {
 }
 
 export const manifest: Record<AssetKey, AssetEntry> = {
+  'lab.shell': lab('lab_shell', 1091344),
+  'station.1': lab('station_1_web', 99080),
+  'station.2': lab('station_2_mobile', 47196),
+  'station.3': lab('station_3_marketing', 153448),
+  'station.4': lab('station_4_consulting', 120984),
+  'station.5': lab('station_5_cloud', 215060),
+  'station.6': lab('station_6_design', 154384),
+  arms: lab('mechanical_arms', 244904),
   'robot.high': { url: { high: '/models/robot/robot_high.glb', mid: '/models/robot/robot_high.glb', low: '/models/robot/robot_high.glb' }, owners: [], bytes: 1826712, decoder: 'gltf' },
   'robot.low': { url: { high: '/models/robot/robot_low.glb', mid: '/models/robot/robot_low.glb', low: '/models/robot/robot_low.glb' }, owners: [], bytes: 1131824, decoder: 'gltf' },
   'poster:s01': poster('s01'),
@@ -27,3 +35,8 @@ export const manifest: Record<AssetKey, AssetEntry> = {
   'poster:s06': poster('s06'),
   'poster:s07': poster('s07'),
 };
+
+function lab(file: string, bytes: number): AssetEntry {
+  const url = `/models/lab/${file}.glb`;
+  return { url: { high: url, mid: url, low: url }, owners: ['s03'], bytes, decoder: 'gltf' };
+}

@@ -1,0 +1,9 @@
+﻿.panel { position: sticky; top: 6rem; max-width: 34rem; padding-block: 1rem; }
+.picker { display: flex; flex-wrap: wrap; gap: .35rem; }
+.picker button { min-height: 44px; border: 1px solid #183d49; border-radius: .4rem; padding: .4rem .65rem; color: #183d49; background: #f6fafb; cursor: pointer; }
+.picker button[aria-pressed='true'] { background: #183d49; color: #fff; }
+.picker button:focus-visible, .card a:focus-visible { outline: 3px solid #168169; outline-offset: 2px; }
+.card { margin-block-start: .75rem; padding: 1rem; background: #f6fafb; color: #183d49; border-radius: .5rem; }
+.card h2 { margin: 0; }
+.card a { display: inline-block; color: #183d49; padding-block: .5rem; font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .panel { position: static; padding-top: 6rem; } }
