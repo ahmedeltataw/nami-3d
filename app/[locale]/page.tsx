@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
-import { getCompany, getServices, getProjects, getPage, textOr, type Locale } from '@/content';
+import { getCompany, getServices, getProjects, getPage, type Locale } from '@/content';
 import { SCROLL_BUDGETS } from '@/experience/controller';
 import { StationPanel } from '@/experience/scenes/s03/StationPanel';
 import { stations } from '@/experience/scenes/s03/station';
