@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('cold Arabic lab loads its models and renders', async ({ page }) => {
   // Cold asset loading plus six real SwiftShader renders share this test budget.
-  test.setTimeout(150_000);
+  test.setTimeout(270_000);
   const errors: string[] = [];
   const models: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
