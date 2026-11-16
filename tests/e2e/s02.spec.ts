@@ -9,7 +9,7 @@ async function seek(page: Page, local: number) {
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().local)).toBeCloseTo(local, 2);
 }
 async function colors(page: Page) {
-  return page.locator('canvas').evaluate((canvas: HTMLCanvasElement) => new Promise<number>(resolve => requestAnimationFrame(() => {
+  return page.locator('canvas:not([data-s01-energy-line])').evaluate((canvas: HTMLCanvasElement) => new Promise<number>(resolve => requestAnimationFrame(() => {
     const gl = canvas.getContext('webgl2')!;
     const pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4);
     gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
@@ -27,7 +27,7 @@ test('cold /ar#s02 renders charge, assembled portal, reverse seek and lab handof
   const host = page.locator('[data-experience]');
   await expect(host).toHaveAttribute('data-scene', 's02');
   await expect(host).toHaveAttribute('data-ready', 'true', { timeout: 30_000 });
-  await expect(page.locator('canvas')).toHaveCount(1);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(1);
   await expect.poll(() => colors(page)).toBeGreaterThan(20);
   await seek(page, .28);
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().robot)).toMatchObject({ name: 'ChargeEnergy' });
@@ -66,7 +66,7 @@ test('renderer fallback keeps the S02 poster and HTML available', async ({ page 
   });
   await page.goto('/ar#s02');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-renderer', 'fallback');
-  await expect(page.locator('canvas')).toHaveCount(0);
+  await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(0);
   await expect(page.locator('#s02')).toBeInViewport();
   await expect(page.locator('#s02 h2')).toBeVisible();
   await expect(page.locator('[data-experience] > div').first()).toHaveCSS('background-image', /s02\.svg/);

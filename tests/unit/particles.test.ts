@@ -180,7 +180,7 @@ describe('particle resources and preset API', () => {
   });
 
   it('registers extensible GLSL, uniforms and target generation without core changes', () => {
-    expect(getPresets().map(preset => preset.id)).toEqual(['ambient', 'converge', 'dissolve']);
+    expect(getPresets().map(preset => preset.id)).toEqual(['ambient', 'converge', 'dissolve', 'swirl', 'explode', 'orbit']);
     const custom = { id: 'test-lift', vertexChunk: 'p = aTarget + vec3(0.0, uTestLift, 0.0);',
       uniforms: { uTestLift: { value: 2 } }, targetFn: (seed: number, i: number): [number, number, number] => [seed, i, 0] };
     registerPreset(custom);

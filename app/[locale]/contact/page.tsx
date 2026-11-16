@@ -93,7 +93,7 @@ export default async function ContactPage({
     <main id="main" className={styles.page}>
       <header className={styles.header}>
         <div className={styles.badge}>{isAr ? 'تواصل' : 'Contact'}</div>
-        <h1 className={styles.title}>{title}</h1>
+        <h1 className={styles.title} data-reveal>{title}</h1>
         {typeof page?.description === 'string' && (
           <p className={styles.description}>{page.description}</p>
         )}
@@ -114,7 +114,7 @@ export default async function ContactPage({
         {/* Right column: Real company contact information */}
         <div className={styles.infoColumn}>
           {addressSa && (
-            <div className={styles.infoCard}>
+            <div className={styles.infoCard} data-reveal>
               <h2 className={styles.infoCardTitle}>
                 {isAr ? 'المقر الرئيسي (السعودية)' : 'Headquarters (Saudi Arabia)'}
               </h2>
@@ -123,7 +123,7 @@ export default async function ContactPage({
           )}
 
           {addressEg && (
-            <div className={styles.infoCard}>
+            <div className={styles.infoCard} data-reveal>
               <h2 className={styles.infoCardTitle}>
                 {isAr ? 'فرع مصر' : 'Egypt Office'}
               </h2>
@@ -131,7 +131,7 @@ export default async function ContactPage({
             </div>
           )}
 
-          <div className={styles.infoCard}>
+          <div className={styles.infoCard} data-reveal>
             <h2 className={styles.infoCardTitle}>
               {isAr ? 'أرقام الاتصال' : 'Phone Numbers'}
             </h2>
@@ -147,7 +147,7 @@ export default async function ContactPage({
             ))}
           </div>
 
-          <div className={styles.infoCard}>
+          <div className={styles.infoCard} data-reveal>
             <h2 className={styles.infoCardTitle}>
               {isAr ? 'البريد الإلكتروني' : 'Email Addresses'}
             </h2>
@@ -178,7 +178,7 @@ export default async function ContactPage({
           </div>
 
           {whatsapp && (
-            <div className={styles.infoCard}>
+            <div className={styles.infoCard} data-reveal>
               <h2 className={styles.infoCardTitle}>
                 {isAr ? 'واتساب' : 'WhatsApp'}
               </h2>
@@ -194,7 +194,7 @@ export default async function ContactPage({
           )}
 
           {company.socials.length > 0 && (
-            <div className={styles.infoCard}>
+            <div className={styles.infoCard} data-reveal>
               <h2 className={styles.infoCardTitle}>
                 {isAr ? 'تابعنا على' : 'Follow Us'}
               </h2>

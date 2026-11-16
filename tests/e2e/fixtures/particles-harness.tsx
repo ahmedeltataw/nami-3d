@@ -55,7 +55,7 @@ const api = {
   gpuErrors() {
     const core = createParticleCore({ quality: 'low', seed: 42 });
     const errors: number[] = [];
-    for (const preset of ['ambient', 'converge', 'dissolve', { ambient: 1, converge: 2, dissolve: 1 }]) {
+      for (const preset of ['ambient', 'converge', 'dissolve', { ambient: 1, converge: 2, dissolve: 1 }, 'swirl', 'explode', 'orbit']) {
       for (const progress of [0, 0.25, 0.5, 1]) {
         const state = { ...frame, preset, progress };
         core.update(state, 2, false);

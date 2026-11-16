@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { getCompany, type Locale } from '@/content';
 import styles from './Footer.module.css';
 import { MotionSwitch } from './MotionSwitch';
+import { SoundToggle } from './SoundToggle';
 
 function socialName(url: string): string {
   try {
@@ -166,6 +167,7 @@ export async function Footer({ locale }: { locale: Locale }) {
 
         <div className={styles.bottomBar}>
           <MotionSwitch />
+          <SoundToggle />
           <div className={styles.legalLinks}>
             <Link href={`/${locale}/privacy`} className={styles.footerLink}>
               {t('privacy')}

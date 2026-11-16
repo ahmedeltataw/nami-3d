@@ -13,6 +13,7 @@ import { buildMetadata } from '@/lib/metadata';
 import { GalleryPanel } from '@/experience/scenes/s05/GalleryPanel';
 import { galleryProjects } from '@/experience/scenes/s05/projects';
 import { Explore } from '@/experience/scenes/s04/Explore';
+import { ExperienceControls } from '@/experience/ExperienceControls';
 import styles from './page.module.css';
 import type { CSSProperties } from 'react';
 
@@ -71,6 +72,7 @@ export default async function Home({
         <div className={`${styles.content} ${styles.hero}`}>
           <h1 data-s01-headline>{t('heading')}</h1>
           <p className={styles.subtitle}>{t('subtitle')}</p>
+          <ExperienceControls services={services.map(service => typeof service.title === 'string' ? service.title : '').filter(Boolean)} />
           <div className={styles.actions}>
             <a href="#s05">{t('projects')}</a>
             <a href="#s07">{t('contact')}</a>
