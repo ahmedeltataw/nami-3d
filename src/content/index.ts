@@ -28,4 +28,7 @@ export const getBlogPost = async (slug: string, locale: Locale) => find(await ge
 export const getFaqs = (locale: Locale) => load('faq', locale);
 export const getLegal = async (slug: string, locale: Locale) => find(await load('legal', locale), slug);
 export const getCompany = (locale: Locale) => load('company', locale);
-export const getPage = async (slug: string, locale: Locale) => find(await load('pages', locale), slug);
+export const isText = (value: unknown): value is string => typeof value === 'string';
+export const textOr = (value: unknown, fallback = ''): string => (typeof value === 'string' ? value : fallback);
+export const HOME_PAGE_SLUG = 'top-app-web-development-company-in-egypt-and-the-arab-world';
+export const getPage = async (slug: string, locale: Locale) => find(await load('pages', locale), slug === 'home' ? HOME_PAGE_SLUG : slug);
