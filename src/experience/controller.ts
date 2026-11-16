@@ -54,13 +54,18 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
     changed(snap);
   }
 
-  function onScroll() {
+  function onScroll(event?: Event) {
+    const cancelledIntro = !!event && !runtime.intro.cancelled;
+    if (event) runtime.intro.cancel();
     if (!starts.length) return;
     // CSS/media changes can clamp scrollY before ResizeObserver or React effect cleanup.
     // Preserve narrative intent before interpreting that scroll against cached offsets.
     if (layoutChanged()) { measure(); return; }
     const y = window.scrollY;
-    if (snapped && Math.abs(snapped.y - y) <= 1) return;
+    if (snapped && Math.abs(snapped.y - y) <= 1) {
+      if (cancelledIntro) publish(runtime.scene, runtime.local, runtime.progress, true);
+      return;
+    }
     snapped = null;
     let index = SCENE_IDS.length - 1;
     for (let i = 0; i < starts.length; i++) {
@@ -68,9 +73,11 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
     }
     const local = clamp((y - starts[index]) / spans[index]);
     publish(SCENE_IDS[index], local, clamp(y / (starts[6] + spans[6])), false);
-    pendingHistory = { scene: runtime.scene, local };
-    clearTimeout(historyTimer);
-    historyTimer = setTimeout(flushHistory, 200);
+    if (event) {
+      pendingHistory = { scene: runtime.scene, local };
+      clearTimeout(historyTimer);
+      historyTimer = setTimeout(flushHistory, 200);
+    }
   }
 
   function writeHistory(method: 'replaceState' | 'pushState', scene: SceneId, local: number) {
@@ -104,9 +111,10 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
     return runtime.scene === scene ? runtime.local : 0;
   }
 
-  function seek(scene: SceneId, local = 0, updateHistory = true) {
+  function seek(scene: SceneId, local = 0, updateHistory = true, cancelIntro = true) {
     const index = SCENE_IDS.indexOf(scene);
     if (!starts.length) return;
+    if (cancelIntro) runtime.intro.cancel();
     const y = starts[index] + spans[index] * clamp(local);
     if (updateHistory) {
       flushHistory();
@@ -131,7 +139,7 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
     starts = elements.map(element => element!.getBoundingClientRect().top + window.scrollY);
     const max = document.documentElement.scrollHeight - window.innerHeight;
     spans = starts.map((start, i) => Math.max(1, i === 6 ? max - start : starts[i + 1] - start));
-    if (preserve) seek(runtime.scene, runtime.local, false);
+    if (preserve) seek(runtime.scene, runtime.local, false, false);
   }
 
   function layoutChanged() {

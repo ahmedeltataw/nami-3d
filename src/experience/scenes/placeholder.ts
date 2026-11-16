@@ -11,7 +11,7 @@ export function placeholder(id: SceneId, index: number): SceneDef {
       return {
         camera: { position: [0, 0, 5.5 - (index + local) * 0.15], quaternion: [0, 0, 0, 1], fov: 50, near: 0.1, far: 100 },
         robot: { kind: 'rest' },
-        visual: { rotation: local * Math.PI * 2, scale: 0.8 + local * 0.2, label: id },
+        visual: { rotation: local * Math.PI * 2, scale: 0.8 + local * 0.2, label: id, robotState: id === 's02' ? (local < 0.75 ? 'performing' : 'transitioning') : id === 's03' || id === 's05' ? 'guiding' : id === 's04' ? 'performing' : id === 's07' ? 'interacting' : 'idle' },
       };
     },
     apply(snapshot, ctx) {

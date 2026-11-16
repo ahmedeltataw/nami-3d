@@ -6,7 +6,6 @@ import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { getCompany, getServices, getProjects, getPage, textOr, type Locale } from '@/content';
 import { SCROLL_BUDGETS } from '@/experience/controller';
-import { SkipIntro } from '@/components/ui/SkipIntro';
 import { buildMetadata } from '@/lib/metadata';
 import styles from './page.module.css';
 import type { CSSProperties } from 'react';
@@ -37,37 +36,37 @@ export default async function Home({
   const locale = rawLocale as Locale;
   setRequestLocale(locale);
 
-  const [t, homePage, company, services, projects] = await Promise.all([
+  const [t, company, services, projects] = await Promise.all([
     getTranslations({ locale, namespace: 'Home' }),
-    getPage('home', locale),
     getCompany(locale),
     getServices(locale),
     getProjects(locale),
   ]);
 
-  const heroHeadline = typeof homePage?.headings?.[0]?.text === 'string' ? homePage.headings[0].text : t('heading');
-  const heroSubtitle = typeof homePage?.paragraphs?.[0] === 'string' ? homePage.paragraphs[0] : t('subtitle');
-
   return (
     <main id="main" className={styles.main}>
-      {/* S01 — Hero */}
+      {/* S01 — Hero (M2-04 Awakening markup) */}
       <section
         id="s01"
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[0] } as CSSProperties}
       >
-        <div className={`${styles.content} ${styles.heroContent}`}>
-          <h1 className={styles.heroTitle}>{heroHeadline}</h1>
-          <p className={styles.heroSubtitle}>{heroSubtitle}</p>
-          <div className={styles.heroCtas}>
-            <Link href={`/${locale}/contact`} className={styles.primaryBtn}>
-              {t('startProject')}
-            </Link>
-            <Link href={`/${locale}#s03`} className={styles.secondaryBtn}>
-              {t('ourServices')}
-            </Link>
-            <SkipIntro label={t('skipIntro')} />
+        <div className={`${styles.content} ${styles.hero}`}>
+          <h1 data-s01-headline>{t('heading')}</h1>
+          <p className={styles.subtitle}>{t('subtitle')}</p>
+          <div className={styles.actions}>
+            <a href="#s05">{t('projects')}</a>
+            <a href="#s07">{t('contact')}</a>
           </div>
+          <p className={styles.scrollHint}>{t('scrollHint')}</p>
+          <button
+            className={styles.skipIntro}
+            type="button"
+            data-s01-skip
+            aria-label={t('skipIntro')}
+          >
+            {t('skipIntro')}
+          </button>
         </div>
       </section>
 
@@ -133,10 +132,9 @@ export default async function Home({
           <p className={styles.sectionSubtitle}>{t('projectsSubheading')}</p>
           <div className={styles.projectsGrid}>
             {projects.slice(0, 6).map(project => {
-              const h1Text = project.headings?.find(h => h.level === 'h1')?.text;
-              const name: string = typeof h1Text === 'string'
-                ? h1Text
-                : (typeof project.title === 'string' ? project.title.replace(/\s*\|\s*.*$/, '') : project.slug);
+              const name = typeof project.title === 'string'
+                ? project.title.replace(/\s*\|\s*.*$/, '')
+                : project.slug;
               const category = typeof project.category === 'string' ? project.category : null;
               return (
                 <article key={project.slug} className={styles.projectCard}>

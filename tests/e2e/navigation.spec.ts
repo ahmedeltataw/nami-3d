@@ -43,7 +43,7 @@ test.describe('Navigation and Accessibility', () => {
       await expect(heroH1).toBeVisible();
       expect((await heroH1.textContent())?.trim().length).toBeGreaterThan(0);
 
-      const heroCta = page.locator('#s01 a[href*="/contact"]');
+      const heroCta = page.locator('#s01 a').first();
       await expect(heroCta).toBeVisible();
 
       await context.close();

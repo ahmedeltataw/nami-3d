@@ -25,11 +25,14 @@
     "closeMenu": "Close Menu"
   },
   "Home": {
-    "heading": "Nami Software Solutions",
-    "subtitle": "For website design and development services and phone applications operating on the Android and iOS operating systems, the company provides integrated web solutions to all institutions in the world and has a huge customer base in all countries of the world.",
+    "heading": "Welcome to Nami",
+    "subtitle": "Your next digital project starts with a conversation.",
+    "projects": "See our work",
+    "contact": "Start your project",
+    "scrollHint": "Scroll to meet Nami",
+    "skipIntro": "Skip introduction",
     "startProject": "Start Your Project",
     "ourServices": "Our Services",
-    "skipIntro": "Skip Intro",
     "transitionTitle": "Good planning is not enough Great callings require the extraordinary!",
     "transitionText": "Starting from graphic design to programming and designing smart phone applications, Nami strives And its work team from the day of its establishment until it became one of the most important Arab web development companies.",
     "servicesHeading": "Our Services",
