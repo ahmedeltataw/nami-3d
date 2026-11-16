@@ -20,6 +20,6 @@ export function MotionSwitch() {
     window.dispatchEvent(new Event(MOTION_EVENT));
   }
   return <fieldset className={styles.switch}><legend>{t('label')}</legend>{(['cinematic', 'direct'] as const).map(value =>
-    <button type="button" key={value} aria-pressed={choice === value} onClick={() => change(value)}>{t(value)}</button>
+    <button type="button" key={value} aria-pressed={choice === value} data-sound="click" onClick={() => change(value)}>{t(value)}</button>
   )}</fieldset>;
 }

@@ -213,5 +213,12 @@
     "factoryOpen": "Open hidden factory",
     "factoryTitle": "NAMI Factory",
     "factoryClose": "Close factory"
+  },
+  "Sound": {
+    "label": "Sound",
+    "soundOn": "Sound On",
+    "soundOff": "Sound Off",
+    "enable": "Enable Sound",
+    "mute": "Mute Sound"
   }
 }

@@ -64,7 +64,7 @@ export default async function ProjectsPage({
 
       <header className={styles.header}>
         <div className={styles.badge}>{isAr ? 'قصص نجاح' : 'Success Stories'}</div>
-        <h1 className={styles.title}>{tNav('projects')}</h1>
+        <h1 className={styles.title} data-reveal>{tNav('projects')}</h1>
         <p className={styles.description}>
           {isAr
             ? 'نماذج من المشاريع الرقمية والتطبيقات الذكية التي صممناها وطورناها لشركائنا في مختلف القطاعات.'
@@ -83,7 +83,7 @@ export default async function ProjectsPage({
             const primaryScreen = project.screens[0];
 
             return (
-              <article key={project.slug} className={styles.card}>
+              <article key={project.slug} className={styles.card} data-reveal>
                 {primaryScreen && (
                   <div className={styles.cardImageWrapper}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -108,7 +108,7 @@ export default async function ProjectsPage({
       </section>
 
       <section className={styles.ctaSection} aria-label={tContent('ctaContactTitle')}>
-        <h2 className={styles.ctaTitle}>{tContent('ctaContactTitle')}</h2>
+        <h2 className={styles.ctaTitle} data-reveal>{tContent('ctaContactTitle')}</h2>
         <p className={styles.ctaDesc}>{tContent('ctaContactText')}</p>
         <Link href={`/${locale}/contact`} className={styles.ctaButton}>
           {tContent('ctaContactButton')}

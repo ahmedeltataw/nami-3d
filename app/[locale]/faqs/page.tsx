@@ -141,14 +141,14 @@ export default async function FaqsPage({
 
       <header className={styles.header}>
         <div className={styles.badge}>{tContent('faqBadge')}</div>
-        <h1 className={styles.title}>{pageTitle}</h1>
+        <h1 className={styles.title} data-reveal>{pageTitle}</h1>
         <p className={styles.description}>{introText}</p>
       </header>
 
       <section aria-label={tNav('faqs')} className={styles.section}>
         <div className={styles.detailsList}>
           {faqItems.map((item, idx) => (
-            <details key={idx} className={styles.details} id={`faq-${idx}`}>
+            <details key={idx} className={styles.details} id={`faq-${idx}`} data-reveal>
               <summary className={styles.summary} tabIndex={0}>
                 <span>{item.question}</span>
                 <span className={styles.detailsIndicator} aria-hidden="true">
@@ -164,7 +164,7 @@ export default async function FaqsPage({
       </section>
 
       <section className={styles.ctaSection} aria-label={tContent('ctaContactTitle')}>
-        <h2 className={styles.ctaTitle}>{tContent('ctaContactTitle')}</h2>
+        <h2 className={styles.ctaTitle} data-reveal>{tContent('ctaContactTitle')}</h2>
         <p className={styles.ctaDesc}>{tContent('ctaContactText')}</p>
         <Link href={`/${locale}/contact`} className={styles.ctaButton}>
           {tContent('ctaContactButton')}

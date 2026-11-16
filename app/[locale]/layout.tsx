@@ -9,6 +9,7 @@ import { RouteTransition } from '@/experience/RouteTransition';
 import { LivingCursor } from '@/experience/LivingCursor';
 import { Nav } from '@/components/ui/Nav';
 import { Footer } from '@/components/ui/Footer';
+import { RevealInit } from '@/ui-motion';
 import '@/styles/globals.css';
 import { inter, plexArabic } from '@/styles/fonts';
 
@@ -45,6 +46,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <RouteTransition />
           <ExperienceMount />
+          <RevealInit />
           <LivingCursor />
           <Nav />
           {children}

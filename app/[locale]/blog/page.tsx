@@ -64,7 +64,7 @@ export default async function BlogPage({
 
       <header className={styles.header}>
         <div className={styles.badge}>{isAr ? 'مقالات وأبحاث' : 'Articles & Insights'}</div>
-        <h1 className={styles.title}>{tNav('blog')}</h1>
+        <h1 className={styles.title} data-reveal>{tNav('blog')}</h1>
         <p className={styles.description}>
           {isAr
             ? 'مقالات معرفية ونصائح عملية في مجالات التقنية والبرمجة والتصميم لمساعدتك على اتخاذ أفضل القرارات الرقمية.'
@@ -80,7 +80,7 @@ export default async function BlogPage({
             const readingTime = calculateReadingTime(post, locale);
 
             return (
-              <article key={post.slug} className={styles.card}>
+              <article key={post.slug} className={styles.card} data-reveal>
                 <div className={styles.metaRow}>
                   <span className={styles.badge}>{tContent('publishedYear')}</span>
                   <span className={styles.metaItem}>⏱ {readingTime.text}</span>
@@ -97,7 +97,7 @@ export default async function BlogPage({
       </section>
 
       <section className={styles.ctaSection} aria-label={tContent('ctaContactTitle')}>
-        <h2 className={styles.ctaTitle}>{tContent('ctaContactTitle')}</h2>
+        <h2 className={styles.ctaTitle} data-reveal>{tContent('ctaContactTitle')}</h2>
         <p className={styles.ctaDesc}>{tContent('ctaContactText')}</p>
         <Link href={`/${locale}/contact`} className={styles.ctaButton}>
           {tContent('ctaContactButton')}
