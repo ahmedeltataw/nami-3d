@@ -18,6 +18,18 @@ export const metadata: Metadata = {
     template: '%s | Nami 3D',
   },
   description: 'Nami 3D experience',
+  openGraph: {
+    title: 'Nami 3D',
+    description: 'Nami 3D experience',
+    url: 'https://nami-tec.com',
+    siteName: 'Nami Tech',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nami 3D',
+    description: 'Nami 3D experience',
+  },
 };
 
 export function generateStaticParams() {

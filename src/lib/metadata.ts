@@ -42,6 +42,11 @@ export function buildMetadata({
       locale: locale === 'ar' ? 'ar_AR' : 'en_US',
       type: ogType,
     },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
