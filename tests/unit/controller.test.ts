@@ -68,6 +68,23 @@ function environment(mobile = false, reduced = false, hash = '#s01') {
 }
 
 describe('native controller lifecycle', () => {
+  it('keeps the intro during layout measurement but cancels on actual scroll, even at local zero', async () => {
+    const env = environment(false, false, '');
+    await Promise.resolve();
+    env.controller.recalculate();
+    expect(env.runtime.intro.cancelled).toBe(false);
+    env.controller.detach();
+    expect(env.history.replaceState).not.toHaveBeenCalled();
+    env.controller.attach();
+    expect(env.runtime.intro.cancelled).toBe(false);
+    env.controller.recalculate();
+    env.changed.mockClear();
+    env.window.dispatchEvent(new Event('scroll'));
+    expect(env.runtime.intro.cancelled).toBe(true);
+    expect(env.changed).toHaveBeenCalledWith(true);
+    env.controller.detach();
+  });
+
   it('preserves scene/local when a motion layout change scrolls before observers and effect cleanup', () => {
     const env = environment();
     env.controller.seek('s05', 0.4);

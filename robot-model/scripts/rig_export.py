@@ -29,7 +29,7 @@ D = math.radians
 CENTRE = {
     "Torso": ("Root", (0, 0, 0.5), ["Body_MainShell", "Chest_UpperArmor", "Body_LowerShell",
                                     "Emblem_OuterHousing", "Emblem_GreenInsert", "Emblem_WhiteSymbol"],
-              {"Z": (-30, 30), "X": (-15, 15)}),
+              {"Z": (-30, 30), "X": (-10, 30)}),   # M2-clips: pitch 30 forward (+X) / 10 back
     "Neck": ("Torso", (0, 0, 1.60), ["Neck_Joint"], {"Z": (-45, 45), "X": (-15, 15)}),
     "Head": ("Neck", (0, 0, 1.86), ["Head_OuterShell", "Face_Display", "Face_Bezel", "Top_CircuitPanel",
                                     "Top_CircuitTraces", "Left_SideModule", "Right_SideModule",
@@ -38,12 +38,15 @@ CENTRE = {
 }
 SIDE = {   # name: (parent, left pivot, mesh name template with {t}=L/R, {side}=Left/Right)
     "Eye": ("Head", (0.375, -0.78, 2.45), ["Eye_{side}"], {"X": (-10, 10), "Z": (-10, 10)}),
-    "Shoulder": ("Torso", (1.0, ARM_Y, 1.55), ["Arm_{t}_Shoulder"], {"Y": (-170, 10), "X": (-90, 90)}),
-    "Upper": ("Shoulder", (1.005, ARM_Y, 1.1575), ["Arm_{t}_Upper"], {"Y": (-30, 30), "X": (-45, 45)}),
+    # M2-clips: shoulder inward up to 45 (Y raise toward the body, Z swing of a forward arm), elbow flex 110
+    "Shoulder": ("Torso", (1.0, ARM_Y, 1.55), ["Arm_{t}_Shoulder"],
+                 {"Y": (-170, 45), "X": (-90, 90), "Z": (-45, 30)}),
+    "Upper": ("Shoulder", (1.005, ARM_Y, 1.1575), ["Arm_{t}_Upper"], {"Y": (-30, 30), "X": (-110, 45)}),
     "Wrist": ("Upper", (1.07, ARM_Y, 0.50), ["Arm_{t}_Wrist"], {"Z": (-90, 90)}),
     "Palm": ("Wrist", (PALM_X, ARM_Y, 0.42), ["Hand_{t}_Palm"], {"X": (-45, 45), "Y": (-30, 30)}),
 }
 CURL = {"Y": (0, 90)}   # finger/thumb curl on local Y (left side positive)
+CURL_INDEX = {"Y": (-15, 90)}   # Finger_1 may straighten past its modelled curl (M2-clips, Point)
 
 
 def finger_pivot(i, s):
@@ -72,7 +75,7 @@ def joint_specs():
                         [m.format(t=t, side=side) for m in meshes], limits(lim, s)))
         for i in range(4):
             out.append((f"Finger_{i + 1}_{t}", f"Palm_{t}", tuple(finger_pivot(i, s)), s * YAW,
-                        [f"Hand_{t}_Finger_{i + 1}"], limits(CURL, s)))
+                        [f"Hand_{t}_Finger_{i + 1}"], limits(CURL_INDEX if i == 0 else CURL, s)))
         out.append((f"Thumb_{t}", f"Palm_{t}", (s * (PALM_X - 0.10), ARM_Y - 0.04, PALM_Z + 0.11), 0,
                     [f"Hand_{t}_Thumb"], limits(CURL, s)))
     return out
