@@ -202,5 +202,12 @@
     "label": "Motion",
     "cinematic": "Cinematic",
     "direct": "Direct"
+  },
+  "Sound": {
+    "label": "Sound",
+    "soundOn": "Sound On",
+    "soundOff": "Sound Off",
+    "enable": "Enable Sound",
+    "mute": "Mute Sound"
   }
 }

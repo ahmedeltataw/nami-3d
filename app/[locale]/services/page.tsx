@@ -64,7 +64,7 @@ export default async function ServicesPage({
 
       <header className={styles.header}>
         <div className={styles.badge}>{isAr ? 'حلول متكاملة' : 'Full-Spectrum Solutions'}</div>
-        <h1 className={styles.title}>{t('services')}</h1>
+        <h1 className={styles.title} data-reveal>{t('services')}</h1>
         <p className={styles.description}>
           {isAr
             ? 'نقدم مجموعة متكاملة من الحلول الرقمية لتلبية احتياجات أعمالكم وتحقيق نمو مستدام من خلال منتجات برمجية موثوقة.'
@@ -78,7 +78,7 @@ export default async function ServicesPage({
             const serviceTitle = textOr(service.title, service.slug);
             const serviceDesc = textOr(service.description);
             return (
-              <article key={service.slug} className={styles.card}>
+              <article key={service.slug} className={styles.card} data-reveal>
                 <span className={styles.badge}>
                   {isAr ? 'خدمة متخصصة' : 'Service'}
                 </span>
@@ -94,7 +94,7 @@ export default async function ServicesPage({
       </section>
 
       <section className={styles.ctaSection} aria-label={tContent('ctaContactTitle')}>
-        <h2 className={styles.ctaTitle}>{tContent('ctaContactTitle')}</h2>
+        <h2 className={styles.ctaTitle} data-reveal>{tContent('ctaContactTitle')}</h2>
         <p className={styles.ctaDesc}>{tContent('ctaContactText')}</p>
         <Link href={`/${locale}/contact`} className={styles.ctaButton}>
           {tContent('ctaContactButton')}

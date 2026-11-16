@@ -62,6 +62,54 @@ img, svg, video { max-inline-size: 100%; display: block; }
 }
 .skip-link:focus { transform: none; }
 
+/* UI Motion Layer */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--dur-reveal-enter) var(--ease-reveal),
+              transform var(--dur-reveal-enter) var(--ease-reveal);
+  will-change: opacity, transform;
+}
+
+[data-reveal][data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal][data-stagger='1'] { transition-delay: var(--stagger-step); }
+[data-reveal][data-stagger='2'] { transition-delay: calc(var(--stagger-step) * 2); }
+[data-reveal][data-stagger='3'] { transition-delay: calc(var(--stagger-step) * 3); }
+[data-reveal][data-stagger='4'] { transition-delay: calc(var(--stagger-step) * 4); }
+
+/* Button hover/press micro-interactions */
+button:not(:disabled),
+[role='button'],
+[data-sound='click'] {
+  transition: transform var(--dur-micro) var(--ease-enter),
+              box-shadow var(--dur-micro) var(--ease-enter),
+              background var(--dur-micro) var(--ease-enter),
+              color var(--dur-micro) var(--ease-enter);
+}
+
+button:hover:not(:disabled),
+[role='button']:hover,
+[data-sound='click']:hover {
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled),
+[role='button']:active,
+[data-sound='click']:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -71,4 +119,28 @@ img, svg, video { max-inline-size: 100%; display: block; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  button,
+  [role='button'],
+  [data-sound='click'] {
+    transform: none !important;
+  }
+}
+
+html[data-motion='reduced'] [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html[data-motion='reduced'] button,
+html[data-motion='reduced'] [role='button'],
+html[data-motion='reduced'] [data-sound='click'] {
+  transform: none !important;
 }
