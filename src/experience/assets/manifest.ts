@@ -2,7 +2,7 @@ import type { SceneId } from '../contracts';
 import type { Profile } from '../profile';
 import { worlds, type WorldSlug } from '../scenes/s05/projects';
 
-export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low' | 'portal.gate' | 'robot.choreography' | 'lab.shell' | 'arms' | 'phone.kit' | `station.${1 | 2 | 3 | 4 | 5 | 6}` | 'gallery.shell' | 'gallery.portal' | `world.${WorldSlug}`;
+export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low' | 'portal.gate' | 'robot.choreography' | 'lab.shell' | 'arms' | 'phone.kit' | `station.${1 | 2 | 3 | 4 | 5 | 6}` | 'gallery.shell' | 'gallery.portal' | `world.${WorldSlug}` | 'logo.3d' | 'tech.cubes' | 'display.platform';
 export const robotAssetKey = (quality: Profile['quality']): AssetKey => quality === 'high' ? 'robot.high' : 'robot.low';
 export type AssetDecoder = 'none' | 'ktx2' | 'gltf';
 export type AssetEntry = {
@@ -41,6 +41,9 @@ export const manifest: Record<AssetKey, AssetEntry> = {
   'poster:s05': poster('s05'),
   'poster:s06': poster('s06'),
   'poster:s07': poster('s07'),
+  'logo.3d': { url: { high: '/models/s06/logo_3d.glb', mid: '/models/s06/logo_3d.glb', low: '/models/s06/logo_3d.glb' }, owners: ['s06'], bytes: 428652, decoder: 'gltf' },
+  'tech.cubes': { url: { high: '/models/s07/tech_cubes.glb', mid: '/models/s07/tech_cubes.glb', low: '/models/s07/tech_cubes.glb' }, owners: ['s07'], bytes: 48880, decoder: 'gltf' },
+  'display.platform': { url: { high: '/models/s07/display_platform.glb', mid: '/models/s07/display_platform.glb', low: '/models/s07/display_platform.glb' }, owners: ['s07'], bytes: 95844, decoder: 'gltf' },
 };
 
 function gallery(file: string, bytes: number, owners: SceneId[]): AssetEntry {
