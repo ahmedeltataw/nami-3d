@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 test('cold #s05 loads its destination first, renders WebGL and seeks every hash on one canvas', async ({ page }) => {
-  test.setTimeout(60_000);
+  // Seven cold scene visits now include both residents at each boundary on SwiftShader.
+  test.setTimeout(180_000);
   const errors: string[] = [];
   const assets: string[] = [];
   page.on('pageerror', error => errors.push(error.message));

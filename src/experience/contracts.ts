@@ -14,3 +14,27 @@ export type SceneSnapshot = { camera: CameraPose; robot: RobotDirective; visual:
 export interface SceneDef { id:'s01'|'s02'|'s03'|'s04'|'s05'|'s06'|'s07'; assets:AssetKey[]; sample(i:SampleInput):SceneSnapshot; apply(s:SceneSnapshot, ctx:Ctx):void; effects?:EffectSpec[]; poster:string }
 export type RobotDirective = {kind:'clip';name:ClipName;timeSeconds:number;weight:number} | {kind:'pose';name:PoseName} | {kind:'point';target:string} | {kind:'rest'};
 export type CameraPose = { position:[number,number,number]; quaternion:[number,number,number,number]; fov:number; near:number; far:number };
+
+export type TransitionId = 's01->s02' | 's02->s03' | 's03->s04' | 's04->s05' | 's05->s06' | 's06->s07';
+export type CameraTransitionIntent = { from: CameraPose; to: CameraPose; blend: number };
+export type RobotTransitionIntent = { directive: RobotDirective; position: [number, number, number] | null; quaternion: [number, number, number, number] | null };
+export type ParticleTransitionIntent = { progress: number; opacity: number };
+export type LightingTransitionIntent = { intensity: number; color: [number, number, number] };
+export type UITransitionIntent = { fromOpacity: number; toOpacity: number };
+export type TransitionIntents = {
+  fromVisibility: number; toVisibility: number;
+  camera: CameraTransitionIntent; robot: RobotTransitionIntent;
+  particles: ParticleTransitionIntent | null;
+  lighting: LightingTransitionIntent | null;
+  ui: UITransitionIntent | null;
+};
+export type TransitionSnapshot = TransitionIntents & { id: TransitionId; progress: number };
+export type TransitionInput = SampleInput & { active: SceneId; from: SceneSnapshot; to: SceneSnapshot; camera: CameraTransitionIntent };
+// Apply publishes intents only. CameraRig and RobotComposer retain transform ownership.
+export type TransitionCtx = { intents: TransitionIntents | null };
+export interface TransitionDef {
+  from: SceneId; to: SceneId;
+  window: readonly [startLocal: number, endLocal: number];
+  sample(t: number, input: TransitionInput): TransitionSnapshot;
+  apply(snapshot: TransitionSnapshot, ctx: TransitionCtx): void;
+}
