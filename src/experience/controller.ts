@@ -44,6 +44,8 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
   const previousRestoration = typeof history === 'undefined' ? 'auto' : history.scrollRestoration;
 
   function publish(scene: SceneId, local: number, progress: number, snap: boolean) {
+    local = clamp(local);
+    progress = clamp(progress);
     if (runtime.scene !== scene || runtime.local !== local || snap) runtime.interaction.narrativeChanged();
     runtime.scene = scene;
     runtime.local = local;
@@ -54,6 +56,9 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
 
   function onScroll() {
     if (!starts.length) return;
+    // CSS/media changes can clamp scrollY before ResizeObserver or React effect cleanup.
+    // Preserve narrative intent before interpreting that scroll against cached offsets.
+    if (layoutChanged()) { measure(); return; }
     const y = window.scrollY;
     if (snapped && Math.abs(snapped.y - y) <= 1) return;
     snapped = null;
@@ -129,6 +134,15 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
     if (preserve) seek(runtime.scene, runtime.local, false);
   }
 
+  function layoutChanged() {
+    if (!starts.length) return true;
+    const y = window.scrollY;
+    return SCENE_IDS.some((id, index) => {
+      const section = document.getElementById(id);
+      return section && Math.abs(section.getBoundingClientRect().top + y - starts[index]) > 1;
+    }) || Math.abs(document.documentElement.scrollHeight - window.innerHeight - (starts[6] + spans[6])) > 1;
+  }
+
   function onResize() {
     if (mobile && window.innerWidth === viewportWidth) {
       // Browser chrome changes the visible area, not the frozen scene layout or camera intent.
@@ -177,12 +191,7 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
       document.addEventListener('click', onClick);
       document.fonts.ready.then(onFonts);
       document.fonts.addEventListener('loadingdone', onFonts);
-      resizeObserver = new ResizeObserver(() => {
-        if (SCENE_IDS.some((id, index) => {
-          const section = document.getElementById(id);
-          return section && Math.abs(section.getBoundingClientRect().top + window.scrollY - starts[index]) > 1;
-        })) measure();
-      });
+      resizeObserver = new ResizeObserver(() => { if (layoutChanged()) measure(); });
       resizeObserver.observe(document.body);
     },
     detach() {

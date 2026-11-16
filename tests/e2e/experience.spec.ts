@@ -117,19 +117,43 @@ test('mobile toolbar height changes freeze budgets, orientation recomputes them,
 });
 
 test('mid-scene progress survives motion changes and reload', async ({ page }) => {
+  async function waitForLayout(motion: 'full' | 'reduced') {
+    await page.evaluate(() => document.fonts.ready.then(() => undefined));
+    await expect.poll(() => page.evaluate(async expectedMotion => {
+      function metrics() {
+        return [scrollY, innerHeight, document.documentElement.scrollHeight,
+          ...Array.from(document.querySelectorAll('main section')).flatMap(section => {
+            const rect = section.getBoundingClientRect();
+            return [rect.top + scrollY, rect.height];
+          })];
+      }
+      const before = metrics();
+      await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+      const after = metrics();
+      const section = document.getElementById('s05')!;
+      const height = expectedMotion === 'reduced' ? innerHeight : innerHeight * Number(getComputedStyle(section).getPropertyValue('--budget')) / 100;
+      return document.documentElement.dataset.motion === expectedMotion && document.fonts.status === 'loaded'
+        && Math.abs(section.getBoundingClientRect().height - height) < 1
+        && before.every((value, index) => Math.abs(value - after[index]) < 0.5);
+    }, motion)).toBe(true);
+  }
+
   await page.goto('/en#s05');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
+  await waitForLayout('full');
   await page.locator('canvas').evaluate(canvas => canvas.setAttribute('data-persistent', 'original'));
   await page.evaluate(() => window.scrollBy(0, innerHeight * 4.8 * 0.4));
   await expect.poll(() => page.evaluate(() => history.state?.__namiExperience?.local as number)).toBeCloseTo(0.4, 2);
   for (const motion of ['reduce', 'no-preference'] as const) {
     await page.emulateMedia({ reducedMotion: motion });
     await expect(page.locator('html')).toHaveAttribute('data-motion', motion === 'reduce' ? 'reduced' : 'full');
+    await waitForLayout(motion === 'reduce' ? 'reduced' : 'full');
     await expect.poll(() => page.locator('#s05').evaluate(section => -section.getBoundingClientRect().top / section.getBoundingClientRect().height)).toBeCloseTo(0.4, 2);
     await expect(page.locator('canvas')).toHaveAttribute('data-persistent', 'original');
   }
   await page.reload();
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
+  await waitForLayout('full');
   await expect.poll(() => page.locator('#s05').evaluate(section => -section.getBoundingClientRect().top / section.getBoundingClientRect().height)).toBeCloseTo(0.4, 2);
 });
 

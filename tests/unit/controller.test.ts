@@ -6,6 +6,7 @@ afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); });
 
 function environment(mobile = false, reduced = false, hash = '#s01') {
   let layoutHeight = 844;
+  let reducedLayout = reduced;
   let offset = 0;
   const location = { hash };
   const entries: { hash: string; state: unknown }[] = [{ hash, state: { framework: true } }];
@@ -28,7 +29,7 @@ function environment(mobile = false, reduced = false, hash = '#s01') {
     replaceState: vi.fn((state: unknown, _title: string, hash: string) => historyWrite(state, hash, false)),
   };
   function start(index: number) {
-    return offset + (reduced ? index * window.innerHeight : SCROLL_BUDGETS.slice(0, index).reduce((sum, value) => sum + value, 0) * layoutHeight / 100);
+    return offset + (reducedLayout ? index * window.innerHeight : SCROLL_BUDGETS.slice(0, index).reduce((sum, value) => sum + value, 0) * layoutHeight / 100);
   }
   const fonts = Object.assign(new EventTarget(), { ready: Promise.resolve() });
   const document = Object.assign(new EventTarget(), {
@@ -37,7 +38,7 @@ function environment(mobile = false, reduced = false, hash = '#s01') {
     documentElement: {
       dataset: {},
       style: { setProperty: (_name: string, value: string) => { layoutHeight = Number.parseFloat(value) * 100; } },
-      get scrollHeight() { return offset + (reduced ? 7 * window.innerHeight : TOTAL_BUDGET * layoutHeight / 100 + layoutHeight); },
+      get scrollHeight() { return offset + (reducedLayout ? 7 * window.innerHeight : TOTAL_BUDGET * layoutHeight / 100 + layoutHeight); },
     },
     getElementById(id: string) {
       const index = SCENE_IDS.indexOf(id as typeof SCENE_IDS[number]);
@@ -56,12 +57,50 @@ function environment(mobile = false, reduced = false, hash = '#s01') {
   return {
     runtime, window, document, history, controller, changed, location,
     shiftLayout(value: number) { offset = value; },
+    changeMotion(value: boolean) {
+      reducedLayout = value;
+      window.scrollY = Math.min(window.scrollY, document.documentElement.scrollHeight - window.innerHeight);
+      window.dispatchEvent(new Event('scroll'));
+    },
     back() { cursor--; location.hash = entries[cursor].hash; window.dispatchEvent(new Event('popstate')); },
     forward() { cursor++; location.hash = entries[cursor].hash; window.dispatchEvent(new Event('popstate')); },
   };
 }
 
 describe('native controller lifecycle', () => {
+  it('preserves scene/local when a motion layout change scrolls before observers and effect cleanup', () => {
+    const env = environment();
+    env.controller.seek('s05', 0.4);
+    for (const reduced of [true, false]) {
+      env.changeMotion(reduced);
+      expect([env.runtime.scene, env.runtime.local]).toEqual(['s05', 0.4]);
+      const start = env.document.getElementById('s05')!.getBoundingClientRect().top;
+      const span = (reduced ? 1 : 4.8) * env.window.innerHeight;
+      expect(-start / span).toBeCloseTo(0.4, 2);
+      expect(env.runtime.progress).toBeGreaterThanOrEqual(0);
+      expect(env.runtime.progress).toBeLessThanOrEqual(1);
+    }
+    env.controller.detach();
+    expect(env.history.state).toMatchObject({ __namiExperience: { scene: 's05', local: 0.4 } });
+  });
+
+  it('clamps native progress before the first scene and beyond the document', () => {
+    const env = environment();
+    env.shiftLayout(80);
+    env.controller.recalculate();
+    for (const y of [-200, 0, 79]) {
+      env.window.scrollY = y;
+      env.window.dispatchEvent(new Event('scroll'));
+      expect([env.runtime.scene, env.runtime.local]).toEqual(['s01', 0]);
+      expect(env.runtime.progress).toBeGreaterThanOrEqual(0);
+      expect(env.runtime.progress).toBeLessThanOrEqual(1);
+    }
+    env.window.scrollY = 1e9;
+    env.window.dispatchEvent(new Event('scroll'));
+    expect([env.runtime.scene, env.runtime.local, env.runtime.progress]).toEqual(['s07', 1, 1]);
+    env.controller.detach();
+  });
+
   it('holds exact seek state through rounded scroll events at 140 fractional positions', () => {
     const env = environment(true);
     for (const scene of SCENE_IDS) for (let index = 0; index < 20; index++) {
