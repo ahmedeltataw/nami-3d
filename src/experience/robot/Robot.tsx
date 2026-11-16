@@ -25,7 +25,7 @@ export function Robot({ runtime, profile, residency, onError }: {
   const fsm = useMemo(() => new RobotFSM(), []);
   const active = useRef<{ lease: AssetLease; key: ReturnType<typeof robotAssetKey>; residency: AssetResidency } | null>(null);
   const frame = useMemo(() => ({
-    ray: new Raycaster(), pointer: new Vector2(), target: new Vector3(), head: new Vector3(), eye: new Vector3(), hand: new Vector3(), plane: new Plane(new Vector3(0, 0, 1), -1.5),
+    ray: new Raycaster(), pointer: new Vector2(), target: new Vector3(), discover: new Vector3(), head: new Vector3(), eye: new Vector3(), hand: new Vector3(), plane: new Plane(new Vector3(0, 0, 1), -1.5),
     layers: { time: 0, delta: 0, reduced: false, canLook: false, target: null, reaction: null } as PoseLayers,
     seekVersion: -1, reaction: null as ExperienceRuntime['interaction']['state']['reaction'],
   }), []);
@@ -64,6 +64,16 @@ export function Robot({ runtime, profile, residency, onError }: {
 
   useFrame((state, delta) => {
     if (!runtime.snapshot || !runtime.assetsReady || !runtime.robotReady || runtime.contextLost) return;
+    if (mounted.current) {
+      if (runtime.scene === 's03') {
+        frame.discover.set(-1.2, -0.8, -3.3).applyQuaternion(state.camera.quaternion).add(state.camera.position);
+        mounted.current.position.copy(frame.discover);
+        mounted.current.quaternion.copy(state.camera.quaternion);
+      } else {
+        mounted.current.position.set(0, -1.69 * scale, 0);
+        mounted.current.quaternion.identity();
+      }
+    }
     const now = state.clock.elapsedTime;
     if (runtime.seekVersion !== frame.seekVersion) {
       frame.seekVersion = runtime.seekVersion;

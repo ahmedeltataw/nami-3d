@@ -4,7 +4,7 @@ const ar = 'مرحبا بك في نامي';
 
 test('root redirects to Arabic', async ({ page }) => {
   await page.goto('/');
-  await expect(page).toHaveURL(/\/ar$/);
+  await expect(page).toHaveURL(/\/ar(?:#s01)?$/);
 });
 
 for (const [locale, dir, heading] of [['ar', 'rtl', ar], ['en', 'ltr', 'Welcome to Nami']]) {

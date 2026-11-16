@@ -84,6 +84,7 @@ export class RobotComposer {
       }
     }
     if (layers.reduced) { this.resetGaze(); this.object.updateMatrixWorld(true); return; }
+    if (directive.kind === 'point') this.rotate('Shoulder_R', -0.8, 0, -0.45);
     const reaction = layers.reaction;
     const phase = reaction ? (layers.time - reaction.startedAt) / reaction.duration : -1;
     const reactAction = reaction?.name === 'React' && phase >= 0 && phase < 1 ? this.actions.get('React') : undefined;
