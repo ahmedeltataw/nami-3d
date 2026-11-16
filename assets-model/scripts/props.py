@@ -135,7 +135,10 @@ def rr_outline(w, h, r, seg=4):
 class Asset:
     """One exported GLB: a top-level collection with a root empty at the origin."""
 
-    def __init__(self, scene, coll_name, root_name, mats):
+    def __init__(self, scene, coll_name, root_name, mats, prefix=""):
+        # prefix keeps object names unique when several assets in one .blend share node names;
+        # export_clean() strips it for the GLB
+        self.prefix = prefix
         self.coll = bpy.data.collections.new(coll_name)
         scene.collection.children.link(self.coll)
         self.root = self.empty(root_name, None, (0, 0, 0), size=0.5)
@@ -143,7 +146,7 @@ class Asset:
         self.info = {}
 
     def empty(self, name, parent, pivot, size=0.15, role=None, display="PLAIN_AXES", rot=None):
-        ob = bpy.data.objects.new(name, None)
+        ob = bpy.data.objects.new(self.prefix + name, None)
         ob.empty_display_type = display
         ob.empty_display_size = size
         self.coll.objects.link(ob)
@@ -163,7 +166,7 @@ class Asset:
             fix_normals_outward(bm)
         else:
             bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)
-        me = bpy.data.meshes.new(name)
+        me = bpy.data.meshes.new(self.prefix + name)
         bm.to_mesh(me)
         bm.free()
         for m in b.slots:
@@ -171,7 +174,7 @@ class Asset:
         me.transform(Matrix.Translation(-Vector(pivot)))
         for p in me.polygons:
             p.use_smooth = smooth
-        ob = bpy.data.objects.new(name, me)
+        ob = bpy.data.objects.new(self.prefix + name, me)
         self.coll.objects.link(ob)
         ob.parent = parent if parent is not None else self.root
         ob.matrix_world = Matrix.Translation(pivot)
@@ -183,20 +186,36 @@ class Asset:
                 ob[k] = v
         return ob
 
+    def clean(self, name):
+        return name[len(self.prefix):] if self.prefix and name.startswith(self.prefix) else name
+
+    def export_clean(self, path):
+        """Export with the prefix stripped from object names (only this asset's objects carry them now)."""
+        from common import export_glb
+        obs = list(self.coll.objects)
+        ids = obs + [ob.data for ob in obs if ob.data is not None]
+        for i in ids:
+            i.name = self.clean(i.name)
+        try:
+            export_glb(self.coll.name, path)
+        finally:
+            for i in ids:
+                i.name = self.prefix + i.name
+
     def tris(self):
         return sum(tri_count(o) for o in self.coll.objects if o.type == "MESH")
 
     def manifest_nodes(self):
         out = []
         for ob in self.coll.objects:
-            d = {"name": ob.name, "parent": ob.parent.name if ob.parent else None,
+            d = {"name": self.clean(ob.name), "parent": self.clean(ob.parent.name) if ob.parent else None,
                  "type": "mesh" if ob.type == "MESH" else "empty",
                  "pivot_gltf": b2g(ob.matrix_world.translation)}
             if ob.type == "MESH":
                 d["tris"] = tri_count(ob)
             if "nami_role" in ob.keys():
                 d["role"] = ob["nami_role"]
-            if ob.name in self.info:
-                d.update(self.info[ob.name])
+            if self.clean(ob.name) in self.info:
+                d.update(self.info[self.clean(ob.name)])
             out.append(d)
         return sorted(out, key=lambda d: d["name"])
