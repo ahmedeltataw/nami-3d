@@ -9,6 +9,7 @@ export type ControllerApi = {
 type ExperienceStore = {
   scene: SceneId;
   station: number;
+  project: number;
   robotState: RobotDirective;
   profile: Profile;
   ui: { ready: boolean; contextLost: boolean };
@@ -18,6 +19,7 @@ type ExperienceStore = {
 export const useExperienceStore = create<ExperienceStore>(() => ({
   scene: 's01',
   station: 1,
+  project: 0,
   robotState: { kind: 'rest' },
   profile: { quality: 'mid', motion: 'full', renderer: 'fallback' },
   ui: { ready: false, contextLost: false },

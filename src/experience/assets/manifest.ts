@@ -1,7 +1,8 @@
 import type { SceneId } from '../contracts';
 import type { Profile } from '../profile';
+import { worlds, type WorldSlug } from '../scenes/s05/projects';
 
-export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low' | 'portal.gate' | 'robot.choreography' | 'lab.shell' | 'arms' | 'phone.kit' | `station.${1 | 2 | 3 | 4 | 5 | 6}`;
+export type AssetKey = `poster:${SceneId}` | 'robot.high' | 'robot.low' | 'portal.gate' | 'robot.choreography' | 'lab.shell' | 'arms' | 'phone.kit' | `station.${1 | 2 | 3 | 4 | 5 | 6}` | 'gallery.shell' | 'gallery.portal' | `world.${WorldSlug}`;
 export const robotAssetKey = (quality: Profile['quality']): AssetKey => quality === 'high' ? 'robot.high' : 'robot.low';
 export type AssetDecoder = 'none' | 'ktx2' | 'gltf';
 export type AssetEntry = {
@@ -17,6 +18,9 @@ function poster(id: SceneId): AssetEntry {
 }
 
 export const manifest: Record<AssetKey, AssetEntry> = {
+  'gallery.shell': gallery('gallery_shell', 557472, ['s05']),
+  'gallery.portal': gallery('portal_gate', 506664, ['s05']),
+  ...Object.fromEntries(worlds.map((world, index) => [`world.${world.slug}`, gallery(`world_${world.slug}`, [218948, 284416, 285036, 270924, 212076, 302464][index], [])])) as Record<`world.${WorldSlug}`, AssetEntry>,
   'phone.kit': { url: { high: '/models/phone/phone_kit.glb', mid: '/models/phone/phone_kit.glb', low: '/models/phone/phone_kit.glb' }, owners: ['s04'], bytes: 114564, decoder: 'gltf' },
   'portal.gate': { url: { high: '/models/portal/portal_gate.glb', mid: '/models/portal/portal_gate.glb', low: '/models/portal/portal_gate.glb' }, owners: ['s02'], bytes: 506664, decoder: 'gltf' },
   'lab.shell': { ...lab('lab_shell', 1091344), owners: ['s02', 's03'] },
@@ -27,9 +31,9 @@ export const manifest: Record<AssetKey, AssetEntry> = {
   'station.5': lab('station_5_cloud', 215060),
   'station.6': lab('station_6_design', 154384),
   arms: lab('mechanical_arms', 244904),
+  'robot.high': { url: { high: '/models/robot/robot_high.glb', mid: '/models/robot/robot_high.glb', low: '/models/robot/robot_high.glb' }, owners: [], bytes: 1945564, decoder: 'gltf' },
+  'robot.low': { url: { high: '/models/robot/robot_low.glb', mid: '/models/robot/robot_low.glb', low: '/models/robot/robot_low.glb' }, owners: [], bytes: 1250568, decoder: 'gltf' },
   'robot.choreography': { url: { high: '/models/robot/choreography.glb', mid: '/models/robot/choreography.glb', low: '/models/robot/choreography.glb' }, owners: ['s04'], bytes: 1945564, decoder: 'gltf' },
-  'robot.high': { url: { high: '/models/robot/robot_high.glb', mid: '/models/robot/robot_high.glb', low: '/models/robot/robot_high.glb' }, owners: [], bytes: 1826712, decoder: 'gltf' },
-  'robot.low': { url: { high: '/models/robot/robot_low.glb', mid: '/models/robot/robot_low.glb', low: '/models/robot/robot_low.glb' }, owners: [], bytes: 1131824, decoder: 'gltf' },
   'poster:s01': poster('s01'),
   'poster:s02': poster('s02'),
   'poster:s03': poster('s03'),
@@ -38,6 +42,11 @@ export const manifest: Record<AssetKey, AssetEntry> = {
   'poster:s06': poster('s06'),
   'poster:s07': poster('s07'),
 };
+
+function gallery(file: string, bytes: number, owners: SceneId[]): AssetEntry {
+  const url = `/models/gallery/${file}.glb`;
+  return { url: { high: url, mid: url, low: url }, owners, bytes, decoder: 'gltf' };
+}
 
 function lab(file: string, bytes: number): AssetEntry {
   const url = `/models/lab/${file}.glb`;

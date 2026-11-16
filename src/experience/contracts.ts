@@ -1,14 +1,14 @@
-import type { Group } from 'three';
+import type { Camera, Group } from 'three';
 import type { Profile } from './profile';
 import type { InteractionState } from './interaction';
 import type { AssetKey } from './assets/manifest';
 
 export type { Profile, InteractionState, AssetKey };
 export type SceneId = 's01' | 's02' | 's03' | 's04' | 's05' | 's06' | 's07';
-export type ClipName = 'Idle' | 'Sleep' | 'WakeUp' | 'LookAround' | 'Wave' | 'Draw' | 'Point' | 'Present' | 'ChargeEnergy' | 'React';
+export type ClipName = 'Idle' | 'Sleep' | 'WakeUp' | 'LookAround' | 'Wave' | 'Draw' | 'Point' | 'ChargeEnergy' | 'React' | 'OpenPortal' | 'Fly' | 'Present' | 'Thinking' | 'Grab' | 'Celebrate' | 'Guide';
 export type PoseName = 'rest';
 export type EffectSpec = { id: string; from: number; to: number };
-export type Ctx = { root: Group; ambient: number; reducedMotion: boolean };
+export type Ctx = { root: Group; ambient: number; reducedMotion: boolean; beforeRender?: (camera: Camera) => void };
 export type SampleInput = { local:number; viewport:{w:number;h:number;dpr:number}; profile:Profile; interaction:InteractionState; seed:number; ambient:number; introSeconds?:number };
 export type SceneSnapshot = { camera: CameraPose; robot: RobotDirective; visual: Record<string, unknown> };
 export interface SceneDef { id:'s01'|'s02'|'s03'|'s04'|'s05'|'s06'|'s07'; assets:AssetKey[]; sample(i:SampleInput):SceneSnapshot; apply(s:SceneSnapshot, ctx:Ctx):void; effects?:EffectSpec[]; poster:string }

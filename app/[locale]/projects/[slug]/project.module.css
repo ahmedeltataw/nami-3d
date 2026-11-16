@@ -1,0 +1,6 @@
+.project { position: relative; z-index: 1; min-height: 100svh; max-width: 70rem; margin: auto; padding: 3rem 1.5rem; background: #fff; color: #1b1d20; }
+.project h1 { margin-block: 2rem 1rem; }
+.project p { max-width: 65ch; line-height: 1.8; }
+.project a { display: inline-flex; align-items: center; min-height: 44px; color: #006b4a; }
+.project a:focus-visible { outline: 3px solid #006b4a; }
+.project img { display: block; max-width: 100%; height: auto; margin-top: 2rem; }
