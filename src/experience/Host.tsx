@@ -184,6 +184,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     }
     const controller = createController(runtime, sample, profile.motion === 'reduced', mobile);
     controller.attach();
+    useExperienceStore.setState({ controller });
+    if (typeof window !== 'undefined') (window as unknown as { __namiController?: typeof controller }).__namiController = controller;
     function seekStation(event: Event) {
       const local = (event as CustomEvent<number>).detail;
       if (Number.isFinite(local)) controller.seek('s03', local);
@@ -246,6 +248,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     return () => {
       cancelled = true;
       controller.detach();
+      useExperienceStore.setState({ controller: null });
+      if (typeof window !== 'undefined') delete (window as unknown as { __namiController?: typeof controller }).__namiController;
       window.removeEventListener('nami:station-seek', seekStation);
       window.removeEventListener('nami:project-seek', seekProject);
       release();
