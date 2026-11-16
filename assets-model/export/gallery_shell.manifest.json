@@ -1,0 +1,478 @@
+{
+  "file": "gallery_shell.glb",
+  "source": "assets-model/gallery_shell.blend (built by assets-model/scripts/gallery_shell.py)",
+  "units": "same as the robot (3.38 units tall). Floor top is y = 0.",
+  "axes": "glTF +Y up; gates on a radius-12 arc around the origin at -Z; the camera path is near the origin.",
+  "tris_total": 8692,
+  "textures": "none",
+  "ambient": "dark world: set clear colour / ambient to charcoal #1B1D20 in-app; no lights exported",
+  "gates": [
+    {
+      "index": 1,
+      "gate_anchor": "Gate_1",
+      "gate_position_gltf": [
+        -11.5911,
+        2.4,
+        -3.1058
+      ],
+      "gate_facing_gltf": [
+        0.9659,
+        0.0,
+        0.2588
+      ],
+      "robot_spot": "RobotSpot_1",
+      "robot_spot_gltf": [
+        -8.8518,
+        0.153,
+        -4.4424
+      ],
+      "robot_facing_gltf": [
+        0.8938,
+        0.0,
+        0.4485
+      ]
+    },
+    {
+      "index": 2,
+      "gate_anchor": "Gate_2",
+      "gate_position_gltf": [
+        -8.4853,
+        2.4,
+        -8.4853
+      ],
+      "gate_facing_gltf": [
+        0.7071,
+        0.0,
+        0.7071
+      ],
+      "robot_spot": "RobotSpot_2",
+      "robot_spot_gltf": [
+        -5.4447,
+        0.153,
+        -8.2731
+      ],
+      "robot_facing_gltf": [
+        0.5497,
+        0.0,
+        0.8353
+      ]
+    },
+    {
+      "index": 3,
+      "gate_anchor": "Gate_3",
+      "gate_position_gltf": [
+        -3.1058,
+        2.4,
+        -11.5911
+      ],
+      "gate_facing_gltf": [
+        0.2588,
+        0.0,
+        0.9659
+      ],
+      "robot_spot": "RobotSpot_3",
+      "robot_spot_gltf": [
+        -0.5787,
+        0.153,
+        -9.8871
+      ],
+      "robot_facing_gltf": [
+        0.0584,
+        0.0,
+        0.9983
+      ]
+    },
+    {
+      "index": 4,
+      "gate_anchor": "Gate_4",
+      "gate_position_gltf": [
+        3.1058,
+        2.4,
+        -11.5911
+      ],
+      "gate_facing_gltf": [
+        -0.2588,
+        0.0,
+        0.9659
+      ],
+      "robot_spot": "RobotSpot_4",
+      "robot_spot_gltf": [
+        4.4424,
+        0.153,
+        -8.8518
+      ],
+      "robot_facing_gltf": [
+        -0.4485,
+        0.0,
+        0.8938
+      ]
+    },
+    {
+      "index": 5,
+      "gate_anchor": "Gate_5",
+      "gate_position_gltf": [
+        8.4853,
+        2.4,
+        -8.4853
+      ],
+      "gate_facing_gltf": [
+        -0.7071,
+        0.0,
+        0.7071
+      ],
+      "robot_spot": "RobotSpot_5",
+      "robot_spot_gltf": [
+        8.2731,
+        0.153,
+        -5.4447
+      ],
+      "robot_facing_gltf": [
+        -0.8353,
+        0.0,
+        0.5497
+      ]
+    },
+    {
+      "index": 6,
+      "gate_anchor": "Gate_6",
+      "gate_position_gltf": [
+        11.5911,
+        2.4,
+        -3.1058
+      ],
+      "gate_facing_gltf": [
+        -0.9659,
+        0.0,
+        0.2588
+      ],
+      "robot_spot": "RobotSpot_6",
+      "robot_spot_gltf": [
+        9.8871,
+        0.153,
+        -0.5787
+      ],
+      "robot_facing_gltf": [
+        -0.9983,
+        0.0,
+        0.0584
+      ]
+    }
+  ],
+  "notes": [
+    "Parent a portal_gate.glb instance (its PortalGate root) under each Gate_n with an identity transform: Gate_n is the ring centre and its local +Z (glTF) faces the arc centre, like the portal's front.",
+    "RobotSpot_n is the top of a small pad in front of and beside gate n, local +Z facing the arc centre.",
+    "Gates are numbered 1..6 left to right seen from the arc centre."
+  ],
+  "nodes": [
+    {
+      "name": "Floor",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 1916,
+      "role": "floor"
+    },
+    {
+      "name": "GalleryShell",
+      "parent": null,
+      "type": "empty",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    {
+      "name": "GateFrame_1",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        -11.5911,
+        0.0,
+        -3.1058
+      ],
+      "tris": 212,
+      "role": "gate_frame"
+    },
+    {
+      "name": "GateFrame_2",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        -8.4853,
+        0.0,
+        -8.4853
+      ],
+      "tris": 212,
+      "role": "gate_frame"
+    },
+    {
+      "name": "GateFrame_3",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        -3.1058,
+        0.0,
+        -11.5911
+      ],
+      "tris": 212,
+      "role": "gate_frame"
+    },
+    {
+      "name": "GateFrame_4",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        3.1058,
+        0.0,
+        -11.5911
+      ],
+      "tris": 212,
+      "role": "gate_frame"
+    },
+    {
+      "name": "GateFrame_5",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        8.4853,
+        0.0,
+        -8.4853
+      ],
+      "tris": 212,
+      "role": "gate_frame"
+    },
+    {
+      "name": "GateFrame_6",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        11.5911,
+        0.0,
+        -3.1058
+      ],
+      "tris": 212,
+      "role": "gate_frame"
+    },
+    {
+      "name": "Gate_1",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        -11.5911,
+        2.4,
+        -3.1058
+      ],
+      "role": "gate_anchor"
+    },
+    {
+      "name": "Gate_2",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        -8.4853,
+        2.4,
+        -8.4853
+      ],
+      "role": "gate_anchor"
+    },
+    {
+      "name": "Gate_3",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        -3.1058,
+        2.4,
+        -11.5911
+      ],
+      "role": "gate_anchor"
+    },
+    {
+      "name": "Gate_4",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        3.1058,
+        2.4,
+        -11.5911
+      ],
+      "role": "gate_anchor"
+    },
+    {
+      "name": "Gate_5",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        8.4853,
+        2.4,
+        -8.4853
+      ],
+      "role": "gate_anchor"
+    },
+    {
+      "name": "Gate_6",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        11.5911,
+        2.4,
+        -3.1058
+      ],
+      "role": "gate_anchor"
+    },
+    {
+      "name": "Ribs",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "tris": 2072,
+      "role": "wall_ribs"
+    },
+    {
+      "name": "RobotPad_1",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        -8.8518,
+        0.0,
+        -4.4424
+      ],
+      "tris": 572,
+      "role": "robot_pad"
+    },
+    {
+      "name": "RobotPad_2",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        -5.4447,
+        0.0,
+        -8.2731
+      ],
+      "tris": 572,
+      "role": "robot_pad"
+    },
+    {
+      "name": "RobotPad_3",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        -0.5787,
+        0.0,
+        -9.8871
+      ],
+      "tris": 572,
+      "role": "robot_pad"
+    },
+    {
+      "name": "RobotPad_4",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        4.4424,
+        0.0,
+        -8.8518
+      ],
+      "tris": 572,
+      "role": "robot_pad"
+    },
+    {
+      "name": "RobotPad_5",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        8.2731,
+        0.0,
+        -5.4447
+      ],
+      "tris": 572,
+      "role": "robot_pad"
+    },
+    {
+      "name": "RobotPad_6",
+      "parent": "GalleryShell",
+      "type": "mesh",
+      "pivot_gltf": [
+        9.8871,
+        0.0,
+        -0.5787
+      ],
+      "tris": 572,
+      "role": "robot_pad"
+    },
+    {
+      "name": "RobotSpot_1",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        -8.8518,
+        0.153,
+        -4.4424
+      ],
+      "role": "robot_spot"
+    },
+    {
+      "name": "RobotSpot_2",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        -5.4447,
+        0.153,
+        -8.2731
+      ],
+      "role": "robot_spot"
+    },
+    {
+      "name": "RobotSpot_3",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        -0.5787,
+        0.153,
+        -9.8871
+      ],
+      "role": "robot_spot"
+    },
+    {
+      "name": "RobotSpot_4",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        4.4424,
+        0.153,
+        -8.8518
+      ],
+      "role": "robot_spot"
+    },
+    {
+      "name": "RobotSpot_5",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        8.2731,
+        0.153,
+        -5.4447
+      ],
+      "role": "robot_spot"
+    },
+    {
+      "name": "RobotSpot_6",
+      "parent": "GalleryShell",
+      "type": "empty",
+      "pivot_gltf": [
+        9.8871,
+        0.153,
+        -0.5787
+      ],
+      "role": "robot_spot"
+    }
+  ]
+}

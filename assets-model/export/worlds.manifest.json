@@ -1,0 +1,1598 @@
+{
+  "source": "assets-model/worlds.blend (built by assets-model/scripts/worlds.py)",
+  "units": "same as the robot (3.38 units tall); each island is 4 units across",
+  "axes": "glTF +Y up, front faces +Z. WorldRoot = island top centre (y = 0); the island hangs below to y = -1.3.",
+  "conventions": [
+    "ScreenPlane_1..3: one-sided 16:10 faces (0.9 x 0.5625), UV 0-1 (u = right, v = up), material 'Screen' (emissive black): set emissive to white and use the screenshot as emissiveMap.",
+    "CamStart / CamEnd look down their local -Z at camera_look_at_gltf; lerp position and slerp rotation.",
+    "Nodes with extras.float_bob are meant to float; every other prop stands on the island.",
+    "Each prop is its own node with its pivot at its base centre (floating props: their centre)."
+  ],
+  "camera_look_at_gltf": [
+    0.0,
+    0.9,
+    -0.0
+  ],
+  "worlds": [
+    {
+      "slug": "rif-aljouf",
+      "title": "Rif Al-Jouf",
+      "file": "world_rif-aljouf.glb",
+      "accent": "#6B8F24",
+      "tris": 3070,
+      "cam_start_gltf": [
+        -1.6,
+        2.1,
+        5.4
+      ],
+      "cam_end_gltf": [
+        1.0,
+        1.6,
+        4.4
+      ],
+      "screen_planes": [
+        "ScreenPlane_1",
+        "ScreenPlane_2",
+        "ScreenPlane_3"
+      ],
+      "nodes": [
+        {
+          "name": "CamEnd",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            1.0,
+            1.6,
+            4.4
+          ],
+          "role": "camera_end"
+        },
+        {
+          "name": "CamStart",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            -1.6,
+            2.1,
+            5.4
+          ],
+          "role": "camera_start"
+        },
+        {
+          "name": "Cart",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.0,
+            0.0,
+            1.05
+          ],
+          "tris": 316,
+          "role": "prop"
+        },
+        {
+          "name": "Crates",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.06,
+            0.0,
+            1.0
+          ],
+          "tris": 348,
+          "role": "prop"
+        },
+        {
+          "name": "FarmStall",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.85,
+            0.0,
+            0.25
+          ],
+          "tris": 176,
+          "role": "prop"
+        },
+        {
+          "name": "Island",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1140,
+          "role": "island"
+        },
+        {
+          "name": "OilBottles",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.5,
+            0.0,
+            1.27
+          ],
+          "tris": 264,
+          "role": "prop"
+        },
+        {
+          "name": "OliveTree_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.25,
+            0.0,
+            0.15
+          ],
+          "tris": 116,
+          "role": "prop"
+        },
+        {
+          "name": "OliveTree_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.5,
+            0.0,
+            -0.15
+          ],
+          "tris": 116,
+          "role": "prop"
+        },
+        {
+          "name": "ScreenFrame_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -1.3
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenPlane_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.5,
+            -1.311
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "WorldRoot",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "loryfy",
+      "title": "Loryfy",
+      "file": "world_loryfy.glb",
+      "accent": "#F2B805",
+      "tris": 4504,
+      "cam_start_gltf": [
+        -1.6,
+        2.1,
+        5.4
+      ],
+      "cam_end_gltf": [
+        1.0,
+        1.6,
+        4.4
+      ],
+      "screen_planes": [
+        "ScreenPlane_1",
+        "ScreenPlane_2",
+        "ScreenPlane_3"
+      ],
+      "nodes": [
+        {
+          "name": "CamEnd",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            1.0,
+            1.6,
+            4.4
+          ],
+          "role": "camera_end"
+        },
+        {
+          "name": "CamStart",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            -1.6,
+            2.1,
+            5.4
+          ],
+          "role": "camera_start"
+        },
+        {
+          "name": "CoinStack_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.25,
+            0.0,
+            0.55
+          ],
+          "tris": 368,
+          "role": "prop"
+        },
+        {
+          "name": "CoinStack_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.85,
+            0.0,
+            1.0
+          ],
+          "tris": 644,
+          "role": "prop"
+        },
+        {
+          "name": "CoinStack_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.35,
+            0.0,
+            0.85
+          ],
+          "tris": 460,
+          "role": "prop"
+        },
+        {
+          "name": "FloatCoin_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.15,
+            0.9,
+            1.1
+          ],
+          "tris": 144,
+          "role": "prop",
+          "float_bob": true,
+          "spin": "about glTF Y"
+        },
+        {
+          "name": "FloatCoin_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2,
+            1.0,
+            0.5
+          ],
+          "tris": 144,
+          "role": "prop",
+          "float_bob": true,
+          "spin": "about glTF Y"
+        },
+        {
+          "name": "GiftBox_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.25,
+            0.0,
+            0.85
+          ],
+          "tris": 260,
+          "role": "prop"
+        },
+        {
+          "name": "GiftBox_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.55,
+            0.0,
+            1.3
+          ],
+          "tris": 260,
+          "role": "prop"
+        },
+        {
+          "name": "Island",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1140,
+          "role": "island"
+        },
+        {
+          "name": "Phone",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.45,
+            0.0,
+            0.25
+          ],
+          "tris": 120,
+          "role": "prop"
+        },
+        {
+          "name": "PhoneScreen",
+          "parent": "Phone",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.4495,
+            0.4948,
+            0.2536
+          ],
+          "tris": 18,
+          "role": "screen"
+        },
+        {
+          "name": "ScreenFrame_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -1.3
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenPlane_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.5,
+            -1.311
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "StarBadge_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.25,
+            0.0,
+            0.05
+          ],
+          "tris": 176,
+          "role": "prop"
+        },
+        {
+          "name": "StarBadge_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.3,
+            0.0,
+            -0.25
+          ],
+          "tris": 176,
+          "role": "prop"
+        },
+        {
+          "name": "WorldRoot",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tasami",
+      "title": "Tasami",
+      "file": "world_tasami.glb",
+      "accent": "#FF7A59",
+      "tris": 5570,
+      "cam_start_gltf": [
+        -1.6,
+        2.1,
+        5.4
+      ],
+      "cam_end_gltf": [
+        1.0,
+        1.6,
+        4.4
+      ],
+      "screen_planes": [
+        "ScreenPlane_1",
+        "ScreenPlane_2",
+        "ScreenPlane_3"
+      ],
+      "nodes": [
+        {
+          "name": "AvatarPedestal_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.9,
+            0.0,
+            0.95
+          ],
+          "tris": 536,
+          "role": "prop"
+        },
+        {
+          "name": "AvatarPedestal_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.3,
+            0.0,
+            1.3
+          ],
+          "tris": 536,
+          "role": "prop"
+        },
+        {
+          "name": "AvatarPedestal_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.3,
+            0.0,
+            1.2
+          ],
+          "tris": 536,
+          "role": "prop"
+        },
+        {
+          "name": "BubbleLinks",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.2,
+            0.0,
+            0.5
+          ],
+          "tris": 304,
+          "role": "prop"
+        },
+        {
+          "name": "Bubble_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.2,
+            0.95,
+            0.5
+          ],
+          "tris": 320,
+          "role": "prop",
+          "pulse": "scale"
+        },
+        {
+          "name": "Bubble_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.45,
+            0.75,
+            0.75
+          ],
+          "tris": 320,
+          "role": "prop",
+          "pulse": "scale"
+        },
+        {
+          "name": "Bubble_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.7,
+            1.1,
+            0.3
+          ],
+          "tris": 320,
+          "role": "prop",
+          "pulse": "scale"
+        },
+        {
+          "name": "Bubble_4",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.05,
+            1.2,
+            0.15
+          ],
+          "tris": 320,
+          "role": "prop",
+          "pulse": "scale"
+        },
+        {
+          "name": "Bubble_5",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.75,
+            1.15,
+            0.35
+          ],
+          "tris": 320,
+          "role": "prop",
+          "pulse": "scale"
+        },
+        {
+          "name": "CamEnd",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            1.0,
+            1.6,
+            4.4
+          ],
+          "role": "camera_end"
+        },
+        {
+          "name": "CamStart",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            -1.6,
+            2.1,
+            5.4
+          ],
+          "role": "camera_start"
+        },
+        {
+          "name": "ChatCard_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.3,
+            0.95,
+            0.75
+          ],
+          "tris": 108,
+          "role": "prop",
+          "float_bob": true
+        },
+        {
+          "name": "ChatCard_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.3,
+            0.8,
+            0.85
+          ],
+          "tris": 108,
+          "role": "prop",
+          "float_bob": true
+        },
+        {
+          "name": "ChatCard_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.0,
+            0.55,
+            1.4
+          ],
+          "tris": 108,
+          "role": "prop",
+          "float_bob": true
+        },
+        {
+          "name": "Island",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1140,
+          "role": "island"
+        },
+        {
+          "name": "ScreenFrame_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -1.3
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenPlane_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.5,
+            -1.311
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "WorldRoot",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "benaat",
+      "title": "Bena'at",
+      "file": "world_benaat.glb",
+      "accent": "#F28C29",
+      "tris": 3910,
+      "cam_start_gltf": [
+        -1.6,
+        2.1,
+        5.4
+      ],
+      "cam_end_gltf": [
+        1.0,
+        1.6,
+        4.4
+      ],
+      "screen_planes": [
+        "ScreenPlane_1",
+        "ScreenPlane_2",
+        "ScreenPlane_3"
+      ],
+      "nodes": [
+        {
+          "name": "BlueprintRolls",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.55,
+            0.0,
+            1.18
+          ],
+          "tris": 360,
+          "role": "prop"
+        },
+        {
+          "name": "Bricks",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.15,
+            0.0,
+            1.0
+          ],
+          "tris": 1068,
+          "role": "prop"
+        },
+        {
+          "name": "CamEnd",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            1.0,
+            1.6,
+            4.4
+          ],
+          "role": "camera_end"
+        },
+        {
+          "name": "CamStart",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            -1.6,
+            2.1,
+            5.4
+          ],
+          "role": "camera_start"
+        },
+        {
+          "name": "Crane",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.5,
+            0.0,
+            0.45
+          ],
+          "tris": 364,
+          "role": "prop"
+        },
+        {
+          "name": "CraneHook",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.55,
+            2.58,
+            0.45
+          ],
+          "tris": 32,
+          "role": "prop",
+          "swing": "rotate about glTF Z; pivot at the jib"
+        },
+        {
+          "name": "DraftingTable",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.95,
+            0.0,
+            0.85
+          ],
+          "tris": 160,
+          "role": "prop"
+        },
+        {
+          "name": "Island",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1140,
+          "role": "island"
+        },
+        {
+          "name": "ScaffoldTower",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.3,
+            0.0,
+            0.85
+          ],
+          "tris": 192,
+          "role": "prop"
+        },
+        {
+          "name": "ScreenFrame_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -1.3
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenPlane_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.5,
+            -1.311
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "WorldRoot",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "alhumairi-hajj",
+      "title": "Al-Humairi Hajj",
+      "file": "world_alhumairi-hajj.glb",
+      "accent": "#C9A326",
+      "tris": 3194,
+      "cam_start_gltf": [
+        -1.6,
+        2.1,
+        5.4
+      ],
+      "cam_end_gltf": [
+        1.0,
+        1.6,
+        4.4
+      ],
+      "screen_planes": [
+        "ScreenPlane_1",
+        "ScreenPlane_2",
+        "ScreenPlane_3"
+      ],
+      "nodes": [
+        {
+          "name": "Bus",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2,
+            0.0,
+            0.75
+          ],
+          "tris": 520,
+          "role": "prop"
+        },
+        {
+          "name": "CamEnd",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            1.0,
+            1.6,
+            4.4
+          ],
+          "role": "camera_end"
+        },
+        {
+          "name": "CamStart",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            -1.6,
+            2.1,
+            5.4
+          ],
+          "role": "camera_start"
+        },
+        {
+          "name": "CubeMonument",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.15
+          ],
+          "tris": 212,
+          "role": "prop",
+          "note": "abstract black cube with a gold band; no figures or text"
+        },
+        {
+          "name": "Island",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1140,
+          "role": "island"
+        },
+        {
+          "name": "PalmTree",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.35,
+            0.0,
+            -0.35
+          ],
+          "tris": 224,
+          "role": "prop"
+        },
+        {
+          "name": "ScreenFrame_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -1.3
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenPlane_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.5,
+            -1.311
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "Suitcase_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.75,
+            0.0,
+            1.2
+          ],
+          "tris": 140,
+          "role": "prop"
+        },
+        {
+          "name": "Suitcase_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.15,
+            0.0,
+            1.3
+          ],
+          "tris": 140,
+          "role": "prop"
+        },
+        {
+          "name": "Ticket_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.05,
+            0.85,
+            0.95
+          ],
+          "tris": 112,
+          "role": "prop",
+          "float_bob": true
+        },
+        {
+          "name": "Ticket_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.4,
+            1.05,
+            0.5
+          ],
+          "tris": 112,
+          "role": "prop",
+          "float_bob": true
+        },
+        {
+          "name": "WorldRoot",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shahntak",
+      "title": "Shahntak",
+      "file": "world_shahntak.glb",
+      "accent": "#2E7DF5",
+      "tris": 4338,
+      "cam_start_gltf": [
+        -1.6,
+        2.1,
+        5.4
+      ],
+      "cam_end_gltf": [
+        1.0,
+        1.6,
+        4.4
+      ],
+      "screen_planes": [
+        "ScreenPlane_1",
+        "ScreenPlane_2",
+        "ScreenPlane_3"
+      ],
+      "nodes": [
+        {
+          "name": "CamEnd",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            1.0,
+            1.6,
+            4.4
+          ],
+          "role": "camera_end"
+        },
+        {
+          "name": "CamStart",
+          "parent": "WorldRoot",
+          "type": "empty",
+          "pivot_gltf": [
+            -1.6,
+            2.1,
+            5.4
+          ],
+          "role": "camera_start"
+        },
+        {
+          "name": "Container_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.15,
+            0.0,
+            -0.05
+          ],
+          "tris": 272,
+          "role": "prop"
+        },
+        {
+          "name": "Container_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.15,
+            0.0,
+            0.42
+          ],
+          "tris": 272,
+          "role": "prop"
+        },
+        {
+          "name": "Container_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.15,
+            0.42,
+            0.18
+          ],
+          "tris": 272,
+          "role": "prop"
+        },
+        {
+          "name": "Island",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1140,
+          "role": "island"
+        },
+        {
+          "name": "Parcels",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            1.1
+          ],
+          "tris": 224,
+          "role": "prop"
+        },
+        {
+          "name": "Pin_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.6,
+            0.0,
+            1.3
+          ],
+          "tris": 160,
+          "role": "prop",
+          "drop_in": "pivot at the pin tip"
+        },
+        {
+          "name": "Pin_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.4,
+            0.0,
+            1.55
+          ],
+          "tris": 160,
+          "role": "prop",
+          "drop_in": "pivot at the pin tip"
+        },
+        {
+          "name": "Pin_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.6,
+            0.0,
+            0.3
+          ],
+          "tris": 160,
+          "role": "prop",
+          "drop_in": "pivot at the pin tip"
+        },
+        {
+          "name": "RouteLine",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            1.4
+          ],
+          "tris": 348,
+          "role": "prop",
+          "note": "dashes; reveal left to right"
+        },
+        {
+          "name": "ScreenFrame_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -1.3
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenFrame_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2,
+            0.0,
+            -0.95
+          ],
+          "tris": 180,
+          "role": "screen_frame"
+        },
+        {
+          "name": "ScreenPlane_1",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            -1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_2",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.5,
+            -1.311
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "ScreenPlane_3",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            1.2038,
+            1.5,
+            -0.9603
+          ],
+          "tris": 18,
+          "role": "screen_plane",
+          "uv": "0-1, u = right, v = up",
+          "size": [
+            0.9,
+            0.5625
+          ],
+          "aspect": "16:10"
+        },
+        {
+          "name": "Truck",
+          "parent": "WorldRoot",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.75,
+            0.0,
+            0.35
+          ],
+          "tris": 736,
+          "role": "prop"
+        },
+        {
+          "name": "WorldRoot",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1627 @@
+{
+  "source": "assets-model/stations.blend (built by assets-model/scripts/stations.py)",
+  "units": "Blender units, same as the robot (3.38 units tall) and lab_shell",
+  "axes": "glTF +Y up, front faces +Z. Each root sits at its origin = top centre of a lab_shell plinth pad.",
+  "placement": "Parent station_<n>_*.glb's root under lab_shell's Station_n node with an identity transform: Station_n's front (glTF +Z) faces the camera path, the same as these props.",
+  "conventions": [
+    "Pivots: every node's origin is its animation centre (panels and cards: their centre; chart bars: the bar bottom; arrows: the tail or midpoint as noted; rings: the shared centre).",
+    "Nodes with extras.float_bob = true are meant to bob/float.",
+    "*_Screen nodes are flat UV 0-1 faces using the 'Screen' material (dark, emissive black): set emissive to white and use the UI texture as emissiveMap.",
+    "Multi-material meshes load in three.js as a Group named after the node with child meshes <name>_1, <name>_2...; animate the named Group.",
+    "Holo_Green is alpha 0.35 BLEND."
+  ],
+  "assets": [
+    {
+      "file": "station_1_web.glb",
+      "root": "Station1_Web",
+      "tris": 1378,
+      "anchors": {
+        "robot_point_target": "S1_RobotTarget",
+        "camera_focus": "S1_CameraFocus",
+        "robot_point_target_gltf": [
+          0,
+          1.45,
+          0
+        ],
+        "camera_focus_gltf": [
+          0,
+          1.35,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "S1_CameraFocus",
+          "parent": "Station1_Web",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.35,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "S1_CodeCard_1",
+          "parent": "Station1_Web",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.78,
+            0.95,
+            0.55
+          ],
+          "tris": 124,
+          "role": "code_card",
+          "float_bob": true
+        },
+        {
+          "name": "S1_CodeCard_2",
+          "parent": "Station1_Web",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.8,
+            1.08,
+            0.6
+          ],
+          "tris": 124,
+          "role": "code_card",
+          "float_bob": true
+        },
+        {
+          "name": "S1_CodeCard_3",
+          "parent": "Station1_Web",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.35,
+            2.3,
+            0.7
+          ],
+          "tris": 124,
+          "role": "code_card",
+          "float_bob": true
+        },
+        {
+          "name": "S1_Display",
+          "parent": "Station1_Web",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 512,
+          "role": "display"
+        },
+        {
+          "name": "S1_RobotTarget",
+          "parent": "Station1_Web",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.45,
+            -0.0
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "S1_Screen",
+          "parent": "S1_Display",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.45,
+            -0.016
+          ],
+          "tris": 18,
+          "role": "screen",
+          "uv": "0-1, u = right, v = up"
+        },
+        {
+          "name": "S1_Window_1",
+          "parent": "Station1_Web",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.88,
+            2.05,
+            0.3
+          ],
+          "tris": 238,
+          "role": "floating_panel",
+          "float_bob": true
+        },
+        {
+          "name": "S1_Window_2",
+          "parent": "Station1_Web",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.92,
+            1.85,
+            0.25
+          ],
+          "tris": 238,
+          "role": "floating_panel",
+          "float_bob": true
+        },
+        {
+          "name": "Station1_Web",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "station_2_mobile.glb",
+      "root": "Station2_Mobile",
+      "tris": 582,
+      "anchors": {
+        "robot_point_target": "S2_RobotTarget",
+        "camera_focus": "S2_CameraFocus",
+        "robot_point_target_gltf": [
+          0,
+          1.86,
+          -0.06
+        ],
+        "camera_focus_gltf": [
+          0,
+          1.45,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "S2_CameraFocus",
+          "parent": "Station2_Mobile",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.45,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "S2_FloatPhone_1",
+          "parent": "Station2_Mobile",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.8,
+            1.55,
+            0.3
+          ],
+          "tris": 120,
+          "role": "floating_phone",
+          "float_bob": true
+        },
+        {
+          "name": "S2_FloatPhone_1_Screen",
+          "parent": "S2_FloatPhone_1",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.8,
+            1.55,
+            0.3
+          ],
+          "tris": 18,
+          "role": "screen",
+          "uv": "0-1, u = right, v = up"
+        },
+        {
+          "name": "S2_FloatPhone_2",
+          "parent": "Station2_Mobile",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.82,
+            1.3,
+            0.25
+          ],
+          "tris": 120,
+          "role": "floating_phone",
+          "float_bob": true
+        },
+        {
+          "name": "S2_FloatPhone_2_Screen",
+          "parent": "S2_FloatPhone_2",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.82,
+            1.3,
+            0.25
+          ],
+          "tris": 18,
+          "role": "screen",
+          "uv": "0-1, u = right, v = up"
+        },
+        {
+          "name": "S2_RobotTarget",
+          "parent": "Station2_Mobile",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.86,
+            -0.06
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "S2_Stand",
+          "parent": "Station2_Mobile",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 168,
+          "role": "device_stand"
+        },
+        {
+          "name": "S2_StandPhone",
+          "parent": "S2_Stand",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.86,
+            -0.06
+          ],
+          "tris": 120,
+          "role": "phone",
+          "float_bob": false
+        },
+        {
+          "name": "S2_StandPhone_Screen",
+          "parent": "S2_StandPhone",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.86,
+            -0.06
+          ],
+          "tris": 18,
+          "role": "screen",
+          "uv": "0-1, u = right, v = up"
+        },
+        {
+          "name": "Station2_Mobile",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "station_3_marketing.glb",
+      "root": "Station3_Marketing",
+      "tris": 2326,
+      "anchors": {
+        "robot_point_target": "S3_RobotTarget",
+        "camera_focus": "S3_CameraFocus",
+        "robot_point_target_gltf": [
+          0.7,
+          1.43,
+          -0.1
+        ],
+        "camera_focus_gltf": [
+          0.1,
+          1.15,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "S3_Bar_1",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.3,
+            0.08,
+            -0.1
+          ],
+          "tris": 86,
+          "role": "chart_bar",
+          "grow": "animate scale.y (glTF) 0 -> 1; pivot is the bar bottom",
+          "height": 0.35
+        },
+        {
+          "name": "S3_Bar_2",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.05,
+            0.08,
+            -0.1
+          ],
+          "tris": 86,
+          "role": "chart_bar",
+          "grow": "animate scale.y (glTF) 0 -> 1; pivot is the bar bottom",
+          "height": 0.55
+        },
+        {
+          "name": "S3_Bar_3",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.2,
+            0.08,
+            -0.1
+          ],
+          "tris": 86,
+          "role": "chart_bar",
+          "grow": "animate scale.y (glTF) 0 -> 1; pivot is the bar bottom",
+          "height": 0.8
+        },
+        {
+          "name": "S3_Bar_4",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.45,
+            0.08,
+            -0.1
+          ],
+          "tris": 86,
+          "role": "chart_bar",
+          "grow": "animate scale.y (glTF) 0 -> 1; pivot is the bar bottom",
+          "height": 1.05
+        },
+        {
+          "name": "S3_Bar_5",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.7,
+            0.08,
+            -0.1
+          ],
+          "tris": 86,
+          "role": "chart_bar",
+          "grow": "animate scale.y (glTF) 0 -> 1; pivot is the bar bottom",
+          "height": 1.35
+        },
+        {
+          "name": "S3_CameraFocus",
+          "parent": "Station3_Marketing",
+          "type": "empty",
+          "pivot_gltf": [
+            0.1,
+            1.15,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "S3_ChartBase",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 56,
+          "role": "chart_base"
+        },
+        {
+          "name": "S3_GrowthArrow",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.4,
+            0.6,
+            0.12
+          ],
+          "tris": 88,
+          "role": "growth_arrow",
+          "draw_on": "pivot at the arrow tail; scale along its length to draw it"
+        },
+        {
+          "name": "S3_Megaphone",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.82,
+            1.15,
+            0.2
+          ],
+          "tris": 388,
+          "role": "megaphone",
+          "float_bob": true
+        },
+        {
+          "name": "S3_RobotTarget",
+          "parent": "Station3_Marketing",
+          "type": "empty",
+          "pivot_gltf": [
+            0.7,
+            1.43,
+            -0.1
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "S3_Social_1",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.6,
+            1.95,
+            0.5
+          ],
+          "tris": 512,
+          "role": "social_plate",
+          "icon": "heart",
+          "float_bob": true
+        },
+        {
+          "name": "S3_Social_2",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.05,
+            2.3,
+            0.55
+          ],
+          "tris": 388,
+          "role": "social_plate",
+          "icon": "play",
+          "float_bob": true
+        },
+        {
+          "name": "S3_Social_3",
+          "parent": "Station3_Marketing",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.7,
+            2.15,
+            0.45
+          ],
+          "tris": 464,
+          "role": "social_plate",
+          "icon": "chat",
+          "float_bob": true
+        },
+        {
+          "name": "Station3_Marketing",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "station_4_consulting.glb",
+      "root": "Station4_Consulting",
+      "tris": 1780,
+      "anchors": {
+        "robot_point_target": "S4_RobotTarget",
+        "camera_focus": "S4_CameraFocus",
+        "robot_point_target_gltf": [
+          0,
+          1.3,
+          0
+        ],
+        "camera_focus_gltf": [
+          0,
+          1.1,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "S4_Arrow_1",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.25,
+            1.3,
+            0.19
+          ],
+          "tris": 88,
+          "role": "flow_arrow",
+          "from": "S4_FlowNode_1",
+          "to": "S4_FlowNode_2"
+        },
+        {
+          "name": "S4_Arrow_2",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.185,
+            1.315,
+            0.2
+          ],
+          "tris": 88,
+          "role": "flow_arrow",
+          "from": "S4_FlowNode_2",
+          "to": "S4_FlowNode_3"
+        },
+        {
+          "name": "S4_Arrow_3",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.235,
+            1.365,
+            -0.18
+          ],
+          "tris": 88,
+          "role": "flow_arrow",
+          "from": "S4_FlowNode_3",
+          "to": "S4_FlowNode_4"
+        },
+        {
+          "name": "S4_Board",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.78,
+            0.0,
+            -0.62
+          ],
+          "tris": 172,
+          "role": "board"
+        },
+        {
+          "name": "S4_CameraFocus",
+          "parent": "Station4_Consulting",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.1,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "S4_FlowNode_1",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.45,
+            1.22,
+            -0.0
+          ],
+          "tris": 44,
+          "role": "flow_node",
+          "float_bob": true
+        },
+        {
+          "name": "S4_FlowNode_2",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.05,
+            1.38,
+            0.38
+          ],
+          "tris": 44,
+          "role": "flow_node",
+          "float_bob": true
+        },
+        {
+          "name": "S4_FlowNode_3",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.42,
+            1.25,
+            0.02
+          ],
+          "tris": 44,
+          "role": "flow_node",
+          "float_bob": true
+        },
+        {
+          "name": "S4_FlowNode_4",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.05,
+            1.48,
+            -0.38
+          ],
+          "tris": 44,
+          "role": "flow_node",
+          "float_bob": true
+        },
+        {
+          "name": "S4_HoloSurface",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.905,
+            -0.0
+          ],
+          "tris": 188,
+          "role": "holo_surface",
+          "note": "alpha 0.35 BLEND, drive emissiveIntensity"
+        },
+        {
+          "name": "S4_RobotTarget",
+          "parent": "Station4_Consulting",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.3,
+            -0.0
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "S4_Table",
+          "parent": "Station4_Consulting",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 980,
+          "role": "holo_table"
+        },
+        {
+          "name": "Station4_Consulting",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "station_5_cloud.glb",
+      "root": "Station5_Cloud",
+      "tris": 4232,
+      "anchors": {
+        "robot_point_target": "S5_RobotTarget",
+        "camera_focus": "S5_CameraFocus",
+        "robot_point_target_gltf": [
+          0.0,
+          2.25,
+          0.1
+        ],
+        "camera_focus_gltf": [
+          0,
+          1.45,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "S5_Beam_1",
+          "parent": "Station5_Cloud",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.42,
+            1.52,
+            -0.25
+          ],
+          "tris": 88,
+          "role": "data_beam",
+          "note": "holo material; scale or fade to show data flow"
+        },
+        {
+          "name": "S5_Beam_2",
+          "parent": "Station5_Cloud",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.42,
+            1.52,
+            -0.25
+          ],
+          "tris": 88,
+          "role": "data_beam",
+          "note": "holo material; scale or fade to show data flow"
+        },
+        {
+          "name": "S5_CameraFocus",
+          "parent": "Station5_Cloud",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.45,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "S5_Cloud",
+          "parent": "Station5_Cloud",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            2.25,
+            0.1
+          ],
+          "tris": 1600,
+          "role": "cloud",
+          "float_bob": true
+        },
+        {
+          "name": "S5_LinkRing_1",
+          "parent": "Station5_Cloud",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            2.25,
+            0.1
+          ],
+          "tris": 768,
+          "role": "link_ring",
+          "spin": "rotate about its own local ring normal; pivot = cloud centre"
+        },
+        {
+          "name": "S5_LinkRing_2",
+          "parent": "Station5_Cloud",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            2.25,
+            0.1
+          ],
+          "tris": 768,
+          "role": "link_ring",
+          "spin": "rotate about its own local ring normal; pivot = cloud centre"
+        },
+        {
+          "name": "S5_Rack_1",
+          "parent": "Station5_Cloud",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.42,
+            0.0,
+            -0.25
+          ],
+          "tris": 460,
+          "role": "server_rack",
+          "leds": "green LED blocks share Accent_Green"
+        },
+        {
+          "name": "S5_Rack_2",
+          "parent": "Station5_Cloud",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.42,
+            0.0,
+            -0.25
+          ],
+          "tris": 460,
+          "role": "server_rack",
+          "leds": "green LED blocks share Accent_Green"
+        },
+        {
+          "name": "S5_RobotTarget",
+          "parent": "Station5_Cloud",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            2.25,
+            0.1
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "Station5_Cloud",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "station_6_design.glb",
+      "root": "Station6_Design",
+      "tris": 2528,
+      "anchors": {
+        "robot_point_target": "S6_RobotTarget",
+        "camera_focus": "S6_CameraFocus",
+        "robot_point_target_gltf": [
+          0,
+          1.4,
+          -0.02
+        ],
+        "camera_focus_gltf": [
+          0,
+          1.3,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "S6_CameraFocus",
+          "parent": "Station6_Design",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.3,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "S6_RobotTarget",
+          "parent": "Station6_Design",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.4,
+            -0.02
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "S6_Stand",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 468,
+          "role": "tablet_stand"
+        },
+        {
+          "name": "S6_Stylus",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.5,
+            1.45,
+            0.38
+          ],
+          "tris": 78,
+          "role": "stylus",
+          "float_bob": true
+        },
+        {
+          "name": "S6_Swatch_1",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.73,
+            1.19,
+            0.3
+          ],
+          "tris": 380,
+          "role": "palette_disc",
+          "colour": "green",
+          "float_bob": true
+        },
+        {
+          "name": "S6_Swatch_2",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.68,
+            1.43,
+            0.3
+          ],
+          "tris": 380,
+          "role": "palette_disc",
+          "colour": "yellow",
+          "float_bob": true
+        },
+        {
+          "name": "S6_Swatch_3",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.63,
+            1.67,
+            0.3
+          ],
+          "tris": 380,
+          "role": "palette_disc",
+          "colour": "charcoal",
+          "float_bob": true
+        },
+        {
+          "name": "S6_Swatch_4",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.58,
+            1.91,
+            0.3
+          ],
+          "tris": 380,
+          "role": "palette_disc",
+          "colour": "white",
+          "float_bob": true
+        },
+        {
+          "name": "S6_Tablet",
+          "parent": "S6_Stand",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.4,
+            -0.02
+          ],
+          "tris": 76,
+          "role": "tablet"
+        },
+        {
+          "name": "S6_TabletScreen",
+          "parent": "S6_Tablet",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            1.4,
+            -0.02
+          ],
+          "tris": 18,
+          "role": "screen",
+          "uv": "0-1, u = right, v = up"
+        },
+        {
+          "name": "S6_Wireframe_1",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.82,
+            1.95,
+            0.1
+          ],
+          "tris": 184,
+          "role": "wireframe_card",
+          "float_bob": true
+        },
+        {
+          "name": "S6_Wireframe_2",
+          "parent": "Station6_Design",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.75,
+            2.25,
+            -0.15
+          ],
+          "tris": 184,
+          "role": "wireframe_card",
+          "float_bob": true
+        },
+        {
+          "name": "Station6_Design",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "mechanical_arms.glb",
+      "root": "MechanicalArms",
+      "tris": 3724,
+      "anchors": {
+        "robot_point_target": "Arms_RobotTarget",
+        "camera_focus": "Arms_CameraFocus",
+        "robot_point_target_gltf": [
+          0.62,
+          1.53,
+          0.6
+        ],
+        "camera_focus_gltf": [
+          0,
+          1.0,
+          0.2
+        ]
+      },
+      "nodes": [
+        {
+          "name": "ArmL_Base",
+          "parent": "MechanicalArms",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.62,
+            0.12,
+            -0.0
+          ],
+          "tris": 380,
+          "role": "arm_joint"
+        },
+        {
+          "name": "ArmL_Elbow",
+          "parent": "ArmL_Shoulder",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.62,
+            1.08,
+            -0.0
+          ],
+          "tris": 136,
+          "role": "arm_joint"
+        },
+        {
+          "name": "ArmL_Finger_1",
+          "parent": "ArmL_Gripper",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.68,
+            1.5,
+            0.56
+          ],
+          "tris": 56,
+          "role": "arm_finger",
+          "open_axis_gltf": [
+            -0.0,
+            0.8,
+            -0.6
+          ],
+          "open": "rotate about open_axis_gltf (parent space) by +angle to open, about 0-35 deg"
+        },
+        {
+          "name": "ArmL_Finger_2",
+          "parent": "ArmL_Gripper",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.59,
+            1.5416,
+            0.5288
+          ],
+          "tris": 56,
+          "role": "arm_finger",
+          "open_axis_gltf": [
+            -0.866,
+            -0.4,
+            0.3
+          ],
+          "open": "rotate about open_axis_gltf (parent space) by +angle to open, about 0-35 deg"
+        },
+        {
+          "name": "ArmL_Finger_3",
+          "parent": "ArmL_Gripper",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.59,
+            1.4584,
+            0.5912
+          ],
+          "tris": 56,
+          "role": "arm_finger",
+          "open_axis_gltf": [
+            0.866,
+            -0.4,
+            0.3
+          ],
+          "open": "rotate about open_axis_gltf (parent space) by +angle to open, about 0-35 deg"
+        },
+        {
+          "name": "ArmL_Gripper",
+          "parent": "ArmL_Wrist",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.62,
+            1.482,
+            0.536
+          ],
+          "tris": 284,
+          "role": "arm_gripper"
+        },
+        {
+          "name": "ArmL_Shoulder",
+          "parent": "ArmL_Base",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.62,
+            0.38,
+            -0.0
+          ],
+          "tris": 148,
+          "role": "arm_joint"
+        },
+        {
+          "name": "ArmL_Wrist",
+          "parent": "ArmL_Elbow",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.62,
+            1.41,
+            0.44
+          ],
+          "tris": 140,
+          "role": "arm_joint"
+        },
+        {
+          "name": "ArmR_Base",
+          "parent": "MechanicalArms",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.62,
+            0.12,
+            -0.0
+          ],
+          "tris": 380,
+          "role": "arm_joint"
+        },
+        {
+          "name": "ArmR_Elbow",
+          "parent": "ArmR_Shoulder",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.62,
+            1.08,
+            -0.0
+          ],
+          "tris": 136,
+          "role": "arm_joint"
+        },
+        {
+          "name": "ArmR_Finger_1",
+          "parent": "ArmR_Gripper",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.56,
+            1.5,
+            0.56
+          ],
+          "tris": 56,
+          "role": "arm_finger",
+          "open_axis_gltf": [
+            -0.0,
+            0.8,
+            -0.6
+          ],
+          "open": "rotate about open_axis_gltf (parent space) by +angle to open, about 0-35 deg"
+        },
+        {
+          "name": "ArmR_Finger_2",
+          "parent": "ArmR_Gripper",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.65,
+            1.5416,
+            0.5288
+          ],
+          "tris": 56,
+          "role": "arm_finger",
+          "open_axis_gltf": [
+            -0.866,
+            -0.4,
+            0.3
+          ],
+          "open": "rotate about open_axis_gltf (parent space) by +angle to open, about 0-35 deg"
+        },
+        {
+          "name": "ArmR_Finger_3",
+          "parent": "ArmR_Gripper",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.65,
+            1.4584,
+            0.5912
+          ],
+          "tris": 56,
+          "role": "arm_finger",
+          "open_axis_gltf": [
+            0.866,
+            -0.4,
+            0.3
+          ],
+          "open": "rotate about open_axis_gltf (parent space) by +angle to open, about 0-35 deg"
+        },
+        {
+          "name": "ArmR_Gripper",
+          "parent": "ArmR_Wrist",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.62,
+            1.482,
+            0.536
+          ],
+          "tris": 284,
+          "role": "arm_gripper"
+        },
+        {
+          "name": "ArmR_Shoulder",
+          "parent": "ArmR_Base",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.62,
+            0.38,
+            -0.0
+          ],
+          "tris": 148,
+          "role": "arm_joint"
+        },
+        {
+          "name": "ArmR_Wrist",
+          "parent": "ArmR_Elbow",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.62,
+            1.41,
+            0.44
+          ],
+          "tris": 140,
+          "role": "arm_joint"
+        },
+        {
+          "name": "Arms_CameraFocus",
+          "parent": "MechanicalArms",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            1.0,
+            0.2
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "Arms_Ring",
+          "parent": "MechanicalArms",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1212,
+          "role": "arm_ring_base"
+        },
+        {
+          "name": "Arms_RobotTarget",
+          "parent": "MechanicalArms",
+          "type": "empty",
+          "pivot_gltf": [
+            0.62,
+            1.53,
+            0.6
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "MechanicalArms",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ],
+      "joints": {
+        "L": {
+          "base": {
+            "node": "ArmL_Base",
+            "axis_gltf": [
+              0,
+              1,
+              0
+            ],
+            "motion": "yaw"
+          },
+          "shoulder": {
+            "node": "ArmL_Shoulder",
+            "axis_gltf": [
+              1,
+              0,
+              0
+            ],
+            "motion": "pitch, about -60..60 deg"
+          },
+          "elbow": {
+            "node": "ArmL_Elbow",
+            "axis_gltf": [
+              1,
+              0,
+              0
+            ],
+            "motion": "pitch, about -90..60 deg"
+          },
+          "wrist": {
+            "node": "ArmL_Wrist",
+            "axis_gltf": [
+              1,
+              0,
+              0
+            ],
+            "motion": "pitch; roll about the gripper axis"
+          },
+          "gripper": {
+            "node": "ArmL_Gripper",
+            "axis_gltf": [
+              0.0,
+              0.6,
+              0.8
+            ],
+            "motion": "roll"
+          },
+          "fingers": [
+            "ArmL_Finger_1",
+            "ArmL_Finger_2",
+            "ArmL_Finger_3"
+          ],
+          "gripper_axis_gltf": [
+            0.0,
+            0.6,
+            0.8
+          ]
+        },
+        "R": {
+          "base": {
+            "node": "ArmR_Base",
+            "axis_gltf": [
+              0,
+              1,
+              0
+            ],
+            "motion": "yaw"
+          },
+          "shoulder": {
+            "node": "ArmR_Shoulder",
+            "axis_gltf": [
+              1,
+              0,
+              0
+            ],
+            "motion": "pitch, about -60..60 deg"
+          },
+          "elbow": {
+            "node": "ArmR_Elbow",
+            "axis_gltf": [
+              1,
+              0,
+              0
+            ],
+            "motion": "pitch, about -90..60 deg"
+          },
+          "wrist": {
+            "node": "ArmR_Wrist",
+            "axis_gltf": [
+              1,
+              0,
+              0
+            ],
+            "motion": "pitch; roll about the gripper axis"
+          },
+          "gripper": {
+            "node": "ArmR_Gripper",
+            "axis_gltf": [
+              0.0,
+              0.6,
+              0.8
+            ],
+            "motion": "roll"
+          },
+          "fingers": [
+            "ArmR_Finger_1",
+            "ArmR_Finger_2",
+            "ArmR_Finger_3"
+          ],
+          "gripper_axis_gltf": [
+            0.0,
+            0.6,
+            0.8
+          ]
+        }
+      }
+    },
+    {
+      "file": "display_platform.glb",
+      "root": "DisplayPlatform",
+      "tris": 1780,
+      "anchors": {
+        "robot_point_target": "Platform_RobotTarget",
+        "camera_focus": "Platform_CameraFocus",
+        "robot_point_target_gltf": [
+          0,
+          0.6,
+          0
+        ],
+        "camera_focus_gltf": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "DisplayPlatform",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "DisplayPlatform_Base",
+          "parent": "DisplayPlatform",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ],
+          "tris": 1016,
+          "role": "platform_base"
+        },
+        {
+          "name": "DisplayPlatform_Top",
+          "parent": "DisplayPlatform",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.2,
+            -0.0
+          ],
+          "tris": 764,
+          "role": "turntable",
+          "spin": "rotate about glTF Y; put the showcased object on top (y = 0.22)"
+        },
+        {
+          "name": "Platform_CameraFocus",
+          "parent": "DisplayPlatform",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.5,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "Platform_RobotTarget",
+          "parent": "DisplayPlatform",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.6,
+            -0.0
+          ],
+          "role": "robot_point_target"
+        }
+      ]
+    },
+    {
+      "file": "tech_cubes.glb",
+      "root": "TechCubes",
+      "tris": 580,
+      "anchors": {
+        "robot_point_target": "Cubes_RobotTarget",
+        "camera_focus": "Cubes_CameraFocus",
+        "robot_point_target_gltf": [
+          0,
+          0.5,
+          0
+        ],
+        "camera_focus_gltf": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "nodes": [
+        {
+          "name": "Cubes_CameraFocus",
+          "parent": "TechCubes",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.45,
+            -0.0
+          ],
+          "role": "camera_focus"
+        },
+        {
+          "name": "Cubes_RobotTarget",
+          "parent": "TechCubes",
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.5,
+            -0.0
+          ],
+          "role": "robot_point_target"
+        },
+        {
+          "name": "TechCube_1",
+          "parent": "TechCubes",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.0,
+            0.25,
+            -0.0
+          ],
+          "tris": 116,
+          "role": "tech_cube",
+          "size": 0.5,
+          "note": "pivot = cube centre; animate in any order (stack, orbit, snap)"
+        },
+        {
+          "name": "TechCube_2",
+          "parent": "TechCubes",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.55,
+            0.18,
+            -0.1
+          ],
+          "tris": 116,
+          "role": "tech_cube",
+          "size": 0.36,
+          "note": "pivot = cube centre; animate in any order (stack, orbit, snap)"
+        },
+        {
+          "name": "TechCube_3",
+          "parent": "TechCubes",
+          "type": "mesh",
+          "pivot_gltf": [
+            -0.48,
+            0.15,
+            -0.15
+          ],
+          "tris": 116,
+          "role": "tech_cube",
+          "size": 0.3,
+          "note": "pivot = cube centre; animate in any order (stack, orbit, snap)"
+        },
+        {
+          "name": "TechCube_4",
+          "parent": "TechCubes",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.1,
+            0.68,
+            -0.05
+          ],
+          "tris": 116,
+          "role": "tech_cube",
+          "size": 0.36,
+          "note": "pivot = cube centre; animate in any order (stack, orbit, snap)"
+        },
+        {
+          "name": "TechCube_5",
+          "parent": "TechCubes",
+          "type": "mesh",
+          "pivot_gltf": [
+            0.42,
+            0.52,
+            0.1
+          ],
+          "tris": 116,
+          "role": "tech_cube",
+          "size": 0.26,
+          "note": "pivot = cube centre; animate in any order (stack, orbit, snap)"
+        },
+        {
+          "name": "TechCubes",
+          "parent": null,
+          "type": "empty",
+          "pivot_gltf": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        }
+      ]
+    }
+  ]
+}
