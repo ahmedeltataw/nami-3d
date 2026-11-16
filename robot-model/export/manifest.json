@@ -1,5 +1,5 @@
 {
-  "source": "robot_rig2.blend (scripts/lod_export.py) -> robot_high.glb, robot_low.glb",
+  "source": "robot_rig2.blend (scripts/lod_export.py, clips B-D by scripts/clips_bcd.py) -> robot_high.glb, robot_low.glb",
   "units": "1 unit = 400 px of ref_front.webp; robot 3.38 units tall",
   "axes": "glTF +Y up, robot faces +Z (Blender -Y), robot left = +X",
   "nodes": [
@@ -1260,6 +1260,56 @@
   },
   "clips": [
     {
+      "name": "Celebrate",
+      "start_s": 0,
+      "duration_s": 2,
+      "fps": 30,
+      "targets": [
+        "Finger_1_L",
+        "Finger_1_R",
+        "Finger_2_L",
+        "Finger_2_R",
+        "Finger_3_L",
+        "Finger_3_R",
+        "Finger_4_L",
+        "Finger_4_R",
+        "Head",
+        "Shoulder_L",
+        "Shoulder_R",
+        "Thumb_L",
+        "Thumb_R",
+        "Torso",
+        "Upper_L",
+        "Upper_R"
+      ],
+      "loop": false
+    },
+    {
+      "name": "Fly",
+      "start_s": 0,
+      "duration_s": 2.4,
+      "fps": 30,
+      "targets": [
+        "Finger_1_L",
+        "Finger_1_R",
+        "Finger_2_L",
+        "Finger_2_R",
+        "Finger_3_L",
+        "Finger_3_R",
+        "Finger_4_L",
+        "Finger_4_R",
+        "Head",
+        "Shoulder_L",
+        "Shoulder_R",
+        "Thumb_L",
+        "Thumb_R",
+        "Torso",
+        "Upper_L",
+        "Upper_R"
+      ],
+      "loop": true
+    },
+    {
       "name": "Idle",
       "start_s": 0,
       "duration_s": 4,
@@ -1274,6 +1324,64 @@
       "loop": true
     },
     {
+      "name": "OpenPortal",
+      "start_s": 0,
+      "duration_s": 2,
+      "fps": 30,
+      "targets": [
+        "Finger_1_L",
+        "Finger_1_R",
+        "Finger_2_L",
+        "Finger_2_R",
+        "Finger_3_L",
+        "Finger_3_R",
+        "Finger_4_L",
+        "Finger_4_R",
+        "Head",
+        "Palm_L",
+        "Palm_R",
+        "Shoulder_L",
+        "Shoulder_R",
+        "Thumb_L",
+        "Thumb_R",
+        "Torso",
+        "Upper_L",
+        "Upper_R",
+        "Wrist_L",
+        "Wrist_R"
+      ],
+      "loop": false
+    },
+    {
+      "name": "Point",
+      "start_s": 0,
+      "duration_s": 1.4,
+      "fps": 30,
+      "targets": [
+        "Finger_1_R",
+        "Finger_2_R",
+        "Finger_3_R",
+        "Finger_4_R",
+        "Head",
+        "Shoulder_R",
+        "Thumb_R",
+        "Torso",
+        "Upper_R"
+      ],
+      "loop": false
+    },
+    {
+      "name": "React",
+      "start_s": 0,
+      "duration_s": 0.5,
+      "fps": 30,
+      "targets": [
+        "Head",
+        "Torso"
+      ],
+      "loop": false
+    },
+    {
       "name": "Sleep",
       "start_s": 0,
       "duration_s": 1,
@@ -1284,6 +1392,26 @@
         "Eye_R",
         "Head",
         "Torso"
+      ],
+      "loop": true
+    },
+    {
+      "name": "Thinking",
+      "start_s": 0,
+      "duration_s": 2.5,
+      "fps": 30,
+      "targets": [
+        "Finger_1_R",
+        "Finger_2_R",
+        "Finger_3_R",
+        "Finger_4_R",
+        "Head",
+        "Palm_R",
+        "Shoulder_R",
+        "Thumb_R",
+        "Torso",
+        "Upper_R",
+        "Wrist_R"
       ],
       "loop": true
     },
@@ -1302,6 +1430,104 @@
       "loop": false
     },
     {
+      "name": "LookAround",
+      "start_s": 0,
+      "duration_s": 3,
+      "fps": 30,
+      "targets": [
+        "Eye_L",
+        "Eye_R",
+        "Head",
+        "Neck"
+      ],
+      "loop": false
+    },
+    {
+      "name": "ChargeEnergy",
+      "start_s": 0,
+      "duration_s": 2,
+      "fps": 30,
+      "targets": [
+        "Finger_1_L",
+        "Finger_1_R",
+        "Finger_2_L",
+        "Finger_2_R",
+        "Finger_3_L",
+        "Finger_3_R",
+        "Finger_4_L",
+        "Finger_4_R",
+        "Head",
+        "Palm_L",
+        "Palm_R",
+        "Shoulder_L",
+        "Shoulder_R",
+        "Thumb_L",
+        "Thumb_R",
+        "Upper_L",
+        "Upper_R",
+        "Wrist_L",
+        "Wrist_R"
+      ],
+      "loop": false
+    },
+    {
+      "name": "Draw",
+      "start_s": 0,
+      "duration_s": 1.6,
+      "fps": 30,
+      "targets": [
+        "Eye_L",
+        "Eye_R",
+        "Finger_1_R",
+        "Finger_2_R",
+        "Finger_3_R",
+        "Finger_4_R",
+        "Head",
+        "Shoulder_R",
+        "Thumb_R",
+        "Upper_R",
+        "Wrist_R"
+      ],
+      "loop": false
+    },
+    {
+      "name": "Guide",
+      "start_s": 0,
+      "duration_s": 2,
+      "fps": 30,
+      "targets": [
+        "Finger_1_R",
+        "Finger_2_R",
+        "Finger_3_R",
+        "Finger_4_R",
+        "Head",
+        "Shoulder_R",
+        "Thumb_R",
+        "Upper_R",
+        "Wrist_R"
+      ],
+      "loop": false
+    },
+    {
+      "name": "Present",
+      "start_s": 0,
+      "duration_s": 1.6,
+      "fps": 30,
+      "targets": [
+        "Finger_1_R",
+        "Finger_2_R",
+        "Finger_3_R",
+        "Finger_4_R",
+        "Head",
+        "Palm_R",
+        "Shoulder_R",
+        "Thumb_R",
+        "Upper_R",
+        "Wrist_R"
+      ],
+      "loop": false
+    },
+    {
       "name": "Wave",
       "start_s": 0,
       "duration_s": 1.6,
@@ -1313,20 +1539,43 @@
         "Upper_R"
       ],
       "loop": false
+    },
+    {
+      "name": "Grab",
+      "start_s": 0,
+      "duration_s": 1.2,
+      "fps": 30,
+      "targets": [
+        "Finger_1_L",
+        "Finger_1_R",
+        "Finger_2_L",
+        "Finger_2_R",
+        "Finger_3_L",
+        "Finger_3_R",
+        "Finger_4_L",
+        "Finger_4_R",
+        "Shoulder_L",
+        "Shoulder_R",
+        "Thumb_L",
+        "Thumb_R",
+        "Upper_L",
+        "Upper_R"
+      ],
+      "loop": false
     }
   ],
   "anchors": {
     "RightHand_Anchor": {
       "parent": "Palm_R",
       "position_blender": [
-        -1.14,
-        0.02,
+        -1.0042,
+        0.0439,
         0.36
       ],
       "position_gltf": [
-        -1.14,
+        -1.0042,
         0.36,
-        -0.02
+        -0.0439
       ]
     },
     "LeftHand_Anchor": {
@@ -1376,7 +1625,20 @@
     "Sleep": "static: Head +8 deg Blender X (face down), Torso +3 deg X, -0.02 z; eyes closed by scale y=0.08 on Eye_L/Eye_R and Eye_CircuitDetails (glTF y)",
     "WakeUp": "Sleep pose -> rest over 1.2 s; eyes open frames 8-30",
     "Wave": "M1-04a clip, handles clamped",
-    "eye_emission": "not animated in the GLB (three.js has no KHR_animation_pointer); drive emissiveIntensity of MAT_EyeEmission in code if needed"
+    "eye_emission": "not animated in the GLB (three.js has no KHR_animation_pointer); drive emissiveIntensity of MAT_EyeEmission in code if needed",
+    "LookAround": "head+neck yaw left/right then up; eyes lead the head",
+    "Draw": "right arm level, sweeps side -> front (Shoulder_R X -28 -> -86 at Y 90); palm leads; head tracks",
+    "ChargeEnergy": "rest -> charge pose by 0.8 s, held to 2.0 s with a palm tremble; ENDS in the charge pose (palm centres ~1.5 apart: inward shoulder/elbow limits)",
+    "OpenPortal": "STARTS in the ChargeEnergy end pose -> arms sweep out/up (0.8 s), hold, back to rest at 2.0 s",
+    "Fly": "loop; Torso pitched +15 deg (its limit; brief asked ~25: add the rest on a parent group in-app), arms back, bob 0.05",
+    "Present": "right arm forward and out, palm up (forward toward the camera, slightly to the robot's right); head looks at it and nods",
+    "Point": "right arm level, 40 deg out from straight ahead (robot right = screen left); Finger_1 straight, others curled; head + torso turn to it",
+    "Thinking": "loop; right hand up by the chin, head tilt 8 deg, torso sway 3 deg",
+    "Grab": "both arms reach forward, fingers close at 0.6-0.73 s, return to rest",
+    "React": "head tilt 8 deg + 0.03 hop",
+    "Celebrate": "both arms up, 3 bounces of 0.05",
+    "Guide": "right arm level sweeps front -> robot right (screen left), open palm forward; head follows then returns",
+    "rest": "non-looping clips start and end at rest, except ChargeEnergy (ends in its held pose) and OpenPortal (starts from that pose)"
   },
   "materials": [
     {
