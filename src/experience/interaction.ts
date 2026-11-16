@@ -37,3 +37,12 @@ export function createInteraction() {
     },
   };
 }
+
+export function createExploration(interaction: ReturnType<typeof createInteraction>) {
+  let token: number | null = null;
+  return {
+    get active() { return token !== null && interaction.state.token === token && interaction.state.source === 'drag'; },
+    enter() { token = interaction.request('drag', () => { token = null; }); return token !== null; },
+    exit() { if (token !== null) interaction.release(token); token = null; },
+  };
+}

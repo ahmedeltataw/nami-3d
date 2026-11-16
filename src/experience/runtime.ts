@@ -1,8 +1,9 @@
 import type { SceneId, SceneSnapshot } from './contracts';
-import { createInteraction } from './interaction';
+import { createInteraction, createExploration } from './interaction';
 import { createIntroClock } from './robot/intro';
 
 export function createRuntime() {
+  const interaction = createInteraction();
   return {
     scene: 's01' as SceneId,
     local: 0,
@@ -14,7 +15,11 @@ export function createRuntime() {
     cameraZ: 4.2,
     robotMeshes: 0,
     viewport: { w: 0, h: 0, dpr: 1.5 },
-    interaction: createInteraction(),
+    interaction,
+    exploration: createExploration(interaction),
+    orbit: { yaw: 0, pitch: 0, distance: 4.3 },
+    replayStart: null as number | null,
+    profile: { quality: 'mid', motion: 'full', renderer: 'webgl' } as import('./profile').Profile,
     snapshot: null as SceneSnapshot | null,
     seekVersion: 0,
     contextLost: false,
