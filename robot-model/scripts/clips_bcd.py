@@ -46,19 +46,20 @@ def both(pose_l, mirror=True):
 
 # ---------------------------------------------------------------- clip table
 # Each clip: (frames, loop, notes, [(frame, {joint: (rx, ry, rz)} , {joint: (dx, dy, dz) location})])
-# grid-searched within the limits for the closest hands with palms facing: palm centres end ~1.5 apart
-# (shoulder inward is capped at 10 deg and the elbow at 30 deg, so the brief's 0.5 is out of reach)
-CHARGE = both({"Shoulder_L": (-55, 10, 0), "Upper_L": (-25, 30, 0), "Wrist_L": (0, 0, -30), "Palm_L": (-30, -30, 0),
+# grid-searched (hand target + a forearm-inside-torso vertex count): palm centres 0.6 apart at z 1.63,
+# palms facing (normal . X = 0.85); the forearms skim the upper chest instead of crossing into it
+CHARGE = both({"Shoulder_L": (-90, 20, -25), "Upper_L": (0, 30, 0), "Wrist_L": (0, 0, 0), "Palm_L": (0, -30, 0),
                **curl("L", (22, 26, 30, 34, 15))})
 CHARGE["Head"] = (7, 0, 0)
 OPEN = both({"Shoulder_L": (-25, -115, 0), "Upper_L": (-10, -15, 0), "Palm_L": (0, 0, 0),
              **curl("L", (0, 0, 0, 0, 0))})
 OPEN.update({"Head": (-10, 0, 0), "Torso": (-6, 0, 0)})
 FLY = both({"Shoulder_L": (32, -12, 0), "Upper_L": (10, 0, 0), **curl("L", (20, 25, 30, 35, 10))})
-FLY.update({"Torso": (15, 0, 0), "Head": (-14, 0, 0)})
-POINT_FINGERS = curl("R", (0, 80, 85, 88, 55))
+FLY.update({"Torso": (25, 0, 0), "Head": (-18, 0, 0)})
+POINT_FINGERS = curl("R", (-15, 80, 85, 88, 55))   # -15 straightens the modelled curl of Finger_1
 DRAW_FINGERS = curl("R", (0, 75, 80, 85, 45))
-THINK = {"Shoulder_R": (-62, -10, 0), "Upper_R": (-45, -30, 0), "Wrist_R": (0, 0, -40), "Palm_R": (20, 0, 0),
+# grid-searched: palm centre at the chin line (z 1.78), 0.1 in front of the head, clear of the side module
+THINK = {"Shoulder_R": (-70, -30, 35), "Upper_R": (-60, 0, 0), "Wrist_R": (0, 0, -60), "Palm_R": (0, 0, 0),
          **curl("R", (35, 45, 55, 60, 20))}
 GRAB_REACH = both({"Shoulder_L": (-68, 6, 0), "Upper_L": (-12, 15, 0), **curl("L", (0, 0, 0, 0, 0))})
 GRAB_CLOSE = both({"Shoulder_L": (-68, 6, 0), "Upper_L": (-12, 15, 0), **curl("L", (75, 80, 85, 85, 60))})
@@ -114,10 +115,10 @@ def clips():
     trem = []
     for k, f in enumerate(range(32, 61, 4)):
         a = 1.5 if k % 2 else -1.5
-        trem.append((f, {"Palm_L": (-30 + a, -30, 0), "Palm_R": (-30 - a, 30, 0)}, {}))
+        trem.append((f, {"Palm_L": (a, -30, 0), "Palm_R": (-a, 30, 0)}, {}))
     trem[-1] = (60, CHARGE, {})
     c["ChargeEnergy"] = (60, False, "rest -> charge pose by 0.8 s, held to 2.0 s with a palm tremble; "
-                                    "ENDS in the charge pose (palm centres ~1.5 apart: inward shoulder/elbow limits)", [
+                                    "ENDS in the charge pose (palm centres 0.6 apart, palms facing, upper-chest height)", [
         (0, rest_of(CHARGE), {}),
         (24, CHARGE, {}),
         (30, CHARGE, {}),
@@ -141,11 +142,10 @@ def clips():
         p["Shoulder_L"] = (32 + sway, -12, 0)
         p["Shoulder_R"] = (32 + sway, 12, 0)
         fly.append((f, p, {"Torso": (0, 0, bob)}))
-    c["Fly"] = (72, True, "loop; Torso pitched +15 deg (its limit; brief asked ~25: add the rest on a parent "
-                          "group in-app), arms back, bob 0.05", fly)
+    c["Fly"] = (72, True, "loop; Torso pitched forward 25 deg, arms back, bob 0.05", fly)
     # Present 1.6 s: right arm forward-out, palm up, small head nod toward it.
     # wrist/palm values from a grid search for the most upward palm normal at this arm pose
-    pres = {"Shoulder_R": (-55, 48, 0), "Upper_R": (-25, 0, 0), "Wrist_R": (0, 0, -90), "Palm_R": (-45, 0, 0),
+    pres = {"Shoulder_R": (-75, 0, -30), "Upper_R": (-15, 0, 0), "Wrist_R": (0, 0, -90), "Palm_R": (0, 0, 0),
             **curl("R", (8, 10, 12, 14, 0))}
     c["Present"] = (48, False, "right arm forward and out, palm up (forward toward the camera, slightly to "
                                "the robot's right); head looks at it and nods", [
@@ -289,9 +289,16 @@ def check_limits(table):
     return bad
 
 
+def apply_limits():
+    """Write the current rig_export limits into each joint's joint_limits_deg (exported as node extras)."""
+    for name, _par, _piv, _yaw, _meshes, lim in L.R.joint_specs():
+        bpy.data.objects[name]["joint_limits_deg"] = json.dumps(lim)
+
+
 def main(open_rig=True):
     if open_rig:
         bpy.ops.wm.open_mainfile(filepath=L.RIG2)
+    apply_limits()
     table = build()
     bad = check_limits(table)
     if bad:

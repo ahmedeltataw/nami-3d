@@ -367,8 +367,8 @@
             0,
             0
           ],
-          "min_deg": -15,
-          "max_deg": 15
+          "min_deg": -10,
+          "max_deg": 30
         }
       ]
     },
@@ -536,7 +536,7 @@
             -1
           ],
           "min_deg": -170,
-          "max_deg": 10
+          "max_deg": 45
         },
         {
           "axis_blender_local": "X",
@@ -547,6 +547,16 @@
           ],
           "min_deg": -90,
           "max_deg": 90
+        },
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -45,
+          "max_deg": 30
         }
       ]
     },
@@ -585,7 +595,7 @@
             0,
             0
           ],
-          "min_deg": -45,
+          "min_deg": -110,
           "max_deg": 45
         }
       ]
@@ -685,7 +695,7 @@
             0,
             -1
           ],
-          "min_deg": 0,
+          "min_deg": -15,
           "max_deg": 90
         }
       ]
@@ -875,7 +885,7 @@
             0,
             -1
           ],
-          "min_deg": -10,
+          "min_deg": -45,
           "max_deg": 170
         },
         {
@@ -887,6 +897,16 @@
           ],
           "min_deg": -90,
           "max_deg": 90
+        },
+        {
+          "axis_blender_local": "Z",
+          "axis_gltf_local": [
+            0,
+            1,
+            0
+          ],
+          "min_deg": -30,
+          "max_deg": 45
         }
       ]
     },
@@ -925,7 +945,7 @@
             0,
             0
           ],
-          "min_deg": -45,
+          "min_deg": -110,
           "max_deg": 45
         }
       ]
@@ -1026,7 +1046,7 @@
             -1
           ],
           "min_deg": -90,
-          "max_deg": 0
+          "max_deg": 15
         }
       ]
     },
@@ -1568,14 +1588,14 @@
     "RightHand_Anchor": {
       "parent": "Palm_R",
       "position_blender": [
-        -1.0042,
-        0.0439,
+        -1.0822,
+        -0.0489,
         0.36
       ],
       "position_gltf": [
-        -1.0042,
+        -1.0822,
         0.36,
-        -0.0439
+        0.0489
       ]
     },
     "LeftHand_Anchor": {
@@ -1628,9 +1648,9 @@
     "eye_emission": "not animated in the GLB (three.js has no KHR_animation_pointer); drive emissiveIntensity of MAT_EyeEmission in code if needed",
     "LookAround": "head+neck yaw left/right then up; eyes lead the head",
     "Draw": "right arm level, sweeps side -> front (Shoulder_R X -28 -> -86 at Y 90); palm leads; head tracks",
-    "ChargeEnergy": "rest -> charge pose by 0.8 s, held to 2.0 s with a palm tremble; ENDS in the charge pose (palm centres ~1.5 apart: inward shoulder/elbow limits)",
+    "ChargeEnergy": "rest -> charge pose by 0.8 s, held to 2.0 s with a palm tremble; ENDS in the charge pose (palm centres 0.6 apart, palms facing, upper-chest height)",
     "OpenPortal": "STARTS in the ChargeEnergy end pose -> arms sweep out/up (0.8 s), hold, back to rest at 2.0 s",
-    "Fly": "loop; Torso pitched +15 deg (its limit; brief asked ~25: add the rest on a parent group in-app), arms back, bob 0.05",
+    "Fly": "loop; Torso pitched forward 25 deg, arms back, bob 0.05",
     "Present": "right arm forward and out, palm up (forward toward the camera, slightly to the robot's right); head looks at it and nods",
     "Point": "right arm level, 40 deg out from straight ahead (robot right = screen left); Finger_1 straight, others curled; head + torso turn to it",
     "Thinking": "loop; right hand up by the chin, head tilt 8 deg, torso sway 3 deg",
