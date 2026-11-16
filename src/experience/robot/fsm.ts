@@ -1,7 +1,7 @@
 import type { SceneSnapshot } from '../contracts';
 
 export type RobotState = 'sleep' | 'waking' | 'interacting' | 'performing' | 'transitioning' | 'guiding' | 'idle' | 'watching';
-export type Reaction = { name: 'nod' | 'tilt'; startedAt: number; duration: number; priority: number };
+export type Reaction = { name: 'nod' | 'tilt' | 'React'; startedAt: number; duration: number; priority: number };
 export type RobotEvent = { type: 'narrative'; snapshot: SceneSnapshot } | { type: 'reaction'; name: Reaction['name']; now: number; duration: number; priority?: number } | { type: 'cancel' } | { type: 'reset' };
 
 export function narrativeState(snapshot: SceneSnapshot): RobotState {
@@ -9,6 +9,7 @@ export function narrativeState(snapshot: SceneSnapshot): RobotState {
     if (snapshot.robot.name === 'Sleep') return 'sleep';
     if (snapshot.robot.name === 'WakeUp') return 'waking';
     if (snapshot.robot.name === 'Wave') return 'performing';
+    if (snapshot.robot.name === 'Draw') return 'performing';
   }
   return (snapshot.visual.robotState as RobotState | undefined) ?? 'idle';
 }

@@ -1,5 +1,10 @@
 {
   "Home": {
-    "heading": "Welcome to Nami"
+    "heading": "Welcome to Nami",
+    "subtitle": "Your next digital project starts with a conversation.",
+    "projects": "See our work",
+    "contact": "Start your project",
+    "scrollHint": "Scroll to meet Nami",
+    "skipIntro": "Skip introduction"
   }
 }

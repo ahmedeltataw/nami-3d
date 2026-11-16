@@ -4,7 +4,7 @@ import type { Reaction } from './fsm';
 import { floatRoll, floatY, lookAt, type Gaze } from './procedural';
 
 type Transform = { node: Object3D; position: Vector3; quaternion: Quaternion; scale: Vector3 };
-export type PoseLayers = { time: number; delta: number; reduced: boolean; canLook: boolean; target: Vector3 | null; reaction: Reaction | null };
+export type PoseLayers = { time: number; delta: number; reduced: boolean; canLook: boolean; target: Vector3 | null; reaction: Reaction | null; headPitch?: number; eyeOpen?: number; headNear?: boolean; focus?: number };
 
 // Owns every final joint transform, including mixer sampling and LOD pose transfer.
 export class RobotComposer {
@@ -43,6 +43,13 @@ export class RobotComposer {
 
   resetGaze() { this.gaze.yaw = this.gaze.pitch = this.gaze.eyeYaw = this.gaze.eyePitch = 0; }
 
+  worldPosition(name: string, out: Vector3) {
+    const node = this.nodes.get(name);
+    if (!node) return false;
+    node.getWorldPosition(out);
+    return true;
+  }
+
   private restore() {
     for (let i = 0; i < this.rest.length; i++) {
       const rest = this.rest[i];
@@ -65,11 +72,11 @@ export class RobotComposer {
     this.mixer.stopAllAction();
     this.restore();
     if (!layers.reduced && directive.kind === 'clip') {
-      const action = this.actions.get(directive.name);
+      const action = this.actions.get(directive.name) ?? this.actions.get('Idle');
       if (action) {
         action.reset().play();
         const duration = action.getClip().duration;
-        action.time = directive.name === 'Idle' || directive.name === 'Sleep'
+        action.time = action.getClip().name === 'Idle' || action.getClip().name === 'Sleep'
           ? ((directive.timeSeconds % duration) + duration) % duration
           : Math.max(0, Math.min(duration, directive.timeSeconds));
         action.setEffectiveWeight(Math.max(0, Math.min(1, directive.weight)));
@@ -77,6 +84,15 @@ export class RobotComposer {
       }
     }
     if (layers.reduced) { this.resetGaze(); this.object.updateMatrixWorld(true); return; }
+    const reaction = layers.reaction;
+    const phase = reaction ? (layers.time - reaction.startedAt) / reaction.duration : -1;
+    const reactAction = reaction?.name === 'React' && phase >= 0 && phase < 1 ? this.actions.get('React') : undefined;
+    if (reactAction) {
+      reactAction.reset().play();
+      reactAction.time = phase * reactAction.getClip().duration;
+      reactAction.setEffectiveWeight(Math.sin(phase * Math.PI));
+      this.mixer.update(0);
+    }
     const root = this.nodes.get('Root');
     if (root && layers.canLook) {
       root.position.y += floatY(layers.time);
@@ -94,15 +110,26 @@ export class RobotComposer {
         lookAt(this.direction.x, this.direction.y, this.direction.z, this.gaze, layers.delta, this.gaze);
       }
     } else this.resetGaze();
-    this.rotate('Head', this.gaze.pitch, this.gaze.yaw);
+    const head = this.nodes.get('Head');
+    if (head && layers.headPitch !== undefined) {
+      this.euler.setFromQuaternion(head.quaternion, 'YXZ');
+      this.euler.x = layers.headPitch;
+      head.quaternion.setFromEuler(this.euler);
+    }
+    this.rotate('Head', this.gaze.pitch, this.gaze.yaw, layers.canLook && layers.headNear ? Math.PI * 8 / 180 : 0);
     this.rotate('Eye_L', this.gaze.eyePitch, this.gaze.eyeYaw);
     this.rotate('Eye_R', this.gaze.eyePitch, this.gaze.eyeYaw);
-    const reaction = layers.reaction;
-    if (reaction) {
-      const phase = (layers.time - reaction.startedAt) / reaction.duration;
+    for (const name of ['Eye_L', 'Eye_R']) {
+      const eye = this.nodes.get(name);
+      if (eye && layers.eyeOpen !== undefined) eye.scale.y = Math.max(0, Math.min(1, layers.eyeOpen));
+    }
+    if (layers.focus) {
+      this.rotate('Head', layers.focus * 3 * Math.PI / 180, 0);
+    }
+    if (reaction && !reactAction) {
       if (phase >= 0 && phase < 1) {
         const angle = Math.sin(phase * Math.PI) * 8 * Math.PI / 180;
-        this.rotate('Head', reaction.name === 'nod' ? angle : 0, 0, reaction.name === 'tilt' ? angle : 0);
+        this.rotate('Head', reaction.name === 'nod' || reaction.name === 'React' ? angle : 0, 0, reaction.name === 'tilt' ? angle : 0);
       }
     }
     this.object.updateMatrixWorld(true);

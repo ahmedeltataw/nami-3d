@@ -37,7 +37,13 @@ export default function ExperienceMount() {
   }, []);
   return <div className={styles.host} data-experience data-scene={scene} data-ready={ready} data-renderer={renderer} aria-hidden="true">
     <div className={`${styles.poster} ${ready ? styles.hidden : ''}`} style={configuration ? { backgroundImage: `url(/posters/${scene}.svg)` } : undefined}>
-      {!configuration && <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet"><path d="M600 220 760 310 760 490 600 580 440 490 440 310Z" fill="#397d8d" /></svg>}
+      {!configuration && <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
+        <ellipse cx="600" cy="655" rx="120" ry="12" fill="#f6f7f8" />
+        <path d="M535 436 Q520 600 600 620 Q680 600 665 436Z" fill="#f6f7f8" stroke="#d9dcdf" strokeWidth="3" />
+        <rect x="478" y="251" width="244" height="182" rx="65" fill="#f6f7f8" stroke="#d9dcdf" strokeWidth="3" />
+        <rect x="495" y="280" width="210" height="128" rx="45" fill="#1b1d20" />
+        <g fill="#009f6f"><rect x="535" y="322" width="40" height="23" rx="10" /><rect x="625" y="322" width="40" height="23" rx="10" /></g>
+      </svg>}
     </div>
     {configuration && <Host {...configuration} />}
   </div>;

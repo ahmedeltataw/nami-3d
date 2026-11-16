@@ -77,8 +77,8 @@ describe('robot runtime with shipped GLB tracks', () => {
     composer.dispose();
   });
 
-  it('seek is identical directly, forwards and backwards over 20 S01 locals', () => {
-    const samples = Array.from({ length: 20 }, (_, i) => s01.sample({ ...input, local: i / 19 }));
+  it('seek is identical directly, forwards and backwards over 25 S01 locals', () => {
+    const samples = Array.from({ length: 25 }, (_, i) => s01.sample({ ...input, local: i / 24 }));
     function traverse(order: SceneSnapshot[]) {
       const composer = new RobotComposer();
       const fsm = new RobotFSM();
@@ -97,7 +97,7 @@ describe('robot runtime with shipped GLB tracks', () => {
   });
 
   it('samples S01 intro beats without hidden state and reduced motion returns rest', () => {
-    const expected = [[-1, 'Sleep', 0], [0, 'WakeUp', 0], [0.6, 'WakeUp', 0.6], [1.2, 'Idle', 0], [1.8, 'Wave', 0], [2.6, 'Wave', 0.8], [3.4, 'Idle', 0]] as const;
+    const expected = [[-1, 'Sleep', 0], [0, 'WakeUp', 0], [0.6, 'WakeUp', 0.6], [1.2, 'LookAround', 0.2], [1.8, 'Wave', 0], [2.6, 'Wave', 0.8], [3.4, 'Draw', 0], [4.6, 'Idle', 0]] as const;
     for (const [introSeconds, name, seconds] of [...expected].reverse()) {
       const directive = s01.sample({ ...input, introSeconds }).robot;
       expect(directive).toMatchObject({ kind: 'clip', name });
@@ -113,6 +113,18 @@ describe('robot runtime with shipped GLB tracks', () => {
     const rest = pose(composer);
     composer.compose({ kind: 'clip', name: 'Wave', timeSeconds: 0.8, weight: 1 }, layers({ time: 0.5, reduced: true, canLook: true, target: new Vector3(5, 4, 2), reaction: { name: 'nod', startedAt: 0, duration: 1, priority: 1 } }));
     expect(pose(composer)).toEqual(rest);
+    composer.dispose();
+  });
+
+  it('S01 wake layers set the requested pitch and eye opening over the native clip channels', () => {
+    const composer = new RobotComposer();
+    composer.bind(high.scene.clone(true), high.animations);
+    for (const introSeconds of [0, 0.3, 0.6, 1, 1.19]) {
+      const snapshot = s01.sample({ ...input, introSeconds });
+      composer.compose(snapshot.robot, layers({ headPitch: Number(snapshot.visual.headPitch), eyeOpen: Number(snapshot.visual.eyeOpen) }));
+      expect(composer.object!.getObjectByName('Head')!.rotation.x).toBeCloseTo((1 - introSeconds / 1.2) * -8 * Math.PI / 180);
+      expect(composer.object!.getObjectByName('Eye_L')!.scale.y).toBeCloseTo(introSeconds / 1.2);
+    }
     composer.dispose();
   });
 
