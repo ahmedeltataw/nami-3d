@@ -94,16 +94,20 @@ export function Robot({ runtime, profile, residency, onError }: {
     const cursorTarget = frame.ray.ray.intersectPlane(frame.plane, frame.target);
     const s01 = runtime.scene === 's01';
     const visual = runtime.snapshot.visual;
-    if (mounted.current) {
+    if (mounted.current && runtime.scene !== 's05') {
       mounted.current.position.x = s01 ? Number(visual.robotX ?? 0) : 0;
       mounted.current.position.y = -1.69 * scale - (s01 && compact ? 0.5 : 0);
+    }
+    if (mounted.current && runtime.scene === 's05' && Array.isArray(visual.robotPosition)) {
+      mounted.current.position.fromArray(visual.robotPosition as number[]);
+      mounted.current.rotation.set(0, Number(visual.robotYaw ?? 0), 0);
     }
     const layers = frame.layers;
     layers.time = now;
     layers.delta = delta;
     layers.reduced = profile.motion === 'reduced';
     layers.canLook = fsm.canLook || (s01 && visual.discover === true);
-    layers.target = runtime.taskGaze ?? (s01 && runtime.pointer.active ? cursorTarget : null);
+    layers.target = runtime.taskGaze ?? ((s01 || runtime.scene === 's05') && runtime.pointer.active ? cursorTarget : null);
     layers.reaction = fsm.reaction;
     layers.headPitch = s01 && typeof visual.headPitch === 'number' ? visual.headPitch : undefined;
     layers.eyeOpen = s01 ? Number(visual.eyeOpen ?? 1) : undefined;

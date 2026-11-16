@@ -21,6 +21,7 @@ export class RobotComposer {
 
   bind(object: Object3D, clips: readonly AnimationClip[]) {
     const previous = new Map<string, Transform>();
+    const baseline = new Map(this.rest.map(rest => [rest.node.name, rest]));
     for (const [name, node] of this.nodes) previous.set(name, { node, position: node.position.clone(), quaternion: node.quaternion.clone(), scale: node.scale.clone() });
     this.disposeMixer();
     this.object = object;
@@ -28,7 +29,10 @@ export class RobotComposer {
     this.rest = [];
     object.traverse(node => {
       this.nodes.set(node.name, node);
-      this.rest.push({ node, position: node.position.clone(), quaternion: node.quaternion.clone(), scale: node.scale.clone() });
+      // LOD exports can carry a different unkeyed hand pose. Keep the established
+      // rig baseline so the next deterministic sample preserves the transferred pose.
+      const rest = baseline.get(node.name) ?? node;
+      this.rest.push({ node, position: rest.position.clone(), quaternion: rest.quaternion.clone(), scale: rest.scale.clone() });
       const old = previous.get(node.name);
       if (old) { node.position.copy(old.position); node.quaternion.copy(old.quaternion); node.scale.copy(old.scale); }
     });

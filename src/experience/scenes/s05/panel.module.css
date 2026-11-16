@@ -1,0 +1,24 @@
+.panel { position: sticky; top: 5rem; color: #f6f7f8; min-height: calc(100svh - 6rem); pointer-events: none; }
+.picker { display: flex; flex-wrap: wrap; gap: .5rem; max-width: 58rem; pointer-events: auto; }
+.picker button { min-height: 44px; padding: .5rem .8rem; border: 1px solid #73787d; border-radius: 4px; background: #1b1d20; color: #f6f7f8; font: inherit; cursor: pointer; }
+.picker button[aria-pressed='true'] { border-color: #8be7bb; color: #8be7bb; }
+.card { position: absolute; inset-block-end: 2rem; left: 0; width: min(26rem, 100%); padding: 1.25rem; background: #1b1d20; border-inline-start: 3px solid #8be7bb; pointer-events: auto; }
+.card h2 { margin-block: .25rem 1rem; font-size: clamp(1.25rem, 3vw, 2rem); }
+.category { color: #c5c9cc; margin: 0; }
+.card a { display: inline-flex; align-items: center; min-height: 44px; padding: .5rem .9rem; color: #1b1d20; background: #8be7bb; border-radius: 4px; }
+.status { background: #1b1d20; padding: .5rem; width: fit-content; }
+.explore { position: absolute; inset-inline: 30%; top: 25%; bottom: 26%; pointer-events: auto; touch-action: pan-y; cursor: grab; border-radius: 4px; }
+.explore span { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: max-content; max-width: 85vw; padding: .4rem .7rem; background: #1b1d20; color: #c5c9cc; font-size: .8rem; text-align: center; }
+.panel button:focus-visible, .panel a:focus-visible, .explore:focus-visible { outline: 3px solid #8be7bb; outline-offset: 3px; }
+.fallback { position: static; padding-top: 6rem; }
+.list { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); margin-top: 1rem; }
+.list .card { position: static; width: 100%; }
+@media (max-width: 600px) {
+  .panel { top: 4rem; min-height: calc(100svh - 5rem); }
+  .picker { gap: .25rem; }
+  .picker button { font-size: .75rem; padding: .35rem .5rem; }
+  .card { padding: .75rem; inset-block-end: 0; width: 100%; }
+  .card h2 { margin-bottom: .25rem; }
+  .explore { inset-inline: 12%; top: 26%; bottom: 31%; }
+}
+@media (prefers-reduced-motion: reduce) { .panel { position: relative; top: 0; padding-top: 5rem; } }
