@@ -1,3 +1,4 @@
+import { seekJump } from './motion-helpers';
 import { expect, test } from '@playwright/test';
 
 test('all boundaries mount both scenes, reverse, and release after a rapid seek', async ({ page }) => {
@@ -14,8 +15,8 @@ test('all boundaries mount both scenes, reverse, and release after a rapid seek'
     }, { scene, local });
   }
   for (let i = 0; i < 6; i++) {
-    for (const [scene, local] of [[ids[i], .95], [ids[i + 1], .05], [ids[i], .95]] as const) {
-      await seek(scene, local);
+    for (const t of [.2, .7, .2]) {
+      await seekJump(page, i, t, true);
       await expect.poll(() => page.evaluate(() => window.__namiDebug?.().mountedScenes), { timeout: 30_000 }).toEqual([ids[i], ids[i + 1]]);
       await expect.poll(() => page.evaluate(() => window.__namiDebug?.().transition?.id)).toBe(`${ids[i]}->${ids[i + 1]}`);
       await expect(host).toHaveAttribute('data-ready', 'true');

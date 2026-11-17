@@ -22,7 +22,7 @@ export function LivingCursor() {
       stopGrab();
       const target = event.target instanceof Element ? event.target : null;
       const scene = useExperienceStore.getState().scene;
-      if (event.button !== 0 || !['s01', 's06', 's07'].includes(scene) || !target?.closest(`#${scene}`) || target.closest('a, button, input, textarea, select, [role="button"]')) return;
+      if (event.button !== 0 || !['s01', 's06', 's07'].includes(scene) || !target?.closest(`#${scene}, [data-overlay-scene="${scene}"]`) || target.closest('a, button, input, textarea, select, [role="button"]')) return;
       grabTimer = window.setTimeout(() => { if (useExperienceStore.getState().scene === scene) useExperienceStore.setState({ cursorGrab: true }); }, 400);
     }
     window.addEventListener('pointerdown', down); window.addEventListener('pointerup', stopGrab);

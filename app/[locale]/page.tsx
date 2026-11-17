@@ -17,6 +17,7 @@ import { Explore } from '@/experience/scenes/s04/Explore';
 import { ExperienceControls } from '@/experience/ExperienceControls';
 import styles from './page.module.css';
 import type { CSSProperties } from 'react';
+import { OverlayRoot, SceneOverlay } from '@/experience/overlays';
 
 export async function generateMetadata({
   params,
@@ -65,13 +66,14 @@ export default async function Home({
 
   return (
     <main id="main" className={styles.main}>
+      <OverlayRoot />
       {/* S01 — Hero (M2-04 Awakening markup) */}
       <section
         id="s01"
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[0] } as CSSProperties}
       >
-        <div className={`${styles.content} ${styles.hero}`}>
+        <SceneOverlay id="s01"><div className={`${styles.content} ${styles.hero}`}>
           <h1 data-s01-headline>{t('heading')}</h1>
           <p className={styles.subtitle}>{t('subtitle')}</p>
           <ExperienceControls services={services.map(service => typeof service.title === 'string' ? service.title : '').filter(Boolean)} />
@@ -88,7 +90,7 @@ export default async function Home({
           >
             {t('skipIntro')}
           </button>
-        </div>
+        </div></SceneOverlay>
       </section>
 
       {/* S02 — Transition */}
@@ -97,10 +99,10 @@ export default async function Home({
         className={styles.section}
         style={{ '--budget': SCROLL_BUDGETS[1] } as CSSProperties}
       >
-        <div className={styles.content}>
+        <SceneOverlay id="s02"><div className={styles.content}>
           <h2 className={styles.sectionTitle}>{t('transitionTitle')}</h2>
           <p className={styles.lead}>{t('transitionText')}</p>
-        </div>
+        </div></SceneOverlay>
       </section>
 
       {/* S03 — Services */}

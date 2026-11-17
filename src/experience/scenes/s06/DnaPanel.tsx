@@ -4,6 +4,8 @@ import { useExperienceStore } from '../../store';
 import styles from './panel.module.css';
 import { TimeMachine } from '../../timemachine/TimeMachine';
 import type { Milestone } from '../../timemachine/timeline';
+import { SCROLL_MAP } from '../../scroll-map';
+import type { CSSProperties } from 'react';
 
 export type DnaValue = {
   id: string;
@@ -25,6 +27,8 @@ export type DnaPanelProps = {
 };
 
 export function DnaPanel({ locale, values, labels, milestones, timeMachineLabels }: DnaPanelProps) {
+  const enhanced = useExperienceStore(state => state.profile.motion === 'full' && state.profile.renderer === 'webgl');
+  const active = useExperienceStore(state => state.scene === 's06');
   const activeIndex = useExperienceStore(state => state.dnaValueIndex);
   const activeValue = values[activeIndex] ?? values[0];
   const activeValueName = activeValue?.name ?? '';
@@ -38,7 +42,7 @@ export function DnaPanel({ locale, values, labels, milestones, timeMachineLabels
     : 'Launch Time Machine to explore Nami history';
 
   return (
-    <div className={styles.panel}>
+    <div data-scene-panel="s06" data-enhanced={enhanced} data-active={active} inert={enhanced && !active} style={{ '--tail': SCROLL_MAP[5].tail } as CSSProperties} className={styles.panel}>
       <header className={styles.header}>
         <h2 className={styles.title}>{labels.valuesHeading}</h2>
       </header>

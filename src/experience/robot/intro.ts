@@ -4,16 +4,14 @@ export type IntroDirective = Extract<RobotDirective, { kind: 'clip' }>;
 export const INTRO_END = 4.6;
 
 export function createIntroClock() {
-  let startedAt: number | null = null;
   let cancelled = false;
   return {
     get cancelled() { return cancelled; },
     cancel() { cancelled = true; },
-    sample(now: number, reduced = false): number | undefined {
+    sample(introTime: number, reduced = false): number | undefined {
       if (reduced) cancelled = true;
       if (cancelled) return undefined;
-      startedAt ??= now;
-      const elapsed = now - startedAt - 0.15;
+      const elapsed = introTime - 0.15;
       if (elapsed >= INTRO_END) { cancelled = true; return undefined; }
       return elapsed;
     },

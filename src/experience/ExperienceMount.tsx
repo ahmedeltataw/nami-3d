@@ -13,6 +13,7 @@ export default function ExperienceMount() {
   const [configuration, setConfiguration] = useState<{ profile: Profile; mobile: boolean; dpr: number } | null>(null);
   const scene = useExperienceStore(state => state.scene);
   const ready = useExperienceStore(state => state.ui.ready);
+  const posterScene = useExperienceStore(state => state.ui.posterScene ?? state.scene);
   const renderer = useExperienceStore(state => state.profile.renderer);
   useEffect(() => {
     const media = matchMedia('(prefers-reduced-motion: reduce)');
@@ -50,7 +51,7 @@ export default function ExperienceMount() {
     return () => { cancelled = true; dispose?.(); };
   }, []);
   return <div className={styles.host} data-experience data-scene={scene} data-ready={ready} data-renderer={renderer} aria-hidden="true">
-    <div className={`${styles.poster} ${ready ? styles.hidden : ''}`} style={configuration ? { backgroundImage: `url(/posters/${scene}.svg)` } : undefined}>
+    <div className={`${styles.poster} ${ready ? styles.hidden : ''}`} style={configuration ? { backgroundImage: `url(/posters/${posterScene}.svg)` } : undefined}>
       {!configuration && <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
         <ellipse cx="600" cy="655" rx="120" ry="12" fill="#f6f7f8" />
         <path d="M535 436 Q520 600 600 620 Q680 600 665 436Z" fill="#f6f7f8" stroke="#d9dcdf" strokeWidth="3" />

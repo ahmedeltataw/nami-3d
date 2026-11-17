@@ -1,3 +1,4 @@
+import { SCROLL_MAP, localForBody } from '../../src/experience/scroll-map';
 import { expect, test } from '@playwright/test';
 
 test('cold #s05 loads its destination first, renders WebGL and seeks every hash on one canvas', async ({ page }) => {
@@ -24,7 +25,7 @@ test('cold #s05 loads its destination first, renders WebGL and seeks every hash 
     await expect(host).toHaveAttribute('data-scene', id);
     await expect(host).toHaveAttribute('data-ready', 'true');
     await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveAttribute('data-persistent', 'original');
-    expect(await page.locator(`#${id}`).evaluate(element => Math.abs(element.getBoundingClientRect().top))).toBeLessThan(2);
+    expect(await page.locator(`#${id}`).evaluate((element, tail) => Math.abs(element.getBoundingClientRect().top + innerHeight * tail / 100), SCROLL_MAP[index - 1].tail)).toBeLessThan(2);
   }
   await page.goBack();
   await expect(host).toHaveAttribute('data-scene', 's06');
@@ -144,19 +145,19 @@ test('mid-scene progress survives motion changes and reload', async ({ page }) =
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
   await waitForLayout('full');
   await page.locator('canvas:not([data-s01-energy-line])').evaluate(canvas => canvas.setAttribute('data-persistent', 'original'));
-  await page.evaluate(() => window.scrollBy(0, innerHeight * 4.8 * 0.4));
+  await page.evaluate(body => window.scrollBy(0, innerHeight * body / 100 * .4), SCROLL_MAP[4].body);
   await expect.poll(() => page.evaluate(() => history.state?.__namiExperience?.local as number)).toBeCloseTo(0.4, 2);
   for (const motion of ['reduce', 'no-preference'] as const) {
     await page.emulateMedia({ reducedMotion: motion });
     await expect(page.locator('html')).toHaveAttribute('data-motion', motion === 'reduce' ? 'reduced' : 'full');
     await waitForLayout(motion === 'reduce' ? 'reduced' : 'full');
-    await expect.poll(() => page.locator('#s05').evaluate(section => -section.getBoundingClientRect().top / section.getBoundingClientRect().height)).toBeCloseTo(0.4, 2);
+    await expect.poll(() => page.locator('#s05').evaluate(section => -section.getBoundingClientRect().top / section.getBoundingClientRect().height)).toBeCloseTo(motion === 'reduce' ? .4 : localForBody('s05', .4), 2);
     await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveAttribute('data-persistent', 'original');
   }
   await page.reload();
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
   await waitForLayout('full');
-  await expect.poll(() => page.locator('#s05').evaluate(section => -section.getBoundingClientRect().top / section.getBoundingClientRect().height)).toBeCloseTo(0.4, 2);
+  await expect.poll(() => page.locator('#s05').evaluate(section => -section.getBoundingClientRect().top / section.getBoundingClientRect().height)).toBeCloseTo(localForBody('s05', .4), 2);
 });
 
 test('HTML and scene links exist before JavaScript', async ({ browser }) => {

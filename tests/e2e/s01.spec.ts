@@ -1,3 +1,4 @@
+import { scrollBody } from './motion-helpers';
 import { expect, test } from '@playwright/test';
 import Home from '../../src/messages/Home.ar.json';
 
@@ -31,7 +32,7 @@ test('S01 renders the robot, keyboard skip ends the intro, and 60% scroll dollie
   expect(await page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2, 2);
   await page.screenshot({ path: 'tests/e2e/__screens__/s01-start.png' });
 
-  await page.evaluate(() => window.scrollTo(0, document.getElementById('s01')!.offsetHeight * 0.6));
+  await scrollBody(page, 's01', .6);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().local)).toBeCloseTo(0.6, 2);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2 - 1.6 / 9, 2);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().robot)).toMatchObject({ name: 'ChargeEnergy', timeSeconds: 0 });
@@ -52,7 +53,7 @@ test('intro and scroll draw a canvas line and reveal the real HTML headline', as
   await expect(page.getByRole('link', { name: 'Start your project', exact: true }).first()).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().introCancelled)).toBe(true);
   await expect(line).toHaveCSS('opacity', '0');
-  await page.evaluate(() => window.scrollTo(0, document.getElementById('s01')!.offsetHeight * .18));
+  await scrollBody(page, 's01', .18);
   await expect(line).toHaveCSS('opacity', '1');
   await expect.poll(() => page.locator('[data-s01-headline]').evaluate(element => getComputedStyle(element).clipPath)).not.toBe('inset(0px 0% 0px 0px)');
   const visiblePixels = await line.evaluate((canvas: HTMLCanvasElement) => {
@@ -60,7 +61,7 @@ test('intro and scroll draw a canvas line and reveal the real HTML headline', as
     return pixels.some((value, i) => i % 4 === 3 && value > 0);
   });
   expect(visiblePixels).toBe(true);
-  await page.evaluate(() => window.scrollTo(0, document.getElementById('s01')!.offsetHeight * .35));
+  await scrollBody(page, 's01', .35);
   await expect(line).toHaveCSS('opacity', '0');
 });
 
@@ -95,7 +96,7 @@ test('reduced motion opens at the end state without an intro or continuous dolly
   expect(await page.evaluate(() => window.__namiDebug!().introCancelled)).toBe(true);
   expect(await page.evaluate(() => window.__namiDebug!().robot)).toEqual({ kind: 'pose', name: 'rest' });
   await expect(page.getByRole('button', { name: 'تخطّي المقدمة', exact: true })).toBeHidden();
-  await page.evaluate(() => window.scrollTo(0, document.getElementById('s01')!.offsetHeight * 0.6));
+  await scrollBody(page, 's01', .6);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().local)).toBeCloseTo(0.6, 2);
   expect(await page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2, 2);
 });

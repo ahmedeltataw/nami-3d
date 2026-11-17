@@ -27,6 +27,8 @@ export function FuturePanel({
   options,
   contactCta,
 }: FuturePanelProps) {
+  const pinned = useExperienceStore(state => state.profile.motion === 'full' && state.profile.renderer === 'webgl');
+  const active = useExperienceStore(state => state.scene === 's07');
   const projectType = useExperienceStore(state => state.projectType);
   const setProjectType = useExperienceStore(state => state.setProjectType);
 
@@ -60,7 +62,7 @@ export function FuturePanel({
   const selectedOption = options.find(opt => opt.id === projectType);
 
   return (
-    <div className={styles.panel} lang={locale}>
+    <div data-scene-panel="s07" data-pinned={pinned} data-active={active} inert={pinned && !active} className={styles.panel} lang={locale}>
       <div className={styles.headingGroup}>
         <h2 className={styles.title}>{heading}</h2>
         <p className={styles.subtitle}>{subtitle}</p>

@@ -5,7 +5,7 @@ import type { Object3D, Vector3 } from 'three';
 export const assemblyOrder = ['Frame', 'BackPlate', 'Buttons', 'Board', 'Battery', 'Speaker', 'CameraModule', 'Glass', 'Display'] as const;
 export const displayStages = ['layout', 'nav', 'type', 'components', 'images', 'colors', 'final'] as const;
 export type PhonePart = { node: Object3D; assembled: Vector3; offset: Vector3; order: number };
-export type PhoneCtx = Ctx & { parts: PhonePart[]; drawDisplay: (stage: number, blend: number) => void };
+export type PhoneCtx = Ctx & { model?: Object3D; parts: PhonePart[]; drawDisplay: (stage: number, blend: number) => void };
 const smooth = (n: number) => { const t = clamp(n); return t * t * (3 - 2 * t); };
 export function assemblyProgress(local: number, order: number) {
   if (order === 0) return 1;
@@ -34,11 +34,11 @@ export const scene: SceneDef = {
   apply(snapshot, context) {
     const phone = context as PhoneCtx;
     const local = Number(snapshot.visual.local);
-    phone.root.visible = Boolean(snapshot.visual.visible);
+    if (phone.model) phone.model.visible = Boolean(snapshot.visual.visible);
     for (const part of phone.parts ?? []) {
       const progress = assemblyProgress(local, part.order);
       part.node.position.copy(part.assembled).addScaledVector(part.offset, 1 - progress);
-      if (!context.reducedMotion && local >= .1 && local < .25 && part.order > 0) part.node.position.y += Math.sin(context.ambient * 1.2 + part.order) * .025;
+      if (!context.reducedMotion && local >= .1 && local < .25 && part.order > 0) part.node.position.y += Math.sin(context.ambient * 1.2 + part.order) * .025 * (context.ambientWeight ?? 1);
     }
     phone.drawDisplay?.(Number(snapshot.visual.displayStage), Number(snapshot.visual.displayBlend));
   },
