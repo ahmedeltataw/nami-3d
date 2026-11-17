@@ -1,0 +1,102 @@
+{
+  "file": "s07_future_v2.glb",
+  "source": "assets-model/s07_future_v2.blend (Workflow v2, live Blender; built by assets-model/scripts/s07_future_v2.py build())",
+  "review": "Muse APPROVED pass1 2026-11-17 (nami-muse-inbox captures/S07-BL/pass1/review.md); blockout pass2 fixes verified (robot planted, trail continuous)",
+  "units": "metres; glTF +Y up; robot stands on the rock at y=0 (root sunk 0.06 so the dome bottom rests in the rock)",
+  "tris_total": 33494,
+  "tris_note": "scene only (rocks decimated to 45% on export); robot is the runtime model (~39k) -> ~72k with robot, budget 100k",
+  "size_bytes": 4961620,
+  "size_note": "~5 MB, mostly the embedded s07_sky_city.png matte painting; compress to KTX2/WebP in the build step",
+  "backdrop": {
+    "object": "S07_sky_city",
+    "texture": "textures/s07_sky_city.png (Codex IMG-S07, 2048x1152)",
+    "note": "shadeless card fitted to the hero camera frustum at 900 m; UV = frame coords. Shader grade (Blender only): zenith x0.36 above frame y 0.30, bottom-right cloud corner x0.34. Reproduce in three.js as a MeshBasicMaterial with the same gradient multiply, or bake the grade into the image; exclude from fog and depth-write"
+  },
+  "camera_hero": {
+    "position_gltf": [
+      -5.5,
+      0.1,
+      17.0
+    ],
+    "look_dir_gltf": [
+      0.498,
+      0.093,
+      -0.862
+    ],
+    "vertical_fov_deg": 22.92,
+    "lens_mm": 50.0,
+    "sensor_mm": 36,
+    "aspect": "1671x941 (16:9)",
+    "clip": [
+      0.1,
+      3000
+    ]
+  },
+  "robot": {
+    "root_gltf": [
+      0.0,
+      -0.06,
+      0.0
+    ],
+    "yaw_deg": 150.0,
+    "pose": "rest pose (arms down), back to camera facing the city",
+    "runtime_note": "ref robot carries a green N on its back (RB-ROBOT)"
+  },
+  "rocks": [
+    "S07_rock_pedestal",
+    "S07_rock_ledge",
+    "S07_rock_fg_L",
+    "S07_rock_fg_M"
+  ],
+  "rock_note": "albedo in vertex colour COLOR_0 (moss/lichen); the Blender bump is procedural and not exported - add a tiling rock normal map at runtime",
+  "vegetation": {
+    "grass": "S07_grass (vertex-colour blades, double-sided)",
+    "tree": [
+      "S07_tree_branch",
+      "S07_tree_leaves (double-sided, vertex colour, translucent-ish)"
+    ]
+  },
+  "logo": {
+    "objects": [
+      "S07_N",
+      "S07_N_rim_front",
+      "S07_N_rim_back"
+    ],
+    "centre_gltf": [
+      37.18,
+      10.15,
+      -26.86
+    ],
+    "note": "M_Glass_N: semi-transparent mint glass (alpha ~0.6) + fresnel emission #2FE3A2; rims are additive emissive tubes (front 5.0, back 0.5)"
+  },
+  "orbit": {
+    "objects": [
+      "S07_orbit",
+      "S07_orbit_arc1",
+      "S07_orbit_arc2"
+    ],
+    "centre_gltf": [
+      36.49,
+      8.94,
+      -27.39
+    ],
+    "note": "additive emissive; ring 4.0, arcs 2.2 - candidates for a slow runtime spin"
+  },
+  "trail": {
+    "objects": [
+      "S07_trail",
+      "S07_trail_halo"
+    ],
+    "note": "additive emissive; core #2FE6C8 0.55, halo #19C37D 0.25; traced to the ref frame path at y=-30 (bay level)"
+  },
+  "runtime_shaders": "M_Trail/M_Trail_Halo/M_Orbit_S07/M_Orbit_Arc/M_N_Rim_* are additive (AdditiveBlending, depthWrite false); M_Glass_N transparent; M_Sky_City unlit",
+  "lighting": "none exported; lit in three.js. Blender review look: Standard, no look, Glare bloom; sun (warm 1.0,0.70,0.45, energy 14, from the right at 10 deg elevation, az toward the sun 45 deg right of +Y-forward), cool fill area 300 W from camera-left, world dusk blue 0.10,0.14,0.20 x2. Sun excluded from the N and robot ear discs/face; fill excluded from the tree. No world haze volume (EEVEE world volume blocks the sun)",
+  "html_overlay": "title, subtitle, 4 service cards, 2 buttons and nav are HTML over the calm sky band x 0.33-0.90, y 0.10-0.70",
+  "open_notes": [
+    "robot reads flatter/whiter than the ref (117%) - runtime robot materials",
+    "ref N slightly more luminous inside + faint light column under it",
+    "ref rock tops catch more warm sun",
+    "no near cloud wisps (clouds come from the matte)",
+    "curve-derived mesh data carries .00N suffixes (node names are clean)"
+  ]
+}

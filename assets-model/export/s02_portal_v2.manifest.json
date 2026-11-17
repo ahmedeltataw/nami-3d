@@ -1,0 +1,33 @@
+{
+  "file": "s02_portal_v2.glb",
+  "source": "assets-model/s02_portal_v2.blend (Workflow v2, live Blender; rebuilt by assets-model/scripts/s02_portal_v2.py build())",
+  "review": "Muse APPROVED pass2 2026-11-17 (nami-muse-inbox captures/S02-BL/pass2)",
+  "units": "metres; glTF +Y up; floor y=-1.0 (portal sits on it; robot hovers above)",
+  "tris_total": 42840,
+  "tris_note": "scene only; robot is the runtime model (~39k) -> ~82k with robot, budget 100k",
+  "textures": ["s02_lab_portal.png (Codex IMG-S02, embedded, unlit emissive disc at tunnel end, M_Lab_View)"],
+  "lighting": "none exported; lit in three.js. Blender review look: Standard + Medium High Contrast, exposure 0, Glare bloom threshold 0.9 strength 0.35 size 0.6, volume haze 0.004 colour (0.3,0.62,0.4), DOF f/1.0 focus 8 m, amber point light under robot bottom-left, green area light over floor rings",
+  "camera_hero": {
+    "position_gltf": [0.0, 2.4, 0.0],
+    "look_dir_gltf": [0.0, 0.0, -1.0],
+    "vertical_fov_deg": 73.74,
+    "lens_mm": 16,
+    "aspect": "1672x941"
+  },
+  "robot": {"root_gltf": [-1.72, 0.19, -5.1], "yaw_deg": -25, "note": "runtime robot, reach pose + N orb + lightning are runtime FX"},
+  "portal": {
+    "root": "S02_portal",
+    "centre_gltf": [4.5, 3.6, -10.5],
+    "yaw_deg": -15,
+    "nodes": ["S02_portal_housing", "S02_portal_inlays", "S02_portal_frame", "S02_portal_glow", "S02_portal_core_ring", "S02_emblem_housing", "S02_emblem_logo"],
+    "tunnel": ["S02_tunnel_0", "S02_tunnel_1", "S02_tunnel_2", "S02_tunnel_3", "S02_tunnel_4", "S02_tunnel_5", "S02_tunnel_sleeve"],
+    "lab_view": "S02_lab_view"
+  },
+  "floor": ["S02_floor", "S02_floor_rings"],
+  "backdrop": ["S02_backdrop_wall", "S02_backdrop_bars"],
+  "fx_static": ["S02_fx_swirl_0", "S02_fx_swirl_1", "S02_fx_swirl_2"],
+  "materials": {
+    "emissive": ["M_Emissive_Emerald", "M_Emissive_Mint", "M_Emissive_Core", "M_Emissive_Logo", "M_Emissive_Warm", "M_Emissive_FloorRing", "M_Emissive_Bar", "M_FX_Swirl", "M_Lab_View"],
+    "surface": ["M_Metal_Gunmetal", "M_Metal_Plate", "M_Metal_Dark", "M_Floor_Gloss_S02", "M_Wall_Teal_S02"]
+  }
+}

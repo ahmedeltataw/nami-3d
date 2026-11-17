@@ -1,0 +1,223 @@
+{
+  "file": "s03_lab_v2.glb",
+  "source": "assets-model/s03_lab_v2.blend (Workflow v2, live Blender; parts from assets-model/scripts/parts_lib.py, cards/icons from s03_lab_v2.py)",
+  "review": "Muse APPROVED pass4 2026-11-17 (nami-muse-inbox captures/S03-BL/pass4)",
+  "units": "metres; glTF +Y up; floor y=0",
+  "tris_total": 97550,
+  "triangle_budget": 100000,
+  "textures": [
+    "s03_city_backdrop.png (Codex, embedded, unlit emissive backdrop)",
+    "s03_plant_fg.png (Codex, embedded, brightness-keyed foreground cards)"
+  ],
+  "lighting": "none exported; lit in three.js. Blender review look: Standard + Medium High Contrast, exposure -0.4, Glare bloom threshold 0.9, volume fog 0.0035 #4D8C85, emerald key from ring, warm daylight from windows",
+  "bounds_gltf": {
+    "min": [
+      -40.0,
+      -2.0,
+      40.0
+    ],
+    "max": [
+      40.0,
+      14.0,
+      -40.0
+    ]
+  },
+  "camera_hero": {
+    "position_gltf": [
+      0.15,
+      4.0,
+      10.6
+    ],
+    "look_dir_gltf": [
+      0.0,
+      -0.0941,
+      -0.9956
+    ],
+    "vertical_fov_deg": 50.46,
+    "lens_mm": 21.5,
+    "aspect": "1672x941"
+  },
+  "robot": {
+    "root_gltf": [
+      0,
+      1.0,
+      0
+    ],
+    "note": "runtime robot hovers over S03_platform centre"
+  },
+  "platform": {
+    "node": "S03_platform",
+    "logo": [
+      "S03_platform_ndisc",
+      "S03_platform_logo"
+    ],
+    "centre_gltf": [
+      0,
+      0,
+      0.3
+    ]
+  },
+  "ceiling": [
+    "S03_ceiling_ring",
+    "S03_ceiling_warm"
+  ],
+  "arms": [
+    "S03_arm_L",
+    "S03_arm_R"
+  ],
+  "room": [
+    "S03_floor",
+    "S03_wall",
+    "S03_ceiling",
+    "S03_floor_strips"
+  ],
+  "backdrop": "S03_backdrop_city",
+  "foreground": [
+    "S03_fg_plant_L",
+    "S03_fg_plant_R"
+  ],
+  "cards": [
+    {
+      "id": "cloud",
+      "node": "S03_panel_cloud",
+      "pedestal": "S03_pedestal_cloud",
+      "icon_prefix": "S03_ic_cloud_",
+      "button_prefix": "S03_ic_btn_cloud_",
+      "label_anchor": "Label_cloud",
+      "position_gltf": [
+        -8.233,
+        0.45,
+        -1.879
+      ],
+      "yaw_deg": -10.7,
+      "size_m": [
+        2.551,
+        3.439
+      ]
+    },
+    {
+      "id": "chart",
+      "node": "S03_panel_chart",
+      "pedestal": "S03_pedestal_chart",
+      "icon_prefix": "S03_ic_chart_",
+      "button_prefix": "S03_ic_btn_chart_",
+      "label_anchor": "Label_chart",
+      "position_gltf": [
+        -5.729,
+        0.45,
+        -2.968
+      ],
+      "yaw_deg": -7.45,
+      "size_m": [
+        2.044,
+        3.3
+      ]
+    },
+    {
+      "id": "phone",
+      "node": "S03_panel_phone",
+      "pedestal": "S03_pedestal_phone",
+      "icon_prefix": "S03_ic_phone_",
+      "button_prefix": "S03_ic_btn_phone_",
+      "label_anchor": "Label_phone",
+      "position_gltf": [
+        -3.378,
+        0.45,
+        -3.885
+      ],
+      "yaw_deg": -4.3,
+      "size_m": [
+        2.088,
+        3.476
+      ]
+    },
+    {
+      "id": "code",
+      "node": "S03_panel_code",
+      "pedestal": "S03_pedestal_code",
+      "icon_prefix": "S03_ic_code_",
+      "button_prefix": "S03_ic_btn_code_",
+      "label_anchor": "Label_code",
+      "position_gltf": [
+        3.725,
+        0.45,
+        -4.134
+      ],
+      "yaw_deg": 4.6,
+      "size_m": [
+        2.562,
+        4.22
+      ]
+    },
+    {
+      "id": "layers",
+      "node": "S03_panel_layers",
+      "pedestal": "S03_pedestal_layers",
+      "icon_prefix": "S03_ic_layers_",
+      "button_prefix": "S03_ic_btn_layers_",
+      "label_anchor": "Label_layers",
+      "position_gltf": [
+        6.446,
+        0.45,
+        -2.968
+      ],
+      "yaw_deg": 8.2,
+      "size_m": [
+        2.214,
+        3.3
+      ]
+    },
+    {
+      "id": "headphones",
+      "node": "S03_panel_headphones",
+      "pedestal": "S03_pedestal_headphones",
+      "icon_prefix": "S03_ic_headphones_",
+      "button_prefix": "S03_ic_btn_headphones_",
+      "label_anchor": "Label_headphones",
+      "position_gltf": [
+        8.681,
+        0.45,
+        -1.611
+      ],
+      "yaw_deg": 11.3,
+      "size_m": [
+        2.248,
+        3.535
+      ]
+    }
+  ],
+  "materials": [
+    "M_Arm_Accent",
+    "M_Arm_Metal",
+    "M_Backdrop_City",
+    "M_Card_Edge",
+    "M_Card_Glass",
+    "M_Ceiling_Dark",
+    "M_Chrome",
+    "M_Chrome_Silver",
+    "M_Emissive_Emerald",
+    "M_Emissive_EmeraldSoft",
+    "M_Emissive_FloorStrip",
+    "M_Emissive_MintOff",
+    "M_Emissive_WarmTrim",
+    "M_Floor_Gloss",
+    "M_Icon_Blue",
+    "M_Icon_Dark",
+    "M_Icon_Green",
+    "M_Icon_Green2",
+    "M_Icon_Orange",
+    "M_Icon_Pink",
+    "M_Icon_Purple",
+    "M_Icon_White",
+    "M_Logo_Disc",
+    "M_Metal_Dark",
+    "M_Metal_DarkChrome",
+    "M_Mullion",
+    "M_Plant_Card",
+    "M_Plastic_Dark",
+    "M_Plastic_White",
+    "M_Ring_Segment",
+    "M_Wall_Teal",
+    "M_Wall_Teal2"
+  ]
+}
