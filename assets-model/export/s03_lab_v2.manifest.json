@@ -3,7 +3,7 @@
   "source": "assets-model/s03_lab_v2.blend (Workflow v2, live Blender; parts from assets-model/scripts/parts_lib.py, cards/icons from s03_lab_v2.py)",
   "review": "Muse APPROVED pass4 2026-11-17 (nami-muse-inbox captures/S03-BL/pass4)",
   "units": "metres; glTF +Y up; floor y=0",
-  "tris_total": 97550,
+  "tris_total": 76628,
   "triangle_budget": 100000,
   "textures": [
     "s03_city_backdrop.png (Codex, embedded, unlit emissive backdrop)",
@@ -219,5 +219,497 @@
     "M_Ring_Segment",
     "M_Wall_Teal",
     "M_Wall_Teal2"
-  ]
+  ],
+  "triangles_by_mesh": {
+    "S03_arm_L": {
+      "before": 3804,
+      "after": 3804
+    },
+    "S03_arm_R": {
+      "before": 3804,
+      "after": 3804
+    },
+    "S03_backdrop_city": {
+      "before": 192,
+      "after": 192
+    },
+    "S03_ceiling": {
+      "before": 380,
+      "after": 380
+    },
+    "S03_ceiling_ring": {
+      "before": 9920,
+      "after": 7142
+    },
+    "S03_ceiling_warm": {
+      "before": 264,
+      "after": 264
+    },
+    "S03_fg_plant_L": {
+      "before": 2,
+      "after": 2
+    },
+    "S03_fg_plant_R": {
+      "before": 2,
+      "after": 2
+    },
+    "S03_floor": {
+      "before": 2,
+      "after": 2
+    },
+    "S03_floor_strips": {
+      "before": 720,
+      "after": 720
+    },
+    "S03_ic_btn_chart_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_btn_chart_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_btn_chart_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_btn_chart_3": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_btn_cloud_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_btn_cloud_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_btn_cloud_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_btn_cloud_3": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_btn_code_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_btn_code_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_btn_code_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_btn_code_3": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_btn_headphones_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_btn_headphones_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_btn_headphones_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_btn_headphones_3": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_btn_layers_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_btn_layers_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_btn_layers_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_btn_layers_3": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_btn_phone_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_btn_phone_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_btn_phone_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_btn_phone_3": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_chart_0": {
+      "before": 12,
+      "after": 12
+    },
+    "S03_ic_chart_1": {
+      "before": 12,
+      "after": 12
+    },
+    "S03_ic_chart_2": {
+      "before": 12,
+      "after": 12
+    },
+    "S03_ic_chart_3": {
+      "before": 72,
+      "after": 72
+    },
+    "S03_ic_chart_4": {
+      "before": 8,
+      "after": 8
+    },
+    "S03_ic_cloud_0": {
+      "before": 144,
+      "after": 144
+    },
+    "S03_ic_cloud_1": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_cloud_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_code_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_code_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_code_2": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_code_3": {
+      "before": 36,
+      "after": 36
+    },
+    "S03_ic_code_4": {
+      "before": 36,
+      "after": 36
+    },
+    "S03_ic_code_5": {
+      "before": 36,
+      "after": 36
+    },
+    "S03_ic_code_6": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_code_7": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_code_8": {
+      "before": 24,
+      "after": 24
+    },
+    "S03_ic_headphones_0": {
+      "before": 576,
+      "after": 576
+    },
+    "S03_ic_headphones_1": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_headphones_2": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_headphones_3": {
+      "before": 48,
+      "after": 48
+    },
+    "S03_ic_headphones_4": {
+      "before": 44,
+      "after": 44
+    },
+    "S03_ic_layers_0": {
+      "before": 12,
+      "after": 12
+    },
+    "S03_ic_layers_1": {
+      "before": 12,
+      "after": 12
+    },
+    "S03_ic_layers_2": {
+      "before": 12,
+      "after": 12
+    },
+    "S03_ic_phone_0": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_1": {
+      "before": 672,
+      "after": 672
+    },
+    "S03_ic_phone_10": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_2": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_3": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_4": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_5": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_6": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_7": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_8": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_ic_phone_9": {
+      "before": 108,
+      "after": 108
+    },
+    "S03_panel_chart": {
+      "before": 1004,
+      "after": 1004
+    },
+    "S03_panel_cloud": {
+      "before": 1004,
+      "after": 1004
+    },
+    "S03_panel_code": {
+      "before": 1004,
+      "after": 1004
+    },
+    "S03_panel_headphones": {
+      "before": 1004,
+      "after": 1004
+    },
+    "S03_panel_layers": {
+      "before": 1004,
+      "after": 1004
+    },
+    "S03_panel_phone": {
+      "before": 1004,
+      "after": 1004
+    },
+    "S03_pedestal_chart": {
+      "before": 8052,
+      "after": 5028
+    },
+    "S03_pedestal_cloud": {
+      "before": 8052,
+      "after": 5028
+    },
+    "S03_pedestal_code": {
+      "before": 8052,
+      "after": 5028
+    },
+    "S03_pedestal_headphones": {
+      "before": 8052,
+      "after": 5028
+    },
+    "S03_pedestal_layers": {
+      "before": 8052,
+      "after": 5028
+    },
+    "S03_pedestal_phone": {
+      "before": 8052,
+      "after": 5028
+    },
+    "S03_platform": {
+      "before": 14196,
+      "after": 14196
+    },
+    "S03_platform_logo": {
+      "before": 36,
+      "after": 36
+    },
+    "S03_platform_ndisc": {
+      "before": 380,
+      "after": 380
+    },
+    "S03_wall": {
+      "before": 388,
+      "after": 388
+    }
+  },
+  "triangles_total": 76628,
+  "mo2a_station_camera_keys": {
+    "interpolation": "centripetal Catmull-Rom; transition s=0..0.2",
+    "station_drift": "3 degrees over s=0.2..1",
+    "keys": [
+      {
+        "station": "code",
+        "position_gltf": [
+          2.2040395736694336,
+          4.0,
+          10.362541198730469
+        ],
+        "target_gltf": [
+          1.5644999742507935,
+          2.0,
+          -1.4468998908996582
+        ],
+        "drift_end_position_gltf": [
+          2.7276511192321777,
+          4.0,
+          10.233399391174316
+        ],
+        "drift_deg": 3
+      },
+      {
+        "station": "phone",
+        "position_gltf": [
+          -1.7245782613754272,
+          4.0,
+          10.455704689025879
+        ],
+        "target_gltf": [
+          -1.418760061264038,
+          2.0,
+          -1.3597500324249268
+        ],
+        "drift_end_position_gltf": [
+          -1.190706729888916,
+          4.0,
+          10.532044410705566
+        ],
+        "drift_deg": 3,
+        "transition_midpoint_gltf": [
+          0.325141578912735,
+          4.0,
+          10.40641975402832
+        ]
+      },
+      {
+        "station": "chart",
+        "position_gltf": [
+          -2.9378156661987305,
+          4.0,
+          10.173285484313965
+        ],
+        "target_gltf": [
+          -2.4061801433563232,
+          2.0,
+          -1.0388000011444092
+        ],
+        "drift_end_position_gltf": [
+          -2.417062282562256,
+          4.0,
+          10.313507080078125
+        ],
+        "drift_deg": 3,
+        "transition_midpoint_gltf": [
+          -2.330095052719116,
+          4.0,
+          10.378790855407715
+        ]
+      },
+      {
+        "station": "headphones",
+        "position_gltf": [
+          4.554763317108154,
+          4.0,
+          9.539405822753906
+        ],
+        "target_gltf": [
+          3.64601993560791,
+          2.0,
+          -0.5638499855995178
+        ],
+        "drift_end_position_gltf": [
+          5.032073497772217,
+          4.0,
+          9.288365364074707
+        ],
+        "drift_deg": 3,
+        "transition_midpoint_gltf": [
+          1.0739723443984985,
+          4.0,
+          9.891703605651855
+        ]
+      },
+      {
+        "station": "cloud",
+        "position_gltf": [
+          -4.093779563903809,
+          4.0,
+          9.752696990966797
+        ],
+        "target_gltf": [
+          -3.457859992980957,
+          2.0,
+          -0.6576499938964844
+        ],
+        "drift_end_position_gltf": [
+          -3.5934536457061768,
+          4.0,
+          9.953993797302246
+        ],
+        "drift_deg": 3,
+        "transition_midpoint_gltf": [
+          0.46427738666534424,
+          4.0,
+          9.431295394897461
+        ]
+      },
+      {
+        "station": "layers",
+        "position_gltf": [
+          3.567471981048584,
+          4.0,
+          9.963624954223633
+        ],
+        "target_gltf": [
+          2.707319974899292,
+          2.0,
+          -1.0388000011444092
+        ],
+        "drift_end_position_gltf": [
+          4.068337440490723,
+          4.0,
+          9.76367473602295
+        ],
+        "drift_deg": 3,
+        "transition_midpoint_gltf": [
+          -0.9067175388336182,
+          4.0,
+          9.99429702758789
+        ]
+      }
+    ]
+  }
 }

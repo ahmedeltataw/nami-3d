@@ -143,7 +143,12 @@ def render_views(scene_name, camera_specs, out_dir):
             direction = Vector(spec['target']) - camera.location
             if direction.length == 0:
                 raise ValueError('camera location and target must differ')
-            camera.rotation_euler = direction.to_track_quat('-Z', 'Y').to_euler()
+            if 'rotation_quaternion' in spec:
+                camera.rotation_mode = 'QUATERNION'
+                camera.rotation_quaternion = spec['rotation_quaternion']
+            else:
+                camera.rotation_mode = 'XYZ'
+                camera.rotation_euler = direction.to_track_quat('-Z', 'Y').to_euler()
             camera_data.lens = spec.get('lens', 35)
             path = out / f'{scene_name}-{name}.png'
             preview.render.filepath = str(path.resolve())
