@@ -15,7 +15,7 @@ export class CameraRig {
 
   setPoses(from: CameraPose, to: CameraPose, intent: CameraIntent) {
     const t = Math.max(0, Math.min(1, intent.blend));
-    const eased = t * t * (3 - 2 * t);
+    const eased = t;
     this.fromPosition.fromArray(from.position);
     this.fromQuaternion.fromArray(from.quaternion);
     this.position.fromArray(to.position).lerp(this.fromPosition, 1 - eased);

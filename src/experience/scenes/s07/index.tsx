@@ -1,12 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { Group, type Material } from 'three';
 import { useFrame } from '@react-three/fiber';
 import type { Ctx, SceneId } from '../../contracts';
 import type { AssetResidency } from '../../assets/residency';
 import { useExperienceStore } from '../../store';
 import { createChoiceStateMachine, type ChoiceId } from './state';
+import { gsap } from 'gsap';
+import { ambientAngle } from '../../ambient';
+import { useMotionRuntime } from '../../RuntimeContext';
 
 export default function S07Scene({
   register,
@@ -15,6 +18,7 @@ export default function S07Scene({
   residency?: AssetResidency | null;
   onError?: () => void;
 }) {
+  const runtime = useMotionRuntime();
   const root = useRef<Group>(null);
   const coreRef = useRef<Group>(null);
   const shapesRef = useRef<Group>(null);
@@ -25,7 +29,19 @@ export default function S07Scene({
   const otherRef = useRef<Group>(null);
 
   const stateMachine = useMemo(() => createChoiceStateMachine(), []);
-  const lastChoiceRef = useRef<ChoiceId | null>(null);
+  const choice = useExperienceStore(state => state.projectType);
+  const motion = useExperienceStore(state => state.profile.motion);
+  const proxy = useMemo(() => ({ progress: 0 }), []);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      if (choice && ['website', 'mobile', 'marketing', 'other'].includes(choice)) {
+        stateMachine.select(choice as ChoiceId, 0);
+        proxy.progress = 0;
+        gsap.to(proxy, { progress: 1, duration: motion === 'reduced' ? 0 : .9, ease: 'none' });
+      } else { stateMachine.reset(); proxy.progress = 0; }
+    });
+    return () => ctx.revert();
+  }, [choice, motion, proxy, stateMachine]);
 
   useEffect(() => {
     if (!root.current) return;
@@ -37,27 +53,15 @@ export default function S07Scene({
     };
   }, [register]);
 
-  useFrame((state) => {
-    const store = useExperienceStore.getState();
-    const currentType = store.projectType as ChoiceId | null;
-    const now = state.clock.elapsedTime;
-
-    // React when selection changes via buttons
-    if (currentType !== lastChoiceRef.current) {
-      lastChoiceRef.current = currentType;
-      if (currentType) {
-        stateMachine.select(currentType, now);
-      } else {
-        stateMachine.reset();
-      }
-    }
-
-    const visual = stateMachine.sample(now);
+  useFrame(() => {
+    const reduced = useExperienceStore.getState().profile.motion === 'reduced';
+    const now = runtime?.clocks.value.ambientTime ?? 0;
+    const visual = stateMachine.sample(proxy.progress * .9);
 
     // Apply to Energy Core
     if (coreRef.current) {
       coreRef.current.visible = visual.coreOpacity > 0.001;
-      coreRef.current.scale.setScalar(visual.coreScale);
+      coreRef.current.scale.setScalar(visual.coreScale * Number(runtime?.sceneSnapshots.s07?.visual.coreAppearance ?? 1));
       coreRef.current.traverse((node) => {
         if ('isMesh' in node && node.isMesh && 'material' in node && node.material) {
           const mat = node.material as Material;
@@ -82,7 +86,7 @@ export default function S07Scene({
         ref.current.visible = isTarget && visual.shapeOpacity > 0.001;
         if (isTarget) {
           ref.current.scale.setScalar(visual.shapeScale);
-          ref.current.rotation.y = now * 0.8;
+          ref.current.rotation.y = reduced ? 0 : ambientAngle(now, .8, runtime?.ambientWeight ?? 1);
           ref.current.traverse((node) => {
             if ('isMesh' in node && node.isMesh && 'material' in node && node.material) {
               const mat = node.material as Material;

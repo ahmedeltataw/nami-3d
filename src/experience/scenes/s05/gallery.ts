@@ -5,9 +5,9 @@ import { nodeState, writeMotion, type Motion, type NodeState, type WorldInput } 
 
 type Binding = { node: Object3D; motion: Motion; state: NodeState; position: Vector3; rotation: Vector3; scale: Vector3; screen?: ShaderMaterial };
 const screenVertex = 'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';
-const screenFragment = `uniform sampler2D uFrom; uniform sampler2D uTo; uniform float uMix; varying vec2 vUv;
+const screenFragment = `uniform sampler2D uFrom; uniform sampler2D uTo; uniform sampler2D uCanonical; uniform float uMix; uniform float uAmbientWeight; varying vec2 vUv;
 void main() {
-  gl_FragColor = mix(texture2D(uFrom, vUv), texture2D(uTo, vUv), uMix);
+  gl_FragColor = mix(texture2D(uCanonical, vUv), mix(texture2D(uFrom, vUv), texture2D(uTo, vUv), uMix), uAmbientWeight);
   #include <colorspace_fragment>
 }`;
 
@@ -134,7 +134,7 @@ export class Gallery {
       const binding: Binding = { node, motion, state: nodeState(), position: node.position.clone(), rotation: new Vector3(node.rotation.x, node.rotation.y, node.rotation.z), scale: node.scale.clone() };
       if (motion.kind === 'screen') {
         const material = new ShaderMaterial({ vertexShader: screenVertex, fragmentShader: screenFragment, side: DoubleSide, toneMapped: false,
-          uniforms: { uFrom: { value: this.textures[0] }, uTo: { value: this.textures[0] }, uMix: { value: 0 } } });
+          uniforms: { uFrom: { value: this.textures[0] }, uTo: { value: this.textures[0] }, uMix: { value: 0 }, uCanonical: { value: this.textures[0] }, uAmbientWeight: { value: 1 } } });
         this.worldMaterials.push(material); (node as Mesh).material = material; binding.screen = material;
       }
       this.bindings.push(binding);
@@ -175,7 +175,7 @@ export class Gallery {
     }
   }
 
-  render(camera: Camera, reduced: boolean, time = 0) {
+  render(camera: Camera, reduced: boolean, time = 0, ambientWeight = 1) {
     if (this.reduced !== reduced) { this.reduced = reduced; this.still = false; }
     const index = this.visual.activeTarget;
     if (index === null || index !== this.worldIndex || !this.world || (reduced && this.still)) return;
@@ -183,7 +183,7 @@ export class Gallery {
     this.matrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
     this.frustum.setFromProjectionMatrix(this.matrix);
     if (!this.frustum.intersectsObject(this.gates[Number(index)].surface)) return;
-    this.motionInput.reducedMotion = reduced; this.motionInput.time = time;
+    this.motionInput.reducedMotion = reduced; this.motionInput.time = time; this.motionInput.ambientWeight = ambientWeight;
     const local = Number(this.visual.worldProgress);
     for (let i = 0; i < this.bindings.length; i++) {
       const bound = this.bindings[i], state = bound.state;
@@ -195,6 +195,7 @@ export class Gallery {
         bound.screen.uniforms.uFrom.value = this.textures[state.screen.from];
         bound.screen.uniforms.uTo.value = this.textures[state.screen.to];
         bound.screen.uniforms.uMix.value = state.screen.mix;
+        bound.screen.uniforms.uAmbientWeight.value = state.screen.weight;
       }
     }
     this.camStart!.getWorldPosition(this.point); this.camEnd!.getWorldPosition(this.end);

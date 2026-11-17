@@ -1,4 +1,5 @@
 'use client';
+import { projectSeekLocal } from './scene';
 
 import { useRef, type KeyboardEvent, type PointerEvent } from 'react';
 import { useExperienceStore } from '../../store';
@@ -16,7 +17,7 @@ export function GalleryPanel({ projects, locale }: { projects: GalleryProject[];
   const selected = projects[project];
   function seek(index: number) {
     useExperienceStore.setState({ project: index });
-    window.dispatchEvent(new CustomEvent('nami:project-seek', { detail: .05 + .15 * (index + .6) }));
+    window.dispatchEvent(new CustomEvent('nami:project-seek', { detail: projectSeekLocal(index) }));
   }
   function orbit(yaw: number, pitch: number) { window.dispatchEvent(new CustomEvent('nami:gallery-orbit', { detail: { yaw, pitch } })); }
   function move(event: PointerEvent<HTMLDivElement>) {

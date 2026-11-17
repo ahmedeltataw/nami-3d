@@ -29,7 +29,7 @@ export default function Scene({ register, residency, onError }: { register: (id:
       const view = new Gallery(gl, (assets[0].value as GLTF).scene, (assets[1].value as GLTF).scene, matchMedia('(pointer: coarse), (max-width: 600px)').matches);
       gallery.current = view; parent.add(view.shell);
       const ctx: GalleryCtx = { root: parent, ambient: 0, reducedMotion: false,
-        updateGallery: visual => view.update(visual, ctx.reducedMotion), beforeRender: camera => view.render(camera, ctx.reducedMotion, ctx.ambient) };
+        updateGallery: visual => view.update(visual, ctx.reducedMotion), beforeRender: camera => view.render(camera, ctx.reducedMotion, ctx.ambient, ctx.ambientWeight) };
       register('s05', ctx);
     }).catch(error => { if (!cancelled && error.name !== 'AbortError') onError(); });
     return () => { cancelled = true; register('s05', null); gallery.current?.dispose(); gallery.current = null; parent.clear(); leases.forEach(lease => lease.release()); };

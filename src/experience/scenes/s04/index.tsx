@@ -58,7 +58,7 @@ export default function Scene({ register, residency, onError }: { register: (id:
       };
       const target = new Group(); target.name = 'PhoneTarget'; phone.add(target);
       parent.add(phone); drawDisplay(0, 0);
-      register('s04', { root: parent, ambient: 0, reducedMotion: false, parts, drawDisplay } as Ctx);
+      register('s04', { root: parent, ambient: 0, reducedMotion: false, model: phone, parts, drawDisplay } as Ctx);
     }).catch(error => { if (!cancelled && error instanceof Error && error.name !== 'AbortError') onError(); });
     return () => { cancelled = true; register('s04', null); parent.clear(); material?.dispose(); texture?.dispose(); lease.release(); residency.evictUnused(); };
   }, [register, residency, onError]);

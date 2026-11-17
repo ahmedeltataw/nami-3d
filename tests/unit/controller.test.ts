@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createController, SCENE_IDS, SCROLL_BUDGETS, TOTAL_BUDGET } from '../../src/experience/controller';
+import { createController, SCENE_IDS, SCROLL_BUDGETS, TOTAL_BUDGET, localForBody, SCROLL_MAP } from '../../src/experience/controller';
 import { createRuntime } from '../../src/experience/runtime';
 
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); });
@@ -93,7 +93,7 @@ describe('native controller lifecycle', () => {
       expect([env.runtime.scene, env.runtime.local]).toEqual(['s05', 0.4]);
       const start = env.document.getElementById('s05')!.getBoundingClientRect().top;
       const span = (reduced ? 1 : 4.8) * env.window.innerHeight;
-      expect(-start / span).toBeCloseTo(0.4, 2);
+      expect(-start / span).toBeCloseTo(localForBody('s05', .4), 2);
       expect(env.runtime.progress).toBeGreaterThanOrEqual(0);
       expect(env.runtime.progress).toBeLessThanOrEqual(1);
     }
@@ -171,7 +171,7 @@ describe('native controller lifecycle', () => {
     expect(env.history.replaceState).toHaveBeenCalledTimes(2);
     env.back();
     expect(env.runtime.scene).toBe('s01');
-    expect(env.runtime.local).toBeCloseTo(400 / (844 * 1.8), 9);
+    expect(env.runtime.local).toBeCloseTo(400 / (844 * SCROLL_MAP[0].body / 100), 9);
     env.history.replaceState.mockImplementationOnce(() => { throw new DOMException('Quota', 'SecurityError'); });
     env.window.scrollY = 500;
     env.window.dispatchEvent(new Event('scroll'));
@@ -211,6 +211,21 @@ describe('native controller lifecycle', () => {
     env.controller.detach();
   });
 
+  it('preserves a cold jump seek through its native scroll echo and layout measurement', () => {
+    const env = environment();
+    const units = SCROLL_MAP[1].departure + 110 * .58;
+    env.controller.scrollToProgress(units / TOTAL_BUDGET, true);
+    const raw = env.runtime.narrativeLocal;
+    env.changed.mockClear();
+    env.window.dispatchEvent(new Event('scroll'));
+    expect(env.changed).not.toHaveBeenCalled();
+    env.controller.recalculate();
+    expect(env.runtime.narrativeLocal).toBe(raw);
+    expect(env.runtime.local).toBe(0);
+    expect(env.runtime.progress).toBeCloseTo(units / TOTAL_BUDGET, 4);
+    env.controller.detach();
+  });
+
   it('measures reduced-motion document flow instead of full budgets', () => {
     const env = environment(false, true, '#s05');
     expect(env.runtime.scene).toBe('s05');
@@ -219,4 +234,16 @@ describe('native controller lifecycle', () => {
     expect(env.window.scrollY).toBe(5.5 * 844);
     env.controller.detach();
   });
+});
+
+it('does not refocus headings when a controller attaches after ordinary-scroll history', () => {
+  vi.useFakeTimers(); const env = environment();
+  env.window.scrollY = 2000; env.window.dispatchEvent(new Event('scroll')); vi.advanceTimersByTime(250);
+  env.controller.detach();
+  const heading = { focus: vi.fn(), tabIndex: 0 };
+  Object.assign(env.document, { querySelector: () => heading });
+  const reattached = createController(env.runtime, env.changed, false, false);
+  reattached.attach(false);
+  expect(heading.focus).not.toHaveBeenCalled();
+  reattached.detach();
 });

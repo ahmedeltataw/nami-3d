@@ -45,10 +45,10 @@ describe('S01 narrative sampling', () => {
 
   it('skip is immediate and the intro never restarts after completion or cancellation', () => {
     const clock = createIntroClock();
-    expect(clock.sample(20)).toBeLessThan(0);
-    expect(clock.sample(21)).toBeCloseTo(0.85);
+    expect(clock.sample(0)).toBeLessThan(0);
+    expect(clock.sample(1)).toBeCloseTo(0.85);
     clock.cancel();
-    expect(scene.sample({ ...input, introSeconds: clock.sample(21) })).toEqual(scene.sample(input));
+    expect(scene.sample({ ...input, introSeconds: clock.sample(1) })).toEqual(scene.sample(input));
     expect(clock.sample(0)).toBeUndefined();
     const completed = createIntroClock();
     completed.sample(0);

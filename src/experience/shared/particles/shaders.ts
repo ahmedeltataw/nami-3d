@@ -19,6 +19,7 @@ export function particleVertexShader(presets: readonly ParticlePreset[]): string
   return `
 uniform float uProgress;
 uniform float uTime;
+uniform float uAmbientWeight;
 uniform float uPreset[${presets.length}];
 uniform vec3 uPointer;
 uniform float uDpr;
@@ -41,19 +42,22 @@ float cinematic(float x) {
   return t * t * (3.0 - 2.0 * t);
 }
 
-vec3 particlePosition() {
+vec3 particlePositionAt(float sampleTime) {
   vec3 result = vec3(0.0);
   ${presets.map((preset, index) => `
   if (uPreset[${index}] > 0.0) {
     vec3 p = position;
-    ${preset.vertexChunk}
+    ${preset.vertexChunk.replace(/\buTime\b/g, 'sampleTime')}
     result += p * uPreset[${index}];
   }`).join('\n')}
   return result + uPointer * uProgress * (1.0 - uProgress) * 0.15;
 }
 
+vec3 particlePosition() { return mix(particlePositionAt(0.0), particlePositionAt(uTime), uAmbientWeight); }
+
 void main() {
-  vec4 viewPosition = modelViewMatrix * vec4(particlePosition(), 1.0);
+  vec3 sampledPosition = particlePosition();
+  vec4 viewPosition = modelViewMatrix * vec4(sampledPosition, 1.0);
   gl_Position = projectionMatrix * viewPosition;
   gl_PointSize = aSize * uDpr * (4.0 / max(0.1, -viewPosition.z));
   vTint = aTint < 0.5 ? vec3(0.0, 0.62, 0.44) : (aTint < 1.5 ? vec3(0.22, 0.78, 0.52) : vec3(0.70, 0.97, 0.84));

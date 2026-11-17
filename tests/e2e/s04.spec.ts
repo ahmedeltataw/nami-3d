@@ -1,3 +1,4 @@
+import { scrollBody } from './motion-helpers';
 import { expect, test } from '@playwright/test';
 
 test('S04 renders and Explore enters and exits', async ({ page }) => {
@@ -9,7 +10,7 @@ test('S04 renders and Explore enters and exits', async ({ page }) => {
   await expect(host).toHaveAttribute('data-scene', 's04');
   await expect(host).toHaveAttribute('data-ready', 'true', { timeout: 30000 });
   const seek = async (local: number) => {
-    await page.evaluate(value => { const section = document.getElementById('s04')!; window.scrollTo(0, section.offsetTop + section.offsetHeight * value); }, local);
+    await scrollBody(page, 's04', local);
     await expect.poll(() => page.evaluate(() => window.__namiDebug?.().local)).toBeCloseTo(local, 2);
   };
   await seek(.25);

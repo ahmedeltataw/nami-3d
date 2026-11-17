@@ -10,6 +10,7 @@ export function StationPanel({ services, locale }: { services: Service[]; locale
   const active = useExperienceStore(state => state.scene === 's03' && state.profile.motion === 'full' && state.profile.renderer === 'webgl');
   const selected = services.find(service => service.id === station) ?? services[0];
   function seek(id: number) {
+    useExperienceStore.setState({ station: id });
     const local = stationSeekLocal(id);
     window.dispatchEvent(new CustomEvent('nami:station-seek', { detail: local }));
   }
