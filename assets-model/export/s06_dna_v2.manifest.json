@@ -1,0 +1,206 @@
+{
+  "file": "s06_dna_v2.glb",
+  "source": "assets-model/s06_dna_v2.blend (Workflow v2, live Blender; built by assets-model/scripts/s06_dna_v2.py on top of s05_multiverse_v2.py)",
+  "review": "Muse APPROVED pass3 2026-11-17 (nami-muse-inbox captures/S06-BL/pass3/review.md): blockout fixes (pass2) + DNA wraps the N (pass3)",
+  "units": "metres; glTF +Y up; floor y=0.0",
+  "tris_total": 26860,
+  "tris_note": "scene only; robot is the runtime model (~39k) -> ~66k with robot, budget 100k",
+  "size_note": "6.92 MB because the monitor/tablet/plant textures are embedded; compress to KTX2/WebP in the build step",
+  "stage": {
+    "node": "S06_stage",
+    "scale": 0.6,
+    "note": "platform, helix, ceiling ring and room props are children of S06_stage at 0.6 so the native-size robot stands beside the platform like the ref; keep the parent scale at runtime"
+  },
+  "textures": [
+    "s06_monitor_a.png, s06_monitor_b.png (Codex IMG-S06, side holo monitors)",
+    "s06_tablet_n.png (Codex IMG-S06, holo tablet + small N screens)",
+    "s03_plant_fg.png (keyed plant cards)"
+  ],
+  "runtime_shaders": "M_Beam is additive (three.js AdditiveBlending, depthWrite false); M_Helix_Glass is transparent glass with a rim (use MeshPhysicalMaterial transmission or a fresnel shader); emissive materials need bloom",
+  "lighting": "none exported; lit in three.js. Blender review look: Standard + Medium High Contrast, exposure 0, Glare bloom, haze 0.0007, DOF f/2.4 focus 12.5 m; lights (stage units, energy x0.36): helix_key, platform_glow, front_fill, robot_rim, drum_fill, ceiling_warm. L_helix_key must not light the floor (light-linked out in Blender) or it paints a hotspot in front of the platform",
+  "camera_hero": {
+    "position_gltf": [
+      -0.12,
+      0.48,
+      12.9
+    ],
+    "look_dir_gltf": [
+      0.0,
+      0.156,
+      -0.988
+    ],
+    "pitch_deg": 9.0,
+    "vertical_fov_deg": 33.4,
+    "lens_mm": 40.0,
+    "aspect": "1671x941 (reference size)"
+  },
+  "robot": {
+    "root_gltf": [
+      -2.8,
+      0.0,
+      1.4
+    ],
+    "yaw_deg": 40.0,
+    "pose": {
+      "Shoulder_L_quat_wxyz": [
+        0.5563,
+        -0.6648,
+        -0.4986,
+        -0.0
+      ],
+      "Shoulder_R_quat_wxyz": [
+        0.8223,
+        -0.5675,
+        0.0431,
+        0.0
+      ],
+      "note": "left arm points at the helix, right hand forward holding the tablet; head and other joints at rest"
+    },
+    "note": "3/4 presenter framing approved by Muse; apply this pose to the runtime robot"
+  },
+  "helix": {
+    "objects": [
+      "S06_helix_strands",
+      "S06_helix_cores",
+      "S06_helix_rungs",
+      "S06_helix_nodes",
+      "S06_helix_logo"
+    ],
+    "turns": 1.25,
+    "note": "N (S06_helix_logo, emerald M_Emissive_Logo) sits on the helix axis inside the strands' bulb; no rungs cross the N",
+    "logo_center_gltf": [
+      0.168,
+      2.028,
+      -0.0
+    ],
+    "value_pill_anchors_gltf": [
+      [
+        0.897,
+        3.39,
+        0.27
+      ],
+      [
+        0.897,
+        2.969,
+        0.27
+      ],
+      [
+        0.897,
+        2.548,
+        0.27
+      ],
+      [
+        0.897,
+        2.127,
+        0.27
+      ],
+      [
+        0.897,
+        1.706,
+        0.27
+      ],
+      [
+        0.897,
+        1.285,
+        0.27
+      ],
+      [
+        0.897,
+        0.864,
+        0.27
+      ]
+    ],
+    "anchors_note": "7 glowing nodes on the helix right side, top to bottom = the 7 value pills (الإبداع, الجودة, الشراكة, المرونة, الشفافية, النمو, الأثر); draw the HTML connector lines from these points"
+  },
+  "ceiling_ring": {
+    "objects": [
+      "S06_ceiling_ring",
+      "S06_ceiling_ring_lights"
+    ],
+    "note": "tilted 6 deg so its top clears the frame like the ref"
+  },
+  "platform": [
+    "S06_platform",
+    "S06_platform_core",
+    "S06_platform_lights",
+    "S06_beam",
+    "S06_floor_rings"
+  ],
+  "held_prop": {
+    "object": "S06_tablet",
+    "note": "holo tablet with N placed at the robot's right hand in the hero pose; re-parent to the hand bone at runtime if the robot animates"
+  },
+  "room": [
+    "S06_floor",
+    "S06_floor_seams",
+    "S06_wall",
+    "S06_wall_strips",
+    "S06_pillars",
+    "S06_near_pillars",
+    "S06_near_strips",
+    "S06_ceiling",
+    "S06_ceiling_ribs",
+    "S06_ceiling_warm",
+    "S06_desks",
+    "S06_desk_glow",
+    "S06_screens",
+    "S06_console_L_desk",
+    "S06_console_L_desk_glow",
+    "S06_console_L_screens",
+    "S06_console_R_desk",
+    "S06_console_R_desk_glow",
+    "S06_console_R_screens",
+    "S06_monitor_L",
+    "S06_monitor_L_frame",
+    "S06_monitor_L2",
+    "S06_monitor_L2_frame",
+    "S06_monitor_R",
+    "S06_monitor_R_frame",
+    "S06_monitor_R2",
+    "S06_monitor_R2_frame"
+  ],
+  "backdrop": [
+    "S06_plant_BL",
+    "S06_plant_BR",
+    "S06_plant_TL"
+  ],
+  "materials": [
+    "M_Beam",
+    "M_Ceiling_S05",
+    "M_Console_Body",
+    "M_Emissive_Emerald",
+    "M_Emissive_FloorRing",
+    "M_Emissive_Logo",
+    "M_Emissive_Strip",
+    "M_Emissive_Warm",
+    "M_Floor_Gloss_S05",
+    "M_Floor_Seam",
+    "M_Helix_Core",
+    "M_Helix_Glass",
+    "M_Helix_Node",
+    "M_Helix_Rung",
+    "M_Metal_Chrome",
+    "M_Metal_Dark",
+    "M_Metal_Gold",
+    "M_Metal_Gunmetal",
+    "M_Monitor_Frame",
+    "M_Plant_Card",
+    "M_Platform_Core",
+    "M_Rack_Screen",
+    "M_Rib_Dark",
+    "M_Ring_Light",
+    "M_Ring_Metal",
+    "M_S06_monitor_L",
+    "M_S06_monitor_L2",
+    "M_S06_monitor_R",
+    "M_S06_monitor_R2",
+    "M_Screen_UI",
+    "M_Tablet_N",
+    "M_Wall_Teal_S05"
+  ],
+  "open_notes": [
+    "taste: helix tubes read thinner/more wireframe than the ref's thick glass tube (Muse, not a blocker)",
+    "taste: ceiling ring is segmented/mechanical vs the ref's smooth glowing ring",
+    "left background 81% (gate edge, accepted)"
+  ]
+}

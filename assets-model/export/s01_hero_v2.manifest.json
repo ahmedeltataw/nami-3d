@@ -1,0 +1,88 @@
+{
+  "file": "s01_hero_v2.glb",
+  "source": "assets-model/s01_hero_v2.blend (Workflow v2, live Blender; built by assets-model/scripts/s01_hero_v2.py build())",
+  "review": "Muse ACCEPTED pass2 2026-11-17 (nami-muse-inbox captures/S01-BL/pass2); pass1 blockers verified (lighting gate, emerald N, 15 deg lean)",
+  "units": "metres; glTF +Y up; floor at y=0",
+  "tris_total": 23990,
+  "tris_note": "scene only; robot is the runtime model (~39k) -> ~63k with robot, budget 100k",
+  "size_bytes": 5093480,
+  "size_note": "~5 MB, mostly the embedded s01_window_city.png matte; compress to KTX2/WebP in the build step",
+  "backdrop": {
+    "object": "S01_window_city",
+    "texture": "textures/s01_window_city.png (Codex IMG-S01)",
+    "note": "shadeless card behind the window at 120 m, scale 0.556, tower at frame x 0.50, horizon at frame y 0.70; unlit, exclude from fog"
+  },
+  "camera_hero": {
+    "position_gltf": [
+      0.0,
+      1.7,
+      13.0
+    ],
+    "look_dir_gltf": [
+      0.0,
+      0.139,
+      -0.99
+    ],
+    "vertical_fov_deg": 39.8,
+    "lens_mm": 28.0,
+    "sensor_mm": 36,
+    "aspect": "1671x941 (16:9)",
+    "clip": [
+      0.1,
+      3000
+    ],
+    "dof": "Blender review only: focus 8.6 m, f/1.4"
+  },
+  "robot": {
+    "root_gltf": [
+      -2.15,
+      1.25,
+      5.0
+    ],
+    "yaw_deg": 22.0,
+    "tilt_deg": 15.0,
+    "pose": "hero: leaning 15 deg, reaching arm toward the camera with the open hand palm-out (fingers fanned 28 deg, thumb up), left arm out to the side with the hand open",
+    "runtime_note": "robot = runtime model; Muse ruled the hand pose a runtime/code item. S01_hero_v2.py ROBOT holds the exact joint quaternions as reference. Rig quirks found here: forearm shell runs 0.15 m past Wrist_*, and finger meshes float ~0.45 m off their joint empties - fixed only in this blend; fix in the runtime model too"
+  },
+  "disc": {
+    "objects": [
+      "S01_disc_plate",
+      "S01_disc_rings",
+      "S01_disc_logo"
+    ],
+    "centre_gltf": [
+      0.413,
+      0.0,
+      -19.642
+    ],
+    "note": "dark plate 0.8R, thin double outer ring (0.75R/0.71R) + inner ring 0.53R, emerald N 0.42R (#1FC98A, 0.9); disc squashed 1.7x in depth so the hero view matches the ref - other angles show an oval"
+  },
+  "swirl": {
+    "objects": [
+      "S01_swirl",
+      "S01_swirl_sparks"
+    ],
+    "note": "additive emissive ribbons #2FD88F 0.5 + 36 sparks; built round RightHand_Anchor, 0.35 m behind the hand - re-anchor to the runtime hand bone"
+  },
+  "runtime_shaders": "M_S01_DiscRing/M_S01_DiscLogo/M_S01_Strip/M_S01_CeilLip/M_S01_CeilPod/M_S01_Swirl/M_S01_Spark are additive (AdditiveBlending, depthWrite false); M_Window_City unlit; M_S01_Leaf uses vertex colour x1.8 + 0.9 self-glow",
+  "lighting": "none exported; lit in three.js. Blender review look: Standard, Glare bloom; sun through the window (rot 78,0,205, energy 1.0), fill area 600 W from the camera, disc glow area 600 W above the disc (0.3,1.0,0.7), robot rim area 800 W; world 0.06,0.09,0.10 x1.5, no volume",
+  "luma_vs_ref": {
+    "all": 99.3,
+    "ceiling": 100.8,
+    "window": 107.6,
+    "robot": 104.1,
+    "disc": 86.0,
+    "floor": 84.8,
+    "right_wall": 84.4,
+    "plant_L": 80.6,
+    "corner_BL": 86.0,
+    "corner_BR": 105.0
+  },
+  "html_overlay": "nav, title, subtitle, 2 buttons and scroll cue are HTML over the right wall band x 0.62-0.95",
+  "open_notes": [
+    "robot eyes are circuit shapes vs the ref's smile arcs (runtime face)",
+    "swirl is line ribbons vs the ref's soft particle haze - a runtime particle shader would match better",
+    "plants are low-poly leaf cards (fine under DOF)",
+    "plant_L zone sits at the gate edge (80.6%)"
+  ]
+}

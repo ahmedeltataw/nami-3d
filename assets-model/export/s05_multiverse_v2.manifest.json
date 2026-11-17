@@ -1,0 +1,45 @@
+{
+  "file": "s05_multiverse_v2.glb",
+  "source": "assets-model/s05_multiverse_v2.blend (Workflow v2, live Blender; built by assets-model/scripts/s05_multiverse_v2.py build())",
+  "review": "Muse APPROVED pass2 2026-11-17 (nami-muse-inbox captures/S05-BL/pass2/review.md)",
+  "units": "metres; glTF +Y up; floor y=0.0; platform centre at origin",
+  "tris_total": 53606,
+  "tris_note": "scene only; robot is the runtime model (~39k) -> ~93k with robot, budget 100k",
+  "size_note": "17 MB because 7 textures are embedded (5 bubble scenes 1024px, world map, plant); compress to KTX2/WebP in the build step",
+  "textures": [
+    "s05_bubble_ecommerce/logistics/realestate/investment/transport.png (Codex IMG-S05, unlit emissive discs inside the bubbles, circular fade at the edge, M_Bubble_<key>)",
+    "s05_world_dots.png (Codex IMG-S05b, equirectangular dotted continents for the globe, UV sphere, Europe/Africa toward the camera)",
+    "s03_plant_fg.png (keyed foreground plant cards, M_Plant_Card)"
+  ],
+  "runtime_shaders": "M_Globe_Glass (transparent + emission: fresnel rim x0.12 + world-map dots x0.85, colour #35F0B0), M_Bubble_Glass (transparent + glossy 0.22 + facing^7 rim x1.1 #7CFFD9), M_Beam (additive #A8FFE6, strength 0.3 at bottom -> 0 at the globe centre), M_Screen_UI (procedural brick UI grid, emission 0.3) are node graphs; glTF carries only fallbacks, rebuild them in three.js",
+  "lighting": "none exported; lit in three.js. Blender review look: Standard + Medium High Contrast, Glare bloom threshold 0.85 strength 0.35 size 0.65, volume haze 0.0015 colour (0.25,0.62,0.5), DOF f/2 focus 21 m; lights: globe key point (emerald, inside globe front), platform glow, front fill, drum fill (front, low), robot rim, ceiling warm",
+  "camera_hero": {
+    "position_gltf": [-0.81, 1.62, 22.275],
+    "look_dir_gltf": [0.0, 0.122, -0.993],
+    "pitch_deg": 7,
+    "vertical_fov_deg": 31.47,
+    "lens_mm": 36,
+    "aspect": "1670x941 (reference size)"
+  },
+  "robot": {
+    "root_gltf": [-3.3, 0.0, 9.5],
+    "yaw_deg": 62,
+    "pose": {"Shoulder_L_quat_wxyz": [0.5395, -0.8412, 0.0364, 0.0], "note": "left arm points at the space between robot and globe; head and other joints at rest"},
+    "note": "3/4 front presenter framing approved by Muse; this pose is part of the scene, apply it to the runtime robot"
+  },
+  "globe": {"root": "S05_globe", "centre_gltf": [-0.2, 3.65, 0.0], "radius": 2.36, "nodes": ["S05_globe_glass", "S05_globe_grid", "S05_globe_logo", "S05_globe_orbit"]},
+  "platform": ["S05_platform", "S05_platform_lights", "S05_platform_core", "S05_floor_rings", "S05_beam"],
+  "bubbles": {
+    "ecommerce": {"centre_gltf": [-7.15, 4.85, 2.7], "radius": 1.15},
+    "logistics": {"centre_gltf": [-5.12, 6.78, -0.68], "radius": 1.32},
+    "realestate": {"centre_gltf": [3.89, 6.78, -0.68], "radius": 1.43},
+    "investment": {"centre_gltf": [6.48, 4.6, 0.68], "radius": 1.31},
+    "transport": {"centre_gltf": [4.0, 2.21, 1.35], "radius": 1.26},
+    "nodes_per_bubble": ["S05_bubble_<key> (empty, faces the hero camera)", "_glass", "_scene", "_orbit"],
+    "labels": "Arabic label pills are HTML anchored under each bubble, not meshes"
+  },
+  "links": "S05_links (dashed arcs globe -> logistics, realestate)",
+  "room": ["S05_floor", "S05_floor_seams", "S05_wall", "S05_pillars", "S05_wall_strips", "S05_desks", "S05_desk_glow", "S05_screens", "S05_ceiling", "S05_ceiling_ribs", "S05_ceiling_warm", "S05_console_L_*", "S05_console_R_*", "S05_near_pillars", "S05_near_strips"],
+  "backdrop": ["S05_plant_BL", "S05_plant_BR", "S05_plant_TL"],
+  "open_notes": ["platform 80% / globe 124% at gate edges", "robot model has no backpack (chest N used)", "console screens are procedural, no text", "ceiling flatter than ref"]
+}
