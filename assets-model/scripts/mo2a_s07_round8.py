@@ -1,6 +1,5 @@
 """Shorten the authored S07 entry to clear the N; preserve the hero camera."""
-import json
-import math
+from math import radians, tan
 from pathlib import Path
 import sys
 
@@ -13,7 +12,7 @@ import kit_render
 from mo2a_export import OUT, paths
 
 KIT = 's07_future_v2'
-blend, _, manifest_path = paths(KIT)
+blend, _, _ = paths(KIT)
 if Path(bpy.data.filepath).resolve() != blend.resolve():
     raise RuntimeError('Open the saved S07 blend')
 cam = bpy.data.objects['CAM_S07_hero']
@@ -38,7 +37,7 @@ verts = [sky.matrix_world @ v.co for v in sky.data.vertices]
 v0, v1, _, v3 = verts
 e1, e2 = v1-v0, v3-v0
 normal = e1.cross(e2).normalized()
-ty, tx = math.tan(math.radians(22.9/2)), math.tan(math.radians(22.9/2))*1672/941
+ty, tx = tan(radians(22.9/2)), tan(radians(22.9/2))*1672/941
 checks = []
 for i in range(201):
     p = point(i/200)
@@ -56,11 +55,5 @@ for i in range(5):
     p = point(i/5)
     specs[f'flyin_{i:02d}'] = {'location': p, 'target': p+direction, 'lens': cam.data.lens}
 kit_render.render_views(KIT, specs, OUT / 's07-round8')
-manifest = json.loads(manifest_path.read_text(encoding='utf8'))
-g = lambda p: [p.x, p.z, -p.y]
-manifest['mo2a_jump6_camera'] = {'description':'cubic Bezier shortened to clear the glass N; fixed hero camera orientation',
-                                 'control_points_gltf':[g(p) for p in control],
-                                 'look_dir_gltf':g(direction),'vertical_fov_deg':22.9,
-                                 'coverage_samples':201, 'previous_curve_start_t':u}
-manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+# MO-2f owns the manifest path from round 9 onward; this script renders history only.
 print('S07 round8 sampled 201 poses; UV range',min(min(p) for p in checks),max(max(p) for p in checks),flush=True)
