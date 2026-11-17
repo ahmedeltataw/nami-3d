@@ -22,6 +22,7 @@ import os
 import bpy
 
 import lod_export as L
+import rig_fix_mo5a
 
 D = math.radians
 FPS = L.FPS
@@ -298,6 +299,8 @@ def apply_limits():
 def main(open_rig=True):
     if open_rig:
         bpy.ops.wm.open_mainfile(filepath=L.RIG2)
+    L.reset_rest()
+    rig_fix_mo5a.apply()
     apply_limits()
     table = build()
     bad = check_limits(table)
