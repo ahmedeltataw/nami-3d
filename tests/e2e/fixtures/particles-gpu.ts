@@ -45,6 +45,7 @@ void main() { capturedPosition = particlePosition(); gl_Position = vec4(captured
     gl.vertexAttribPointer(location, attribute.itemSize, gl.FLOAT, false, 0, 0);
   }
   gl.uniform1f(gl.getUniformLocation(program, 'uProgress'), core.material.uniforms.uProgress.value);
+  gl.uniform1f(gl.getUniformLocation(program, 'uAmbientWeight'), core.material.uniforms.uAmbientWeight.value);
   gl.uniform1f(gl.getUniformLocation(program, 'uTime'), core.material.uniforms.uTime.value);
   gl.uniform1fv(gl.getUniformLocation(program, 'uPreset'), core.material.uniforms.uPreset.value);
   const pointer = core.material.uniforms.uPointer.value;

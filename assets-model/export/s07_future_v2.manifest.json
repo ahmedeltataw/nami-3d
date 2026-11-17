@@ -5,12 +5,12 @@
   "units": "metres; glTF +Y up; robot stands on the rock at y=0 (root sunk 0.06 so the dome bottom rests in the rock)",
   "tris_total": 33494,
   "tris_note": "scene only (rocks decimated to 45% on export); robot is the runtime model (~39k) -> ~72k with robot, budget 100k",
-  "size_bytes": 4961620,
+  "size_bytes": 4961660,
   "size_note": "~5 MB, mostly the embedded s07_sky_city.png matte painting; compress to KTX2/WebP in the build step",
   "backdrop": {
     "object": "S07_sky_city",
     "texture": "textures/s07_sky_city.png (Codex IMG-S07, 2048x1152)",
-    "note": "shadeless card fitted to the hero camera frustum at 900 m; UV = frame coords. Shader grade (Blender only): zenith x0.36 above frame y 0.30, bottom-right cloud corner x0.34. Reproduce in three.js as a MeshBasicMaterial with the same gradient multiply, or bake the grade into the image; exclude from fog and depth-write"
+    "note": "shadeless card fitted to the hero camera frustum at 900 m; UVs preserve hero frame coordinates and extend to [-0.3, 1.3] on the expanded card with mirrored repeat. Shader grade (Blender only): zenith x0.36 above frame y 0.30, bottom-right cloud corner x0.34. Reproduce in three.js as a MeshBasicMaterial with the same gradient multiply, or bake the grade into the image; exclude from fog and depth-write"
   },
   "camera_hero": {
     "position_gltf": [
@@ -98,5 +98,46 @@
     "ref rock tops catch more warm sun",
     "no near cloud wisps (clouds come from the matte)",
     "curve-derived mesh data carries .00N suffixes (node names are clean)"
-  ]
+  ],
+  "mo2a_jump6_camera": {
+    "description": "cubic Bezier shortened to clear the glass N; fixed hero camera orientation",
+    "control_points_gltf": [
+      [
+        9.229312896728516,
+        3.437775135040283,
+        0.7468733787536621
+      ],
+      [
+        4.256250381469727,
+        2.2647500038146973,
+        6.6749982833862305
+      ],
+      [
+        -0.7749996185302734,
+        1.1150000095367432,
+        12.44999885559082
+      ],
+      [
+        -5.5,
+        0.10000000149011612,
+        17.0
+      ]
+    ],
+    "look_dir_gltf": [
+      0.49783995747566223,
+      0.09285244345664978,
+      -0.8622841238975525
+    ],
+    "vertical_fov_deg": 22.9,
+    "coverage_samples": 201,
+    "previous_curve_start_t": 0.65
+  },
+  "backdrop_overscan": {
+    "scale": 1.6,
+    "uv_range": [
+      -0.3,
+      1.3
+    ],
+    "wrap": "MIRRORED_REPEAT"
+  }
 }

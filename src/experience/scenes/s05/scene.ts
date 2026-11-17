@@ -1,12 +1,12 @@
 import { Matrix4, Quaternion, Vector3 } from 'three';
 import type { CameraPose, Ctx, SceneDef } from '../../contracts';
 import { clamp } from '../../controller';
-import { scene as nextScene } from '../s06/scene';
 import gallery from '../../../../assets-model/export/gallery_shell.manifest.json';
 
 export const ENTER = .05;
 export const WINDOW = .15;
 export const EXIT = .95;
+export const projectSeekLocal = (index: number) => ENTER + WINDOW * (index + .6);
 export function projectWindow(local: number) {
   const value = clamp(local);
   const scaled = Math.round((value - ENTER) / WINDOW * 1e12) / 1e12;
@@ -41,24 +41,18 @@ export const scene: SceneDef = {
     let camera = gateCamera(current.index, aspect);
     if (!reduced && current.phase === 'enter') camera = blend(overview, camera, smooth(local / ENTER));
     if (!reduced && current.index > 0 && current.progress < .2) camera = blend(gateCamera(current.index - 1, aspect), camera, smooth(current.progress / .2));
-    const exit = current.phase === 'exit' ? smooth((local - EXIT) / .05) : 0;
-    const next = nextScene.sample({ ...input, local: 0 });
-    if (exit > 0 && !reduced) camera = blend(camera, next.camera, exit);
-    if (local === 1) camera = next.camera;
     const spot = new Vector3(...gallery.gates[current.index].robot_spot_gltf);
     const scale = .52 * Math.min(1, aspect / .85);
-    const center = new Vector3(0, -1.69 * scale, 0);
     // The exported robot is centred vertically; its feet sit on the authored pad.
     spot.y += 1.69 * scale;
-    spot.lerp(center, exit);
-    const visible = current.phase === 'project' && (reduced || current.progress >= .22);
-    return { camera, robot: exit === 1 || reduced ? { kind: 'rest' } : {
-      kind: 'clip', name: (['Point', 'Present', 'Guide'] as const)[current.index % 3], timeSeconds: current.progress * 3, weight: 1 - exit,
-    }, visual: { project: current.index, projectProgress: current.progress, phase: current.phase, robotState: exit === 1 ? 'idle' : 'guiding',
-      robotPosition: spot.toArray(), robotYaw: Math.atan2(gallery.gates[current.index].gate_position_gltf[0] - gallery.gates[current.index].robot_spot_gltf[0], gallery.gates[current.index].gate_position_gltf[2] - gallery.gates[current.index].robot_spot_gltf[2]) * (1 - exit),
-      gazeTarget: exit ? null : gallery.gates[current.index].gate_position_gltf,
+    const visible = current.phase !== 'enter' && (reduced || current.progress >= .22);
+    return { camera, robot: reduced ? { kind: 'rest' } : {
+      kind: 'clip', name: (['Point', 'Present', 'Guide'] as const)[current.index % 3], timeSeconds: current.progress * 3, weight: 1,
+    }, visual: { project: current.index, projectProgress: current.progress, phase: current.phase, robotState: 'guiding',
+      robotPosition: spot.toArray(), robotYaw: Math.atan2(gallery.gates[current.index].gate_position_gltf[0] - gallery.gates[current.index].robot_spot_gltf[0], gallery.gates[current.index].gate_position_gltf[2] - gallery.gates[current.index].robot_spot_gltf[2]),
+      gazeTarget: gallery.gates[current.index].gate_position_gltf,
       open: reduced ? 1 : smooth((current.progress - .12) / .18), activeTarget: visible ? current.index : null,
-      worldProgress: reduced ? .5 : smooth((current.progress - .3) / .65), exit,
+      worldProgress: reduced ? .5 : smooth((current.progress - .3) / .65), exit: 0,
     } };
   },
   apply(snapshot, context) { (context as GalleryCtx).updateGallery?.(snapshot.visual); },

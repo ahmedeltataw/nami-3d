@@ -3,7 +3,7 @@
   "source": "assets-model/s04_idea_v2.blend (Workflow v2, live Blender; built by assets-model/scripts/s04_idea_v2.py)",
   "review": "Muse ACCEPTED pass2 2026-11-17; Ahmed notes -> fix1 (face robot), fix2 (real phone), fix3 (thin ring), fix4 (phone on-screen size matches ref); captures/S04-BL/fix4",
   "units": "metres; glTF +Y up; floor y=0.0",
-  "tris_total": 21344,
+  "tris_total": 21508,
   "tris_note": "scene only; robot is the runtime model (~39k) -> ~58k with robot, budget 100k",
   "size_note": "6.3 MB because three textures are embedded; compress to KTX2/WebP in the build step",
   "textures": [
@@ -148,5 +148,132 @@
     ],
     "scale": 1.0,
     "note": "on-screen box 1030-1311 x 273-663 px vs ref 1030-1310 x 275-660 (hero camera, 1671x941)"
-  }
+  },
+  "phone_pose_gltf": {
+    "position": [
+      2.003000020980835,
+      2.632999897003174,
+      -0.30000001192092896
+    ],
+    "quaternion_xyzw": [
+      -0.14487813413143158,
+      -0.23929835855960846,
+      -0.12767943739891052,
+      0.9515485167503357
+    ]
+  },
+  "phone_exploded_parts": [
+    {
+      "role": "back_plate",
+      "node": "S04_phone_back_plate",
+      "exploded_direction": [
+        0,
+        0,
+        -1
+      ],
+      "exploded_distance": 0.55
+    },
+    {
+      "role": "buttons",
+      "node": "S04_phone_buttons",
+      "exploded_direction": [
+        1,
+        0,
+        0
+      ],
+      "exploded_distance": 0.36
+    },
+    {
+      "role": "board",
+      "node": "S04_phone_board",
+      "exploded_direction": [
+        0,
+        0,
+        -1
+      ],
+      "exploded_distance": 0.28
+    },
+    {
+      "role": "battery",
+      "node": "S04_phone_battery",
+      "exploded_direction": [
+        0,
+        0,
+        1
+      ],
+      "exploded_distance": 0.28
+    },
+    {
+      "role": "speaker",
+      "node": "S04_phone_speaker",
+      "exploded_direction": [
+        0,
+        -1,
+        0
+      ],
+      "exploded_distance": 0.3
+    },
+    {
+      "role": "camera_module",
+      "node": "S04_phone_details",
+      "exploded_direction": [
+        0,
+        0,
+        -1
+      ],
+      "exploded_distance": 0.42
+    },
+    {
+      "role": "glass",
+      "node": "S04_phone_body",
+      "exploded_direction": [
+        0,
+        0,
+        1
+      ],
+      "exploded_distance": 0.38
+    },
+    {
+      "role": "display",
+      "node": "S04_phone_screen",
+      "exploded_direction": [
+        0,
+        0,
+        1
+      ],
+      "exploded_distance": 0.6
+    }
+  ],
+  "phone_exploded_direction_space": "glTF local axes",
+  "cameraSafeRange": {
+    "status": "ok",
+    "criterion": "No new S04_city edge ID in viewport; every hero-visible edge remains visible and its clipped endpoint coordinates move at most 0.02 frame widths horizontally and 0.02 frame heights vertically.",
+    "reference": "camera_hero",
+    "coordinates": "yaw around Blender world +Z, pitch around camera local +X, dolly along hero forward; combined yaw then hero rotation then pitch; glTF and three.js world up is +Y, equivalent to Blender world +Z for yaw",
+    "yaw_deg": {
+      "min": -0.79,
+      "max": 0.79
+    },
+    "pitch_deg": {
+      "min": -0.79,
+      "max": 0.79
+    },
+    "dolly_m": {
+      "min": -0.079,
+      "max": 0.079
+    },
+    "sampled_joint_grid": [
+      11,
+      11,
+      11
+    ],
+    "independent_samples_per_axis": 101,
+    "samples_do_not_prove_continuous_safety": true,
+    "max_sampled_edge_shift_fraction": {
+      "max_dx": 0.01133793592453003,
+      "max_dy": 0.01934047346077683
+    },
+    "evidence": "test-results/MO-2a/s04-safe-box/"
+  },
+  "phone_exploded_parts_note": "phone_exploded_parts supersedes the legacy props.phone summary for assembly nodes."
 }

@@ -1,9 +1,8 @@
 'use client';
 
-/* eslint-disable react-hooks/immutability -- Three resources are updated by the scene runtime. */
 import { useEffect, useMemo, useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import { AdditiveBlending, AmbientLight, Color, DataTexture, DirectionalLight, Group, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, PointLight, RGBAFormat, Scene as ThreeScene, ShaderMaterial, Sprite, SpriteMaterial, SRGBColorSpace, TorusGeometry, Vector3, WebGLRenderTarget, type Object3D } from 'three';
+import { useThree } from '@react-three/fiber';
+import { AdditiveBlending, AmbientLight, Color, DataTexture, DirectionalLight, Group, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, PointLight, RGBAFormat, Scene as ThreeScene, ShaderMaterial, Sprite, SpriteMaterial, TorusGeometry, Vector3, WebGLRenderTarget, type Object3D } from 'three';
 import type { Ctx, SceneId } from '../../contracts';
 import type { AssetResidency } from '../../assets/residency';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -28,10 +27,6 @@ export default function Scene({ register, residency, onError }: { register: (id:
   const camera = useThree(state => state.camera);
   const world = useThree(state => state.scene);
   const particleState = useMemo(() => ({ progress: 0, time: 0 }), []);
-  const background = useMemo(() => new Color(), []);
-  useFrame(() => {
-    if (!active && world.background === background) world.background = null;
-  }, -1);
 
   useEffect(() => {
     if (!residency || !root.current || profile.renderer === 'fallback') return;
@@ -47,8 +42,6 @@ export default function Scene({ register, residency, onError }: { register: (id:
       gateMount.position.set(0, 0, -2);
       gateMount.scale.setScalar(.54);
       gateMount.add(portal.root);
-      const reveal = shell.scene.clone(true);
-      reveal.visible = false;
       const preview = new ThreeScene();
       preview.background = new Color('#1B1D20');
       preview.add(shell.scene, new AmbientLight('#ffffff', 1.6));
@@ -84,16 +77,13 @@ export default function Scene({ register, residency, onError }: { register: (id:
         vertexShader: 'void main(){gl_Position=vec4(position.xy,0.0,1.0);}',
         fragmentShader: 'uniform float uBrightness; void main(){gl_FragColor=vec4(0.88,1.0,0.93,uBrightness);}' });
       const flash = new Mesh(flashGeometry, flashMaterial); flash.frustumCulled = false; flash.renderOrder = 999;
-      parent.add(gateMount, reveal, energy, flash);
+      parent.add(gateMount, energy, flash);
       const left = new Vector3(); const right = new Vector3(); const midpoint = new Vector3();
       let robot: Object3D | undefined; let leftHand: Object3D | undefined; let rightHand: Object3D | undefined;
       let renderedSnapshot: unknown;
       const context: S02Context = { root: parent, ambient: 0, reducedMotion: profile.motion === 'reduced',
         update(snapshot) {
           const v = snapshot.visual as S02Visual;
-          background.setRGB(v.background[0], v.background[1], v.background[2], SRGBColorSpace);
-          if (v.reveal > 0) background.lerp(preview.background as Color, v.reveal);
-          world.background = background;
           robot = world.getObjectByName('robot');
           if (robot) {
             robot.updateWorldMatrix(true, true);
@@ -124,7 +114,6 @@ export default function Scene({ register, residency, onError }: { register: (id:
             field.current.material.uniforms.uOpacity.value = .65 * (1 - v.sphere);
           }
           gateMount.visible = v.reveal === 0;
-          reveal.visible = v.reveal > 0;
           state.assembleProgress = v.assembleProgress; state.ringSpeed = v.ringSpeed;
           state.openAmount = v.openAmount; state.time = v.surfaceTime; state.reduced = v.reduced;
           portal.update(state);
@@ -141,7 +130,7 @@ export default function Scene({ register, residency, onError }: { register: (id:
         } };
       register('s02', context);
       dispose = () => {
-        parent.remove(gateMount, reveal, energy, flash);
+        parent.remove(gateMount, energy, flash);
         portal.dispose(); target.dispose(); glow.dispose(); spriteMaterial.dispose();
         ringGeometry.dispose(); ringMaterial.dispose(); flashGeometry.dispose(); flashMaterial.dispose();
       };
@@ -151,9 +140,8 @@ export default function Scene({ register, residency, onError }: { register: (id:
     return () => {
       cancel.abort(); register('s02', null); dispose?.();
       leases.forEach(lease => lease.release());
-      if (world.background === background) world.background = null;
     };
-  }, [residency, onError, gl, camera, world, profile, register, particleState, background]);
+  }, [residency, onError, gl, camera, world, profile, register, particleState]);
 
   return <group ref={root} name="s02" visible={false} dispose={null}>
     <directionalLight position={[-2, 4, 3]} intensity={2} />

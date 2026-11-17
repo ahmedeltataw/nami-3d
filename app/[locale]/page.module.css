@@ -59,8 +59,6 @@
 
 .hero h1 {
   clip-path: inset(0 calc(100% - var(--headline-reveal, 100%)) 0 0);
-  opacity: calc(1 - var(--headline-exit, 0));
-  transform: translateY(calc(var(--headline-exit, 0) * -3rem));
 }
 
 :global([dir='rtl']) .hero h1 { clip-path: inset(0 0 0 calc(100% - var(--headline-reveal, 100%))); }
@@ -461,3 +459,15 @@
     grid-template-columns: 1fr;
   }
 }
+
+:global([data-narrative-overlays]) { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+:global([data-overlay-scene]) { position: absolute; inset: 0; padding-inline: var(--space-5, 1.5rem); }
+:global([data-scene-timeline]) { pointer-events: none; }
+:global([data-scene-timeline] a), :global([data-scene-timeline] button) { pointer-events: auto; }
+:global([data-overlay-scene]) .content { position: relative; top: 5rem; }
+:global([data-jump-wash]) { position: fixed; inset: 0; z-index: 10001; opacity: 0; background: radial-gradient(circle, #fff 0%, #1fc98a 70%); pointer-events: none; }
+:global([data-jump-loading]) { position: fixed; inset: 50% auto auto 50%; z-index: 10002; }
+:global([data-jump-loading]) span { display: block; width: .6rem; height: .6rem; border-radius: 50%; background: #007c57; animation: loading-pulse 1s ease-in-out infinite alternate; }
+@keyframes loading-pulse { to { opacity: .25; transform: scale(.7); } }
+:global(html[data-jump-opaque='true'] [data-living-cursor]) { visibility: hidden; }
+:global(html[data-motion='reduced'] [data-jump-wash]), :global(html[data-motion='reduced'] [data-jump-loading]) { display: none; }

@@ -140,10 +140,10 @@ export const scene: SceneDef = {
       });
     }
 
-    if (!ctx.reducedMotion) {
+    {
       const targetAnchor = ctx.root.getObjectByName('S06_ValueTarget');
       if (targetAnchor) {
-        targetAnchor.position.y = 0.25 + Math.sin(ctx.ambient * 0.8) * 0.03;
+        targetAnchor.position.y = 0.25 + Math.sin(ctx.ambient * 0.8) * 0.03 * (ctx.reducedMotion ? 0 : ctx.ambientWeight ?? 1);
       }
     }
   },

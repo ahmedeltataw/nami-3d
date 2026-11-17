@@ -34,7 +34,7 @@ export const scene: SceneDef = {
     };
   },
   apply(_snapshot, ctx) {
-    ctx.root.rotation.y = ctx.reducedMotion ? 0 : Math.sin(ctx.ambient * 0.06) * 0.12;
-    ctx.root.position.y = ctx.reducedMotion ? 0 : Math.sin(ctx.ambient * 0.12) * 0.025;
+    ctx.root.rotation.y = ctx.reducedMotion ? 0 : Math.sin(ctx.ambient * 0.06) * 0.12 * (ctx.ambientWeight ?? 1);
+    ctx.root.position.y = ctx.reducedMotion ? 0 : Math.sin(ctx.ambient * 0.12) * 0.025 * (ctx.ambientWeight ?? 1);
   },
 };

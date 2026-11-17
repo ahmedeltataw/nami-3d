@@ -1615,8 +1615,8 @@
   "lods": {
     "high": {
       "file": "robot_high.glb",
-      "triangles": 39386,
-      "blender_triangles": 39386,
+      "triangles": 39682,
+      "blender_triangles": 39682,
       "texture_px": 1024,
       "textures": [
         "emblemgreen_baseColor",
@@ -1628,8 +1628,8 @@
     },
     "low": {
       "file": "robot_low.glb",
-      "triangles": 14876,
-      "blender_triangles": 14876,
+      "triangles": 14980,
+      "blender_triangles": 14980,
       "texture_px": 1024,
       "textures": [
         "emblemgreen_baseColor",

@@ -9,7 +9,8 @@ export function SkipIntro({ label }: { label: string }) {
   const handleClick = () => {
     const activeController = controller ?? (typeof window !== 'undefined' ? (window as unknown as { __namiController?: { seek: (scene: string, local?: number) => void } }).__namiController : null);
     if (activeController?.seek) {
-      activeController.seek('s02', 0);
+      if ('hero' in activeController && typeof activeController.hero === 'function') activeController.hero('s02');
+      else activeController.seek('s02', 0);
     }
   };
 

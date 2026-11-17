@@ -14,6 +14,7 @@ import type { ParticleFrame } from '../../shared/particles/motion';
 import { generateValueTargets, VALUES_COUNT } from './math';
 import type { S06Visual } from './scene';
 import { useFrame } from '@react-three/fiber';
+import { useMotionRuntime } from '../../RuntimeContext';
 
 export default function S06Scene({
   register,
@@ -24,6 +25,7 @@ export default function S06Scene({
   residency?: AssetResidency | null;
   onError?: () => void;
 }) {
+  const runtime = useMotionRuntime();
   const root = useRef<Group>(null);
   const particleRef = useRef<ParticleFieldHandle>(null);
   const profile = useExperienceStore(state => state.profile);
@@ -120,7 +122,7 @@ export default function S06Scene({
   }, [register, residency, onError, particleCount, valueTargets]);
 
   // Frame update for particle targets and opacity (zero allocations)
-  useFrame((state) => {
+  useFrame(() => {
     if (!particleRef.current || profile.renderer === 'fallback') return;
 
     const controllerState = useExperienceStore.getState();
@@ -153,7 +155,7 @@ export default function S06Scene({
     }
 
     particleFrame.progress = convergeProg;
-    particleFrame.time = state.clock.elapsedTime;
+    particleFrame.time = runtime?.clocks.value.ambientTime ?? 0;
     if (particleRef.current.material?.uniforms?.uOpacity) {
       particleRef.current.material.uniforms.uOpacity.value = 0.65 * particleOpacity;
     }

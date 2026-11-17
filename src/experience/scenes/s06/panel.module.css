@@ -176,3 +176,10 @@
     padding: 1.5rem;
   }
 }
+
+/* Arrival space belongs to the scroll map; the panel stays in document flow. */
+.panel[data-enhanced='true'] {
+  padding-block-start: calc(var(--experience-vh, 1svh) * var(--tail) + 5rem);
+  visibility: hidden;
+}
+.panel[data-enhanced='true'][data-active='true'] { visibility: visible; }

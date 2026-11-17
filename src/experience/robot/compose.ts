@@ -1,10 +1,10 @@
-import { AnimationMixer, Euler, LoopOnce, LoopRepeat, Quaternion, Vector3, type AnimationAction, type AnimationClip, type Object3D } from 'three';
+import { AnimationMixer, Euler, LoopOnce, LoopRepeat, Quaternion, Vector3, type AnimationAction, type AnimationClip, type Material, type Object3D } from 'three';
 import type { ClipName, RobotDirective } from '../contracts';
 import type { Reaction } from './fsm';
 import { floatRoll, floatY, lookAt, type Gaze } from './procedural';
 
 type Transform = { node: Object3D; position: Vector3; quaternion: Quaternion; scale: Vector3 };
-export type PoseLayers = { time: number; delta: number; reduced: boolean; canLook: boolean; target: Vector3 | null; reaction: Reaction | null; headPitch?: number; eyeOpen?: number; headNear?: boolean; focus?: number };
+export type PoseLayers = { time: number; ambientTime?: number; ambientWeight?: number; transitionPose?: import('../contracts').RobotPoseIntent; delta: number; reduced: boolean; canLook: boolean; target: Vector3 | null; reaction: Reaction | null; headPitch?: number; eyeOpen?: number; headNear?: boolean; focus?: number };
 
 // Owns every final joint transform, including mixer sampling and LOD pose transfer.
 export class RobotComposer {
@@ -17,6 +17,7 @@ export class RobotComposer {
   private direction = new Vector3();
   private origin = new Vector3();
   private gaze: Gaze = { yaw: 0, pitch: 0, eyeYaw: 0, eyePitch: 0 };
+  private materials = new Map<Material, { opacity: number; transparent: boolean }>();
   object: Object3D | null = null;
 
   bind(object: Object3D, clips: readonly AnimationClip[]) {
@@ -35,11 +36,15 @@ export class RobotComposer {
       this.rest.push({ node, position: rest.position.clone(), quaternion: rest.quaternion.clone(), scale: rest.scale.clone() });
       const old = previous.get(node.name);
       if (old) { node.position.copy(old.position); node.quaternion.copy(old.quaternion); node.scale.copy(old.scale); }
+      if ('material' in node) {
+        const materials = (Array.isArray(node.material) ? node.material : [node.material]) as Material[];
+        for (const material of materials) this.materials.set(material, { opacity: material.opacity, transparent: material.transparent });
+      }
     });
     this.mixer = new AnimationMixer(object);
     for (const clip of clips) {
       const action = this.mixer.clipAction(clip);
-      action.setLoop(clip.name === 'Idle' || clip.name === 'Sleep' ? LoopRepeat : LoopOnce, Infinity);
+      action.setLoop(['Idle', 'Sleep', 'Fly', 'Thinking'].includes(clip.name) ? LoopRepeat : LoopOnce, Infinity);
       action.clampWhenFinished = true;
       this.actions.set(clip.name as ClipName, action);
     }
@@ -70,21 +75,44 @@ export class RobotComposer {
     node.quaternion.multiply(this.offset.setFromEuler(this.euler));
   }
 
+  private sampleClip(directive: RobotDirective, weight: number) {
+    if (directive.kind !== 'clip') return;
+    const action = this.actions.get(directive.name) ?? this.actions.get('Idle');
+    if (!action) return;
+    action.reset().play();
+    const duration = action.getClip().duration;
+    action.time = ['Idle', 'Sleep', 'Fly', 'Thinking'].includes(action.getClip().name)
+      ? ((directive.timeSeconds % duration) + duration) % duration
+      : Math.max(0, Math.min(duration, directive.timeSeconds));
+    action.setEffectiveWeight(Math.max(0, Math.min(1, directive.weight * weight)));
+  }
+
+  materialLayer(dissolve: number) {
+    for (const [material, baseline] of this.materials) {
+      material.opacity = baseline.opacity * (1 - Math.max(0, Math.min(1, dissolve)));
+      const transparent = baseline.transparent || dissolve > 0;
+      if (material.transparent !== transparent) { material.transparent = transparent; material.needsUpdate = true; }
+    }
+  }
+
   compose(directive: RobotDirective, layers: PoseLayers) {
     if (!this.object || !this.mixer) return;
     // Deactivation restores mixer originals. Restore imported rest AFTER deactivation.
     this.mixer.stopAllAction();
     this.restore();
-    if (!layers.reduced && directive.kind === 'clip') {
-      const action = this.actions.get(directive.name) ?? this.actions.get('Idle');
-      if (action) {
-        action.reset().play();
-        const duration = action.getClip().duration;
-        action.time = action.getClip().name === 'Idle' || action.getClip().name === 'Sleep'
-          ? ((directive.timeSeconds % duration) + duration) % duration
-          : Math.max(0, Math.min(duration, directive.timeSeconds));
-        action.setEffectiveWeight(Math.max(0, Math.min(1, directive.weight)));
-        this.mixer.update(0);
+    const pose = layers.transitionPose;
+    if (!layers.reduced) {
+      const weight = pose?.clipB ? pose.weight : 0;
+      this.sampleClip(pose?.clipA ?? directive, 1 - weight);
+      if (pose?.clipB) this.sampleClip(pose.clipB, weight);
+      this.mixer.update(0);
+    }
+    if (pose?.pose === 'rest' && pose.poseWeight > 0) {
+      const weight = Math.max(0, Math.min(1, pose.poseWeight));
+      for (const rest of this.rest) {
+        rest.node.position.lerp(rest.position, weight);
+        rest.node.quaternion.slerp(rest.quaternion, weight);
+        rest.node.scale.lerp(rest.scale, weight);
       }
     }
     if (layers.reduced) { this.resetGaze(); this.object.updateMatrixWorld(true); return; }
@@ -112,9 +140,10 @@ export class RobotComposer {
       this.mixer.update(0);
     }
     const root = this.nodes.get('Root');
-    if (root && layers.canLook) {
-      root.position.y += floatY(layers.time);
-      this.rotate('Root', 0, 0, floatRoll(layers.time));
+    if (root && !(directive.kind === 'clip' && directive.name === 'Idle')) {
+      const weight = layers.ambientWeight ?? Number(layers.canLook);
+      root.position.y += floatY(layers.ambientTime ?? layers.time) * weight;
+      this.rotate('Root', 0, 0, floatRoll(layers.ambientTime ?? layers.time) * weight);
     }
     if (layers.canLook && layers.target) {
       this.object.updateWorldMatrix(true, true);
@@ -154,6 +183,8 @@ export class RobotComposer {
   }
 
   private disposeMixer() {
+    this.materialLayer(0);
+    this.materials.clear();
     this.mixer?.stopAllAction();
     if (this.object) this.mixer?.uncacheRoot(this.object);
     this.actions.clear();

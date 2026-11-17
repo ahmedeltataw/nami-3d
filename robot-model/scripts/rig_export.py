@@ -150,21 +150,21 @@ def read_glb(path):
     return json.loads(data[20:20 + n])
 
 
-def export_glb(path):
+def export_glb(path, animations=True):
     lc = bpy.context.view_layer.layer_collection.children["Robot_Master"]
     bpy.context.view_layer.active_layer_collection = lc
     win = bpy.context.window_manager.windows[0]    # context is window-less after open_mainfile
     with bpy.context.temp_override(window=win, screen=win.screen, scene=bpy.context.scene,
                                    view_layer=bpy.context.view_layer):
-        _gltf(path)
+        _gltf(path, animations=animations)
     return read_glb(path)
 
 
-def _gltf(path):
+def _gltf(path, animations=True):
     bpy.ops.export_scene.gltf(
         filepath=path, export_format='GLB', use_active_collection=True,
         use_active_collection_with_nested=True, export_apply=True, export_yup=True,
-        export_animations=True, export_animation_mode='ACTIONS', export_extras=True,
+        export_animations=animations, export_animation_mode='ACTIONS', export_extras=True,
         export_draco_mesh_compression_enable=False, export_cameras=False, export_lights=False)
 
 
@@ -235,6 +235,8 @@ def main(open_master=True):
     with open(os.path.join(EXP, "rest_check.txt"), "w") as f:
         f.write(f"meshes checked: {len(before)}\nmax |dM| after parenting: {e1:.2e}\n"
                 f"max |dM| at frame {F0} with Wave assigned: {e2:.2e}\ntolerance: 1e-4\nresult: {'PASS' if ok else 'FAIL'}\n")
+    import rig_fix_mo5a
+    rig_fix_mo5a.apply()
     bpy.ops.wm.save_as_mainfile(filepath=RIG, copy=False)
     gl = export_glb(os.path.join(EXP, "robot_proof.glb"))
     man = manifest(gl, joint_specs(), J)

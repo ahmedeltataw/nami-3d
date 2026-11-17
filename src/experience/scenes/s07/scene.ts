@@ -1,3 +1,4 @@
+import { ambientAngle } from '../../ambient';
 import { clamp } from '../../controller';
 import type { Ctx, SceneDef } from '../../contracts';
 
@@ -84,11 +85,9 @@ export const scene: SceneDef = {
     const visual = snapshot.visual as unknown as S07Visual;
     const coreGroup = ctx.root.getObjectByName('S07_EnergyCore');
     if (coreGroup) {
-      const scale = visual.coreAppearance;
-      coreGroup.scale.setScalar(scale);
-      if (!ctx.reducedMotion) {
-        coreGroup.rotation.y = visual.coreSpin + ctx.ambient * 0.5;
-        coreGroup.rotation.x = Math.sin(ctx.ambient * 0.3) * 0.2;
+      if (ctx.reducedMotion) { coreGroup.rotation.set(0, 0, 0); } else {
+        coreGroup.rotation.y = visual.coreSpin + ambientAngle(ctx.ambient, .5, ctx.ambientWeight ?? 1);
+        coreGroup.rotation.x = Math.sin(ctx.ambient * 0.3) * 0.2 * (ctx.ambientWeight ?? 1);
       }
     }
   },
