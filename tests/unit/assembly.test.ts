@@ -26,7 +26,7 @@ describe('lab assembly camera', () => {
       }
     }
   });
-  it('visits all six anchors and ends at the exact S04 entry, in either sampling direction', () => {
+  it('visits all six anchors and keeps the last station camera for the jump owner, in either sampling direction', () => {
     const times = Array.from({ length: 101 }, (_, i) => i / 100);
     expect(times.toReversed().map(sample).toReversed()).toEqual(times.map(sample));
     for (let id = 1; id <= 6; id++) {
@@ -35,8 +35,11 @@ describe('lab assembly camera', () => {
     }
     expect(sample(0).robot).toMatchObject({ name: 'Fly', timeSeconds: 0 });
     expect(sample(.025).visual.robotPosition).not.toEqual(sample(0).visual.robotPosition);
-    expect(sample(1).camera).toEqual(s04.sample(input).camera);
-    expect(scene.sample({ ...input, local: 1, profile: { ...input.profile, motion: 'reduced' } }).camera).toEqual(s04.sample(input).camera);
+    expect(sample(1).camera).toEqual(cameraPoses[5]);
+    expect(sample(1).visual.robotPosition).toEqual(sample(.97).visual.robotPosition);
+    expect(sample(1).visual.lights).toEqual(sample(.97).visual.lights);
+    expect(sample(1).camera).not.toEqual(s04.sample(input).camera);
+    expect(scene.sample({ ...input, local: 1, profile: { ...input.profile, motion: 'reduced' } }).camera).toEqual(scene.sample({ ...input, local: 0, profile: { ...input.profile, motion: 'reduced' } }).camera);
   });
 });
 

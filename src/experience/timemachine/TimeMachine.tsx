@@ -1,5 +1,6 @@
 ﻿'use client';
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type CSSProperties } from 'react';
+import { createPortal } from 'react-dom';
 import { useExperienceStore } from '../store';
 import { timelineIndex, type Milestone } from './timeline';
 import styles from './time-machine.module.css';
@@ -8,6 +9,12 @@ import { createTimeMachineSession } from './session';
 type Labels = { title: string; close: string; previous: string; next: string; slider: string; article: string; published: string; founded: string };
 export function TimeMachine({ locale, milestones, labels }: { locale: string; milestones: Milestone[]; labels: Labels }) {
   const [open, setOpen] = useState(false);
+  const [host, setHost] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    let active = true;
+    queueMicrotask(() => { if (active) setHost(document.body); });
+    return () => { active = false; };
+  }, []);
   const [index, setIndex] = useState(0);
   const dialog = useRef<HTMLDialogElement>(null);
   const [session] = useState(createTimeMachineSession);
@@ -65,12 +72,12 @@ export function TimeMachine({ locale, milestones, labels }: { locale: string; mi
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   }
   const milestone = milestones[index];
-  return <dialog ref={dialog} className={styles.dialog} data-time-machine dir={locale === 'ar' ? 'rtl' : 'ltr'} aria-labelledby="time-machine-title" style={{ '--timeline-progress': `${index / Math.max(1, milestones.length - 1) * 100}%` } as CSSProperties} onKeyDown={trap} onCancel={event => { event.preventDefault(); event.stopPropagation(); setOpen(false); }}>
+  return host && createPortal(<dialog ref={dialog} className={styles.dialog} data-time-machine dir={locale === 'ar' ? 'rtl' : 'ltr'} aria-labelledby="time-machine-title" style={{ '--timeline-progress': `${index / Math.max(1, milestones.length - 1) * 100}%` } as CSSProperties} onKeyDown={trap} onCancel={event => { event.preventDefault(); event.stopPropagation(); setOpen(false); }}>
     <div className={styles.header}><h2 id="time-machine-title">{labels.title}</h2><button type="button" data-time-machine-close onClick={() => setOpen(false)} autoFocus>{labels.close}</button></div>
     <div className={styles.slider} role="slider" tabIndex={0} aria-label={labels.slider} aria-valuemin={1} aria-valuemax={milestones.length} aria-valuenow={index + 1} aria-valuetext={`${milestone.dateLabel}: ${milestone.label}`} onKeyDown={sliderKey} onPointerDown={event => { event.currentTarget.setPointerCapture(event.pointerId); pointer(event); }} onPointerMove={event => { if (event.currentTarget.hasPointerCapture(event.pointerId)) pointer(event); }}>
       {milestones.map((item, i) => <span key={item.id} className={i === index ? styles.current : ''} aria-hidden="true" />)}
     </div>
     <article data-time-machine-milestone className={styles.milestone} aria-live="polite">{milestone.href && <p>{labels.published}</p>}<time dateTime={milestone.date}>{milestone.dateLabel}</time><h3>{milestone.label}</h3>{milestone.href && <a href={milestone.href}>{labels.article}</a>}</article>
     <div className={styles.navigation}><button type="button" data-time-machine-previous disabled={index === 0} onClick={() => setIndex(index - 1)}>{labels.previous}</button><span aria-hidden="true">{index + 1} / {milestones.length}</span><button type="button" data-time-machine-next disabled={index === milestones.length - 1} onClick={() => setIndex(index + 1)}>{labels.next}</button></div>
-  </dialog>;
+  </dialog>, host);
 }

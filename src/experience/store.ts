@@ -11,6 +11,8 @@ export type { ProjectType } from './scenes/s07/store';
 
 export type ControllerApi = {
   seek: (scene: SceneId, local?: number, updateHistory?: boolean) => void;
+  hero?: (scene: SceneId) => void;
+  scrollToProgress?: (progress: number) => void;
   position?: () => { scene: SceneId; local: number };
   recalculate?: () => void;
 };
@@ -21,7 +23,7 @@ export type ExperienceStore = {
   cursorGrab: boolean;
   robotState: RobotDirective;
   profile: Profile;
-  ui: { ready: boolean; contextLost: boolean };
+  ui: { ready: boolean; contextLost: boolean; posterScene?: SceneId };
   controller: ControllerApi | null;
 } & S03Slice & S04Slice & S05Slice & S06Slice & S07Slice;
 

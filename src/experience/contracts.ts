@@ -8,8 +8,8 @@ export type SceneId = 's01' | 's02' | 's03' | 's04' | 's05' | 's06' | 's07';
 export type ClipName = 'Idle' | 'Sleep' | 'WakeUp' | 'LookAround' | 'Wave' | 'Draw' | 'Point' | 'ChargeEnergy' | 'React' | 'OpenPortal' | 'Fly' | 'Present' | 'Thinking' | 'Grab' | 'Celebrate' | 'Guide';
 export type PoseName = 'rest';
 export type EffectSpec = { id: string; from: number; to: number };
-export type Ctx = { root: Group; ambient: number; reducedMotion: boolean; beforeRender?: (camera: Camera) => void };
-export type SampleInput = { local:number; viewport:{w:number;h:number;dpr:number}; profile:Profile; interaction:InteractionState; seed:number; ambient:number; introSeconds?:number };
+export type Ctx = { root: Group; ambient: number; ambientWeight?: number; visibility?: number; transition?: TransitionIntents | null; reducedMotion: boolean; beforeRender?: (camera: Camera) => void };
+export type SampleInput = { local:number; narrativeLocal?:number; viewport:{w:number;h:number;dpr:number}; profile:Profile; interaction:InteractionState; seed:number; ambient:number; ambientWeight?:number; introSeconds?:number };
 export type SceneSnapshot = { camera: CameraPose; robot: RobotDirective; visual: Record<string, unknown> };
 export interface SceneDef { id:'s01'|'s02'|'s03'|'s04'|'s05'|'s06'|'s07'; assets:AssetKey[]; sample(i:SampleInput):SceneSnapshot; apply(s:SceneSnapshot, ctx:Ctx):void; effects?:EffectSpec[]; poster:string }
 export type RobotDirective = {kind:'clip';name:ClipName;timeSeconds:number;weight:number} | {kind:'pose';name:PoseName} | {kind:'point';target:string} | {kind:'rest'};
@@ -20,13 +20,21 @@ export type CameraTransitionIntent = { from: CameraPose; to: CameraPose; blend: 
 export type RobotTransitionIntent = { directive: RobotDirective; position: [number, number, number] | null; quaternion: [number, number, number, number] | null };
 export type ParticleTransitionIntent = { progress: number; opacity: number };
 export type LightingTransitionIntent = { intensity: number; color: [number, number, number] };
-export type UITransitionIntent = { fromOpacity: number; toOpacity: number };
+export type UITransitionIntent = { aProgress: number; bProgress: number; jumpProgress: number };
+export type RobotPoseIntent = { clipA: RobotDirective; clipB: RobotDirective | null; weight: number; pose: PoseName; poseWeight: number };
 export type TransitionIntents = {
   fromVisibility: number; toVisibility: number;
   camera: CameraTransitionIntent; robot: RobotTransitionIntent;
   particles: ParticleTransitionIntent | null;
   lighting: LightingTransitionIntent | null;
-  ui: UITransitionIntent | null;
+  owner: SceneId;
+  portal: { anchor: [number, number, number]; radius: number; open: number; previewOn: boolean };
+  wash: number; dissolve: number; robotPose: RobotPoseIntent;
+  background: [number, number, number] | null;
+  fog: { color: [number, number, number]; density: number } | null;
+  exposure: number;
+  lights: { aWeight: number; bWeight: number };
+  ui: UITransitionIntent;
 };
 export type TransitionSnapshot = TransitionIntents & { id: TransitionId; progress: number };
 export type TransitionInput = SampleInput & { active: SceneId; from: SceneSnapshot; to: SceneSnapshot; camera: CameraTransitionIntent };

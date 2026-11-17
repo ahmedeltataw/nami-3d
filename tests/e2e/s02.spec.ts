@@ -1,11 +1,8 @@
+import { scrollBody, seekJump } from './motion-helpers';
 import { expect, test, type Page } from '@playwright/test';
 
 async function seek(page: Page, local: number) {
-  await page.evaluate(p => {
-    const section = document.getElementById('s02')!;
-    const next = document.getElementById('s03')!;
-    window.scrollTo({ top: section.offsetTop + (next.offsetTop - section.offsetTop) * p, behavior: 'instant' });
-  }, local);
+  await scrollBody(page, 's02', local);
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().local)).toBeCloseTo(local, 2);
 }
 async function colors(page: Page) {
@@ -39,7 +36,7 @@ test('cold /ar#s02 renders charge, assembled portal, reverse seek and lab handof
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().robot)).toMatchObject({ name: 'Fly' });
   await seek(page, .28);
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(2.6, 2);
-  await seek(page, .999);
+  await seekJump(page, 1, .999);
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(9, 1);
   expect(errors).toEqual([]);
 });

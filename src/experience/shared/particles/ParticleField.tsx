@@ -8,6 +8,7 @@ import { createParticleCore, type ParticleCore } from './core';
 import type { ParticleFrame } from './motion';
 import type { TargetFunction } from './attributes';
 import type { PresetSelection } from './presets';
+import { useMotionRuntime } from '../../RuntimeContext';
 
 export type ParticleFieldHandle = Pick<ParticleCore, 'setTargets' | 'setPreset' | 'material'>;
 export type ParticleFieldProps = {
@@ -16,12 +17,13 @@ export type ParticleFieldProps = {
   active?: boolean;
   preset?: PresetSelection;
   targetFn?: TargetFunction;
-  /** Mutable narrative input; update in place without a React render. Time defaults to the R3F clock. */
+  /** Mutable narrative input; update in place without a React render. Time comes from the shared ambient clock. */
   state?: ParticleFrame;
   ref?: Ref<ParticleFieldHandle>;
 };
 
 function WebGLParticleField({ profile, seed = 1, active = true, preset = 'ambient', targetFn, state, ref }: ParticleFieldProps) {
+  const runtime = useMotionRuntime();
   // Preset changes update weights only; target generation belongs to the initial preset or explicit targetFn.
   const [initialPreset] = useState(() => preset);
   const core = useMemo(() => createParticleCore({ quality: profile.quality, seed, preset: initialPreset, targetFn }), [profile.quality, seed, initialPreset, targetFn]);
@@ -29,10 +31,13 @@ function WebGLParticleField({ profile, seed = 1, active = true, preset = 'ambien
   useImperativeHandle(ref, () => core, [core]);
   useEffect(() => { core.setPreset(preset); }, [core, preset]);
   useEffect(() => () => core.dispose(), [core]);
-  useFrame(root => {
+  useFrame((root, delta) => {
     if (!active) return;
-    defaultFrame.time = root.clock.elapsedTime;
-    core.update(state ?? defaultFrame, root.gl.getPixelRatio(), profile.motion === 'reduced');
+    defaultFrame.time = runtime?.clocks.value.ambientTime ?? (defaultFrame.time + (profile.motion === 'reduced' ? 0 : Math.min(.1, delta)));
+    const frame = state ?? defaultFrame;
+    frame.time = defaultFrame.time;
+    core.material.uniforms.uAmbientWeight.value = runtime?.ambientWeight ?? 1;
+    core.update(frame, root.gl.getPixelRatio(), profile.motion === 'reduced');
   });
   return <points name="ParticleField" geometry={core.geometry} material={core.material} visible={active} frustumCulled={false} dispose={null} />;
 }

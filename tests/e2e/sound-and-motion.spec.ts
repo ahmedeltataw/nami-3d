@@ -48,6 +48,10 @@ for (const locale of ['ar', 'en'] as const) {
     const context = await browser.newContext({
       reducedMotion: 'reduce',
     });
+    // Content visibility and sound state do not depend on the production image CDN.
+    await context.route('https://backend.nami-tec.com/storage/images/project/**', route => route.fulfill({
+      path: 'public/posters/s05.svg', contentType: 'image/svg+xml',
+    }));
     const page = await context.newPage();
     const errors: string[] = [];
     page.on('pageerror', err => errors.push(err.message));

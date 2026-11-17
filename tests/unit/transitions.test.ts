@@ -2,18 +2,17 @@ import { describe, expect, it, vi } from 'vitest';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import ts from 'typescript';
-import type { AssetKey, SampleInput, SceneId, TransitionCtx } from '../../src/experience/contracts';
-import { SCENE_IDS, SCROLL_BUDGETS, TOTAL_BUDGET, mapScroll, scrollForScene } from '../../src/experience/controller';
+import type { AssetKey, SampleInput, SceneId, TransitionId, TransitionCtx } from '../../src/experience/contracts';
+import { SCENE_IDS, SCROLL_BUDGETS, TOTAL_BUDGET, mapScroll, scrollForScene, SCROLL_MAP, localForBody, bodyProgress } from '../../src/experience/controller';
 import { scenes } from '../../src/experience/scenes';
 import { mountedScenes, residentScenes, sampleBoundary, transitionAt, transitions } from '../../src/experience/transitions';
 import { TransitionResidency } from '../../src/experience/transitions/residency';
 import { AssetResidency, keysForScene, type ResidentAsset } from '../../src/experience/assets/residency';
-import { CameraRig } from '../../src/experience/camera/CameraRig';
-import { PerspectiveCamera } from 'three';
+import { beatsFor } from '../../src/experience/transitions/beats';
 
 const input: SampleInput = { local: 0, viewport: { w: 1280, h: 800, dpr: 1 }, profile: { motion: 'full', quality: 'mid', renderer: 'webgl' }, interaction: { source: null, token: 0, reaction: null }, seed: 1, ambient: 0 };
 const sample = (scene: SceneId, local: number, reduced = false) => {
-  const i = { ...input, local, profile: { ...input.profile, motion: reduced ? 'reduced' as const : 'full' as const } };
+  const i = { ...input, local: bodyProgress(scene, local), narrativeLocal: local, profile: { ...input.profile, motion: reduced ? 'reduced' as const : 'full' as const } };
   return sampleBoundary(scene, i, scenes[scene].sample(i));
 };
 
@@ -24,53 +23,49 @@ describe('boundary sampling', () => {
     expect(TOTAL_BUDGET).toBe(2280);
   });
 
-  it.each(Object.values(transitions))('$from -> $to is direct == forward == reverse and JSON round trips', def => {
-    const points = [[def.from, .9], [def.from, .95], [def.to, 0], [def.to, .05], [def.to, .1]] as const;
+  it.each(Object.values(transitions))('$from -> $to is direct == reverse and swaps ownership only under its wash', def => {
+    const [start, end] = def.window;
+    const points = [[def.from, start], [def.from, (start + 1) / 2], [def.to, 0], [def.to, end / 2], [def.to, end - 1e-8]] as const;
     const direct = points.map(([id, local]) => sample(id, local));
-    const reverse = [...points].reverse().map(([id, local]) => sample(id, local)).reverse();
-    expect(reverse).toEqual(direct);
-    for (const [i, [id, local]] of points.entries()) {
-      const snap = direct[i].transition!;
+    expect([...points].reverse().map(([id, local]) => sample(id, local)).reverse()).toEqual(direct);
+    for (const result of direct) {
+      const snap = result.transition!;
       expect(JSON.parse(JSON.stringify(snap))).toEqual(snap);
-      expect(mountedScenes(id, local)).toEqual([def.from, def.to]);
-      expect(snap.fromVisibility).toBe(Number(id === def.from));
-      expect(snap.toVisibility).toBe(Number(id === def.to));
-      const camera = new PerspectiveCamera();
-      const rig = new CameraRig();
-      rig.setPoses(snap.camera.from, snap.camera.to, { blend: snap.camera.blend, snap: true });
-      rig.apply(camera, 0);
-      const baseline = new CameraRig();
-      const active = scenes[id].sample({ ...input, local });
-      const index = SCENE_IDS.indexOf(id);
-      const previous = index > 0 && id !== 's03' && id !== 's05' ? scenes[SCENE_IDS[index - 1]].sample({ ...input, local: 1 }).camera : active.camera;
-      baseline.setPoses(previous, active.camera, { blend: local / .08, snap: true });
-      const expected = new PerspectiveCamera();
-      baseline.apply(expected, 0);
-      expect(camera.position.toArray()).toEqual(expected.position.toArray());
-      expect(camera.quaternion.toArray()).toEqual(expected.quaternion.toArray());
-      expect(camera.fov).toBe(expected.fov);
-      const ctx: TransitionCtx = { intents: null };
-      def.apply(snap, ctx);
-      expect(ctx.intents).toBe(snap);
+      expect(snap.fromVisibility + snap.toVisibility).toBeCloseTo(1);
+      const ctx: TransitionCtx = { intents: null }; def.apply(snap, ctx); expect(ctx.intents).toBe(snap);
     }
     expect(direct[0].transition!.progress).toBeCloseTo(0);
-    expect(direct.at(-1)!.transition!.progress).toBeCloseTo(1);
-    const end = transitionAt(def.from, 1)!.progress;
-    expect(transitionAt(def.to, 0)!.progress).toBeCloseTo(end);
-    expect(transitionAt(def.to, .10001)).toBeNull();
+    expect(direct.at(-1)!.transition!.progress).toBeCloseTo(1, 6);
+    expect(transitionAt(def.from, 1)!.progress).toBeCloseTo(transitionAt(def.to, 0)!.progress);
+    expect(transitionAt(def.to, end)).toBeNull();
+    const from = scenes[def.from].sample({ ...input, local: 1 });
+    const to = scenes[def.to].sample({ ...input, local: 0 });
+    const beats = beatsFor(`${def.from}->${def.to}` as TransitionId);
+    for (const t of [beats.opaque[0] - 1e-7, beats.opaque[0] + 1e-7, beats.opaque[1] - 1e-7, beats.opaque[1] + 1e-7]) {
+      const snap = def.sample(t, { ...input, active: def.from, from, to, camera: { from: from.camera, to: to.camera, blend: t } });
+      const source = t < (beats.opaque[0] + beats.opaque[1]) / 2;
+      expect(snap.owner).toBe(source ? def.from : def.to);
+      expect(snap.camera.from.fov).toBe(source ? from.camera.fov : to.camera.fov);
+      expect(snap.camera.to.fov).toBe(snap.camera.from.fov);
+      expect(snap.lights).toEqual({ aWeight: Number(source), bWeight: Number(!source) });
+      if (t > beats.opaque[0] && t < beats.opaque[1]) expect(snap.wash).toBe(1);
+    }
   });
 
-  it('warms the next scene before the window, handles reverse entry, and snaps reduced motion', () => {
+  it('warms forward at body .5, reverse within one viewport, and excludes jumps from reduced motion', () => {
     for (let i = 0; i < 6; i++) {
-      expect(residentScenes(SCENE_IDS[i], .85)).toContain(SCENE_IDS[i + 1]);
-      expect(mountedScenes(SCENE_IDS[i], .85)).toEqual([SCENE_IDS[i]]);
-      expect(residentScenes(SCENE_IDS[i + 1], .15)).toContain(SCENE_IDS[i]);
-      expect(mountedScenes(SCENE_IDS[i], .95, true)).toEqual([SCENE_IDS[i]]);
-      expect(sample(SCENE_IDS[i], .95, true).transition).toBeNull();
-      const y = scrollForScene(SCENE_IDS[i], .95, 800);
-      const position = mapScroll(y, 800);
-      expect(position.scene).toBe(SCENE_IDS[i]);
-      expect(position.local).toBeCloseTo(.95);
+      const id = SCENE_IDS[i];
+      expect(residentScenes(id, localForBody(id, .5))).toContain(SCENE_IDS[i + 1]);
+      expect(mountedScenes(id, localForBody(id, .5))).toEqual([id]);
+      const next = SCROLL_MAP[i + 1];
+      const reverseBody = localForBody(next.id, .1);
+      expect(mountedScenes(next.id, reverseBody)).toEqual([next.id]);
+      expect(residentScenes(next.id, reverseBody, false, -1)).toContain(id);
+      if (next.body > 100) expect(residentScenes(next.id, localForBody(next.id, 101 / next.body), false, -1)).toEqual([next.id]);
+      expect(mountedScenes(id, .95, true)).toEqual([id]);
+      expect(sample(id, .95, true).transition).toBeNull();
+      const position = mapScroll(scrollForScene(id, .95, 800), 800);
+      expect(position.scene).toBe(id); expect(position.b).toBeCloseTo(.95);
     }
   });
 });

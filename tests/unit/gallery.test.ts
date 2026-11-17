@@ -36,11 +36,14 @@ describe('gallery timeline', () => {
       expect(scene.sample({ ...input, local: .05 + (i + .1) * .15 }).visual.activeTarget).toBeNull();
       expect(scene.sample({ ...input, local: .05 + (i + .6) * .15 }).visual.activeTarget).toBe(i);
     }
-    expect(scene.sample({ ...input, local: 1 }).visual.activeTarget).toBeNull();
+    expect(scene.sample({ ...input, local: 1 }).visual.activeTarget).toBe(5);
   });
-  it('hands the exact camera and rest directive to S06', () => {
-    expect(scene.sample({ ...input, local: 1 }).camera).toEqual(s06.sample({ ...input, local: 0 }).camera);
-    expect(scene.sample({ ...input, local: 1 }).robot).toEqual({ kind: 'rest' });
+  it('holds the last gallery camera for the jump into S06', () => {
+    expect(scene.sample({ ...input, local: 1 }).camera).toEqual(scene.sample({ ...input, local: .95 }).camera);
+    expect(scene.sample({ ...input, local: 1 }).camera).not.toEqual(s06.sample({ ...input, local: 0 }).camera);
+    expect(scene.sample({ ...input, local: 1 }).visual.robotPosition).toEqual(scene.sample({ ...input, local: .95 }).visual.robotPosition);
+    expect(scene.sample({ ...input, local: 1 }).visual.robotYaw).toBe(scene.sample({ ...input, local: .95 }).visual.robotYaw);
+    expect(scene.sample({ ...input, local: 1 }).robot).toEqual(scene.sample({ ...input, local: .95 }).robot);
   });
   it('keeps the reduced-motion camera and world still throughout the project windows', () => {
     const reduced = { ...input, profile: { ...input.profile, motion: 'reduced' as const } };

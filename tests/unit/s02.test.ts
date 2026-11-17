@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { Quaternion, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { SampleInput } from '../../src/experience/contracts';
 import { backgroundColor, scene, type S02Visual } from '../../src/experience/scenes/s02/scene';
@@ -61,12 +60,9 @@ describe('S02 deterministic choreography', () => {
     expect(sample(.835).camera.fov).toBe(42);
     expect(sample(.92).camera.fov).toBe(40);
     expect(sample(.92).camera.position[2]).toBeLessThan(-2);
-    expect(sample(1).camera).toEqual(lab.sample(input).camera);
-    expect(sample(1).robot).toEqual(lab.sample(input).robot);
-    const entry = lab.sample(input).camera;
-    const offset = new Vector3(-1.2, -.8, -3.3).applyQuaternion(new Quaternion().fromArray(entry.quaternion));
-    expect(visual(1).robotPosition).toEqual([0, -1.69 * .52, entry.position[2] + offset.z]);
-    expect(visual(1).robotQuaternion).toEqual(entry.quaternion);
+    expect(sample(1).camera).toEqual(sample(.92).camera);
+    expect(sample(1).camera).not.toEqual(lab.sample(input).camera);
+    expect(visual(1).reveal).toBe(0);
   });
   it('uses discrete reduced motion states, no push or spin, and a short dissolve', () => {
     const profile = { ...input.profile, motion: 'reduced' as const };
@@ -79,7 +75,7 @@ describe('S02 deterministic choreography', () => {
       expect(snapshot.visual).toMatchObject({ sphere: 0, ringSpeed: 0, surfaceTime: 0 });
     }
     expect(scene.sample({ ...input, local: .94, profile }).visual.brightness).toBe(1);
-    expect(scene.sample({ ...input, local: 1, profile }).camera).toEqual(lab.sample({ ...input, profile }).camera);
+    expect(scene.sample({ ...input, local: 1, profile }).camera).toEqual(scene.sample({ ...input, local: 0, profile }).camera);
   });
   it('limits preview rendering to the visible portal and chooses mobile target size', () => {
     expect(previewVisible(0, 0)).toBe(false);

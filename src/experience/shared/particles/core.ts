@@ -23,7 +23,7 @@ export function createParticleCore({ quality, seed = 1, preset = 'ambient', targ
   geometry.setAttribute('aTint', new BufferAttribute(attributes.tint, 1));
   const uniforms = {
     ...UniformsUtils.clone(Object.assign({}, ...presets.map(entry => entry.uniforms))),
-    uProgress: { value: 0 }, uTime: { value: 0 }, uPreset: { value: weights },
+    uAmbientWeight: { value: 1 }, uProgress: { value: 0 }, uTime: { value: 0 }, uPreset: { value: weights },
     uPointer: { value: new Vector3() }, uDpr: { value: 1 }, uOpacity: { value: 0.65 },
   };
   const material = new ShaderMaterial({

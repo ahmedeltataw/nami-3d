@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { mapScroll, SCENE_IDS, SCROLL_BUDGETS, scrollForScene, TOTAL_BUDGET, sceneFromHash } from '../../src/experience/controller';
+import { mapScroll, SCENE_IDS, SCROLL_BUDGETS, scrollForScene, TOTAL_BUDGET, sceneFromHash, SCROLL_MAP } from '../../src/experience/controller';
 import { scenes } from '../../src/experience/scenes';
 import { detectProfile, initialDpr, type ProfileEnvironment } from '../../src/experience/profile';
 import { createInteraction } from '../../src/experience/interaction';
@@ -17,7 +17,7 @@ describe('scroll budgets', () => {
         expect(position.scene).toBe(scene);
         expect(position.local).toBeCloseTo(local, 9);
         expect(position.progress).toBeCloseTo((start + local * SCROLL_BUDGETS[index]) / TOTAL_BUDGET, 9);
-        expect(scrollForScene(scene, local, height)).toBeCloseTo(y, 9);
+        expect(scrollForScene(scene, local, height)).toBeCloseTo((SCROLL_MAP[index].hero + local * SCROLL_MAP[index].body) * height / 100, 9);
       }
       const end = (start + SCROLL_BUDGETS[index]) * height / 100;
       const left = mapScroll(end - 0.00001, height);
@@ -25,13 +25,13 @@ describe('scroll budgets', () => {
       expect(left.scene).toBe(scene);
       expect(left.local).toBeCloseTo(1, 6);
       expect(right.scene).toBe(SCENE_IDS[Math.min(index + 1, 6)]);
-      expect(right.local).toBe(index === 6 ? 1 : 0);
+      expect(right.local).toBeCloseTo(index === 6 ? 1 : 0, 12);
       expect(right.progress - left.progress).toBeLessThan(0.000001);
       start += SCROLL_BUDGETS[index];
     });
     expect(mapScroll(-100, height).local).toBe(0);
     expect(mapScroll(Infinity, height).local).toBe(0);
-    expect(mapScroll(1e9, height)).toEqual({ scene: 's07', local: 1, progress: 1 });
+    expect(mapScroll(1e9, height)).toMatchObject({ scene: 's07', local: 1, b: 1, t: null, progress: 1 });
   });
 
   it('accepts only scene hashes', () => {
