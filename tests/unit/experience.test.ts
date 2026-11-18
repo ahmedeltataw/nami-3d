@@ -1,3 +1,4 @@
+import { noJumps } from '../../src/experience/profile';
 import { describe, expect, it, vi } from 'vitest';
 import { mapScroll, SCENE_IDS, SCROLL_BUDGETS, scrollForScene, TOTAL_BUDGET, sceneFromHash, SCROLL_MAP } from '../../src/experience/controller';
 import { scenes } from '../../src/experience/scenes';
@@ -119,4 +120,11 @@ describe('interaction arbitration', () => {
     interaction.narrativeChanged();
     expect(interaction.state.reaction).toBeNull();
   });
+});
+
+it('uses one jump policy for every motion and renderer combination', () => {
+  expect(noJumps({ motion: 'full', renderer: 'webgl' })).toBe(false);
+  expect(noJumps({ motion: 'reduced', renderer: 'webgl' })).toBe(true);
+  expect(noJumps({ motion: 'full', renderer: 'fallback' })).toBe(true);
+  expect(noJumps({ motion: 'reduced', renderer: 'fallback' })).toBe(true);
 });

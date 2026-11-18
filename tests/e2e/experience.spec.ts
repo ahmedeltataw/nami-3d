@@ -35,6 +35,7 @@ test('cold #s05 loads its destination first, renders WebGL and seeks every hash 
 });
 
 test('WebGL denied keeps server sections and native links usable without a Canvas', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.addInitScript(() => {
@@ -49,11 +50,31 @@ test('WebGL denied keeps server sections and native links usable without a Canva
   // The controller is attached after idle startup even when there is no renderer.
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'full');
   await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(0);
+  async function expectFallbackHero(scene: string) {
+    await expect(page.locator('[data-experience]')).toHaveAttribute('data-scene', scene);
+    await expect(page.locator('[data-jump-wash]')).toHaveCSS('opacity', '0');
+    await expect(page.locator('[data-jump-loading]')).toBeHidden();
+    if (scene !== 's04') await expect(page.locator(`#${scene} h2`).first()).toBeInViewport({ ratio: 1 });
+    await expect.poll(() => page.locator(`#${scene}`).evaluate(section => section.getBoundingClientRect().top)).toBeCloseTo(0, 0);
+  }
+  await expectFallbackHero('s05');
   for (let index = 1; index <= 7; index++) {
     const id = `s0${index}`;
     await page.getByRole('link', { name: id, exact: true }).click();
     await expect(page.locator(`#${id}`)).toBeInViewport();
     await expect(page.locator(`#${id} p`).first()).toBeVisible();
+    if (index >= 2) await expectFallbackHero(id);
+  }
+  for (const scene of ['s02', 's03', 's04', 's05', 's06', 's07']) {
+    await page.evaluate(id => { location.hash = id; }, scene);
+    await expect(page.locator('[data-experience]')).toHaveAttribute('data-scene', scene);
+    await expectFallbackHero(scene);
+  }
+  for (const [key, scene] of [['PageUp', 's06'], ['PageUp', 's05'], ['PageDown', 's06'], ['End', 's07']]) {
+    await page.keyboard.press(key);
+    await expect(page).toHaveURL(new RegExp(`#${scene}$`));
+    await expect(page.locator(`#${scene} h2`).first()).toBeFocused();
+    await expectFallbackHero(scene);
   }
   expect(errors).toEqual([]);
 });
@@ -170,4 +191,19 @@ test('HTML and scene links exist before JavaScript', async ({ browser }) => {
   await page.getByRole('link', { name: 's07', exact: true }).click();
   await expect(page.locator('#s07')).toBeInViewport();
   await context.close();
+});
+
+test('an asset error switches the live renderer and subsequent seeks to fallback heroes', async ({ page }) => {
+  await page.route('**/models/robot/robot_*.glb', route => route.abort('failed'));
+  await page.goto('/en?experienceDebug=1#s05');
+  const host = page.locator('[data-experience]');
+  await expect(host).toHaveAttribute('data-renderer', 'fallback');
+  await expect.poll(() => page.evaluate(() => !!window.__namiController)).toBe(true);
+  for (const scene of ['s02', 's03', 's04', 's05', 's06', 's07']) {
+    await page.getByRole('link', { name: scene, exact: true }).click();
+    await expect(host).toHaveAttribute('data-scene', scene);
+    await expect(page.locator('[data-jump-wash]')).toHaveCSS('opacity', '0');
+    await expect(page.locator('[data-jump-loading]')).toBeHidden();
+    await expect.poll(() => page.locator(`#${scene}`).evaluate(section => section.getBoundingClientRect().top)).toBeCloseTo(0, 0);
+  }
 });
