@@ -18,7 +18,8 @@
     "validate:site": "node scripts/validate-site.mjs",
     "blender:headless": "node scripts/blender-headless.mjs",
     "content:build": "node scripts/build-content.mjs",
-    "test:gpu": "node scripts/run-e2e.mjs --gpu --grep @gpu"
+    "test:gpu": "node scripts/run-e2e.mjs --gpu --grep @gpu",
+    "capture:jumps": "node scripts/capture-jumps.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
