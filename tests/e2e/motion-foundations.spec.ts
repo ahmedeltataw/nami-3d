@@ -139,9 +139,13 @@ test('DOM ownership follows the opaque seam in both directions', async ({ page }
 test('Director keeps S07 dwell, preserves control focus and does not push timer history', async ({ page }) => {
   await page.goto('/en?capture=1&intro=8&experienceDebug=1');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
-  await page.clock.install();
+  await page.clock.install({ time: new Date('2025-01-01T00:00:00Z') });
+  await page.clock.pauseAt(new Date('2025-01-01T00:01:00Z'));
   await page.getByRole('button', { name: 'Show me NAMI', exact: true }).click();
   await page.evaluate(() => window.__namiController!.seek('s06', 0, false));
+  await page.clock.runFor(100);
+  await expect(page.locator('[data-experience]')).toHaveAttribute('data-scene', 's06');
+  await expect(page.locator('[data-director]')).toHaveAttribute('data-director', 'playing');
   const skip = page.getByRole('button', { name: 'Skip scene', exact: true });
   await skip.focus();
   const historyLength = await page.evaluate(() => history.length);
