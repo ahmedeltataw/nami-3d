@@ -1,52 +1,57 @@
 import { ambientAngle } from '../../ambient';
 import { clamp } from '../../controller';
 import type { Ctx, SceneDef } from '../../contracts';
+import { SCENE_HEROES } from '../manifests';
 
-export const S07_ENTRY_CAMERA: [number, number, number] = [0, 0, 4.4];
-export const S07_EXIT_CAMERA: [number, number, number] = [0, 0, 4.4];
+const HERO = SCENE_HEROES.s07;
+export const S07_ENTRY_CAMERA: [number, number, number] = [...HERO.camera.position];
+export const S07_EXIT_CAMERA: [number, number, number] = [...HERO.camera.position];
 
 export type S07Visual = {
   coreAppearance: number;
   coreSpin: number;
   optionsReady: boolean;
   robotState: 'interacting';
+  robotPosition: [number, number, number];
+  robotQuaternion: [number, number, number, number];
+  robotScale: number;
 };
 
 export const scene: SceneDef = {
   id: 's07',
-  assets: ['poster:s07', 'tech.cubes', 'display.platform'],
+  assets: ['poster:s07', 's07.kit'],
   poster: '/posters/s07.svg',
 
   sample(input) {
     const local = clamp(input.local);
     const reduced = input.profile.motion === 'reduced';
+    const robotVisual = {
+      robotPosition: [...HERO.robot.rootPosition] as [number, number, number],
+      robotQuaternion: [...HERO.robot.quaternion] as [number, number, number, number],
+      robotScale: HERO.robot.scale,
+    };
+
+    const camera = {
+      position: [...HERO.camera.position] as [number, number, number],
+      quaternion: [...HERO.camera.quaternion] as [number, number, number, number],
+      fov: HERO.camera.fov,
+      near: HERO.camera.near,
+      far: HERO.camera.far,
+    };
 
     if (reduced) {
       return {
-        camera: {
-          position: [...S07_ENTRY_CAMERA],
-          quaternion: [0, 0, 0, 1],
-          fov: 50,
-          near: 0.1,
-          far: 100,
-        },
+        camera,
         robot: { kind: 'pose', name: 'rest' },
         visual: {
           coreAppearance: 1,
           coreSpin: 0,
           optionsReady: true,
           robotState: 'interacting',
+          ...robotVisual,
         } satisfies S07Visual,
       };
     }
-
-    const camera = {
-      position: [...S07_ENTRY_CAMERA] as [number, number, number],
-      quaternion: [0, 0, 0, 1] as [number, number, number, number],
-      fov: 50,
-      near: 0.1,
-      far: 100,
-    };
 
     let coreAppearance = 1;
     const coreSpin = local * Math.PI * 4;
@@ -57,7 +62,6 @@ export const scene: SceneDef = {
       robotDirective = { kind: 'rest' };
     } else if (local < 0.30) {
       coreAppearance = clamp(local / 0.30);
-      // Robot extends hands (waving/presenting hands forward)
       robotDirective = {
         kind: 'clip',
         name: 'Wave',
@@ -77,6 +81,7 @@ export const scene: SceneDef = {
         coreSpin,
         optionsReady: local >= 0.30,
         robotState: 'interacting',
+        ...robotVisual,
       } satisfies S07Visual,
     };
   },

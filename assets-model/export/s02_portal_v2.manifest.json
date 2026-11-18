@@ -29,5 +29,14 @@
   "materials": {
     "emissive": ["M_Emissive_Emerald", "M_Emissive_Mint", "M_Emissive_Core", "M_Emissive_Logo", "M_Emissive_Warm", "M_Emissive_FloorRing", "M_Emissive_Bar", "M_FX_Swirl", "M_Lab_View"],
     "surface": ["M_Metal_Gunmetal", "M_Metal_Plate", "M_Metal_Dark", "M_Floor_Gloss_S02", "M_Wall_Teal_S02"]
+  },
+  "packed_bytes": 1044240,
+  "portrait_framing": {
+    "aspect_threshold": 0.85,
+    "matte_card_constrained": false,
+    "recommended_pullback_m": 3.5,
+    "portrait_offset_gltf": [0.8, 0.3, 3.5],
+    "max_safe_fov_deg": 80,
+    "note": "Portal at x=4.5, robot at x=-1.72 span 6.2m; portrait needs pullback +3.5m and slight +X shift inside backdrop wall."
   }
 }

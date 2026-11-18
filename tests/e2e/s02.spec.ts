@@ -35,9 +35,9 @@ test('cold /ar#s02 renders charge, assembled portal, reverse seek and lab handof
   await seek(page, .84);
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().robot)).toMatchObject({ name: 'Fly' });
   await seek(page, .28);
-  await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(2.6, 2);
+  await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(0, 2);
   await seekJump(page, 1, .999);
-  await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(9, 1);
+  await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(10.6, 1);
   expect(errors).toEqual([]);
 });
 
@@ -47,7 +47,7 @@ test('mobile reduced-motion S02 keeps a fixed camera until the discrete dissolve
   await page.goto('/ar?experienceDebug=1#s02');
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true', { timeout: 30_000 });
   await seek(page, .8);
-  await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(2.6, 2);
+  await expect.poll(() => page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(0, 2);
   expect(await page.evaluate(() => window.__namiDebug!().robot)).toEqual({ kind: 'pose', name: 'rest' });
   expect(await colors(page)).toBeGreaterThan(20);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

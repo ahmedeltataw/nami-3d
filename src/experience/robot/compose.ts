@@ -4,7 +4,22 @@ import type { Reaction } from './fsm';
 import { floatRoll, floatY, lookAt, type Gaze } from './procedural';
 
 type Transform = { node: Object3D; position: Vector3; quaternion: Quaternion; scale: Vector3 };
-export type PoseLayers = { time: number; ambientTime?: number; ambientWeight?: number; transitionPose?: import('../contracts').RobotPoseIntent; delta: number; reduced: boolean; canLook: boolean; target: Vector3 | null; reaction: Reaction | null; headPitch?: number; eyeOpen?: number; headNear?: boolean; focus?: number };
+export type PoseLayers = {
+  time: number;
+  ambientTime?: number;
+  ambientWeight?: number;
+  transitionPose?: import('../contracts').RobotPoseIntent;
+  jointPoses?: Record<string, readonly [number, number, number, number]>;
+  delta: number;
+  reduced: boolean;
+  canLook: boolean;
+  target: Vector3 | null;
+  reaction: Reaction | null;
+  headPitch?: number;
+  eyeOpen?: number;
+  headNear?: boolean;
+  focus?: number;
+};
 
 // Owns every final joint transform, including mixer sampling and LOD pose transfer.
 export class RobotComposer {
@@ -113,6 +128,12 @@ export class RobotComposer {
         rest.node.position.lerp(rest.position, weight);
         rest.node.quaternion.slerp(rest.quaternion, weight);
         rest.node.scale.lerp(rest.scale, weight);
+      }
+    }
+    if (layers.jointPoses) {
+      for (const [name, xyzw] of Object.entries(layers.jointPoses)) {
+        const node = this.nodes.get(name);
+        if (node) node.quaternion.set(xyzw[0], xyzw[1], xyzw[2], xyzw[3]);
       }
     }
     if (layers.reduced) { this.resetGaze(); this.object.updateMatrixWorld(true); return; }

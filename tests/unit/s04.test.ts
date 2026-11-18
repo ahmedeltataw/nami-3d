@@ -2,6 +2,7 @@
 import { Group, Object3D, Vector3 } from 'three';
 import type { SampleInput } from '../../src/experience/contracts';
 import { assemblyOrder, assemblyProgress, displayProgress, displayStages, scene, type PhoneCtx } from '../../src/experience/scenes/s04/scene';
+import s04Manifest from '../../assets-model/export/s04_idea_v2.manifest.json';
 
 const input: SampleInput = { local: 0, viewport: { w: 1280, h: 800, dpr: 1 }, profile: { quality: 'high', motion: 'full', renderer: 'webgl' }, interaction: { source: null, token: 0, reaction: null }, seed: 1, ambient: 0 };
 
@@ -39,7 +40,7 @@ describe('S04 phone narrative', () => {
     for (const local of [0, .2, .5, .9, 1]) {
       const snapshot = scene.sample({ ...input, profile, local });
       expect(snapshot.visual).toMatchObject({ local: 1, visible: true, displayStage: 6, displayBlend: 0 });
-      expect(snapshot.camera.position).toEqual([0, 0, 5]);
+      expect(snapshot.camera.position).toEqual(s04Manifest.camera_hero.position_gltf);
       expect(snapshot.robot).toEqual({ kind: 'pose', name: 'rest' });
     }
   });

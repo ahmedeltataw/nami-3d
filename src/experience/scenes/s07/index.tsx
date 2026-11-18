@@ -1,18 +1,26 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { Group, type Material } from 'three';
 import { useFrame } from '@react-three/fiber';
 import type { Ctx, SceneId } from '../../contracts';
 import type { AssetResidency } from '../../assets/residency';
+import { s07FutureData } from '../manifests';
+import { useSceneKit, type SceneKitResources } from '../useSceneKit';
 import { useExperienceStore } from '../../store';
 import { createChoiceStateMachine, type ChoiceId } from './state';
 import { gsap } from 'gsap';
 import { ambientAngle } from '../../ambient';
 import { useMotionRuntime } from '../../RuntimeContext';
 
+// Scale procedural core/shapes to match S07_N (5.52) inside S07_orbit (r=5.79 m) at ~62 m / 22.92° vFOV.
+export const S07_CORE_SCALE = 6;
+const LOGO_CENTRE = s07FutureData.logo.centre_gltf as [number, number, number];
+
 export default function S07Scene({
   register,
+  residency,
+  onError,
 }: {
   register: (id: SceneId, ctx: Ctx | null) => void;
   residency?: AssetResidency | null;
@@ -43,22 +51,25 @@ export default function S07Scene({
     return () => ctx.revert();
   }, [choice, motion, proxy, stateMachine]);
 
-  useEffect(() => {
-    if (!root.current) return;
-    const parent = root.current;
-    register('s07', { root: parent, ambient: 0, reducedMotion: false });
-    return () => {
-      register('s07', null);
-      parent.clear();
-    };
-  }, [register]);
+  const onMount = useCallback((_kit: Group, _extras: unknown[], { parent }: SceneKitResources) => ({
+    ctx: { root: parent, ambient: 0, reducedMotion: false },
+  }), []);
+
+  useSceneKit({
+    sceneId: 's07',
+    root,
+    residency,
+    register,
+    onError,
+    registerWithoutResidency: true,
+    onMount,
+  });
 
   useFrame(() => {
     const reduced = useExperienceStore.getState().profile.motion === 'reduced';
     const now = runtime?.clocks.value.ambientTime ?? 0;
     const visual = stateMachine.sample(proxy.progress * .9);
 
-    // Apply to Energy Core
     if (coreRef.current) {
       coreRef.current.visible = visual.coreOpacity > 0.001;
       coreRef.current.scale.setScalar(visual.coreScale * Number(runtime?.sceneSnapshots.s07?.visual.coreAppearance ?? 1));
@@ -71,7 +82,6 @@ export default function S07Scene({
       });
     }
 
-    // Apply to Shapes
     const target = stateMachine.getState().targetChoice;
     const shapeRefs: Record<ChoiceId, React.RefObject<Group | null>> = {
       website: websiteRef,
@@ -104,55 +114,49 @@ export default function S07Scene({
       <directionalLight position={[0, 4, 4]} intensity={1.8} />
       <directionalLight position={[3, 1, 2]} intensity={0.8} />
 
-      {/* Floating glowing energy core between robot's hands */}
-      <group ref={coreRef} name="S07_EnergyCore" position={[0, -0.15, 0.75]}>
-        {/* Core sphere */}
-        <mesh>
-          <icosahedronGeometry args={[0.22, 2]} />
-          <meshStandardMaterial
-            color="#009f6f"
-            emissive="#009f6f"
-            emissiveIntensity={1.8}
-            roughness={0.2}
-            metalness={0.3}
-          />
-        </mesh>
+      {/* Floating glowing energy core anchored to S07_N / S07_orbit in the sky */}
+      <group name="S07_CoreAnchor" position={LOGO_CENTRE} scale={S07_CORE_SCALE}>
+        <group ref={coreRef} name="S07_EnergyCore">
+          <mesh>
+            <icosahedronGeometry args={[0.22, 2]} />
+            <meshStandardMaterial
+              color="#009f6f"
+              emissive="#009f6f"
+              emissiveIntensity={1.8}
+              roughness={0.2}
+              metalness={0.3}
+            />
+          </mesh>
 
-        {/* Outer glowing halo */}
-        <mesh>
-          <sphereGeometry args={[0.3, 16, 16]} />
-          <meshBasicMaterial color="#11b14e" wireframe transparent opacity={0.4} />
-        </mesh>
+          <mesh>
+            <sphereGeometry args={[0.3, 16, 16]} />
+            <meshBasicMaterial color="#11b14e" wireframe transparent opacity={0.4} />
+          </mesh>
 
-        {/* Orbiting rings */}
-        <mesh rotation={[Math.PI / 4, 0, 0]}>
-          <ringGeometry args={[0.35, 0.38, 32]} />
-          <meshBasicMaterial color="#f9b233" transparent opacity={0.6} side={2} />
-        </mesh>
+          <mesh rotation={[Math.PI / 4, 0, 0]}>
+            <ringGeometry args={[0.35, 0.38, 32]} />
+            <meshBasicMaterial color="#f9b233" transparent opacity={0.6} side={2} />
+          </mesh>
+        </group>
       </group>
 
       {/* Interactive transformed project shapes */}
-      <group ref={shapesRef} name="S07_Shapes" position={[0, -0.1, 0.75]}>
-        {/* 1. Website: 3D desktop browser display */}
+      <group ref={shapesRef} name="S07_Shapes" position={LOGO_CENTRE} scale={S07_CORE_SCALE}>
         <group ref={websiteRef} visible={false}>
-          {/* Monitor frame */}
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[0.7, 0.45, 0.04]} />
             <meshStandardMaterial color="#1e293b" roughness={0.3} />
           </mesh>
-          {/* Screen with glowing accent */}
           <mesh position={[0, 0, 0.025]}>
             <planeGeometry args={[0.64, 0.39]} />
             <meshStandardMaterial color="#009f6f" emissive="#009f6f" emissiveIntensity={0.6} />
           </mesh>
-          {/* Browser top bar */}
           <mesh position={[0, 0.16, 0.028]}>
             <planeGeometry args={[0.62, 0.04]} />
             <meshStandardMaterial color="#0f172a" />
           </mesh>
         </group>
 
-        {/* 2. Mobile: 3D phone kit */}
         <group ref={mobileRef} visible={false}>
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[0.3, 0.58, 0.035]} />
@@ -164,7 +168,6 @@ export default function S07Scene({
           </mesh>
         </group>
 
-        {/* 3. Marketing: 3D ascending growth bars */}
         <group ref={marketingRef} visible={false}>
           <mesh position={[-0.2, -0.1, 0]}>
             <boxGeometry args={[0.1, 0.22, 0.1]} />
@@ -180,7 +183,6 @@ export default function S07Scene({
           </mesh>
         </group>
 
-        {/* 4. Other: 3D geometric polyhedron / tech cluster */}
         <group ref={otherRef} visible={false}>
           <mesh>
             <octahedronGeometry args={[0.28, 0]} />

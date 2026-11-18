@@ -5,6 +5,7 @@ import { createIntroClock } from '../../src/experience/robot/intro';
 import { createHeadReaction, pointerNearHead } from '../../src/experience/robot/procedural';
 import { RobotComposer, type PoseLayers } from '../../src/experience/robot/compose';
 import type { SampleInput } from '../../src/experience/contracts';
+import s01Manifest from '../../assets-model/export/s01_hero_v2.manifest.json';
 
 const input: SampleInput = {
   local: 0, viewport: { w: 1280, h: 800, dpr: 1.5 },
@@ -35,10 +36,10 @@ describe('S01 narrative sampling', () => {
     expect(scene.sample({ ...input, local: 0.35 })).toEqual(end);
     const middle = scene.sample({ ...input, local: 0.55 });
     expect(middle.visual.subtitleEmphasis).toBe(1);
-    expect(middle.camera.position[2]).toBe(4.2);
+    expect(middle.camera.position[2]).toBe(s01Manifest.camera_hero.position_gltf[2]);
     const final = scene.sample({ ...input, local: 1 });
-    expect(final.camera.position[2]).toBeCloseTo(2.6);
-    expect(final.camera.fov).toBe(35);
+    expect(final.camera.position[2]).toBeCloseTo(s01Manifest.camera_hero.position_gltf[2] - 2.4);
+    expect(final.camera.fov).toBe(s01Manifest.camera_hero.vertical_fov_deg);
     expect(final.visual).toMatchObject({ robotX: -0.55, focus: 1, headlineExit: 1 });
     expect(final.robot).toMatchObject({ name: 'ChargeEnergy', timeSeconds: 0 });
   });
@@ -67,7 +68,7 @@ describe('S01 narrative sampling', () => {
     for (const local of points.slice(0, -1)) {
       expect(scene.sample({ ...input, profile, local }).camera).toEqual(end.camera);
     }
-    expect(scene.sample({ ...input, profile, local: 1 }).camera.position[2]).toBeCloseTo(2.6);
+    expect(scene.sample({ ...input, profile, local: 1 }).camera.position[2]).toBeCloseTo(s01Manifest.camera_hero.position_gltf[2] - 2.4);
   });
 });
 

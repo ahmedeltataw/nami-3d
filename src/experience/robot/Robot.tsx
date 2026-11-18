@@ -2,13 +2,15 @@
 
 /* eslint-disable react-hooks/immutability -- Three objects and runtime are imperative, outside React state. */
 import { useEffect, useMemo, useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { Group, Plane, Raycaster, Vector2, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { Profile } from '../contracts';
 import type { ExperienceRuntime } from '../runtime';
 import { robotAssetKey } from '../assets/manifest';
 import type { AssetLease, AssetResidency } from '../assets/residency';
+import { SCENE_HEROES } from '../scenes/manifests';
+import { useExperienceStore } from '../store';
 import { RobotComposer, type PoseLayers } from './compose';
 import { narrativeState, RobotFSM } from './fsm';
 import { pointerNearHead } from './procedural';
@@ -18,9 +20,6 @@ export function Robot({ runtime, profile, residency, onError }: {
   runtime: ExperienceRuntime; profile: Profile; residency: AssetResidency; onError: () => void;
 }) {
   const mounted = useRef<Group>(null);
-  const size = useThree(state => state.size);
-  const aspect = size.width / Math.max(1, size.height);
-  const scale = 0.52 * Math.min(1, aspect / 0.85);
   const composer = useMemo(() => new RobotComposer(), []);
   const fsm = useMemo(() => new RobotFSM(), []);
   const active = useRef<{ lease: AssetLease; key: ReturnType<typeof robotAssetKey>; residency: AssetResidency } | null>(null);
@@ -30,8 +29,11 @@ export function Robot({ runtime, profile, residency, onError }: {
     seekVersion: -1, reaction: null as ExperienceRuntime['interaction']['state']['reaction'],
   }), []);
 
+  const activeScene = useExperienceStore(state => state.scene);
+  const sceneLod = SCENE_HEROES[activeScene]?.robot.lod;
+
   useEffect(() => {
-    const key = robotAssetKey(profile.quality);
+    const key = robotAssetKey(sceneLod === 'low' ? 'low' : profile.quality);
     const lease = residency.acquire(key);
     let cancelled = false;
     let installed = false;
@@ -54,7 +56,7 @@ export function Robot({ runtime, profile, residency, onError }: {
       object.traverse(node => { if ('isMesh' in node && node.isMesh) runtime.robotMeshes++; });
     }).catch(error => { if (!cancelled && error instanceof Error && error.name !== 'AbortError') onError(); });
     return () => { cancelled = true; choreography.release(); if (!installed) lease.release(); };
-  }, [composer, onError, profile.quality, residency, runtime]);
+  }, [composer, onError, profile.quality, residency, runtime, sceneLod]);
 
   useEffect(() => () => {
     runtime.robotReady = false;
@@ -94,6 +96,7 @@ export function Robot({ runtime, profile, residency, onError }: {
       const placement = robotPlacement(scene, snapshot, runtime.viewport);
       mounted.current.position.fromArray(robotIntent?.position ?? placement.position);
       mounted.current.quaternion.fromArray(robotIntent?.quaternion ?? placement.quaternion);
+      mounted.current.scale.setScalar(placement.scale);
     }
     const layers = frame.layers;
     layers.time = now;
@@ -109,6 +112,8 @@ export function Robot({ runtime, profile, residency, onError }: {
     layers.eyeOpen = s01 ? Number(visual.eyeOpen ?? 1) : undefined;
     layers.focus = s01 ? Number(visual.focus ?? 0) : 0;
     layers.headNear = s01 && runtime.pointer.active && pointerNearHead((runtime.pointer.x + 1) * state.size.width / 2, (1 - runtime.pointer.y) * state.size.height / 2, runtime.headScreen);
+    const rawPose = visual.robotPose as Record<string, readonly [number, number, number, number]> | undefined;
+    layers.jointPoses = !runtime.transition && rawPose ? rawPose : undefined;
     if (runtime.clocks.capture) composer.resetGaze();
     composer.compose(directive, layers);
     composer.materialLayer(transition?.dissolve ?? 0);
@@ -130,6 +135,6 @@ export function Robot({ runtime, profile, residency, onError }: {
     }
   });
 
-  // Manifest height 3.38: 0.52 gives a 1.76-unit silhouette inside the 35° front camera.
-  return <group name="robot" scale={scale} ref={mounted} dispose={null} />;
+  // Native robot height 3.38 (bottom-pivoted Root); per-scene scale comes from placement.
+  return <group name="robot" ref={mounted} dispose={null} />;
 }

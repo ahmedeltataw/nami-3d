@@ -75,7 +75,7 @@ describe('gallery content and residency', () => {
       const session = acquireDestination(residency, 's05', new AbortController().signal, index);
       await session.ready;
       await new Promise(resolve => setTimeout(resolve, 0));
-      expect(order).toEqual(['gallery.shell', 'gallery.portal', 'poster:s05', ...worldKeys(index), ...worldKeys(index, true)]);
+      expect(order).toEqual(['s05.kit', 'poster:s05', ...worldKeys(index), ...worldKeys(index, true)]);
       expect(order.filter(key => key.startsWith('world.')).length).toBe(index === 0 || index === 5 ? 2 : 3);
       session.release(); residency.evictUnused();
       expect(worldKeys(index).every(key => !residency.isResident(key))).toBe(true);

@@ -711,5 +711,18 @@
         ]
       }
     ]
+  },
+  "packed_bytes": 2202256,
+  "matte_card": {
+    "node": "S03_backdrop_city",
+    "material": "M_Backdrop_City"
+  },
+  "portrait_framing": {
+    "aspect_threshold": 0.85,
+    "matte_card_constrained": true,
+    "recommended_pullback_m": 4.5,
+    "portrait_offset_gltf": [0, 0.4, 4.5],
+    "max_safe_fov_deg": 58,
+    "note": "Hero frames platform and robot; outer pedestals exceed 9:16 width at overview and rely on per-station camera targeting."
   }
 }

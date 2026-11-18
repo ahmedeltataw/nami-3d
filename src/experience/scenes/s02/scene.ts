@@ -1,11 +1,13 @@
-import { Quaternion } from 'three';
 import { clamp } from '../../controller';
 import type { CameraPose, Ctx, RobotDirective, SceneDef, SceneSnapshot } from '../../contracts';
 import { ringAngles } from '../../shared/portal/motion';
+import { SCENE_HEROES, s02PortalData } from '../manifests';
 
 export const ramp = (p: number, from: number, to: number) => clamp((p - from) / (to - from));
 const smooth = (p: number) => p * p * (3 - 2 * p);
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
+const HERO = SCENE_HEROES.s02;
+
 export function backgroundColor(progress: number): [number, number, number] {
   const t = ramp(clamp(progress), 0, .4);
   return [mix(255, 27, t) / 255, mix(255, 29, t) / 255, mix(255, 32, t) / 255];
@@ -17,35 +19,43 @@ export type S02Visual = {
   ringSpeed: number; outerAngle: number; innerAngle: number; openAmount: number;
   surfaceTime: number; brightness: number; reveal: number; previewSize: number;
   robotState: string; robotPosition: [number, number, number]; robotQuaternion: [number, number, number, number];
+  robotScale: number;
 };
 export type S02Context = Ctx & { update?: (snapshot: SceneSnapshot) => void };
 
-// RobotComposer supports these imported clips; the public union predates batch B.
 function clip(name: 'ChargeEnergy' | 'OpenPortal' | 'Fly', timeSeconds: number): RobotDirective {
   return { kind: 'clip', name, timeSeconds, weight: 1 } as RobotDirective;
 }
 
 export const scene: SceneDef = {
-  id: 's02', poster: '/posters/s02.svg', assets: ['poster:s02', 'portal.gate', 'lab.shell'],
+  id: 's02', poster: '/posters/s02.svg', assets: ['poster:s02', 's02.kit'],
   sample(input) {
     const p = clamp(input.local);
     const reduced = input.profile.motion === 'reduced';
     const push = reduced ? 0 : smooth(ramp(p, .75, .92));
     const reveal = 0;
-    const camera: CameraPose = { position: [0, 0, mix(2.6, -3.2, push)], quaternion: [0, 0, 0, 1],
-      fov: p < .835 ? mix(35, 42, ramp(p, .75, .835)) : mix(42, 40, ramp(p, .835, .92)), near: .1, far: 100 };
-    if (reduced) camera.fov = 35;
+    const heroFov = HERO.camera.fov;
+    const camera: CameraPose = {
+      position: [HERO.camera.position[0], HERO.camera.position[1], mix(HERO.camera.position[2], -5.8, push)],
+      quaternion: [...HERO.camera.quaternion],
+      fov: reduced ? heroFov : p < .835 ? mix(heroFov, 66, ramp(p, .75, .835)) : mix(66, 64, ramp(p, .835, .92)),
+      near: HERO.camera.near,
+      far: HERO.camera.far,
+    };
     const assembleProgress = reduced ? Number(p >= .5) : ramp(p, .35, .5);
     const activation = reduced ? 0 : ramp(p, .5, .62);
     const ringSpeed = 1.5 * activation * activation;
     const angles = ringAngles(ringSpeed, reduced ? 0 : p * 12);
-    const scale = .52 * Math.min(1, (input.viewport.w / Math.max(1, input.viewport.h)) / .85);
-    const chargeBack = reduced ? 1 : smooth(ramp(p, 0, .2));
-    const clearPortal = reduced ? Number(p >= .5) : smooth(ramp(p, .35, .5));
-    const robotX = mix(mix(-.55, -.2, chargeBack), -1.15, clearPortal);
-    const robotZ = mix(-.65 * chargeBack, -1.3, clearPortal);
-    const robotPosition: [number, number, number] = [robotX * (1 - push), -1.69 * scale + .25 * push, mix(robotZ, -3.6, push)];
-    const robotQuaternion = new Quaternion().toArray();
+    const chargeBack = reduced ? 0 : smooth(ramp(p, 0, .2));
+    const clearPortal = reduced ? 0 : smooth(ramp(p, .35, .5));
+    const [rx, ry, rz] = HERO.robot.rootPosition;
+    const robotX = mix(mix(rx, rx - 0.35, chargeBack), rx + 0.6, clearPortal);
+    const robotZ = mix(rz + 0.4 * chargeBack, rz - 0.6, clearPortal);
+    const [px, py, pz] = s02PortalData.centre_gltf;
+    const robotPosition: [number, number, number] = reduced
+      ? [rx, ry, rz]
+      : [mix(robotX, px, push), mix(ry, py, push), mix(robotZ, pz, push)];
+    const robotQuaternion: [number, number, number, number] = [...HERO.robot.quaternion];
     const robot = reduced ? { kind: 'pose' as const, name: 'rest' as const }
       : p < .35 ? clip('ChargeEnergy', ramp(p, 0, .2) * 1.4)
         : p < .75 ? clip('OpenPortal', ramp(p, .35, .5) * 1.5)
@@ -53,13 +63,14 @@ export const scene: SceneDef = {
     const brightness = reduced ? (p >= .92 && p < .96 ? 1 : 0)
       : p < .96 ? smooth(ramp(p, .92, .96)) : 1 - smooth(ramp(p, .96, 1));
     const visual: S02Visual = {
-      progress: p, reduced, background: backgroundColor(reduced ? (p >= .4 ? .4 : 0) : p),
+      progress: p, reduced, background: backgroundColor(p),
       converge: reduced ? 1 : ramp(p, 0, .2), sphere: reduced ? 0 : ramp(p, .2, .35),
       morph: reduced ? 1 : ramp(p, .35, .5), assembleProgress, ringSpeed,
       outerAngle: angles.outer, innerAngle: angles.inner,
       openAmount: reduced ? Number(p >= .75) : ramp(p, .62, .75), surfaceTime: reduced ? 0 : p * 12,
       brightness, reveal, previewSize: input.viewport.w <= 600 ? 256 : 512,
       robotState: p < .75 ? 'performing' : 'transitioning', robotPosition, robotQuaternion,
+      robotScale: HERO.robot.scale,
     };
     return { camera, robot, visual };
   },

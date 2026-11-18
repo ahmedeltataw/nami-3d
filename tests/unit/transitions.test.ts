@@ -79,14 +79,14 @@ describe('transition lease reconciliation', () => {
     session.update(keysForScene('s03'), keysForScene('s04'), ready, failed);
     await vi.waitFor(() => expect(ready).toHaveBeenCalledOnce());
     session.update([...keysForScene('s04'), ...keysForScene('s03')], [], ready, failed);
-    expect(residency.consumers('lab.shell')).toBe(1);
-    expect(residency.consumers('phone.kit')).toBe(1);
+    expect(residency.consumers('s03.kit')).toBe(1);
+    expect(residency.consumers('s04.kit')).toBe(1);
     session.update(keysForScene('s04'), [], ready, failed);
-    expect(residency.consumers('lab.shell')).toBe(0);
-    expect(residency.isResident('lab.shell')).toBe(false);
-    expect(residency.consumers('phone.kit')).toBe(1);
+    expect(residency.consumers('s03.kit')).toBe(0);
+    expect(residency.isResident('s03.kit')).toBe(false);
+    expect(residency.consumers('s04.kit')).toBe(1);
     session.release();
-    expect(residency.consumers('phone.kit')).toBe(0);
+    expect(residency.consumers('s04.kit')).toBe(0);
   });
 
   it('acquires new leases before cancellation and ignores late completions after rapid seeks', async () => {

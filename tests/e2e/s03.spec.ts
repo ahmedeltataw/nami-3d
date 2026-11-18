@@ -8,7 +8,7 @@ test('cold Arabic lab loads its models and renders @gpu', async ({ page }) => {
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   page.on('response', response => {
-    if (response.url().includes('/models/lab/')) {
+    if (response.url().includes('/models/s03/') || response.url().includes('/models/lab/')) {
       if (!response.ok()) errors.push(`Lab asset: ${response.status()} ${response.url()}`);
       else models.push(new URL(response.url()).pathname);
     }
@@ -18,7 +18,7 @@ test('cold Arabic lab loads its models and renders @gpu', async ({ page }) => {
   await expect(host).toHaveAttribute('data-scene', 's03');
   await expect(host).toHaveAttribute('data-ready', 'true', { timeout: 30_000 });
   await expect(page.locator('canvas:not([data-s01-energy-line])')).toHaveCount(1);
-  await expect.poll(() => models.length).toBe(8);
+  await expect.poll(() => models.length).toBe(7);
   const colors = () => page.locator('canvas:not([data-s01-energy-line])').evaluate((canvas: HTMLCanvasElement) => new Promise<number>(resolve => requestAnimationFrame(() => {
     const gl = canvas.getContext('webgl2')!;
     const pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4);

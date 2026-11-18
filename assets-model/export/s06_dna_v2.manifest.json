@@ -202,5 +202,14 @@
     "taste: helix tubes read thinner/more wireframe than the ref's thick glass tube (Muse, not a blocker)",
     "taste: ceiling ring is segmented/mechanical vs the ref's smooth glowing ring",
     "left background 81% (gate edge, accepted)"
-  ]
+  ],
+  "packed_bytes": 1129508,
+  "portrait_framing": {
+    "aspect_threshold": 0.85,
+    "matte_card_constrained": false,
+    "recommended_pullback_m": 4.0,
+    "portrait_offset_gltf": [-0.4, 0.2, 4.0],
+    "max_safe_fov_deg": 42,
+    "note": "S06_stage is scaled 0.6; portrait +4m pullback and -0.4m X offset keep native robot (-2.8) and helix (+0.17) framed."
+  }
 }
