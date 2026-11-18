@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import type { SceneId, TransitionSnapshot } from './contracts';
 import { useExperienceStore } from './store';
+import { noJumps } from './profile';
 
 type SceneTimeline = { node: HTMLElement; jump: HTMLElement; timeline: gsap.core.Timeline; jumpTimeline: gsap.core.Timeline; reveal?: gsap.core.Timeline; emphasis?: gsap.core.Timeline; hint?: gsap.core.Timeline };
 export const overlayTimelines = new Map<SceneId, SceneTimeline>();
@@ -11,7 +12,7 @@ let washTimeline: gsap.core.Timeline | null = null;
 let washNode: HTMLElement | null = null;
 
 export function OverlayRoot() {
-  const enabled = useExperienceStore(state => state.profile.renderer === 'webgl' && state.profile.motion === 'full');
+  const enabled = useExperienceStore(state => !noJumps(state.profile));
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -47,7 +48,7 @@ export function SceneOverlay({ id, children }: { id: SceneId; children: ReactNod
     queueMicrotask(() => { if (active) setRoot(document.getElementById('nami-overlays')); });
     return () => { active = false; };
   }, []);
-  const enhanced = renderer === 'webgl' && motion === 'full' && !!root;
+  const enhanced = !noJumps({ renderer, motion }) && !!root;
   useLayoutEffect(() => {
     if (!enhanced) return;
     const ctx = gsap.context(() => {
