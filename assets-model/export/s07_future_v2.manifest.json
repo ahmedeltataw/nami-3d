@@ -100,22 +100,22 @@
     "curve-derived mesh data carries .00N suffixes (node names are clean)"
   ],
   "mo2a_jump6_camera": {
-    "description": "cubic Bezier shortened to clear the glass N; fixed hero camera orientation",
+    "description": "MO-2f round 9: 4 m approach from a 2.5 m camera-right and 0.75 m camera-down offset, fixed hero orientation; linear cubic Bezier",
     "control_points_gltf": [
       [
-        9.229312896728516,
-        3.437775135040283,
-        0.7468733787536621
+        -5.291476249694824,
+        -1.0181697607040405,
+        21.63882827758789
       ],
       [
-        4.256250381469727,
-        2.2647500038146973,
-        6.6749982833862305
+        -5.360983848571777,
+        -0.6454464197158813,
+        20.092552185058594
       ],
       [
-        -0.7749996185302734,
-        1.1150000095367432,
-        12.44999885559082
+        -5.430491924285889,
+        -0.2727232277393341,
+        18.546276092529297
       ],
       [
         -5.5,
@@ -130,7 +130,11 @@
     ],
     "vertical_fov_deg": 22.9,
     "coverage_samples": 201,
-    "previous_curve_start_t": 0.65
+    "robot_scale_samples": 201,
+    "travel_m": 4.0,
+    "camera_right_offset_m": 2.5,
+    "camera_up_offset_m": -0.75,
+    "tree_boundary_samples": 201
   },
   "backdrop_overscan": {
     "scale": 1.6,
