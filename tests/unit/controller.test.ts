@@ -1,10 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createController, SCENE_IDS, SCROLL_BUDGETS, TOTAL_BUDGET, localForBody, SCROLL_MAP } from '../../src/experience/controller';
-import { createRuntime } from '../../src/experience/runtime';
+import { createRuntime, evaluateRuntime, syncRuntimeProfile } from '../../src/experience/runtime';
+import { useExperienceStore } from '../../src/experience/store';
+import { noJumps } from '../../src/experience/profile';
+import { mountedScenes, residentScenes, transitionAt } from '../../src/experience/transitions';
 
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); });
 
-function environment(mobile = false, reduced = false, hash = '#s01') {
+function environment(mobile = false, reduced = false, hash = '#s01', renderer: 'webgl' | 'fallback' = 'webgl') {
   let layoutHeight = 844;
   let reducedLayout = reduced;
   let offset = 0;
@@ -51,6 +54,7 @@ function environment(mobile = false, reduced = false, hash = '#s01') {
   vi.stubGlobal('history', history);
   vi.stubGlobal('ResizeObserver', class { observe() {} disconnect() {} });
   const runtime = createRuntime();
+  runtime.profile.renderer = renderer;
   const changed = vi.fn();
   const controller = createController(runtime, changed, reduced, mobile);
   controller.attach();
@@ -68,6 +72,26 @@ function environment(mobile = false, reduced = false, hash = '#s01') {
 }
 
 describe('native controller lifecycle', () => {
+  it('uses un-offset fallback seeks and scroll progress in full motion', () => {
+    const env = environment(false, false, '#s05', 'fallback');
+    expect(env.document.getElementById('s05')!.getBoundingClientRect().top).toBeCloseTo(0, 0);
+    expect(env.document.documentElement.dataset).toMatchObject({ motion: 'full' });
+    for (const scene of ['s05', 's06', 's07'] as const) {
+      const index = SCENE_IDS.indexOf(scene);
+      const span = env.window.innerHeight * SCROLL_BUDGETS[index] / 100;
+      for (const local of [0, .4]) {
+        env.controller.seek(scene, local);
+        expect(-env.document.getElementById(scene)!.getBoundingClientRect().top / span).toBeCloseTo(local, 3);
+        expect(env.runtime.local).toBe(local);
+        expect(env.runtime.narrativeLocal).toBe(local);
+      }
+      env.window.scrollY += span * .05;
+      env.window.dispatchEvent(new Event('scroll'));
+      expect(env.runtime.local).toBeCloseTo(.45, 3);
+      expect(env.runtime.b).toBeCloseTo(.45, 3);
+    }
+    env.controller.detach();
+  });
   it('keeps the intro during layout measurement but cancels on actual scroll, even at local zero', async () => {
     const env = environment(false, false, '');
     await Promise.resolve();
@@ -246,4 +270,43 @@ it('does not refocus headings when a controller attaches after ordinary-scroll h
   reattached.attach(false);
   expect(heading.focus).not.toHaveBeenCalled();
   reattached.detach();
+});
+
+it('full-motion fallback hero seeks never evaluate an incoming boundary or its previous owner', () => {
+  const env = environment(false, false, '#s05', 'fallback');
+  for (const scene of SCENE_IDS.slice(1)) {
+    env.controller.seek(scene);
+    evaluateRuntime(env.runtime);
+    expect(env.runtime.transition).toBeNull();
+    expect(Object.keys(env.runtime.sceneSnapshots)).toEqual([scene]);
+    expect(env.runtime.transitionContext.intents).toBeNull();
+  }
+  env.controller.detach();
+});
+
+it('uses the live error-fallback renderer rather than stale configuration when rebuilding the controller', () => {
+  const env = environment(false, false, '#s05');
+  const configured = { ...env.runtime.profile };
+  const initialStore = useExperienceStore.getState();
+  useExperienceStore.setState({ profile: configured });
+  expect(env.runtime.narrativeLocal).toBeGreaterThan(0);
+  // The renderer error callback changes the store; configuration remains WebGL.
+  useExperienceStore.setState({ profile: { ...configured, renderer: 'fallback' } });
+  env.controller.detach();
+  syncRuntimeProfile(env.runtime, configured, useExperienceStore.getState().profile.renderer);
+  const replacement = createController(env.runtime, () => evaluateRuntime(env.runtime), false, false);
+  replacement.attach(false);
+  try {
+    expect(configured.renderer).toBe('webgl');
+    expect(env.runtime.profile.renderer).toBe('fallback');
+    for (const scene of SCENE_IDS.slice(1)) {
+      replacement.seek(scene);
+      expect(env.runtime.narrativeLocal).toBe(0);
+      expect(env.runtime.transition).toBeNull();
+      expect(Math.abs(env.document.getElementById(scene)!.getBoundingClientRect().top)).toBeLessThan(1);
+      expect(transitionAt(scene, 0, noJumps(env.runtime.profile))).toBeNull();
+      expect(mountedScenes(scene, 0, noJumps(env.runtime.profile))).toEqual([scene]);
+      expect(residentScenes(scene, 0, noJumps(env.runtime.profile), -1)).toEqual([scene]);
+    }
+  } finally { replacement.detach(); useExperienceStore.setState(initialStore); }
 });

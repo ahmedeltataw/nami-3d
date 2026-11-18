@@ -4,6 +4,10 @@ export type Profile = {
   renderer: 'webgl' | 'fallback';
 };
 
+export function noJumps(profile: Pick<Profile, 'motion' | 'renderer'>) {
+  return profile.motion === 'reduced' || profile.renderer === 'fallback';
+}
+
 export interface ProfileEnvironment {
   reducedMotion: boolean;
   webgl2: boolean;
