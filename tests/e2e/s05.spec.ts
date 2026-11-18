@@ -5,7 +5,7 @@ test('cold Arabic gallery renders and all project links resolve', async ({ page,
   const models: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-  page.on('request', request => { if (/\/models\/gallery\/.*\.glb$/.test(request.url())) models.push(new URL(request.url()).pathname); });
+  page.on('request', request => { if (/\/models\/(s05|gallery)\/.*\.glb$/.test(request.url())) models.push(new URL(request.url()).pathname); });
   await page.goto('/ar#s05');
   const host = page.locator('[data-experience]');
   await expect(host).toHaveAttribute('data-ready', 'true', { timeout: 30_000 });
@@ -39,7 +39,7 @@ test('cold Arabic gallery renders and all project links resolve', async ({ page,
       await page.screenshot({ path: 'tests/e2e/__screens__/s05-world.png' });
     }
   }
-  expect(models.filter(url => url.endsWith('/portal_gate.glb'))).toHaveLength(1);
+  expect(models.filter(url => url.endsWith('/s05_multiverse_v2.glb'))).toHaveLength(1);
   expect(models.indexOf('/models/gallery/world_rif-aljouf.glb')).toBeLessThan(models.indexOf('/models/gallery/world_loryfy.glb'));
   expect(errors).toEqual([]);
 });

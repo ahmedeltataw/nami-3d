@@ -7,6 +7,7 @@ import { scene as lab } from '../../src/experience/scenes/s03/scene';
 import { bindPortal, type PortalState } from '../../src/experience/shared/portal/Portal';
 import { ringAngles, segmentDistance } from '../../src/experience/shared/portal/motion';
 import { previewVisible } from '../../src/experience/scenes/s02';
+import s02Manifest from '../../assets-model/export/s02_portal_v2.manifest.json';
 
 const input: SampleInput = { local: 0, viewport: { w: 1280, h: 800, dpr: 1.5 },
   profile: { quality: 'high', motion: 'full', renderer: 'webgl' },
@@ -55,10 +56,10 @@ describe('S02 deterministic choreography', () => {
     expect(visual(.74).outerAngle).toBeLessThan(visual(.63).outerAngle);
   });
   it('pushes through z=-2 and matches FOV beats before the S03 handoff', () => {
-    expect(sample(0).camera).toMatchObject({ position: [0, 0, 2.6], fov: 35 });
-    expect(sample(.75).camera.fov).toBe(35);
-    expect(sample(.835).camera.fov).toBe(42);
-    expect(sample(.92).camera.fov).toBe(40);
+    expect(sample(0).camera).toMatchObject({ position: s02Manifest.camera_hero.position_gltf, fov: s02Manifest.camera_hero.vertical_fov_deg });
+    expect(sample(.75).camera.fov).toBe(s02Manifest.camera_hero.vertical_fov_deg);
+    expect(sample(.835).camera.fov).toBe(66);
+    expect(sample(.92).camera.fov).toBe(64);
     expect(sample(.92).camera.position[2]).toBeLessThan(-2);
     expect(sample(1).camera).toEqual(sample(.92).camera);
     expect(sample(1).camera).not.toEqual(lab.sample(input).camera);
@@ -70,7 +71,7 @@ describe('S02 deterministic choreography', () => {
     expect([...points].reverse().map(local => scene.sample({ ...input, local, profile })).reverse()).toEqual(samples);
     for (const local of [0, .3, .75, .91]) {
       const snapshot = scene.sample({ ...input, local, profile });
-      expect(snapshot.camera.position).toEqual([0, 0, 2.6]);
+      expect(snapshot.camera.position).toEqual(s02Manifest.camera_hero.position_gltf);
       expect(snapshot.robot).toEqual({ kind: 'pose', name: 'rest' });
       expect(snapshot.visual).toMatchObject({ sphere: 0, ringSpeed: 0, surfaceTime: 0 });
     }
@@ -109,4 +110,36 @@ it('assembles the real portal along its extras radial directions and restores th
   expect(portal.outer!.rotation.z).toBe(-0); expect(portal.inner!.rotation.z).toBe(0);
   expect(portal.material.uniforms.uTime.value).toBe(0);
   portal.dispose();
+});
+
+it('verifies s02_portal_v2.glb exposes all manifest portal, tunnel, lab_view and fx_static nodes', async () => {
+  const source = readFileSync(`public/models/s02/${s02Manifest.file}`);
+  const jsonLength = source.readUInt32LE(12);
+  const json = JSON.parse(source.subarray(20, 20 + jsonLength).toString('utf8'));
+  delete json.materials;
+  delete json.textures;
+  delete json.images;
+  for (const mesh of json.meshes ?? []) {
+    for (const primitive of mesh.primitives ?? []) delete primitive.material;
+  }
+  const serialized = JSON.stringify(json);
+  const chunk = Buffer.from(serialized + ' '.repeat((4 - Buffer.byteLength(serialized) % 4) % 4));
+  const binary = source.subarray(20 + jsonLength);
+  const header = Buffer.alloc(20);
+  header.writeUInt32LE(0x46546c67, 0);
+  header.writeUInt32LE(2, 4);
+  header.writeUInt32LE(20 + chunk.length + binary.length, 8);
+  header.writeUInt32LE(chunk.length, 12);
+  header.writeUInt32LE(0x4e4f534a, 16);
+  const bytes = Buffer.concat([header, chunk, binary]);
+  const gltf = await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+  for (const name of [
+    s02Manifest.portal.root,
+    ...s02Manifest.portal.nodes,
+    ...s02Manifest.portal.tunnel,
+    s02Manifest.portal.lab_view,
+    ...s02Manifest.fx_static,
+  ]) {
+    expect(gltf.scene.getObjectByName(name), `Missing ${name} in ${s02Manifest.file}`).toBeDefined();
+  }
 });

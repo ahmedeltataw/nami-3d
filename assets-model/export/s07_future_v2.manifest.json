@@ -143,5 +143,20 @@
       1.3
     ],
     "wrap": "MIRRORED_REPEAT"
+  },
+  "packed_bytes": 1133804,
+  "matte_card": {
+    "node": "S07_sky_city",
+    "material": "M_Sky_City",
+    "depth_write": false,
+    "wrap": "MIRRORED_REPEAT"
+  },
+  "portrait_framing": {
+    "aspect_threshold": 0.85,
+    "matte_card_constrained": true,
+    "recommended_pullback_m": 2.0,
+    "portrait_offset_gltf": [-1.2, 0.1, 2.0],
+    "max_safe_fov_deg": 26,
+    "note": "S07_sky_city has 1.6x overscan ([-0.3, 1.3] UVs) fitted to 22.92° vFOV; portrait FOV must stay <= 26° to keep frustum inside mirrored card."
   }
 }

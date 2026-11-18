@@ -84,5 +84,18 @@
     "swirl is line ribbons vs the ref's soft particle haze - a runtime particle shader would match better",
     "plants are low-poly leaf cards (fine under DOF)",
     "plant_L zone sits at the gate edge (80.6%)"
-  ]
+  ],
+  "packed_bytes": 858060,
+  "matte_card": {
+    "node": "S01_window_city",
+    "material": "M_Window_City"
+  },
+  "portrait_framing": {
+    "aspect_threshold": 0.85,
+    "matte_card_constrained": true,
+    "recommended_pullback_m": 5.0,
+    "portrait_offset_gltf": [-0.8, 0, 5.0],
+    "max_safe_fov_deg": 45,
+    "note": "At 9:19.5 portrait, robot x=-2.15 clips left at hero z=13; pulling back +5m (z=18, x=-0.8) frames robot and disc inside S01_window_city bounds."
+  }
 }

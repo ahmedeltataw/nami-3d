@@ -12,6 +12,7 @@ import {
   generateValueTargets,
 } from '../../src/experience/scenes/s06/math';
 import type { SampleInput, SceneSnapshot } from '../../src/experience/contracts';
+import s06Manifest from '../../assets-model/export/s06_dna_v2.manifest.json';
 
 const baseInput: SampleInput = {
   local: 0,
@@ -155,17 +156,16 @@ describe('S06 Reduced Motion & Poses', () => {
       profile: { ...baseInput.profile, motion: 'reduced' },
     });
 
-    expect(reduced.camera.position).toEqual([0, 0, 4.4]);
+    expect(reduced.camera.position).toEqual(s06Manifest.camera_hero.position_gltf);
     expect(reduced.robot).toEqual({ kind: 'pose', name: 'rest' });
     expect(reduced.visual.logoOpacity).toBe(1);
     expect(reduced.visual.particleOpacity).toBe(0);
     expect(reduced.visual.phase).toBe('reveal');
   });
 
-  it('entry pose of S06 matches exit pose of S05', () => {
+  it('entry pose of S06 matches v2 manifest hero camera', () => {
     const entry = s06.sample({ ...baseInput, local: 0 });
-    // S05 exit camera position is [0, 0, 4.75], fov 50
-    expect(entry.camera.position[2]).toBeCloseTo(4.75, 2);
-    expect(entry.camera.fov).toBe(50);
+    expect(entry.camera.position).toEqual(s06Manifest.camera_hero.position_gltf);
+    expect(entry.camera.fov).toBe(s06Manifest.camera_hero.vertical_fov_deg);
   });
 });

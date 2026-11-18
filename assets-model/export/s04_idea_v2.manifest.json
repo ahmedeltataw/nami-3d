@@ -275,5 +275,18 @@
     },
     "evidence": "test-results/MO-2a/s04-safe-box/"
   },
-  "phone_exploded_parts_note": "phone_exploded_parts supersedes the legacy props.phone summary for assembly nodes."
+  "phone_exploded_parts_note": "phone_exploded_parts supersedes the legacy props.phone summary for assembly nodes.",
+  "packed_bytes": 1193356,
+  "matte_card": {
+    "node": "S04_city",
+    "material": "M_City_Dusk"
+  },
+  "portrait_framing": {
+    "aspect_threshold": 0.85,
+    "matte_card_constrained": true,
+    "recommended_pullback_m": 0.079,
+    "portrait_offset_gltf": [0, 0, 0.079],
+    "max_safe_fov_deg": 45.77,
+    "note": "S04_city dusk card limits safe camera box to ±0.79° yaw/pitch and ±0.079m dolly on 16:9; portrait pullback beyond 0.079m requires widened S04_city backdrop or static portrait framing."
+  }
 }

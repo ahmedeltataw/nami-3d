@@ -50,7 +50,7 @@ test('an unready boundary holds an opaque DOM wash and evaluates the retained t 
   await expect(page.locator('[data-jump-loading]')).toBeVisible();
   let requested = await page.evaluate(() => window.__namiDebug?.().transition?.progress);
   expect(requested).toBeCloseTo(.58, 2);
-  expect(await page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(9, 2);
+  expect(await page.evaluate(() => window.__namiDebug?.().cameraZ)).toBeCloseTo(10.6, 2);
   await expect(page.locator('[data-overlay-scene="s02"] [data-scene-timeline]')).toHaveAttribute('inert', '');
   await seekJump(page, 1, .85, true);
   const row = SCROLL_MAP[1];

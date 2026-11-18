@@ -4,6 +4,7 @@ import { scene as s06 } from '../../src/experience/scenes/s06/scene';
 import { createChoiceStateMachine, TRANSITION_DURATION } from '../../src/experience/scenes/s07/state';
 import { useExperienceStore } from '../../src/experience/store';
 import type { SampleInput, SceneSnapshot } from '../../src/experience/contracts';
+import s07Manifest from '../../assets-model/export/s07_future_v2.manifest.json';
 
 const baseInput: SampleInput = {
   local: 0,
@@ -114,13 +115,13 @@ describe('S07 Determinism & Continuity across 25 points', () => {
     expect(reverse.reverse()).toEqual(direct);
   });
 
-  it('S07 entry pose matches S06 exit pose exactly', () => {
+  it('S07 entry pose matches v2 manifest hero camera and S06 exit robot rest', () => {
     const s06Exit = s06.sample({ ...baseInput, local: 1.0 });
     const s07Entry = s07.sample({ ...baseInput, local: 0.0 });
 
-    expect(s07Entry.camera.position).toEqual(s06Exit.camera.position);
-    expect(s07Entry.camera.quaternion).toEqual(s06Exit.camera.quaternion);
-    expect(s07Entry.camera.fov).toBe(s06Exit.camera.fov);
+    expect(s07Entry.camera.position).toEqual(s07Manifest.camera_hero.position_gltf);
+    expect(s07Entry.camera.fov).toBe(s07Manifest.camera_hero.vertical_fov_deg);
+    expect(s07Entry.camera.far).toBe(s07Manifest.camera_hero.clip[1]);
     expect(s07Entry.robot).toEqual(s06Exit.robot);
   });
 
@@ -152,7 +153,7 @@ describe('S07 Determinism & Continuity across 25 points', () => {
       profile: { ...baseInput.profile, motion: 'reduced' },
     });
 
-    expect(reduced.camera.position).toEqual([0, 0, 4.4]);
+    expect(reduced.camera.position).toEqual(s07Manifest.camera_hero.position_gltf);
     expect(reduced.robot).toEqual({ kind: 'pose', name: 'rest' });
     expect(reduced.visual.coreAppearance).toBe(1.0);
     expect(reduced.visual.coreSpin).toBe(0);

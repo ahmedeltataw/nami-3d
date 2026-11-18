@@ -1,7 +1,9 @@
 import { model, poster } from '../../assets/helpers';
+import { kitAssetSpec } from '../manifests';
+
+const kit = kitAssetSpec('s02');
 
 export const s02Assets = {
-  'portal.gate': model('/models/portal/portal_gate.glb', 506664, ['s02']),
-  'lab.shell': model('/models/lab/lab_shell.glb', 1091344, ['s02', 's03']),
+  's02.kit': model(kit.url, kit.bytes, kit.owners),
   'poster:s02': poster('s02'),
 } as const;

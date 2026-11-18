@@ -41,5 +41,14 @@
   "links": "S05_links (dashed arcs globe -> logistics, realestate)",
   "room": ["S05_floor", "S05_floor_seams", "S05_wall", "S05_pillars", "S05_wall_strips", "S05_desks", "S05_desk_glow", "S05_screens", "S05_ceiling", "S05_ceiling_ribs", "S05_ceiling_warm", "S05_console_L_*", "S05_console_R_*", "S05_near_pillars", "S05_near_strips"],
   "backdrop": ["S05_plant_BL", "S05_plant_BR", "S05_plant_TL"],
-  "open_notes": ["platform 80% / globe 124% at gate edges", "robot model has no backpack (chest N used)", "console screens are procedural, no text", "ceiling flatter than ref"]
+  "open_notes": ["platform 80% / globe 124% at gate edges", "robot model has no backpack (chest N used)", "console screens are procedural, no text", "ceiling flatter than ref"],
+  "packed_bytes": 2336212,
+  "portrait_framing": {
+    "aspect_threshold": 0.85,
+    "matte_card_constrained": false,
+    "recommended_pullback_m": 6.0,
+    "portrait_offset_gltf": [0, 0.5, 6.0],
+    "max_safe_fov_deg": 40,
+    "note": "Closed room allows +6m pullback or FOV up to 40° in portrait to frame robot (-3.3) and globe (-0.2) plus inner bubbles."
+  }
 }

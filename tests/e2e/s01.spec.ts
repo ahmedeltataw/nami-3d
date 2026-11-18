@@ -29,16 +29,16 @@ test('S01 renders the robot, keyboard skip ends the intro, and 60% scroll dollie
   await page.keyboard.press('Enter');
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().introCancelled)).toBe(true);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().robot)).toMatchObject({ name: 'Idle', timeSeconds: 0 });
-  expect(await page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2, 2);
+  expect(await page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(13, 2);
   await page.screenshot({ path: 'tests/e2e/__screens__/s01-start.png' });
 
   await scrollBody(page, 's01', .6);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().local)).toBeCloseTo(0.6, 2);
-  await expect.poll(() => page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2 - 1.6 / 9, 2);
+  await expect.poll(() => page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(13 - 2.4 / 9, 2);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().robot)).toMatchObject({ name: 'ChargeEnergy', timeSeconds: 0 });
   await page.screenshot({ path: 'tests/e2e/__screens__/s01-dolly.png' });
   await page.evaluate(() => window.scrollTo(0, 0));
-  await expect.poll(() => page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2, 2);
+  await expect.poll(() => page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(13, 2);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().robot)).toMatchObject({ name: 'Idle', timeSeconds: 0 });
   expect(errors).toEqual([]);
 });
@@ -48,7 +48,8 @@ test('intro and scroll draw a canvas line and reveal the real HTML headline', as
   await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
   await expect.poll(() => page.evaluate(() => window.__namiDebug?.().robot), { intervals: [50], timeout: 8000 }).toMatchObject({ name: 'Wave' });
   const line = page.locator('[data-s01-energy-line]');
-  await expect(line).toHaveCSS('opacity', '1', { timeout: 5000 });
+  // SwiftShader renders s01.kit at <10 fps, hitting clocks.tick's 100 ms delta clamp on the 3.4s intro beat.
+  await expect(line).toHaveCSS('opacity', '1', { timeout: process.env.PLAYWRIGHT_GPU === '1' ? 5000 : 15_000 });
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Start your project', exact: true }).first()).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().introCancelled)).toBe(true);
@@ -98,7 +99,7 @@ test('reduced motion opens at the end state without an intro or continuous dolly
   await expect(page.getByRole('button', { name: 'تخطّي المقدمة', exact: true })).toBeHidden();
   await scrollBody(page, 's01', .6);
   await expect.poll(() => page.evaluate(() => window.__namiDebug!().local)).toBeCloseTo(0.6, 2);
-  expect(await page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(4.2, 2);
+  expect(await page.evaluate(() => window.__namiDebug!().cameraZ)).toBeCloseTo(13, 2);
 });
 
 test('mobile S01 keeps content within the viewport and the head interaction reachable @gpu', async ({ page }) => {
