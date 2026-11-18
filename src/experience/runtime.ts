@@ -7,6 +7,7 @@ import { sampleBoundary, transitionAt } from './transitions';
 import { ambientWeight, beatsFor } from './transitions/beats';
 import { stationSeekLocal } from './scenes/s03/scene';
 import { projectSeekLocal } from './scenes/s05/scene';
+import { noJumps, type Profile } from './profile';
 
 export function createRuntime() {
   const interaction = createInteraction();
@@ -51,11 +52,15 @@ export function createRuntime() {
 }
 export type ExperienceRuntime = ReturnType<typeof createRuntime>;
 
+export function syncRuntimeProfile(runtime: ExperienceRuntime, configured: Profile, renderer: Profile['renderer']) {
+  runtime.profile = { ...configured, renderer };
+}
+
 // All narrative samplers receive the same explicit clock inputs. Loading never
 // rewrites requested progress; presentation covers an unavailable frame instead.
 export function evaluateRuntime(runtime: ExperienceRuntime) {
   const reduced = runtime.profile.motion === 'reduced';
-  const jump = transitionAt(runtime.scene, runtime.narrativeLocal, reduced);
+  const jump = transitionAt(runtime.scene, runtime.narrativeLocal, noJumps(runtime.profile));
   runtime.ambientWeight = ambientWeight(jump?.progress ?? null, reduced, jump ? beatsFor(`${jump.definition.from}->${jump.definition.to}` as import('./contracts').TransitionId) : undefined);
   const times = runtime.clocks.value;
   const introSeconds = runtime.clocks.explicitIntro && runtime.scene === 's01' && runtime.b === 0

@@ -32,6 +32,23 @@ function fixtures(mobile = false, worldIndex = 0) {
 }
 afterEach(() => vi.unstubAllGlobals());
 describe('single gallery render target', () => {
+  it.each([0, 1, 2, 3, 4, 5])('keeps world %i screens in their phased slots when ambient motion stops', worldIndex => {
+    const { view, gl, camera } = fixtures(false, worldIndex);
+    view.update({ project: worldIndex, activeTarget: worldIndex, open: 1, worldProgress: 0 }, false);
+    view.render(camera, false, 0);
+    const scene = gl.render.mock.lastCall![0] as Scene;
+    const screens = [1, 2, 3].map(index => (scene.getObjectByName(`ScreenPlane_${index}`) as Mesh).material as ShaderMaterial);
+    const phased = screens.map(material => material.uniforms.uFrom.value);
+    expect(new Set(phased).size).toBe(3);
+    for (const reduced of [false, true]) {
+      view.render(camera, reduced, 125.7, reduced ? 1 : 0);
+      screens.forEach((material, index) => {
+        expect(material.uniforms.uAmbientWeight.value).toBe(0);
+        expect(material.uniforms.uCanonical.value).toBe(phased[index]);
+      });
+    }
+    view.dispose();
+  });
   it.each([0, 1, 2, 3, 4, 5])('applies world %i sampler to cloned nodes and crossfade uniforms without accumulating transforms', worldIndex => {
     const { view, gl, camera, project, world } = fixtures(false, worldIndex);
     for (const local of [.7, .1, .7]) {

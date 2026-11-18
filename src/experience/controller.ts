@@ -1,5 +1,6 @@
 import type { SceneId } from './contracts';
 import type { ExperienceRuntime } from './runtime';
+import { noJumps } from './profile';
 
 import { SCENE_IDS, SCROLL_BUDGETS, bodyProgress, localForBody } from './scroll-map';
 export * from './scroll-map';
@@ -11,6 +12,7 @@ export function sceneFromHash(hash: string): SceneId | null {
 }
 
 export function createController(runtime: ExperienceRuntime, changed: (snap: boolean) => void, reducedMotion: boolean, mobile: boolean) {
+  const jumpsDisabled = noJumps({ ...runtime.profile, motion: reducedMotion ? 'reduced' : 'full' });
   let viewportHeight = 0;
   let viewportWidth = 0;
   let starts: number[] = [];
@@ -31,7 +33,7 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
     if (runtime.scene !== scene || runtime.narrativeLocal !== local || snap) runtime.interaction.narrativeChanged();
     runtime.scene = scene;
     runtime.narrativeLocal = local;
-    runtime.local = exactBody ?? (reducedMotion ? local : bodyProgress(scene, local));
+    runtime.local = exactBody ?? (jumpsDisabled ? local : bodyProgress(scene, local));
     runtime.b = reducedMotion ? 0 : runtime.local;
     runtime.progress = progress;
     if (snap) runtime.seekVersion++;
@@ -92,7 +94,7 @@ export function createController(runtime: ExperienceRuntime, changed: (snap: boo
     const index = SCENE_IDS.indexOf(scene);
     if (!starts.length) return;
     if (cancelIntro) runtime.intro.cancel();
-    const raw = reducedMotion ? clamp(local) : localForBody(scene, local);
+    const raw = jumpsDisabled ? clamp(local) : localForBody(scene, local);
     const y = starts[index] + spans[index] * raw;
     if (updateHistory) {
       flushHistory();

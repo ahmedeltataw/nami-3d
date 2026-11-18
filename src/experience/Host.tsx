@@ -7,7 +7,8 @@ import { usePathname } from 'next/navigation';
 import { Color, FogExp2, SRGBColorSpace, Matrix4, Quaternion, Vector3, type PerspectiveCamera } from 'three';
 import type { Ctx, Profile, SceneId } from './contracts';
 import { createController, SCENE_IDS } from './controller';
-import { createRuntime, evaluateRuntime, type ExperienceRuntime } from './runtime';
+import { createRuntime, evaluateRuntime, syncRuntimeProfile, type ExperienceRuntime } from './runtime';
+import { noJumps } from './profile';
 import { CameraRig } from './camera/CameraRig';
 import { useExperienceStore } from './store';
 import { scenes } from './scenes';
@@ -107,7 +108,7 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
     const ready = runtime.assetsReady && runtime.robotReady && !!ownerContext && warmed.has(ownerContext);
     const presentation = readinessPresentation(transition?.progress ?? null, ready, runtime.coldSeek, transition ? beatsFor(transition.id) : undefined);
     runtime.loading = presentation.hold;
-    applyOverlayFrame(runtime.scene, runtime.b, transition, runtime.loading, runtime.profile.motion === 'reduced', { s01: runtime.sceneSnapshots.s01?.visual, s02: runtime.sceneSnapshots.s02?.visual });
+    applyOverlayFrame(runtime.scene, runtime.b, transition, runtime.loading, noJumps(runtime.profile), { s01: runtime.sceneSnapshots.s01?.visual, s02: runtime.sceneSnapshots.s02?.visual });
     runtime.presentationSnapshot = presentation.poster && transition ? scenes[transition.owner].sample({ local: 0, viewport: runtime.viewport, profile: runtime.profile, interaction: runtime.interaction.state, ambient: runtime.clocks.value.ambientTime, ambientWeight: 0, seed: 1 }) : null;
     if (runtime.presentationSnapshot) {
       const hero = runtime.presentationSnapshot.camera;
@@ -192,14 +193,14 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
 }
 
 export default function Host({ profile, mobile, dpr }: { profile: Profile; mobile: boolean; dpr: number }) {
+  const renderer = useExperienceStore(state => state.profile.renderer);
   const runtime = useMemo(() => createRuntime(), []);
-  runtime.profile = profile;
+  syncRuntimeProfile(runtime, profile, renderer);
   const rig = useMemo(() => new CameraRig(), []);
   const contexts = useMemo(() => new Map<SceneId, Ctx>(), []);
   const energyLine = useRef<HTMLCanvasElement>(null);
   const canReact = useMemo(() => createHeadReaction(), []);
   const [services, setServices] = useState<Services | null>(null);
-  const renderer = useExperienceStore(state => state.profile.renderer);
   const [resident, setResident] = useState<SceneId[]>(['s01']);
   const pathname = usePathname();
   const attachedPath = useRef<string | null>(null);
@@ -233,13 +234,13 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
     }
     function acquire() {
       if (!services || runtime.contextLost || renderer === 'fallback') return;
-      const reduced = profile.motion === 'reduced';
-      const mounted = mountedScenes(runtime.scene, runtime.narrativeLocal, reduced);
+      const jumpsDisabled = noJumps(runtime.profile);
+      const mounted = mountedScenes(runtime.scene, runtime.narrativeLocal, jumpsDisabled);
       const projectFor = (id: SceneId) => Number(runtime.sceneSnapshots[id]?.visual.project ?? useExperienceStore.getState().project);
       // Active destination comes first on cold seeks; the other scene is acquired before any release.
       const ordered = [runtime.scene, ...mounted.filter(id => id !== runtime.scene)];
       const required = ordered.flatMap(id => keysForScene(id, projectFor(id)).filter(key => id === runtime.scene || !key.startsWith('poster:')));
-      const warm = residentScenes(runtime.scene, runtime.narrativeLocal, reduced, runtime.direction).filter(id => !mounted.includes(id))
+      const warm = residentScenes(runtime.scene, runtime.narrativeLocal, jumpsDisabled, runtime.direction).filter(id => !mounted.includes(id))
         .flatMap(id => keysForScene(id, id === 's05' && runtime.scene === 's06' ? 5 : 0).filter(key => !key.startsWith('poster:')));
       if (mounted.includes('s05')) warm.push(...worldKeys(projectFor('s05'), true));
       const signature = `${required.join(',')}|${warm.join(',')}`;
@@ -264,7 +265,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       }
       runtime.coldSeek = snap;
       const boundary = sampleRuntime(runtime);
-      const mounted = mountedScenes(runtime.scene, runtime.narrativeLocal, profile.motion === 'reduced');
+      const mounted = mountedScenes(runtime.scene, runtime.narrativeLocal, noJumps(runtime.profile));
       if (mountSignature !== mounted.join(',')) { mountSignature = mounted.join(','); setResident(mounted); }
       window.dispatchEvent(new CustomEvent('nami:s04-progress', { detail: runtime.scene === 's04' && (runtime.b >= .9 || profile.motion === 'reduced') }));
       if (runtime.scene !== 's04' && runtime.exploration.active) { runtime.exploration.exit(); window.dispatchEvent(new CustomEvent('nami:explore-state', { detail: false })); }
@@ -272,7 +273,7 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
       rig.setPoses(camera.from, camera.to, { blend: camera.blend, snap: true });
       acquire();
       runtime.loading = !!runtime.transition && (runtime.loading || readinessPresentation(runtime.transition.progress, runtime.assetsReady && runtime.robotReady, runtime.coldSeek, beatsFor(runtime.transition.id)).hold);
-      applyOverlayFrame(runtime.scene, runtime.b, runtime.transition, runtime.loading, profile.motion === 'reduced', { s01: runtime.sceneSnapshots.s01?.visual, s02: runtime.sceneSnapshots.s02?.visual });
+      applyOverlayFrame(runtime.scene, runtime.b, runtime.transition, runtime.loading, noJumps(runtime.profile), { s01: runtime.sceneSnapshots.s01?.visual, s02: runtime.sceneSnapshots.s02?.visual });
     }
     const controller = createController(runtime, sample, profile.motion === 'reduced', mobile);
     controller.attach(attachedPath.current !== pathname);

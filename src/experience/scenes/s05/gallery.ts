@@ -133,8 +133,10 @@ export class Gallery {
       const node = required(world, motion.name);
       const binding: Binding = { node, motion, state: nodeState(), position: node.position.clone(), rotation: new Vector3(node.rotation.x, node.rotation.y, node.rotation.z), scale: node.scale.clone() };
       if (motion.kind === 'screen') {
+        const count = this.motionInput.screenCount;
+        const canonical = ((Math.floor(motion.phase ?? 0) % count) + count) % count;
         const material = new ShaderMaterial({ vertexShader: screenVertex, fragmentShader: screenFragment, side: DoubleSide, toneMapped: false,
-          uniforms: { uFrom: { value: this.textures[0] }, uTo: { value: this.textures[0] }, uMix: { value: 0 }, uCanonical: { value: this.textures[0] }, uAmbientWeight: { value: 1 } } });
+          uniforms: { uFrom: { value: this.textures[0] }, uTo: { value: this.textures[0] }, uMix: { value: 0 }, uCanonical: { value: this.textures[canonical] }, uAmbientWeight: { value: 1 } } });
         this.worldMaterials.push(material); (node as Mesh).material = material; binding.screen = material;
       }
       this.bindings.push(binding);

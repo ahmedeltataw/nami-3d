@@ -4,6 +4,7 @@ import { scenes } from '../scenes';
 import { beatsFor, jumpOwnership, ramp } from './beats';
 import { ease } from '../ease';
 import { blendRobotPlacement, robotPlacement } from '../robot/placement';
+import { noJumps } from '../profile';
 
 function boundary(from: SceneId, to: SceneId): TransitionDef {
   const a = SCROLL_MAP[SCENE_IDS.indexOf(from)];
@@ -44,8 +45,8 @@ function boundary(from: SceneId, to: SceneId): TransitionDef {
 }
 export const transitions = Object.fromEntries(SCENE_IDS.slice(0, -1).map((from, i) => [`${from}->${SCENE_IDS[i + 1]}`, boundary(from, SCENE_IDS[i + 1])])) as Record<TransitionId, TransitionDef>;
 
-export function transitionAt(scene: SceneId, local: number, reduced = false) {
-  if (reduced) return null;
+export function transitionAt(scene: SceneId, local: number, jumpsDisabled = false) {
+  if (jumpsDisabled) return null;
   const p = clamp(local);
   const definition = Object.values(transitions).find(def => (scene === def.from && p >= def.window[0]) || (scene === def.to && p < def.window[1]));
   if (!definition) return null;
@@ -55,7 +56,7 @@ export function transitionAt(scene: SceneId, local: number, reduced = false) {
   return { definition, progress: clamp(Math.round(offset / (a.head + b.tail) * 1e12) / 1e12), fromLocal: 1, toLocal: 0 };
 }
 export function sampleBoundary(scene: SceneId, input: SampleInput & { narrativeLocal: number }, snapshot: SceneSnapshot) {
-  const active = transitionAt(scene, input.narrativeLocal, input.profile.motion === 'reduced');
+  const active = transitionAt(scene, input.narrativeLocal, noJumps(input.profile));
   const camera = { from: snapshot.camera, to: snapshot.camera, blend: 1 };
   if (!active) return { camera, transition: null, snapshots: { [scene]: snapshot } as Partial<Record<SceneId, SceneSnapshot>> };
   const { definition, progress } = active;
@@ -64,13 +65,13 @@ export function sampleBoundary(scene: SceneId, input: SampleInput & { narrativeL
   const transition: TransitionSnapshot = definition.sample(progress, { ...input, active: scene, from, to, camera });
   return { camera: transition.camera, transition, snapshots: { [definition.from]: from, [definition.to]: to } as Partial<Record<SceneId, SceneSnapshot>> };
 }
-export function mountedScenes(scene: SceneId, local: number, reduced = false): SceneId[] {
-  const active = transitionAt(scene, local, reduced);
+export function mountedScenes(scene: SceneId, local: number, jumpsDisabled = false): SceneId[] {
+  const active = transitionAt(scene, local, jumpsDisabled);
   return active ? [active.definition.from, active.definition.to] : [scene];
 }
-export function residentScenes(scene: SceneId, local: number, reduced = false, direction = 1): SceneId[] {
-  const mounted = mountedScenes(scene, local, reduced);
-  if (reduced || mounted.length > 1) return mounted;
+export function residentScenes(scene: SceneId, local: number, jumpsDisabled = false, direction = 1): SceneId[] {
+  const mounted = mountedScenes(scene, local, jumpsDisabled);
+  if (jumpsDisabled || mounted.length > 1) return mounted;
   const index = SCENE_IDS.indexOf(scene);
   const b = bodyProgress(scene, local);
   if (direction >= 0 && b >= .5 && index < 6) return [scene, SCENE_IDS[index + 1]];
