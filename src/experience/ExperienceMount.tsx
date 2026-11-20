@@ -29,7 +29,7 @@ export default function ExperienceMount() {
       profile.motion = effectiveMotion(environment.reducedMotion, readMotionChoice(localStorage));
       document.documentElement.dataset.motion = profile.motion;
       useExperienceStore.setState({ profile, scene: sceneFromHash(location.hash) ?? 's01' });
-      setConfiguration({ profile, mobile: environment.coarsePointer, dpr: initialDpr(environment.coarsePointer) });
+      setConfiguration({ profile, mobile: environment.coarsePointer, dpr: initialDpr(environment.coarsePointer, environment.softwareRenderer) });
       media.addEventListener('change', motionChanged);
       window.addEventListener(MOTION_EVENT, motionChanged);
     }

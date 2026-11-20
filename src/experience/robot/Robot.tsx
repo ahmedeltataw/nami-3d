@@ -16,8 +16,8 @@ import { narrativeState, RobotFSM } from './fsm';
 import { pointerNearHead } from './procedural';
 import { robotPlacement } from './placement';
 
-export function Robot({ runtime, profile, residency, onError }: {
-  runtime: ExperienceRuntime; profile: Profile; residency: AssetResidency; onError: () => void;
+export function Robot({ runtime, profile, residency, onError, onSceneGraphChange }: {
+  runtime: ExperienceRuntime; profile: Profile; residency: AssetResidency; onError: () => void; onSceneGraphChange: () => void;
 }) {
   const mounted = useRef<Group>(null);
   const composer = useMemo(() => new RobotComposer(), []);
@@ -46,6 +46,7 @@ export function Robot({ runtime, profile, residency, onError }: {
       composer.bind(object, [...gltf.animations, ...additional]);
       mounted.current.clear();
       mounted.current.add(object);
+      onSceneGraphChange();
       const previous = active.current;
       active.current = { lease, key, residency };
       installed = true;
@@ -56,7 +57,7 @@ export function Robot({ runtime, profile, residency, onError }: {
       object.traverse(node => { if ('isMesh' in node && node.isMesh) runtime.robotMeshes++; });
     }).catch(error => { if (!cancelled && error instanceof Error && error.name !== 'AbortError') onError(); });
     return () => { cancelled = true; choreography.release(); if (!installed) lease.release(); };
-  }, [composer, onError, profile.quality, residency, runtime, sceneLod]);
+  }, [composer, onError, onSceneGraphChange, profile.quality, residency, runtime, sceneLod]);
 
   useEffect(() => () => {
     runtime.robotReady = false;
@@ -64,7 +65,8 @@ export function Robot({ runtime, profile, residency, onError }: {
     active.current?.lease.release();
     if (active.current) active.current.residency.evict(active.current.key);
     active.current = null;
-  }, [composer, runtime]);
+    onSceneGraphChange();
+  }, [composer, onSceneGraphChange, runtime]);
 
   useFrame((state, delta) => {
     const snapshot = runtime.presentationSnapshot ?? runtime.snapshot;

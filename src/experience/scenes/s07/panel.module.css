@@ -218,11 +218,13 @@
 .panel[data-pinned='true'] .optionButton, .panel[data-pinned='true'] .ctaButton { pointer-events: auto; }
 
 @media (max-width: 768px), (max-height: 760px) {
-  .panel[data-pinned='true'] { padding-block: .5rem; gap: .75rem; }
+  .panel[data-pinned='true'] { inset-block-start: 5rem; padding-block: .25rem; gap: .35rem; }
   .panel[data-pinned='true'] .headingGroup { gap: .25rem; }
-  .panel[data-pinned='true'] .title { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  .panel[data-pinned='true'] .title { font-size: clamp(1.35rem, 4vw, 2.25rem); line-height: 1.1; }
+  .panel[data-pinned='true'] .subtitle { font-size: 1rem; line-height: 1.35; }
   .panel[data-pinned='true'] .question { margin: 0; }
-  .panel[data-pinned='true'] .optionsGrid { grid-template-columns: repeat(2, 1fr); gap: .5rem; margin: .25rem 0; }
-  .panel[data-pinned='true'] .optionButton { padding: .5rem; gap: .25rem; }
-  .panel[data-pinned='true'] .ctaContainer { margin-top: .25rem; }
+  .panel[data-pinned='true'] .optionsGrid { grid-template-columns: repeat(2, 1fr); gap: .4rem; margin: .15rem 0; }
+  .panel[data-pinned='true'] .optionButton { min-height: 4.25rem; padding: .35rem; gap: .15rem; }
+  .panel[data-pinned='true'] .ctaContainer { margin-top: .1rem; }
+  .panel[data-pinned='true'] .ctaButton { padding: .65rem 1.5rem; font-size: 1rem; }
 }

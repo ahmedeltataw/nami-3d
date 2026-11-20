@@ -55,6 +55,18 @@ test('mobile gallery fits and reduced motion keeps project selection accessible'
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
+test('returning to the gallery keeps focus on its reset project heading', async ({ page }) => {
+  await page.goto('/en?capture=1&ambient=0&intro=8&experienceDebug=1#s05');
+  await expect(page.locator('[data-experience]')).toHaveAttribute('data-ready', 'true');
+  await page.evaluate(() => window.__namiController!.seek('s05', .89, false));
+  await expect(page.locator('[data-gallery-panel]')).toHaveAttribute('data-project', '5');
+  await page.getByRole('link', { name: 's04', exact: true }).click();
+  await expect(page.locator('[data-experience]')).toHaveAttribute('data-scene', 's04');
+  await page.getByRole('link', { name: 's05', exact: true }).click();
+  await expect(page.locator('[data-gallery-panel]')).toHaveAttribute('data-project', '0');
+  await expect(page.locator('#s05 h2')).toBeFocused();
+});
+
 test('renderer fallback exposes all six real project links', async ({ page }) => {
   await page.addInitScript(() => {
     const original = HTMLCanvasElement.prototype.getContext;

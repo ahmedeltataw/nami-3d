@@ -94,3 +94,38 @@ test('cold Arabic S07 Build Your Future loads canvas, sets data-project-type on 
   await page.screenshot({ path: 'tests/e2e/__screens__/s07-core.png' });
   expect(errors).toEqual([]);
 });
+
+test('S07 choice buttons support keyboard selection with reduced motion', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/en?capture=1&ambient=0&intro=8#s07');
+  const host = page.locator('[data-experience]');
+  await expect(host).toHaveAttribute('data-renderer', 'webgl');
+  await expect(host).toHaveAttribute('data-ready', 'true');
+  const website = page.locator('#s07 button[data-choice="website"]');
+  const mobile = page.locator('#s07 button[data-choice="mobile"]');
+  await page.locator('body').focus();
+  let reachedWebsite = false;
+  for (let i = 0; i < 50; i++) {
+    await page.keyboard.press('Tab');
+    reachedWebsite = await page.evaluate(() => document.activeElement?.matches('#s07 button[data-choice="website"]') ?? false);
+    if (reachedWebsite) break;
+  }
+  expect(reachedWebsite).toBe(true);
+  await expect(website).toBeFocused();
+  await expect(website).toHaveCSS('outline-style', 'solid');
+  await expect(website).toHaveCSS('outline-width', '2px');
+  await page.keyboard.press('Enter');
+  await expect(website).toHaveAttribute('aria-pressed', 'true');
+  await page.keyboard.press('Tab');
+  await expect(mobile).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(mobile).toHaveAttribute('aria-pressed', 'true');
+  await expect(website).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#s07')).toHaveAttribute('data-project-type', 'mobile');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect(errors).toEqual([]);
+});
