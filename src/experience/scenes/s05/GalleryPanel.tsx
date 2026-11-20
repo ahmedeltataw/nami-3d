@@ -29,7 +29,7 @@ export function GalleryPanel({ projects, locale }: { projects: GalleryProject[];
     const arrows: Record<string, [number, number]> = { ArrowLeft: [-.08, 0], ArrowRight: [.08, 0], ArrowUp: [0, -.04], ArrowDown: [0, .04] };
     if (arrows[event.key]) { event.preventDefault(); orbit(...arrows[event.key]); }
   }
-  const card = (item: GalleryProject) => <article key={item.slug} className={styles.card} data-project-card={item.slug}>
+  const card = (item: GalleryProject) => <article key={fallback ? item.slug : 'selected'} className={styles.card} data-project-card={item.slug}>
     <p className={styles.category}>{item.category ?? (ar ? 'التصنيف غير متاح' : 'Category unavailable')}</p>
     <h2>{item.name}</h2>
     <a href={`/${locale}/projects/${item.slug}`}>{ar ? 'عرض المشروع' : 'View Project'}</a>

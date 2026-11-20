@@ -150,8 +150,6 @@ export default function S06Scene({
 
   return (
     <group ref={root} name="s06" visible={false} dispose={null}>
-      <directionalLight position={[2, 3, 4]} intensity={1.5} />
-      <directionalLight position={[-2, 1, 2]} intensity={0.6} />
       <ParticleField
         profile={profile}
         seed={42}

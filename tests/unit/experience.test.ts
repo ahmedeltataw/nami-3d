@@ -90,6 +90,15 @@ describe('profile environment', () => {
     expect(initialDpr(true)).toBe(1);
   });
   it('detects a mid mobile', () => expect(detectProfile({ ...desktop, coarsePointer: true }).quality).toBe('mid'));
+  it('uses the low quality and pixel-ratio profile for software WebGL', () => {
+    const software = { ...desktop, softwareRenderer: true };
+    expect(detectProfile(software)).toEqual({ quality: 'low', motion: 'full', renderer: 'webgl' });
+    expect(initialDpr(false, software.softwareRenderer)).toBe(1);
+  });
+  it('keeps the existing profile when software renderer identification is unavailable', () => {
+    expect(detectProfile({ ...desktop, softwareRenderer: undefined })).toEqual(detectProfile(desktop));
+    expect(initialDpr(false)).toBe(1.5);
+  });
   it.each([{ deviceMemory: 2 }, { hardwareConcurrency: 2 }])('detects constrained devices: %o', override => expect(detectProfile({ ...desktop, ...override }).quality).toBe('low'));
   it('uses conservative missing hardware values', () => expect(detectProfile({ ...desktop, hardwareConcurrency: undefined, deviceMemory: undefined }).quality).toBe('mid'));
   it('keeps reduced motion independent of WebGL and quality', () => expect(detectProfile({ ...desktop, reducedMotion: true, webgl2: false })).toEqual({ quality: 'high', motion: 'reduced', renderer: 'fallback' }));

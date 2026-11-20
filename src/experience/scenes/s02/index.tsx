@@ -195,7 +195,6 @@ export default function Scene({
   });
 
   return <group ref={root} name="s02" visible={false} dispose={null}>
-    <directionalLight position={[-2, 4, 3]} intensity={2} />
     <group ref={particles}><ParticleField ref={field} profile={profile} active={active && profile.motion === 'full'} preset="converge" targetFn={origin} state={particleState} /></group>
   </group>;
 }

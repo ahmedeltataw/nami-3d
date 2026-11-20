@@ -70,6 +70,10 @@ test('determinism: same progress + same ambientTime/introTime produces byte-iden
     }));
     const expected = run1.get(spec.label)!;
     expect(snapshotJson, `${spec.label} runtime snapshot must match`).toBe(expected.snapshotJson);
+    if (sample.hash !== expected.hash) {
+      await test.info().attach(`${spec.label}-first.png`, { body: expected.canvasPng, contentType: 'image/png' });
+      await test.info().attach(`${spec.label}-revisited.png`, { body: sample.canvasPng, contentType: 'image/png' });
+    }
     expect(sample.hash, `${spec.label} raw RGBA pixel hash must match`).toBe(expected.hash);
     expect(sample.canvasSha256, `${spec.label} PNG SHA-256 must match`).toBe(expected.canvasSha256);
     expect(Buffer.compare(sample.canvasPng, expected.canvasPng), `${spec.label} canvas PNG bytes must be identical`).toBe(0);

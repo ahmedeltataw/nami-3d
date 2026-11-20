@@ -4,7 +4,7 @@
 import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber';
 import { usePathname } from 'next/navigation';
-import { Color, FogExp2, SRGBColorSpace, Matrix4, Quaternion, Vector3, type PerspectiveCamera } from 'three';
+import { Color, SRGBColorSpace, Matrix4, Quaternion, Vector3, type PerspectiveCamera } from 'three';
 import type { Ctx, Profile, SceneId } from './contracts';
 import { createController, SCENE_IDS } from './controller';
 import { createRuntime, evaluateRuntime, syncRuntimeProfile, type ExperienceRuntime } from './runtime';
@@ -27,8 +27,11 @@ import { RuntimeContext } from './RuntimeContext';
 import { applyOverlayFrame } from './overlays';
 import { beatsFor, readinessPresentation } from './transitions/beats';
 import { ScenePresentation, TransportChannels } from './presentation';
+import { SceneLighting } from './lighting/SceneLighting';
+import { LightingController } from './lighting/controller';
+import type { LightingPost } from './lighting/post';
 
-type Services = ReturnType<typeof createAssetLoader> & { residency: AssetResidency; gl: RootState['gl'] };
+type Services = ReturnType<typeof createAssetLoader> & { residency: AssetResidency; gl: RootState['gl']; scene: RootState['scene']; camera: RootState['camera'] };
 
 function fallback() {
   const state = useExperienceStore.getState();
@@ -69,12 +72,14 @@ function SampleFrame({ runtime }: { runtime: ExperienceRuntime }) {
   return null;
 }
 
-function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
+function Frame({ runtime, rig, contexts, onFramed, energyLine, lighting, post }: {
   runtime: ExperienceRuntime;
   rig: CameraRig;
   contexts: Map<SceneId, Ctx>;
   onFramed: () => void;
   energyLine: RefObject<HTMLCanvasElement | null>;
+  lighting: LightingController;
+  post: RefObject<LightingPost | null>;
 }) {
   const camera = useThree(state => state.camera) as PerspectiveCamera;
   const gaze = useMemo(() => new Vector3(), []);
@@ -83,7 +88,6 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
   const scenePresentation = useMemo(() => new ScenePresentation(), []);
   const warmState = useMemo(() => ({ version: -1, contexts: new WeakSet<Ctx>() }), []);
   const color = useMemo(() => new Color(), []);
-  const fog = useMemo(() => new FogExp2('#ffffff', 0), []);
   useEffect(() => () => scenePresentation.restore(), [scenePresentation]);
   const orbitTarget = useMemo(() => new Vector3(.82, 0, 0), []);
   useFrame((state, delta) => {
@@ -99,7 +103,11 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
       for (const [ctx] of previous) {
         if (warmed.has(ctx)) continue;
         for (const [other] of previous) other.root.visible = other === ctx;
-        state.gl.compile(state.scene, camera);
+        const id = [...contexts].find(([, context]) => context === ctx)![0];
+        const robot = state.scene.getObjectByName('robot');
+        lighting.update(id, null, state.scene, robot ? [ctx.root, robot] : [ctx.root]);
+        if (!post.current) continue;
+        post.current.compile(robot ? [ctx.root, robot, transport.portal] : [ctx.root, transport.portal]);
         warmed.add(ctx);
       }
       for (const [ctx, visible] of previous) ctx.root.visible = visible;
@@ -154,14 +162,6 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
         ctx.beforeRender?.(camera);
       }
     }
-    if (intents) {
-      state.scene.fog = intents.fog ? (fog.color.setRGB(...intents.fog.color), fog.density = intents.fog.density, fog) : null;
-      state.gl.toneMappingExposure = intents.exposure;
-
-    } else {
-      state.scene.fog = null;
-      state.gl.toneMappingExposure = 1;
-    }
     const background = intents?.background ?? runtime.snapshot?.visual.background as [number, number, number] | undefined;
     state.scene.background = background ? color.setRGB(...background, SRGBColorSpace) : null;
     transport.apply(intents);
@@ -171,7 +171,7 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
       requestAnimationFrame(onFramed);
     }
   }, -1);
-  useFrame(state => {
+  useFrame(() => {
     const visual = runtime.snapshot?.visual;
     const line = energyLine.current;
     const reveal = runtime.scene === 's01' ? Number(visual?.line ?? 0) : 0;
@@ -187,7 +187,6 @@ function Frame({ runtime, rig, contexts, onFramed, energyLine }: {
       const lightWeight = !transition ? 1 : id === transitions[transition.id].from ? intents!.lights.aWeight : intents!.lights.bWeight;
       scenePresentation.apply(ctx.root, ctx.visibility ?? 1, lightWeight, !!intents && intents.wash >= 1);
     }
-    state.gl.render(state.scene, camera);
   }, 1);
   return <primitive object={transport.portal} />;
 }
@@ -197,6 +196,8 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   const runtime = useMemo(() => createRuntime(), []);
   syncRuntimeProfile(runtime, profile, renderer);
   const rig = useMemo(() => new CameraRig(), []);
+  const lighting = useMemo(() => new LightingController(), []);
+  const post = useRef<LightingPost | null>(null);
   const contexts = useMemo(() => new Map<SceneId, Ctx>(), []);
   const energyLine = useRef<HTMLCanvasElement>(null);
   const canReact = useMemo(() => createHeadReaction(), []);
@@ -207,13 +208,14 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
   const register = useCallback((id: SceneId, ctx: Ctx | null) => {
     if (ctx) { ctx.reducedMotion = useExperienceStore.getState().profile.motion === 'reduced'; contexts.set(id, ctx); }
     else contexts.delete(id);
-  }, [contexts]);
+    lighting.invalidateMaterials();
+  }, [contexts, lighting]);
   const onFramed = useCallback(() => {
     if (runtime.framed && !runtime.contextLost && runtime.assetsReady) useExperienceStore.setState({ ui: { ready: true, contextLost: false } });
   }, [runtime]);
   const onCreated = useCallback((state: RootState) => {
     const loader = createAssetLoader(state.gl);
-    setServices({ ...loader, gl: state.gl, residency: new AssetResidency(loader.load, profile.quality) });
+    setServices({ ...loader, gl: state.gl, scene: state.scene, camera: state.camera, residency: new AssetResidency(loader.load, profile.quality) });
   }, [profile.quality]);
 
   useEffect(() => {
@@ -424,11 +426,10 @@ export default function Host({ profile, mobile, dpr }: { profile: Profile; mobil
 
   if (renderer === 'fallback') return null;
   return <RuntimeContext value={runtime}><canvas ref={energyLine} data-s01-energy-line className={styles.energyLine} aria-hidden="true" /><CanvasBoundary><Canvas className={styles.canvas} data-scene-canvas dpr={dpr} gl={{ antialias: profile.quality === 'high', alpha: true }} onCreated={onCreated} fallback={null}>
-    <ambientLight intensity={1.6} />
-    <directionalLight position={[3, 4, 5]} intensity={2} />
+    <SceneLighting scene={runtime.scene} lighting={lighting} post={post} />
     {sceneRegistrations.map(({ id, Component }) => resident.includes(id) && <Component key={id} register={register} residency={services?.residency ?? null} onError={fallback} />)}
     <SampleFrame runtime={runtime} />
-    {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} />}
-    <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} energyLine={energyLine} />
+    {services && <Robot runtime={runtime} profile={profile} residency={services.residency} onError={fallback} onSceneGraphChange={lighting.invalidateMaterials} />}
+    <Frame runtime={runtime} rig={rig} contexts={contexts} onFramed={onFramed} energyLine={energyLine} lighting={lighting} post={post} />
   </Canvas></CanvasBoundary></RuntimeContext>;
 }

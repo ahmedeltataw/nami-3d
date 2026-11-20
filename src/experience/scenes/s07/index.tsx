@@ -111,8 +111,6 @@ export default function S07Scene({
 
   return (
     <group ref={root} name="s07" visible={false} dispose={null}>
-      <directionalLight position={[0, 4, 4]} intensity={1.8} />
-      <directionalLight position={[3, 1, 2]} intensity={0.8} />
 
       {/* Floating glowing energy core anchored to S07_N / S07_orbit in the sky */}
       <group name="S07_CoreAnchor" position={LOGO_CENTRE} scale={S07_CORE_SCALE}>

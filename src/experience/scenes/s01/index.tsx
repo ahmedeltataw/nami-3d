@@ -27,8 +27,6 @@ export default function Scene({
   useSceneKit({ sceneId: 's01', root, residency, register, onError, onMount });
 
   return <group ref={root} name="s01" visible={false} dispose={null}>
-    <directionalLight position={[-3, 4, 5]} intensity={1.1} />
-    <directionalLight position={[3, 1, 3]} intensity={0.5} />
     <points name="s01-motes">
       <bufferGeometry><bufferAttribute attach="attributes-position" args={[motes, 3]} /></bufferGeometry>
       <pointsMaterial color="#009f6f" size={0.018} transparent opacity={0.22} depthWrite={false} />
